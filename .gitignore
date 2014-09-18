@@ -1,0 +1,32 @@
+lib-cov
+*.seed
+*.log
+*.csv
+*.dat
+*.out
+*.pid
+*.gz
+
+.DS_Store
+
+pids
+logs
+results
+
+npm-debug.log
+node_modules
+
+# IDEs
+.idea/
+
+# 3rd dependencies
+src/vendor/
+
+# build and tmp folders for production
+build/
+src/.tmp/
+
+# ignore angular env file
+src/app/core/config/env/config-env.js
+
+gh-pages/

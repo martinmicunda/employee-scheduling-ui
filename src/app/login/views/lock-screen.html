@@ -1,0 +1,51 @@
+<section>
+    <div class="thumbnail">
+        <div class="thumb">
+            <img alt="" ng-src="../../../images/{{vm.user ? vm.user.avatar : 'anonymous.jpg'}}">
+        </div>
+
+        <div class="text-center" ng-show="vm.user">
+            <span class="name">{{vm.user.firstName + ' ' + vm.user.firstName}}</span>
+            <span class="position">{{vm.user.role.title | role}}</span>
+        </div>
+        <div class="loginActions" ng-show="vm.user">
+            <div class="loginActions">
+                <div><a ui-sref="authentication.login" tooltip-placement="top" tooltip="Back to login"
+                        class="logleft"></a></div>
+                <div><a ui-sref="authentication.reset" tooltip-placement="top" tooltip="Forgot password"
+                        class="logright"></a></div>
+            </div>
+        </div>
+    </div>
+    <form method="post" name="loginForm" submit="vm.signIn(credentials)" submitted="vm.submitted" novalidate
+          form-autofill-fix shake-that>
+        <div class="field" ng-hide="vm.user">
+            <input type="email" name="email" placeholder="Email" ng-model="credentials.email" required />
+            <i class="fa fa-envelope fa-lg"></i>
+        </div>
+        <div class="field">
+            <input type="password" name="password" placeholder="Password" ng-model="credentials.password" required />
+            <i class="fa fa-lock fa-lg"></i>
+        </div>
+
+        <div class="submit forgot-password">
+            <button type="submit" name="submit"><i class="fa fa-arrow-right fa-lg"></i></button>
+        </div>
+    </form>
+
+    <ng-messages style="display: block; margin-top: 10px;" class="alert alert-dismissable alert-danger animation animating bounceIn" ng-if="vm.submitted || loginForm.email.$dirty" for="loginForm.email.$error">
+        <ng-message when="required">Email is required</ng-message>
+        <ng-message when="email">Invalid email address</ng-message>
+    </ng-messages>
+
+    <ng-messages style="display: block; margin-top: 10px;" class="alert alert-dismissable alert-danger animation animating bounceIn" ng-if="vm.submitted || loginForm.password.$dirty" for="loginForm.password.$error">
+        <ng-message when="required">Password is required</ng-message>
+    </ng-messages>
+
+    <!--<div class="alert alert-dismissable alert-danger animation animating bounceIn" style="margin-top: 10px;"-->
+    <!--ng-show="vm.submitted && !(!loginForm.email.$error.required && loginForm.email.$error.email)">-->
+    <!--<div>Required email.</div>-->
+    <!--<span class="close" ng-click="vm.submitted = !vm.submitted">×</span>-->
+
+    <!--</div>-->
+</section>

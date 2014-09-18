@@ -1,0 +1,3 @@
+src/app/config/config-env.js
+node_modules/**/*
+build

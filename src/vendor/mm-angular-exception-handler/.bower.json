@@ -1,0 +1,55 @@
+{
+  "name": "mm-angular-exception-handler",
+  "description": "An angular module that override default $exceptionHandler service.",
+  "version": "0.0.1",
+  "homepage": "https://github.com/martinmicunda/mm-angular-exception-handler",
+  "author": {
+    "name": "Martin Micunda",
+    "email": "martinmicunda@hotmail.com",
+    "url": "http://martinmmicunda.com"
+  },
+  "main": "dist/mm-angular-exception-handler.js",
+  "keywords": [
+    "exception",
+    "error",
+    "$exceptionHandler",
+    "angular",
+    "angularjs"
+  ],
+  "dependencies": {
+    "angular": ">=1.2.0",
+    "mm-angular-logger": ">=0.0.3"
+  },
+  "devDependencies": {
+    "angular-mocks": ">=1.2.0",
+    "jasmine": "2.0.0"
+  },
+  "licenses": {
+    "type": "MIT",
+    "url": "https://github.com/martinmicunda/mm-angular-exception-handler/blob/master/LICENSE"
+  },
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    "karma.conf.js",
+    "gulpfile.js",
+    "screenshot.png",
+    "package.json",
+    "CONTRIBUTING.md",
+    "CHANGELOG.md",
+    "src",
+    "demo"
+  ],
+  "_release": "0.0.1",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.0.1",
+    "commit": "f23b34786f0cda143e482e7b66939f0b1aa3bf42"
+  },
+  "_source": "git://github.com/martinmicunda/mm-angular-exception-handler.git",
+  "_target": "0.0.1",
+  "_originalSource": "mm-angular-exception-handler"
+}

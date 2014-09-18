@@ -1,0 +1,33 @@
+<section>
+    <div class="thumbnail">
+        <div class="thumb">
+            <img alt="" src="../../../images/anonymous.jpg">
+        </div>
+
+        <div class="loginActions">
+            <div><a ui-sref="authentication.login" tooltip-placement="top" tooltip="Back to login"
+                    class="logbackleft"></a></div>
+            <div><a ui-sref="authentication.reset" tooltip-placement="top" tooltip="Forgot password"
+                    class="logright"></a></div>
+        </div>
+    </div>
+    <form method="post" name="form" submit="vm.signIn(credentials)" submitted="vm.submitted" novalidate
+          form-autofill-fix shake-that>
+        <div class="field">
+            <input type="email" name="login" placeholder="Email" ng-model="credentials.email" required>
+            <i class="fa fa-envelope fa-lg"></i>
+        </div>
+        <div class="field">
+            <input type="password" name="password" placeholder="Password" ng-model="credentials.password" required>
+            <i class="fa fa-lock fa-lg"></i>
+        </div>
+        <div class="submit">
+            <button type="submit" name="submit"><i class="fa fa-arrow-right fa-lg"></i></button>
+        </div>
+    </form>
+    <div class="alert alert-dismissable alert-danger animation animating bounceIn" style="margin-top: 10px;"
+         ng-show="vm.submitted">
+        <span class="close" ng-click="vm.submitted = !vm.submitted">×</span>
+        Wrong email or password.
+    </div>
+</section>

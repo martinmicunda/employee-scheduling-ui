@@ -1,0 +1,30 @@
+language: node_js
+node_js:
+  - "0.10"
+
+#notifications:
+#  email:
+#    on_success: never
+#    on_failure: always
+#
+#env:
+#  global:
+#    # travis-encrypt -r martinmicunda/employee-scheduling -k GH_TOKEN -v <https://help.github.com/articles/creating-an-access-token-for-command-line-use> --add env.globa
+#    - secure: O8EunBCVEttAgCbs9eRKDfANt5WY1zdoSnx2nCrh6SQz3up1vIIwh4QXz6H/JwnlmsN6/xIgZnO9DJWqDboCWpfFpze6kJ8KuViE0MxSAcnM5/1iXxXQoXZPo/QQ5vt0j4o/m6L1bhy7PQIwbSJH08OhXcVQtH/cHKO2m8zQBi8=
+#    # COVERALLS_REPO_TOKEN
+#    - secure: YDGbgsTSvN9evJIRhX22Y+P56VYK50bT1tnQrkMxLRANyyQc6UF/e5iKWm+Yy4/0OWq12o+2tTvBc/MgdwSE+t28E+VmdF/JcQDY2pHb8szQ6PjS1PCkeq3IbYvdsYTSAWOBa9coqXECwkwEdtI6tuGQpXL/MOnq7ZncOetdpF4=
+#    # HEROKU_API_KEY
+#    - secure: eNQJbfy4sB1tCZXbkmHeb9+APA2jYL3Zrp/q9h2JvhAvtsH804gK5p+Dg5y3AA6wKnpwqm03/i4BVCUn6UK9Ono2hjxZfksQDtknNdR8UMaRvA3Iymd1vCpLJnuVtocU2QfFiXYEVIuKdHkIm4ut53Is2URHwOJrtysaLTkt3Yo=
+#
+## starts xvfb on display port :99.0 (virtual display for Firefox)
+#before_install:
+#  - "export DISPLAY=:99.0"
+#  - "sh -e /etc/init.d/xvfb start"
+#
+## install dependencies necessary to run this build
+#install:
+#  - npm install --quiet
+#
+#script:
+#  - bash -ex ./ci_build.sh
+
