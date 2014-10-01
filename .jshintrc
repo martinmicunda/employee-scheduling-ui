@@ -1,5 +1,5 @@
 {
-    "node": false,
+    "node": true,
     "browser": true,
     "esnext": true,
     "bitwise": true,
@@ -12,13 +12,12 @@
     "newcap": true,
     "noarg": true,
     "quotmark": "single",
-    "regexp": true,
     "undef": true,
     "unused": true,
     "strict": true,
     "trailing": true,
     "smarttabs": true,
-    "maxlen": 80,
+    "jquery": true,
     "globals": {
         "ApplicationConfiguration": false,
         "angular": false,
@@ -32,6 +31,6 @@
         "inject": false,
         "it": false,
         "spyOn": false,
-        "_": false
+        "protractor": false
     }
 }

@@ -1,0 +1,32 @@
+$blue:                  #006699;
+$lightBlue:             #2479a4;
+$blue3:                 #39c;
+
+$red:                   #cc3333;
+
+$darkGrey:              #333;
+$mediumGrey:            #ebebeb;
+$lightGrey:             #999;
+
+// Formal Theme:
+$primaryColor:          $blue;
+$secondaryColor:        $darkGrey;
+
+$fontWeightLight:       200;
+$fontWeightMedium:      400;
+$fontWeightHeavy:       600;
+
+$fontSizeBase:          14px;
+$lineHeightBase:        1.4;
+
+$inputHeightBase:       40px;
+$inputColor:            $lightGrey;
+$inputBg:               #fff;
+$inputBgDisabled:       #eee;
+$inputBorder:           #ccc !default;
+$inputBorderRadius:     3px;
+
+
+$borderRadius: 4px;
+$btnBorderRadius: $borderRadius;
+$authNavHeight: 32px;

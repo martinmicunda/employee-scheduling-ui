@@ -1,0 +1,110 @@
+.header-fixed {
+    padding-top: 50px;
+}
+.header-fixed .header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+.header {
+    z-index: 9999;
+    border-radius: 0;
+    background-color: #fff;
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.05), 0 1px 0 rgba(0, 0, 0, 0.05);
+}
+.navbar {
+    margin: 0;
+    border-width: 0;
+    border-radius: 0;
+}
+@media (min-width: 768px) {
+    .navbar-header {
+        width: 200px;
+    }
+}
+.navbar-header > button {
+    padding: 10px 17px;
+    font-size: 16px;
+    line-height: 30px;
+    text-decoration: none;
+    background-color: transparent;
+    border: none;
+}
+.navbar-brand {
+    display: inline-block;
+    float: none;
+    height: auto;
+    padding: 0 0 0 15px;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 50px;
+    text-align: center;
+}
+.navbar-brand img {
+    margin-top: -4px;
+    vertical-align: middle;
+}
+
+
+
+
+.thumb-sm {
+    display: inline-block;
+    width: 40px;
+}
+.thumb-sm img{
+    height: auto;
+    max-width: 100%;
+    vertical-align: middle;
+}
+
+.avatar {
+    position: relative;
+    display: block;
+    white-space: nowrap;
+    border-radius: 500px;
+}
+
+.avatar img {
+    width: 100%;
+    border-radius: 500px;
+}
+
+
+
+
+
+
+.avatar.thumb-sm i {
+    margin: 1px;
+}
+
+.avatar.thumb-xs i {
+    margin: 0;
+}
+.m-t-n-sm {
+    margin-top: -10px;
+}
+.m-b-n-sm {
+    margin-bottom: -10px;
+}
+.m-r-sm {
+    margin-right: 10px;
+}
+
+@media (max-width: 767px) {
+    .navbar-nav {
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+    .navbar-nav > li > a {
+        box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.1);
+    }
+    .navbar-nav > li > a .up {
+        top: 0;
+    }
+    .navbar-nav > li > a .avatar {
+        width: 30px;
+        margin-top: -5px;
+    }
+}

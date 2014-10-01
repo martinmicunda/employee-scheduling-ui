@@ -1,13 +1,3 @@
-/*global
- beforeEach: false,
- browser: false,
- by: false,
- describe: false,
- expect: false,
- it: false,
- protractor: false
- */
-
 describe('angularjs homepage', function() {
     it('should greet the named user', function() {
         browser.get('http://www.angularjs.org');
