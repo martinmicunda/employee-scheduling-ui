@@ -1,12 +1,11 @@
 {
-  "name": "employee-scheduling",
+  "name": "employee-scheduling-ui",
   "version": "0.0.0",
-  "description": "An UI component for [Employee Scheduling](https://github.com/martinmicunda/employee-scheduling) application.",
+  "description": "An UI component for Employee Scheduling application.",
   "private": true,
   "author": {
     "name": "Martin Micunda",
-    "email": "martinmicunda@hotmail.com",
-    "url": "http://martinm.net"
+    "url": "http://martinmicunda.com"
   },
   "main": "server/src/server.js",
   "homepage": "http://employee-scheduling.herokuapp.com",
@@ -30,7 +29,8 @@
     "url": "https://github.com/martinmicunda/employee-scheduling-ui/issues"
   },
   "keywords": [
-    "employee scheduling"
+    "employee scheduling",
+    "mm"
   ],
   "devDependencies": {
     "gulp": "^3.8.8",
@@ -92,12 +92,10 @@
     "karma-phantomjs-launcher": "^0.1.4",
     "karma-ng-html2js-preprocessor": "^0.1.0"
   },
-  "licenses": [
-    {
-      "type": "GNU GPL v3 license",
-      "url": "https://github.com/martinmicunda/employee-scheduling/master/LICENSE"
-    }
-  ],
+  "license": {
+    "type": "GNU GPL v3 license",
+    "url": "https://github.com/martinmicunda/employee-scheduling-ui/master/LICENSE"
+  },
   "engines": {
     "node": ">=0.10",
     "npm": ">=1.4.x"

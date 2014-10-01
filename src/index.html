@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="app">
+<html lang="en" ng-strict-di>
     <head>
         <base href="/">
         <meta charset="utf-8">
@@ -18,8 +18,6 @@
 
         <!-- build:css styles/app.min.css -->
         <link rel="stylesheet" href=".tmp/styles/main.css" />
-        <link rel="stylesheet" href="app/login/login.css" />
-        <link rel="stylesheet" href="styles/notification.css" />
         <!-- endbuild -->
     </head>
     <body>
@@ -48,9 +46,9 @@
         <!-- endbower -->
         <!-- endbuild -->
 
-        <!-- build:js({client/src/.tmp,client/src}) scripts/app.min.js -->
+        <!-- build:js scripts/app.min.js -->
         <script src="app/app.js"></script>
-        <script src="app/core/config/env/config-env.js"></script>
+        <script src="app/core/config/core.env.js"></script>
         <script src="app/core/config/core.config.js"></script>
         <script src="app/core/config/core.route.js"></script>
         <script src="app/core/controllers/core.controller.js"></script>
@@ -74,25 +72,17 @@
         <!-- inject:templates:js --><!-- endinject -->
         <!-- endbuild -->
 
-        <!-- @if NODE_ENV='development' -->
+        <!-- build:remove -->
         <script src="http://192.168.33.10:35729/livereload.js?snipver=1"></script>
-        <!-- @endif -->
+        <!-- endbuild -->
 
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
         <script>
-            (function (i, s, o, g, r, a, m) {
-                i['GoogleAnalyticsObject'] = r;
-                i[r] = i[r] || function () {
-                    (i[r].q = i[r].q || []).push(arguments)
-                }, i[r].l = 1 * new Date();
-                a = s.createElement(o),
-                        m = s.getElementsByTagName(o)[0];
-                a.async = 1;
-                a.src = g;
-                m.parentNode.insertBefore(a, m)
-            })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
-            ga('create', 'UA-XXXXX-X');
-            ga('send', 'pageview');
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+            ga('create', 'UA-XXXXX-X', 'auto'); // TODO : env var
         </script>
     </body>
 </html>
