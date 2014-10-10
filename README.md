@@ -4,6 +4,8 @@ employee-scheduling-ui
 
 An UI component for [Employee Scheduling](https://github.com/martinmicunda/employee-scheduling) application.
 
+**Note: :warning: This project is under development.**
+
 ## Gulp Tasks
 The best way to learn about the gulp tasks is by familiarizing yourself with [Gulp](http://gulpjs.com/) and then reading through the documented [gulpfile.js](gulpfile.js) script.
 
