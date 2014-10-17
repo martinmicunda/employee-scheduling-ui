@@ -1,0 +1,23 @@
+.btn-icon {
+    display: inline-block;
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    border: none;
+    line-height: 28px;
+    text-align: center;
+    font-size: 14px;
+    color: #fff;
+    background: #00acac;
+    border-color: #00acac;
+}
+.btn-icon.active, .btn-icon:focus, .btn-icon:hover {
+    background: #008a8a;
+    border-color: #008a8a;
+    color: #ffffff;
+}
+.btn-circle, .btn.btn-circle {
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+}

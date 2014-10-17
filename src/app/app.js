@@ -13,9 +13,15 @@
         'LocalStorageModule',
 
         // mm components modules
-        'mm.authentication',
-        'mm.user',
-        'mm.centered'
+        //'mm.authentication',
+        //'mm.user',
+        //'mm.centered',
+
+        // employeeScheduling component modules
+
+        // app state (feature) modules
+        'app.core',
+        'app.dashboard'
     ]);
 
 })();

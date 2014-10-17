@@ -56,7 +56,7 @@ var $ = require('gulp-load-plugins')();
 //   !!!FEEL FREE TO EDIT THESE VARIABLES!!!
 //=============================================
 
-var MODULE_NAME          = 'locationManager';
+var MODULE_NAME          = 'app';
 var API_VERSION          = '1.0';
 var PRODUCTION_URL       = 'http://your-production-url.com';
 var DEVELOPMENT_URL      = 'http://127.0.0.1:3000';

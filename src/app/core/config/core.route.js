@@ -4,16 +4,25 @@
     /**
      * @ngInject
      */
-    function coreRoutes($stateProvider, ACCESS_LEVELS) {
-        $stateProvider
-            .state('app', {
-                abstract: true,
-                templateUrl: 'app/core/views/main.html',
-                controller: 'CoreCtrl as vm',
-                data: {
-                    access: ACCESS_LEVELS.user
-                }
-            });
+    function coreRoutes($stateProvider) {
+//        $stateProvider
+//            .state('app.core', {
+//                url: '',
+//                //abstract: true,
+//                templateUrl: 'app/core/views/main.html',
+//                controller: 'CoreCtrl as vm',
+////                data: {
+////                    access: ACCESS_LEVELS.user
+////                }
+//                views: {
+//                    'header@': {
+//                        templateUrl: 'app/core/views/header.html'
+//                    },
+//                    'footer@': {
+//                        templateUrl: 'app/core/views/footer.html'
+//                    }
+//                }
+//            });
     }
 
     angular
