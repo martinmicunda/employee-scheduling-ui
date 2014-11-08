@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-strict-di>
+<html lang="en">
     <head>
         <base href="/">
         <meta charset="utf-8">
@@ -20,7 +20,7 @@
         <link rel="stylesheet" href=".tmp/styles/main.css" />
         <!-- endbuild -->
     </head>
-    <body ng-app="app">
+    <body>
         <!--[if lt IE 10]>
         <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
             your browser</a> to improve your experience.</p>
@@ -31,45 +31,10 @@
         <main ui-view autoscroll="true" class="container-fluid"></main>
         <footer id="footer" ng-include src="'app/core/layout/footer/layout.footer.html'"></footer>
 
-        <!-- build:js_libs scripts/vendor.min.js -->
-        <!-- bower:js -->
-        <script src="vendor/angular/angular.js"></script>
-        <script src="vendor/angular-animate/angular-animate.js"></script>
-        <script src="vendor/angular-messages/angular-messages.js"></script>
-        <script src="vendor/angular-ui-router/release/angular-ui-router.js"></script>
-        <script src="vendor/angular-local-storage/angular-local-storage.js"></script>
-        <script src="vendor/lodash/dist/lodash.compat.js"></script>
-        <script src="vendor/restangular/dist/restangular.js"></script>
-        <script src="vendor/angular-bootstrap/ui-bootstrap-tpls.js"></script>
-        <script src="vendor/mm-angular-logger/dist/mm-angular-logger.js"></script>
-        <script src="vendor/mm-angular-exception-handler/dist/mm-angular-exception-handler.js"></script>
-        <script src="vendor/mm-angular-error-http-handler/dist/mm-angular-error-http-handler.js"></script>
-        <!-- endbower -->
-        <!-- endbuild -->
 
         <!-- build:js scripts/app.min.js -->
-        <script src="app/app.js"></script>
-        <script src="app/core/core.module.js"></script>
-        <script src="app/core/config/core.env.js"></script>
-        <script src="app/core/config/core.config.js"></script>
-        <script src="app/core/config/core.route.js"></script>
-        <script src="app/core/local.storage.service.js"></script>
-        <script src="app/core/layout/footer/layout.footer.controller.js"></script>
-        <!--<script src="app/core/services/httpRequestTracker.service.js"></script>-->
-        <!--<script src="app/components/authentication/authentication.js"></script>-->
-        <!--<script src="app/components/authentication/interceptor.js"></script>-->
-        <!--<script src="app/components/authentication/bitMask.service.js"></script>-->
-        <!--<script src="app/components/authentication/base64.service.js"></script>-->
-        <!--<script src="app/components/authentication/token.js"></script>-->
-        <!--<script src="app/components/authentication/formAutofillFix.directive.js"></script>-->
-        <!--<script src="app/components/user/user.js"></script>-->
-        <!--<script src="app/components/centered/mm-centered.js"></script>-->
-        <!--<script src="app/login/login.js"></script>-->
-        <!--<script src="app/login/controllers/login.controller.js"></script>-->
-        <script src="app/dashboard/dashboard.module.js"></script>
-        <script src="app/dashboard/dashboard.route.js"></script>
-        <script src="app/dashboard/dashboard.controller.js"></script>
-
+        <script src="./app/config-require.js"> </script>
+        <script data-main=".tmp/scripts/bootstrap.js" src="vendor/requirejs/require.js"></script>
         <!-- inject:templates:js --><!-- endinject -->
         <!-- endbuild -->
 

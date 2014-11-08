@@ -1,3 +1,27 @@
+/**
+ * The MIT License
+ *
+ * Copyright (c) 2014 Martin Micunda
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ * THE SOFTWARE.
+ */
+
 /*jshint camelcase: false */
 'use strict';
 
@@ -10,12 +34,10 @@
  */
 var fs             = require('fs');
 var pkg            = require('./package.json');
-var del            = require('del');
 var path           = require('path');
 var gulp           = require('gulp');
 var bower          = require('bower');
 var karma          = require('karma').server;
-var moment         = require('moment');
 var semver         = require('semver');
 var wiredep        = require('wiredep').stream;
 var changelog      = require('conventional-changelog');
@@ -34,7 +56,8 @@ var $ = require('gulp-load-plugins')();
 //   !!!FEEL FREE TO EDIT THESE VARIABLES!!!
 //=============================================
 
-var MODULE_NAME          = 'locationManager';
+var MODULE_NAME          = 'app';
+var API_VERSION          = '1.0';
 var PRODUCTION_URL       = 'http://your-production-url.com';
 var DEVELOPMENT_URL      = 'http://127.0.0.1:3000';
 var PRODUCTION_CDN_URL   = 'http://cdn.your-production-url.com';
@@ -50,7 +73,7 @@ var TEMPLATE_BASE_PATH   = 'app';
  */
 var log                  = $.util.log;
 var argv                 = $.util.env;
-var ENV                  = !!argv.env ? argv.env : 'dev';
+var ENV                  = !!argv.env ? argv.env : 'development';
 var COLORS               = $.util.colors;
 var BROWSERS             = !!argv.browsers ? argv.browsers : 'PhantomJS';
 var CDN_BASE             = !!argv.cdn ? PRODUCTION_CDN_URL : DEVELOPMENT_URL;
@@ -61,14 +84,14 @@ var APPLICATION_BASE_URL = ENV ? PRODUCTION_URL : DEVELOPMENT_URL;
 //         COMMAND LINE ERROR HANDLING
 //=============================================
 
-if(!ENV.match(new RegExp(/prod|dev|test/))) {
-    log(COLORS.red('Error: The argument \'env\' has incorrect value \'' + ENV +'\'! Usage: gulp test:e2e --env=(prod|dev|test)'));
-    return process.exit(1);
+if(!ENV.match(new RegExp(/production|development/))) {
+  log(COLORS.red('Error: The argument \'env\' has incorrect value \'' + ENV +'\'! Usage: gulp test:e2e --env=(development|production)'));
+  return process.exit(1);
 }
 
 if(!BROWSERS.match(new RegExp(/PhantomJS|Chrome|Firefox|Safari/))) {
-    log(COLORS.red('Error: The argument \'browsers\' has incorrect value \'' + BROWSERS +'\'! Usage: gulp test:unit --browsers=(PhantomJS|Chrome|Firefox|Safari)'));
-    return process.exit(1);
+  log(COLORS.red('Error: The argument \'browsers\' has incorrect value \'' + BROWSERS +'\'! Usage: gulp test:unit --browsers=(PhantomJS|Chrome|Firefox|Safari)'));
+  return process.exit(1);
 }
 
 
@@ -89,26 +112,8 @@ function formatPercent(num, precision){
 function bytediffFormatter(data) {
     var difference = (data.savings > 0) ? ' smaller.' : ' larger.';
     return COLORS.yellow(data.fileName + ' went from ' +
-    (data.startSize / 1000).toFixed(2) + ' kB to ' + (data.endSize / 1000).toFixed(2) + ' kB' +
-    ' and is ' + formatPercent(1-data.percent, 2) + '%' + difference);
-}
-
-/*global paths: true*/
-function excludeFiles() {
-    var configEnvFile = [];
-
-    switch(ENV) {
-        case 'dev':
-            configEnvFile = ['!' + paths.app.config.test, '!' + paths.app.config.prod, '!' + paths.test.mock];
-            break;
-        case 'test':
-            configEnvFile = ['!' + paths.app.config.dev, '!' + paths.app.config.prod];
-            break;
-        case 'prod':
-            configEnvFile = ['!' + paths.app.config.dev, '!' + paths.app.config.test, '!' + paths.test.mock];
-            break;
-    }
-    return configEnvFile;
+        (data.startSize / 1000).toFixed(2) + ' kB to ' + (data.endSize / 1000).toFixed(2) + ' kB' +
+        ' and is ' + formatPercent(1-data.percent, 2) + '%' + difference);
 }
 
 
@@ -139,15 +144,8 @@ var paths = {
         fonts:          'src/fonts/**/*.{eot,svg,ttf,woff}',
         styles:         'src/styles/**/*.scss',
         images:         'src/images/**/*.{png,gif,jpg,jpeg}',
-        config: {
-            dev:        'src/app/core/config/core.config.dev.js',
-            test:       'src/app/core/config/core.config.test.js',
-            prod:       'src/app/core/config/core.config.prod.js'
-        },
-        scripts:        ['src/app/**/*.module.js',
-            'src/app/**/*.js',
-            '!src/app/**/*.spec.js'
-        ],
+        config:         'src/app/core/config/',
+        scripts:        ['src/app/**/*.js', '!src/app/**/*.spec.js'],
         html:           'src/index.html',
         templates:      'src/app/**/*.html'
     },
@@ -168,7 +166,6 @@ var paths = {
         testReports: {
             coverage:   'test/test-reports/coverage/'
         },
-        mock:           'src/app/**/*.mock.js',
         unit:           'src/app/**/*.spec.js',
         e2e:            'test/e2e/**/*.e2e.js'
     },
@@ -220,10 +217,11 @@ var banner = $.util.template(
     '/**\n' +
     ' * <%= pkg.description %>\n' +
     ' * @version v<%= pkg.version %> - <%= today %>\n' +
-    ' * @author <%= pkg.author %>\n' +
+    ' * @link <%= pkg.homepage %>\n' +
+    ' * @author <%= pkg.author.name %>\n' +
     ' * @copyright <%= year %>(c) <%= pkg.author.name %>\n' +
     ' * @license <%= pkg.license.type %>, <%= pkg.license.url %>\n' +
-    ' */\n', {file: '', pkg: pkg, today: moment(new Date()).format('D/MM/YYYY'), year: new Date().toISOString().substr(0, 4)});
+    ' */\n', {file: '', pkg: pkg, today: new Date().toISOString().substr(0, 10), year: new Date().toISOString().substr(0, 4)});
 
 
 //=============================================
@@ -243,8 +241,9 @@ $.help(gulp);
 /**
  * The 'clean' task delete 'build' and '.tmp' directories.
  */
-gulp.task('clean', 'Delete \'build\' and \'.tmp\' directories', function (cb) {
-    return del([paths.build.basePath, paths.tmp.basePath], cb);
+gulp.task('clean', 'Delete \'build\' and \'.tmp\' directories', function () {
+    return gulp.src([paths.build.basePath, paths.tmp.basePath], {read: false}) // Not necessary to read the files (will speed up things), we're only after their paths
+        .pipe($.rimraf({force: true}));
 });
 
 /**
@@ -269,6 +268,25 @@ gulp.task('bower-install', 'Install all bower dependencies specify in bower.json
 });
 
 /**
+ * The 'config' task configuration Angular app for development or production environment.
+ */
+gulp.task('config', 'Configuration Angular app for development or production environment', function () {
+    return gulp.src('')
+        .pipe($.ngConstant({
+            name: MODULE_NAME,
+            templatePath: './config.tpl.ejs',
+            constants: {
+                env: {
+                    name: ENV,
+                    apiVersion: API_VERSION
+                }
+            }
+        }))
+        .pipe($.rename('core.env.js'))
+        .pipe(gulp.dest(paths.app.config));
+});
+
+/**
  * The 'jshint' task defines the rules of our hinter as well as which files
  * we should check. It helps to detect errors and potential problems in our
  * JavaScript code.
@@ -288,7 +306,6 @@ gulp.task('jshint', 'Hint JavaScripts files', function () {
 gulp.task('htmlhint', 'Hint HTML files', function () {
     return gulp.src([paths.app.html, paths.app.templates])
         .pipe($.htmlhint('.htmlhintrc'))
-        .pipe($.htmlhint.reporter())
         .pipe($.htmlhint.failReporter());
 });
 
@@ -298,30 +315,13 @@ gulp.task('htmlhint', 'Hint HTML files', function () {
 gulp.task('styles', 'Compile sass files into the main.css', function () {
     // if it's set to `true` the gulp.watch will keep gulp from stopping
     // every time we mess up sass files
-    var errLogToConsole = ENV === 'dev' || ENV === 'test';
+    var errLogToConsole = ENV === 'development';
     return gulp.src(paths.app.styles)
         .pipe($.changed(paths.tmp.styles, {extension: '.scss'}))
-        .pipe($.sourcemaps.init())
         .pipe($.sass({style: 'compressed', errLogToConsole: errLogToConsole}))
         .pipe($.autoprefixer('last 2 version'))
         .pipe($.concat('main.css'))
-        .pipe($.sourcemaps.write('../maps'))
         .pipe(gulp.dest(paths.tmp.styles));
-});
-
-/**
- * Compile JS files into the app.js.
- */
-gulp.task('scripts', 'Compile JS files into the app.js', ['jshint'], function () {
-    var to5 = require('gulp-6to5');
-    return gulp.src(paths.app.scripts.concat(excludeFiles()))
-        .pipe($.sourcemaps.init())
-            .pipe(to5({modules: 'amd'}))
-        //.pipe($.concat('app.js'))
-        //.pipe($.ngAnnotate({add: true, single_quotes: true, stats: true}))
-        //.pipe($.uglify())
-        .pipe($.sourcemaps.write('../maps'))
-        .pipe(gulp.dest(paths.tmp.scripts));
 });
 
 /**
@@ -339,7 +339,7 @@ gulp.task('watch', 'Watch files for changes', function () {
     gulp.watch(paths.app.styles, ['styles']).on('change', $.livereload.changed);
 
     // Watch js files
-    gulp.watch([paths.app.scripts, paths.gulpfile], ['scripts']).on('change', $.livereload.changed);
+    gulp.watch(paths.app.scripts, ['jshint']).on('change', $.livereload.changed);
 
     // Watch html files
     gulp.watch([paths.app.html, paths.app.templates], ['htmlhint']).on('change', $.livereload.changed);
@@ -408,52 +408,55 @@ gulp.task('templatecache', 'Minify html templates and create template cache js f
  *    html     - replace local path with CDN url, minify
  */
 gulp.task('compile', 'Does the same as \'jshint\', \'htmlhint\', \'images\', \'templates\' tasks but also compile all JS, CSS and HTML files',
-    ['jshint', 'htmlhint', 'templatecache', 'styles', 'scripts'], function () {
-        var projectHeader = $.header(banner);
+    ['jshint', 'htmlhint', 'templatecache', 'styles'], function () {
+    var projectHeader = $.header(banner);
 
-        return gulp.src(paths.app.html)
-            .pipe($.inject(gulp.src(paths.tmp.scripts + 'templates.js', {read: false}), {
-                starttag: '<!-- inject:templates:js -->',
-                ignorePath: [paths.app.basePath]
-            }))
-            .pipe($.usemin({
-                css:        [
-                    $.if(!!argv.cdn, $.cdnizer({defaultCDNBase: CDN_BASE, relativeRoot: 'styles', files: ['**/*.{gif,png,jpg,jpeg}']})),
-                    $.bytediff.start(),
-                    $.minifyCss(),
-                    $.bytediff.stop(bytediffFormatter),
-                    $.rev(),
-                    projectHeader
-                ],
-                css_libs:   [
-                    $.bytediff.start(),
-                    $.minifyCss(),
-                    $.bytediff.stop(bytediffFormatter),
-                    $.rev()
-                ],
-                js:         [
-                    $.bytediff.start(),
-                    $.uglify(),
-                    $.bytediff.stop(bytediffFormatter),
-                    $.rev(),
-                    projectHeader
-                ],
-                js_libs:    [
-                    $.bytediff.start(),
-                    $.uglify(),
-                    $.bytediff.stop(bytediffFormatter),
-                    $.rev()
-                ],
-                html:       [
-                    $.if(!!argv.cdn, $.cdnizer({defaultCDNBase: CDN_BASE, files: ['**/*.{js,css}']})),
-                    $.bytediff.start(),
-                    $.minifyHtml({empty:true}),
-                    $.bytediff.stop(bytediffFormatter)
-                ]
-            }))
-            .pipe(gulp.dest(paths.build.dist.basePath))
-            .pipe($.size({title: 'compile', showFiles: true}));
-    });
+    return gulp.src(paths.app.html)
+        .pipe($.inject(gulp.src(paths.tmp.scripts + 'templates.js', {read: false}), {
+            starttag: '<!-- inject:templates:js -->',
+            ignorePath: [paths.app.basePath]
+        }))
+        .pipe($.usemin({
+            css:        [
+                          $.if(!!argv.cdn, $.cdnizer({defaultCDNBase: CDN_BASE, relativeRoot: 'styles', files: ['**/*.{gif,png,jpg,jpeg}']})),
+                          $.bytediff.start(),
+                            $.minifyCss(),
+                          $.bytediff.stop(bytediffFormatter),
+                          $.rev(),
+                          projectHeader
+                        ],
+            css_libs:   [
+                          $.bytediff.start(),
+                            $.minifyCss(),
+                          $.bytediff.stop(bytediffFormatter),
+                          $.rev()
+                        ],
+            js:         [
+                          $.sourcemaps.init(),
+                            $.ngAnnotate({add: true, single_quotes: true, stats: true}),
+                            $.bytediff.start(),
+                              $.uglify(),
+                            $.bytediff.stop(bytediffFormatter),
+                            $.rev(),
+                            projectHeader,
+                          $.sourcemaps.write('../dist/maps', {sourceMappingURLPrefix: 'https://asset-host.example.com/assets'})
+                        ],
+            js_libs:    [
+                          $.bytediff.start(),
+                            $.uglify(),
+                          $.bytediff.stop(bytediffFormatter),
+                          $.rev()
+                        ],
+            html:       [
+                          $.if(!!argv.cdn, $.cdnizer({defaultCDNBase: CDN_BASE, files: ['**/*.{js,css}']})),
+                          $.bytediff.start(),
+                            $.minifyHtml({empty:true}),
+                          $.bytediff.stop(bytediffFormatter)
+                        ]
+        }))
+        .pipe(gulp.dest(paths.build.dist.basePath))
+        .pipe($.size({title: 'compile', showFiles: true}));
+});
 
 /**
  * The 'karma' task run unit tests without coverage check.
@@ -461,21 +464,24 @@ gulp.task('compile', 'Does the same as \'jshint\', \'htmlhint\', \'images\', \'t
 //TODO: (martin) should I merge this with `gulp test:unit` task and then just pass argument --coverage (it will run unit test with coverage e.g. gulp test:unit --coverage)
 gulp.task('karma', 'Run unit tests without coverage check', function (cb) {
     // remove 'coverage' directory before each test
-    del.sync(paths.test.testReports.coverage);
-    // run the karma test
-    karma.start({
-        configFile: path.join(__dirname, paths.test.config.karma),
-        browsers: [BROWSERS],
-        singleRun: !argv.watch,
-        autoWatch: !!argv.watch
-    }, function(code) {
-        // make sure failed karma tests cause gulp to exit non-zero
-        if(code === 1) {
-            log(COLORS.red('Error: unit test failed '));
-            return process.exit(1);
-        }
-        cb();
-    });
+    gulp.src(paths.test.testReports.coverage, {read: false})
+        .pipe($.rimraf({force: true}))
+        .on('finish', function() {
+            // run the karma test
+            karma.start({
+                configFile: path.join(__dirname, paths.test.config.karma),
+                browsers: [BROWSERS],
+                singleRun: !argv.watch,
+                autoWatch: !!argv.watch
+            }, function(code) {
+                // make sure failed karma tests cause gulp to exit non-zero
+                if(code === 1) {
+                    log(COLORS.red('Error: unit test failed '));
+                    return process.exit(1);
+                }
+                cb();
+            });
+        });
 });
 
 /**
@@ -483,10 +489,11 @@ gulp.task('karma', 'Run unit tests without coverage check', function (cb) {
  * install bower dependencies and inject installed bower dependencies
  * into the `index.html`.
  */
-gulp.task('setup', 'Configure environment, compile SASS to CSS and install bower dependencies',  function (cb) {
-    runSequence(
-        ['bower-install', 'styles', 'scripts'],
-        cb
+gulp.task('setup', 'Configure environment, compile SASS to CSS and install bower dependencies',  function () {
+    return gulp.start(
+        'bower-install',
+        'config',
+        'styles'
     );
 });
 
@@ -513,7 +520,7 @@ gulp.task('default', 'Watch files and build environment', ['serve']);
 /**
  * The 'serve:dist' task serve the prod environment.
  */
-gulp.task('serve:dist', 'Serve the prod environment', ['build'], function() {
+gulp.task('serve:dist', 'Serve the prod environment', ['setup'], function() {
     gulp.src(paths.build.dist.basePath)
         .pipe($.webserver({
             fallback: 'index.html',
@@ -597,13 +604,13 @@ gulp.task('test', 'Run unit and e2e tests', ['karma'], function () {
  */
 gulp.task('build', 'Build application for deployment', function (cb) {
     runSequence(
-        ['clean', 'bower-install'],
+        ['clean', 'bower-install', 'config'],
         ['compile', 'extras', 'images', 'fonts'],
         cb
     );
 }, {
     options: {
-        'env=<environment>': 'environment flag (prod|dev|test)',
+        'env=<environment>': 'environment flag (production|development)',
         'cdn': 'replace local path with CDN url'
     }
 });

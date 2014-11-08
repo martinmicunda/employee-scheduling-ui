@@ -1,25 +1,10 @@
-(function () {
-    'use strict';
+export default class FooterController {
 
-    angular
-        .module('app.core')
-        .controller('FooterController', FooterController);
-
-    /**
-     * @ngdoc controller
-     * @name locationManager.core.controller:FooterController
-     * @description
-     *
-     * Controller of the footer page:
-     *
-     * @ngInject
-     */
-    function FooterController() {
-        var vm = this;
-
-        angular.extend(vm, {
-            copyrightDate: new Date()
-        });
+    constructor() {
+        this.copyrightDate = new Date();
     }
 
-})();
+    //get name() {
+    //    return this._security.username;
+    //}
+}

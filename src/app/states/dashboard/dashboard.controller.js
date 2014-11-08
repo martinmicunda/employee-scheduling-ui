@@ -1,13 +1,11 @@
-(function () {
-    'use strict';
-
-    angular
-        .module('app.dashboard')
+//(function () {
+//    'use strict';
+//
+//    angular
+//        .module('app.dashboard');
         //.controller('UserCtrl', UserCtrl);
 
-    /**
-     * @ngInject
-     */
+
 //    function UserCtrl(User) {
 //        var vm = this;
 //
@@ -30,5 +28,5 @@
 ////        };
 //    }
 
-})();
+//})();
 

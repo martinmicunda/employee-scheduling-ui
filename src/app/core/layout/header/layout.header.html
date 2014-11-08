@@ -8,244 +8,125 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="index.html">
+            <a class="navbar-brand" ui-sref="schedule">
                 <span class="navbar-logo"></span> Employee Scheduling
                 <!--<img src="images/logo.png" alt="Logo">-->
             </a>
         </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        Homepage <span class="caret"></span>
+            <ul class="nav navbar-nav navbar-left">
+                <li ui-sref-active="active">
+                    <a ui-sref="schedule">
+                        <i class="fa fa-fw fa-calendar"></i>
+                        Schedule
                     </a>
-                    <ul class="dropdown-menu" role="menu">
-                        <li>
-                            <a href="index.html">
-                                Homepage 1
-                            </a>
-                        </li>
-                        <li>
-                            <a href="index-2.html">
-                                Homepage 2
-                            </a>
-                        </li>
-                        <li>
-                            <a href="index-3.html">
-                                Homepage 3
-                            </a>
-                        </li>
-                    </ul>
                 </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        Layouts <span class="caret"></span>
+                <li ui-sref-active="active">
+                    <a ui-sref="employees">
+                        <i class="fa fa-fw fa-users"></i>
+                        Employees
                     </a>
-                    <ul class="dropdown-menu" role="menu">
-                        <li>
-                            <a href="blank_page.html">
-                                Blank Page
-                            </a>
-                        </li>
-                        <li>
-                            <a href="boxed_view.html">
-                                Boxed Page
-                            </a>
-                        </li>
-                        <li>
-                            <a href="leftmenu_collapsed_view.html">
-                                Sidebar Collapsed
-                            </a>
-                        </li>
-                        <li class="active">
-                            <a href="horizontal_menu.html">
-                                Horizontal Menu
-                            </a>
-                        </li>
-                        <li>
-                            <a href="sidebar-not-fixed.html">
-                                Simple Sidebar
-                            </a>
-                        </li>
-                    </ul>
                 </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        UI Elements <span class="caret"></span>
+                <li ui-sref-active="active">
+                    <a ui-sref="customers">
+                        <i class="fa fa-fw fa-cubes"></i>
+                        Customers
                     </a>
-                    <ul class="dropdown-menu" role="menu">
-                        <li>
-                            <a href="animation.html">
-                                CSS3 Animation
-                            </a>
-                        </li>
-                        <li>
-                            <a href="general.html">
-                                General
-                            </a>
-                        </li>
-                        <li>
-                            <a href="buttons.html">
-                                Buttons
-                            </a>
-                        </li>
-                        <li>
-                            <a href="tabs-accordions.html">
-                                Tabs &amp; Accordions
-                            </a>
-                        </li>
-                        <li>
-                            <a href="typography.html">
-                                Typography
-                            </a>
-                        </li>
-                        <li>
-                            <a href="fontawesome.html">
-                                Fontawesome
-                            </a>
-                        </li>
-                        <li>
-                            <a href="slider.html">
-                                Slider
-                            </a>
-                        </li>
-                        <li>
-                            <a href="panels.html">
-                                Panels
-                            </a>
-                        </li>
-                        <li>
-                            <a href="widgets.html">
-                                Widgets
-                            </a>
-                        </li>
-                        <li>
-                            <a href="bootstrap-model.html">
-                                Bootstrap Model
-                            </a>
-                        </li>
-                    </ul>
                 </li>
-                <li class="dropdown">
+                <li class="dropdown" ng-class="{active:$state.includes('documents')}">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        Components <span class="caret"></span>
+                        <i class="fa fa-fw fa-file-text"></i>
+                        Documents <span class="caret"></span>
                     </a>
-                    <ul class="dropdown-menu" role="menu">
-                        <li>
-                            <a href="grids.html">
-                                Grids
-                            </a>
-                        </li>
-                        <li>
-                            <a href="calendar.html">
-                                Calendar
-                            </a>
-                        </li>
-                        <li>
-                            <a href="tree_view.html">
-                                Tree View
-                            </a>
-                        </li>
-                        <li>
-                            <a href="nestable.html">
-                                Nestable
-                            </a>
-                        </li>
-                    </ul>
+                    <!--<ul class="dropdown-menu" role="menu">-->
+                        <!--<li ui-sref-active="active">-->
+                            <!--<a ui-sref="documents.kidsfun">-->
+                                <!--Kidsfun-->
+                            <!--</a>-->
+                        <!--</li>-->
+                        <!--<li ui-sref-active="active">-->
+                            <!--<a href="calendar.html">-->
+                                <!--Chalupka-->
+                            <!--</a>-->
+                        <!--</li>-->
+                    <!--</ul>-->
                 </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        Mail <span class="caret"></span>
+                <li ui-sref-active="active">
+                    <a ui-sref="reports">
+                        <i class="fa fa-fw fa-bar-chart"></i>
+                        Reports
                     </a>
-                    <ul class="dropdown-menu" role="menu">
-                        <li>
-                            <a href="mail.html">
-                                Inbox
-                            </a>
-                        </li>
-                        <li>
-                            <a href="mail_compose.html">
-                                Compose Mail
-                            </a>
-                        </li>
-                        <li>
-                            <a href="mail_view.html">
-                                View Mail
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        Forms <span class="caret"></span>
-                    </a>
-                    <ul class="dropdown-menu" role="menu">
-                        <li>
-                            <a href="form_layouts.html">
-                                Form Layouts
-                            </a>
-                        </li>
-                        <li>
-                            <a href="form_advanced_components.html">
-                                Advanced Components
-                            </a>
-                        </li>
-                        <li>
-                            <a href="form_wizard.html">
-                                Form Wizards
-                            </a>
-                        </li>
-                        <li>
-                            <a href="form_validation.html">
-                                Form Validation
-                            </a>
-                        </li>
-                        <li>
-                            <a href="editors.html">
-                                Editors
-                            </a>
-                        </li>
-                        <li>
-                            <a href="pickers.html">
-                                Pickers
-                            </a>
-                        </li>
-                        <li>
-                            <a href="dropzone.html">
-                                Dropzone
-                            </a>
-                        </li>
-                    </ul>
                 </li>
             </ul>
             <ul class="header-nav nav navbar-nav navbar-right">
+                <li class="dropdown hidden-xs">
+                    <!--<a ui-fullscreen></a>-->
+                    <i class="fa fa-expand fa-fw text"></i>
+                </li>
                 <li class="dropdown">
+                    <a href="javascript:;" data-toggle="dropdown" class="dropdown-toggle notification">
+                        <i class="fa fa-bell-o"></i>
+                        <span class="label">5</span>
+                    </a>
+                    <ul class="dropdown-menu media-list pull-right" role="menu">
+                        <li class="dropdown-header">Notifications (5)</li>
+                        <li class="divider"></li>
+                        <li class="media">
+                            <a href="javascript:;">
+                                <div class="pull-left media-object bg-red"><i class="fa fa-bug"></i></div>
+                                <div class="media-body">
+                                    <h6 class="media-heading">Server Error Reports</h6>
+                                    <div class="text-muted">3 minutes ago</div>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="media">
+                            <a href="javascript:;">
+                                <div class="pull-left"><img src="assets/img/user-1.jpg" class="media-object" alt=""></div>
+                                <div class="media-body">
+                                    <h6 class="media-heading">John Smith</h6>
+                                    <p>Quisque pulvinar tellus sit amet sem scelerisque tincidunt.</p>
+                                    <div class="text-muted">25 minutes ago</div>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="dropdown" ng-class="{active:$state.includes('account')}">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <img src="../../../../images/me.jpg" alt="" class="img-circle">
+                        <img ng-src="../../../../images/me.jpg" alt="" class="img-circle">
                         <span class="hidden-sm">Martin Micunda</span>
                         <span class="caret"></span>
                     </a>
-                    <ul class="dropdown-menu dropdown-menu-right" role="menu">
-                        <li>
-                            <a href="profile.html">
-                                <i class="fa fa-user"></i> Edit Profile
+                    <ul class="dropdown-menu" role="menu">
+                        <li ui-sref-active="active">
+                            <a ui-sref="account">
+                                <i class="fa fa-fw fa-user"></i>
+                                My Account
                             </a>
                         </li>
-                        <li>
-                            <a href="mail.html">
-                                <i class="fa fa-envelope"></i> Inbox
+                        <li ui-sref-active="active">
+                            <a ui-sref="settings">
+                                <i class="fa fa-fw fa-cog"></i>
+                                Settings
+                                <!--e.g. language-->
                             </a>
                         </li>
                         <li>
                             <a href="#">
-                                <i class="fa fa-cog"></i> Settings
+                                <i class="fa fa-fw fa-retweet"></i> Switch Account
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="fa fa-fw fa-laptop"></i> Tour Guide
                             </a>
                         </li>
                         <li class="divider"></li>
                         <li>
                             <a href="#">
-                                <i class="fa fa-sign-out"></i> Log Out
+                                <i class="fa fa-fw fa-sign-out"></i> Log Out
                             </a>
                         </li>
                     </ul>

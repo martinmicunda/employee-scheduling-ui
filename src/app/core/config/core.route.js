@@ -1,10 +1,10 @@
-(function () {
-    'use strict';
-
-    /**
-     * @ngInject
-     */
-    function coreRoutes($stateProvider) {
+//(function () {
+//    'use strict';
+//
+//    /**
+//     * @ngInject
+//     */
+    //function coreRoutes($stateProvider) {
 //        $stateProvider
 //            .state('app.core', {
 //                url: '',
@@ -23,10 +23,10 @@
 //                    }
 //                }
 //            });
-    }
+//    }
 
-    angular
-        .module('app')
-        .config(coreRoutes);
+    //angular
+    //    .module('app')
+    //    .config(coreRoutes);
 
-})();
+//})();
