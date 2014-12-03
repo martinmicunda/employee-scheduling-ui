@@ -1,8 +1,4 @@
 import customersRoute from './customers.route';
 
-let moduleName = 'app.customers';
-
-angular.module(moduleName, [])
+export default angular.module('app.customers', [])
     .config(customersRoute);
-
-export default moduleName;

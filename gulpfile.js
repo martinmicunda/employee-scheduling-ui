@@ -309,14 +309,40 @@ gulp.task('styles', 'Compile sass files into the main.css', function () {
         .pipe(gulp.dest(paths.tmp.styles));
 });
 
-/**
+gulp.task('scripts', 'Compile JS files into the app.js', function (cb) {
+    var builder = require('systemjs-builder');
+    builder.reset();
+
+    builder.loadConfig('./src/jspm.conf.js')
+        .then(function() {
+            builder.loader.baseURL = path.resolve('./src/');
+            builder.build('app/app', paths.tmp.scripts + 'app.js', { sourceMaps: true, config: {sourceRoot: 'src/.tmp/scripts/'} })
+                .then(function() {
+                    return cb();
+                })
+                .catch(function(ex) {
+                    cb(new Error(ex));
+                });
+        });
+});
+
+ /**
  * Compile JS files into the app.js.
  */
-gulp.task('scripts', 'Compile JS files into the app.js', ['jshint'], function () {
-    var to5 = require('gulp-6to5');
+gulp.task('scriptss', 'Compile JS files into the app.js', ['jshint'], function () {
+    //var to5 = require('gulp-6to5');
+    var pp = {
+        modules: 'instantiate',
+        types: true,
+        typeAssertions: true,
+        annotations: true,
+        typeAssertionModule: 'assert',
+        experimental: true
+    };
     return gulp.src(paths.app.scripts.concat(excludeFiles()))
         .pipe($.sourcemaps.init())
-            .pipe(to5({modules: 'amd'}))
+        .pipe($.traceur(pp))
+        //.pipe(to5({modules: 'amd'}))
         //.pipe($.concat('app.js'))
         //.pipe($.ngAnnotate({add: true, single_quotes: true, stats: true}))
         //.pipe($.uglify())
@@ -333,19 +359,24 @@ gulp.task('watch', 'Watch files for changes', function () {
     $.livereload.listen();
 
     // Watch images and fonts files
-    gulp.watch([paths.app.images, paths.app.fonts]).on('change', $.livereload.changed);
+    gulp.watch([paths.app.images, paths.app.fonts]);
 
     // Watch css files
-    gulp.watch(paths.app.styles, ['styles']).on('change', $.livereload.changed);
+    gulp.watch(paths.app.styles, ['styles']);
 
     // Watch js files
-    gulp.watch([paths.app.scripts, paths.gulpfile], ['scripts']).on('change', $.livereload.changed);
+    gulp.watch([paths.app.scripts, paths.gulpfile], ['scripts']);
 
     // Watch html files
-    gulp.watch([paths.app.html, paths.app.templates], ['htmlhint']).on('change', $.livereload.changed);
+    gulp.watch([paths.app.html, paths.app.templates], ['htmlhint']);
 
     // Watch bower file
-    gulp.watch('bower.json', ['bower-install']).on('change', $.livereload.changed);
+    gulp.watch('bower.json', ['bower-install']);
+
+    // this is just hack solution see https://github.com/vohof/gulp-livereload/issues/36
+    gulp.on('stop', function(){
+        $.livereload.changed();
+    });
 });
 
 /**
@@ -502,7 +533,7 @@ gulp.task('setup', 'Configure environment, compile SASS to CSS and install bower
  * The 'serve' task serve the dev environment.
  */
 gulp.task('serve', 'Serve for the dev environment', ['setup', 'watch'], function() {
-    gulp.src(paths.app.basePath)
+    gulp.src([paths.app.basePath])
         .pipe($.webserver({
             fallback: 'index.html',
             open: true

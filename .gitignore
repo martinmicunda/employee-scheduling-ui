@@ -24,6 +24,9 @@ node_modules
 # Bower 3rd dependencies
 src/vendor/
 
+# JSPM
+src/jspm_packages/
+
 # Build and tmp folders for production
 build/
 src/.tmp/

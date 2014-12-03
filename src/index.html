@@ -31,12 +31,22 @@
         <main ui-view autoscroll="true" class="container-fluid"></main>
         <footer id="footer" ng-include src="'app/core/layout/footer/layout.footer.html'"></footer>
 
+        <!--<script src="jspm_packages/traceur.js"></script>-->
+        <script src="jspm_packages/traceur-runtime.js"></script>
+        <!--<script src="jspm_packages/es6-module-loader.js"></script>-->
+        <script src="jspm_packages/system.js"></script>
+        <script src="jspm.conf.js"></script>
+        <script src=".tmp/scripts/app.js"></script>
 
-        <!-- build:js scripts/app.min.js -->
-        <script src="./app/config-require.js"> </script>
-        <script data-main=".tmp/scripts/bootstrap.js" src="vendor/requirejs/require.js"></script>
-        <!-- inject:templates:js --><!-- endinject -->
-        <!-- endbuild -->
+        <script>
+            System.import('app/app').then(function(){
+                angular.element(document).ready(function() {
+                    angular.bootstrap(document, ['app'], {
+                        //strictDi: true
+                    });
+                });
+            }).catch(console.error.bind(console)); // make sure any errors are print to console
+        </script>
 
         <!-- build:remove -->
         <!--<script src="http://192.168.33.10:35729/livereload.js?snipver=1"></script>-->

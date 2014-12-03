@@ -1,8 +1,4 @@
 import reportsRoute from './reports.route';
 
-let moduleName = 'app.reports';
-
-angular.module(moduleName, [])
+export default angular.module('app.reports', [])
     .config(reportsRoute);
-
-export default moduleName;

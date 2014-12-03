@@ -1,1 +1,31 @@
-<p>account</p>
+<div class="container-fluid">
+    <div class="row">
+        <aside class="col-sm-12 col-md-3">
+            <ul class="list-table mb10">
+                <li style="width:70px;">
+                    <img class="img-circle img-bordered-light" src="../../../images/me.jpg" alt="" width="65px">
+                </li>
+                <li class="text-left">
+                    <h5 class="font-weight-heavy ellipsis">Martin Micunda</h5>
+                    <div>
+                        <div class="progress progress-xs mb5">
+                            <div class="progress-bar progress-bar-success" style="width:70%"></div>
+                        </div>
+                        <p class="text-muted clearfix">
+                            <span class="pull-left">Profile complete</span>
+                            <span class="pull-right">70%</span>
+                        </p>
+                    </div>
+                </li>
+            </ul>
+            <ul class="list-group list-group-tabs">
+                <li class="list-group-item" ui-sref-active="active"><a ui-sref="account.account-details"><i class="fa fa-fw fa-user"></i>&nbsp;Account Details</a></li>
+                <li class="list-group-item" ui-sref-active="active"><a ui-sref="account.account-settings"><i class="fa fa-fw fa-cogs"></i>&nbsp;Account Settings</a></li>
+                <li class="list-group-item"><a href="#security" data-toggle="tab"><i class="fa fa-fw fa-pencil-square-o"></i>&nbsp;Contact Details</a></li>
+                <li class="list-group-item"><a href="#password" data-toggle="tab"><i class="fa fa-fw fa-bank"></i>&nbsp;Bank Details</a></li>
+                <li class="list-group-item" ui-sref-active="active"><a ui-sref="account.hourly-rates"><i class="fa fa-fw fa-dollar"></i>&nbsp;Hourly Rates</a></li>
+            </ul>
+        </aside>
+        <section ui-view></section>
+    </div>
+</div>

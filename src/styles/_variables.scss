@@ -1,32 +1,43 @@
-$blue:                  #006699;
-$lightBlue:             #2479a4;
-$blue3:                 #39c;
+//$darkGrey:              #333;
+$mediumGrey:            #a8acb1;
+$lightGrey:             #d9e0e7;
 
-$red:                   #cc3333;
+$darkGreen:             #008a8a;
+$lightGreen:            #00acac;
 
-$darkGrey:              #333;
-$mediumGrey:            #ebebeb;
-$lightGrey:             #999;
+$darkOrange:            #c47d15;
+$lightOrange:           #f59c1a;
 
-// Formal Theme:
-$primaryColor:          $blue;
-$secondaryColor:        $darkGrey;
+$darkRed:               #cc4946;
+$lightRed:              #ff5b57;
 
-$fontWeightLight:       200;
-$fontWeightMedium:      400;
+$darkBlack:             #1a2229;
+$lightBlack:            #2d353c;
+
+$white:                 #ffffff;
+
+//// Formal Theme:
+$primaryColor:          $mediumGrey;
+//$secondaryColor:        $darkGrey;
+//
+//$fontWeightLight:       200;
+$fontWeightMedium:      500;
 $fontWeightHeavy:       600;
 
-$fontSizeBase:          14px;
-$lineHeightBase:        1.4;
+$fontColorLight:        #707478;
+$fontColorDark:         #242a30;
 
-$inputHeightBase:       40px;
-$inputColor:            $lightGrey;
-$inputBg:               #fff;
-$inputBgDisabled:       #eee;
-$inputBorder:           #ccc !default;
-$inputBorderRadius:     3px;
-
-
+$fontSizeBase:          13px;
+//$lineHeightBase:        1.4;
+//
+//$inputHeightBase:       40px;
+//$inputColor:            $lightGrey;
+//$inputBg:               #fff;
+//$inputBgDisabled:       #eee;
+//$inputBorder:           #ccc !default;
+//$inputBorderRadius:     3px;
+//
+//
 $borderRadius: 4px;
-$btnBorderRadius: $borderRadius;
-$authNavHeight: 32px;
+//$btnBorderRadius: $borderRadius;
+//$authNavHeight: 32px;

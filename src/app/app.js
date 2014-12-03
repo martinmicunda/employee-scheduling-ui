@@ -1,11 +1,16 @@
+'use strict';
+
 // vendor modules
 import './vendor';
 
 // app core modules
 import coreModule from './core/core.module';
 
+// app component modules
+import employeeModule from './components/employee/employee';
+
 // app state (feature) modules
-import accountModule from './states/account/account.module';
+import accountModule from './states/account/account';
 import customersModule from './states/customers/customers.module';
 import dashboardModule from './states/dashboard/dashboard.module';
 import documentsModule from './states/documents/kidsfun/documents.kidsfun.module';
@@ -24,6 +29,7 @@ let mainModule = angular.module('app', [
     'ui.router',
     'ui.bootstrap',
     'LocalStorageModule',
+    'jp.ng-bs-animated-button',
 
     // mm components modules
     //'mm.authentication',
@@ -31,19 +37,20 @@ let mainModule = angular.module('app', [
     //'mm.centered',
 
     // app core module
-    coreModule,
+    coreModule.name,
 
-    // employeeScheduling component modules
+    //  component modules
+    employeeModule.name,
 
     // app state (feature) modules
-    accountModule,
-    customersModule,
-    dashboardModule,
-    documentsModule,
-    employeesModule,
-    reportsModule,
-    scheduleModule,
-    settingsModule
+    accountModule.name,
+    customersModule.name,
+    dashboardModule.name,
+    documentsModule.name,
+    employeesModule.name,
+    reportsModule.name,
+    scheduleModule.name,
+    settingsModule.name
 ]);
 
 export default mainModule;

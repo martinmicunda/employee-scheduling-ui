@@ -1,0 +1,39 @@
+.list-group-item {
+    border: 1px solid #e7e7e7;
+}
+.list-group-tabs>.list-group-item {
+    padding: 0;
+    background-color: $lightBlack;
+}
+
+.list-group-tabs>.list-group-item:first-child>a {
+    border-top-right-radius: $borderRadius;
+    border-top-left-radius: $borderRadius;
+}
+
+.list-group-tabs>.list-group-item:last-child>a {
+    border-bottom-right-radius: $borderRadius;
+    border-bottom-left-radius: $borderRadius;
+}
+
+.list-group-tabs>.list-group-item>a {
+    display: block;
+    padding: 10px 15px;
+    font-size: 13px;
+    color: $primaryColor;
+}
+
+.list-group-tabs>.list-group-item>a:focus,.list-group-tabs>.list-group-item>a:hover {
+    background-color: $darkBlack;
+    color: $white;
+    text-decoration: none;
+}
+
+.list-group-tabs>.list-group-item.active>a {
+    background-color: $lightGreen;
+    color: $white;
+}
+.list-group-item.active, .list-group-item.active:hover, .list-group-item.active:focus {
+    background-color: transparent;
+    border-color: transparent;
+}

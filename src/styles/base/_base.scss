@@ -13,13 +13,27 @@ main {
     margin: 0 auto -50px;
     /* Pad bottom by footer height 50px + 20px inner padding*/
     padding: 70px 0;
-    background-color: #d9e0e7;
+    background-color: $lightGrey;
 }
 footer {
     line-height: 50px;
     height: 50px;
     background-color: #2d353c;
-    color: #a8acb1;
+    color: $mediumGrey;
     font-size: 12px;
 }
-
+a {
+    color: $mediumGrey;
+}
+a:hover {
+    color: $white;
+}
+.mr5 {
+    margin-right: 5px!important;
+}
+.mb5 {
+    margin-bottom: 5px!important;
+}
+.mb10 {
+    margin-bottom: 10px!important;
+}

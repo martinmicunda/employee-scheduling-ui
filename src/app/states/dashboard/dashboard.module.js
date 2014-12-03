@@ -1,8 +1,4 @@
 import dashboardRoute from './dashboard.route';
 
-let moduleName = 'app.dashboard';
-
-angular.module(moduleName, [])
+export default angular.module('app.dashboard', [])
     .config(dashboardRoute);
-
-export default moduleName;

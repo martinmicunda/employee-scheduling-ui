@@ -1,0 +1,38 @@
+.form-group.required .control-label:after {
+    content: " *";
+    color: $lightRed;
+}
+form label {
+    font-weight: $fontWeightMedium;
+    font-size: $fontSizeBase;
+    color: $fontColorDark;
+}
+
+//validation
+.form-validation.ng-submitted {
+    .form-control.ng-invalid{
+        border-color: $lightRed;
+    }
+    .form-control.ng-dirty.ng-valid{
+        border-color: $lightGreen;
+    }
+    .form-control:focus.ng-invalid {
+        box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 6px $lightRed;
+        border-color: $lightRed;
+    }
+    .form-control:focus.ng-valid {
+        box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 6px $lightGreen;
+    }
+    .error {
+        color: $lightRed;
+        padding-top: 5px;
+        &:before {
+            border: 5px solid transparent;
+            float: left;
+            margin: 4px;
+            border-left-color: $lightRed;
+            content: "";
+            left: 0;
+        }
+    }
+}

@@ -1,3 +1,9 @@
+.btn:focus, .btn:active:focus, .btn.active:focus, .btn:hover:focus {
+    outline: none; // disable bootstrap focus for buttons
+    box-shadow: none; // disable bootstrap box-shadow for buttons
+}
+
+//******** footer circle button need to fix align
 .btn-icon {
     display: inline-block;
     width: 28px;
@@ -20,4 +26,32 @@
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
     border-radius: 50%;
+}
+//**********
+
+.btn.btn-success {
+    color: $white;
+    background: $lightGreen;
+    border-color: $lightGreen;
+}
+.btn.btn-success.active, .btn.btn-success:active,
+.btn.btn-success:focus, .btn.btn-success:hover,
+.open .dropdown-toggle.btn-success {
+    background: $darkGreen;
+    border-color: $darkGreen;
+}
+.btn.btn-default {
+    color: $white;
+    background: #b6c2c9;
+    border-color: #b6c2c9;
+}
+.btn-default.active, .btn-default:active,
+.btn-default:focus, .btn-default:hover,
+.open .dropdown-toggle.btn-default {
+    background: #929ba1;
+    border-color: #929ba1;
+}
+
+.dropdown-menu {
+    font-size: $fontSizeBase;
 }

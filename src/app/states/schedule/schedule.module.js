@@ -1,8 +1,4 @@
 import scheduleRoute from './schedule.route';
 
-let moduleName = 'app.schedule';
-
-angular.module(moduleName, [])
+export default angular.module('app.schedule', [])
     .config(scheduleRoute);
-
-export default moduleName;

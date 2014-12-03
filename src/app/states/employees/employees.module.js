@@ -1,8 +1,4 @@
 import employeesRoute from './employees.route';
 
-let moduleName = 'app.employees';
-
-angular.module(moduleName, [])
+export default angular.module('app.employees', [])
     .config(employeesRoute);
-
-export default moduleName;

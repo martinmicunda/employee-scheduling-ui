@@ -1,0 +1,25 @@
+.panel {
+    border: none;
+    box-shadow: none;
+    .panel-heading {
+        padding: 10px 15px;
+        border: none
+    }
+    .panel-title {
+        line-height: 20px;
+        font-size: 13px
+    }
+
+    .panel-body {
+        padding: 15px
+    }
+}
+
+.panel-inverse>.panel-heading {
+    background: #242a30;
+    color: $white;
+}
+
+
+
+

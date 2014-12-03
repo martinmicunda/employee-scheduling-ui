@@ -1,0 +1,8 @@
+.font-weight-heavy {
+    font-weight: $fontWeightHeavy;
+}
+.ellipsis {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}

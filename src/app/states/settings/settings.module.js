@@ -1,8 +1,4 @@
 import settingsRoute from './settings.route';
 
-let moduleName = 'app.settings';
-
-angular.module(moduleName, [])
+export default angular.module('app.settings', [])
     .config(settingsRoute);
-
-export default moduleName;
