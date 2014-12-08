@@ -1,4 +1,25 @@
 {
+    "id": "1",
+    "version": 2,
     "firstName": "Martin",
-    "lastName": "Micunda"
+    "lastName": "Micunda",
+    "email": "martinmicunda@hotmail.com",
+    "language": "en",
+    "position": "ceo",
+    "role": "admin",
+    "contactDetails": {
+        "phoneNumber": "+353767889",
+        "address": "12 Smithfield",
+        "city": "Dublin",
+        "zipCode": "7"
+    },
+    "bankDetails": {
+        "bankName": "AIB",
+        "accountNumber": "123456890YU",
+        "accountName": "Martin Micunda"
+    },
+    "hourlyRates": {
+        "rate": 8,
+        "currencyCode": "EUR"
+    }
 }

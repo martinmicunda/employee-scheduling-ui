@@ -70,6 +70,8 @@
             $rootScope.$state = $state;
             $rootScope.$stateParams = $stateParams;
 
+            //http://weblogs.asp.net/dwahlin/cancelling-route-navigation-in-angularjs
+
             //var currentUser = LocalStorageService.getUser();
                 //var role = currentUser ? currentUser.role : undefined;
 //            $rootScope.$on("$stateChangeStart", function (event, toState, toParams, fromState, fromParams) {

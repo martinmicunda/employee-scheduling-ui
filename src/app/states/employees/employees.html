@@ -1,43 +1,125 @@
-<form name="passengerForm" class="form-horizontal" role="form" novalidate ng-submit="vm.submit()">
-    <div class="form-group">
-        <label for="inputEmail9" class="col-sm-2 control-label">Username</label>
-        <div class="col-sm-10">
-            <input type="text" class="form-control" id="inputEmail9" ng-model="vm.user.username">
+<div class="container-fluid">
+    <div class="panel panel-inverse">
+        <div class="panel-heading">
+            <h4 class="panel-title">Employees</h4>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-6 col-sm-6">
+                    <div class="table-filter">
+                        Search: <input type="text"> <input type="checkbox" value=""> hide inactive employees
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-6">
+                    <div class="pull-right">
+                        <button type="button" class="btn btn-sm btn-success">Add Employee</button>
+                        <div class="btn-group">
+                            <button class="btn btn-sm btn-info active"><i class="fa fa-align-justify fa-fw"></i> Table</button>
+                            <button class="btn btn-sm btn-info"><i class="fa fa-th-large fa-fw"></i> Grid</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br/>
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Photo</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Phone Number</th>
+                            <th>Position</th>
+                            <th>Role</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <!-- TODO: delete icon should not be displayed for current user (user that is looking at the list)-->
+                        <tr>
+                            <td><img src="../../images/me.jpg" alt="" class="img-circle"></td>
+                            <td>Martin Micunda</td>
+                            <td>nicky@hotmail.com</td>
+                            <td>+354843430</td>
+                            <td>CEO</td>
+                            <td>Admin</td>
+                            <td><span class="label label-success">Active</span></td>
+                            <td>
+                                <a href="javascript:void(0);" tooltip-placement="top" tooltip="send message"><i class="fa fa-comment-o fa-fw"></i></a>
+                                <a href="javascript:void(0);" tooltip-placement="top" tooltip="see schedule"><i class="fa fa-calendar fa-fw"></i></a>
+                                <a href="javascript:void(0);" tooltip-placement="top" tooltip="delete"><i class="fa fa-trash fa-fw"></i></a>
+                                <a href="javascript:void(0);" tooltip-placement="top" tooltip="edit"><i class="fa fa-pencil fa-fw"></i></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><img src="../../images/avatar.png" alt="" class="img-circle"></td>
+                            <td>Edmund Wong</td>
+                            <td>edmund@yahoo.com</td>
+                            <td>+354843430</td>
+                            <td>Sales</td>
+                            <td>Employee</td>
+                            <td><span class="label label-success">Active</span></td>
+                            <td>
+                                <a href="javascript:void(0);" tooltip-placement="top" tooltip="send message"><i class="fa fa-comment-o fa-fw"></i></a>
+                                <a href="javascript:void(0);" tooltip-placement="top" tooltip="see schedule"><i class="fa fa-calendar fa-fw"></i></a>
+                                <a href="javascript:void(0);" tooltip-placement="top" tooltip="delete"><i class="fa fa-trash fa-fw"></i></a>
+                                <a href="javascript:void(0);" tooltip-placement="top" tooltip="edit"><i class="fa fa-pencil fa-fw"></i></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><img src="../../images/avatar.png" alt="" class="img-circle"></td>
+                            <td>Harvinder Singh</td>
+                            <td>harvinder@gmail.com</td>
+                            <td>+354843430</td>
+                            <td>Animator</td>
+                            <td>Employee</td>
+                            <td><span class="label label-warning">Pending</span></td>
+                            <td>
+                                <a href="javascript:void(0);" tooltip-placement="top" tooltip="send message"><i class="fa fa-comment-o fa-fw"></i></a>
+                                <a href="javascript:void(0);" tooltip-placement="top" tooltip="see schedule"><i class="fa fa-calendar fa-fw"></i></a>
+                                <a href="javascript:void(0);" tooltip-placement="top" tooltip="delete"><i class="fa fa-trash fa-fw"></i></a>
+                                <a href="javascript:void(0);" tooltip-placement="top" tooltip="edit"><i class="fa fa-pencil fa-fw"></i></a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><img src="../../images/avatar.png" alt="" class="img-circle"></td>
+                            <td>Terry Khoo</td>
+                            <td>terry@gmail.com</td>
+                            <td>+354843430</td>
+                            <td>Animator</td>
+                            <td>Manager</td>
+                            <td><span class="label label-default">Inactive</span></td>
+                            <td>
+                                <a href="javascript:void(0);" tooltip-placement="top" tooltip="send message"><i class="fa fa-comment-o fa-fw"></i></a>
+                                <a href="javascript:void(0);" tooltip-placement="top" tooltip="see schedule"><i class="fa fa-calendar fa-fw"></i></a>
+                                <a href="javascript:void(0);" tooltip-placement="top" tooltip="delete"><i class="fa fa-trash fa-fw"></i></a>
+                                <a href="javascript:void(0);" tooltip-placement="top" tooltip="edit"><i class="fa fa-pencil fa-fw"></i></a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-sm-6">
+                    <div class="dataTables_info">Showing 1 to 10 of 57 employees</div>
+                </div>
+                <div class="col-md-6 col-sm-6">
+                    <div class="dataTables_paginate paging_bootstrap pagination">
+                        <ul class="pagination m-t-0 m-b-0">
+                            <li class="prev disabled">
+                                <a href="#">← Previous</a>
+                            </li>
+                            <li class="active"><a href="#">1</a></li>
+                            <li><a href="#">2</a></li>
+                            <li><a href="#">3</a></li>
+                            <li><a href="#">4</a></li>
+                            <li><a href="#">5</a></li>
+                            <li class="next"><a href="#">Next → </a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-    <div class="form-group">
-        <label for="inputEmail3" class="col-sm-2 control-label">First Name</label>
-        <div class="col-sm-10">
-            <input type="text" class="form-control" id="inputEmail3" ng-model="vm.user.firstName" placeholder="Email">
-        </div>
-    </div>
-    <div class="form-group">
-        <label for="inputPassword2" class="col-sm-2 control-label">Last Name</label>
-        <div class="col-sm-10">
-            <input type="text" class="form-control" id="inputPassword2" ng-model="vm.user.lastName">
-        </div>
-    </div>
-    <div class="form-group">
-        <label for="inputPassword3" class="col-sm-2 control-label">Password</label>
-        <div class="col-sm-10">
-            <input type="password" class="form-control" id="inputPassword3" ng-model="vm.user.password">
-        </div>
-    </div>
-    <div class="form-group">
-        <label for="inputPassword13" class="col-sm-2 control-label">Password Confirmation</label>
-        <div class="col-sm-10">
-            <input type="password" class="form-control" id="inputPassword13" ng-model="vm.user.passwordConfirmation">
-        </div>
-    </div>
-    <div class="form-group">
-        <label for="inputEmail4" class="col-sm-2 control-label">Email</label>
-        <div class="col-sm-10">
-            <input type="email" class="form-control" id="inputEmail4" placeholder="Email" ng-model="vm.user.email">
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="col-sm-offset-2 col-sm-10">
-            <button type="submit" class="btn btn-default">Create</button>
-        </div>
-    </div>
-</form>
+</div>

@@ -1,0 +1,18 @@
+[
+    {
+        "code": "cooker",
+        "name": "Kuchár"
+    },
+    {
+        "code": "animator",
+        "name": "Animátor"
+    },
+    {
+        "code": "sales",
+        "name": "Sales"
+    },
+    {
+        "code": "ceo",
+        "name": "CEO"
+    }
+]

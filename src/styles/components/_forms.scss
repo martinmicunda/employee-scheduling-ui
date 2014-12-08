@@ -2,30 +2,59 @@
     content: " *";
     color: $lightRed;
 }
-form label {
-    font-weight: $fontWeightMedium;
+
+form {
+    label {
+        font-weight: $fontWeightMedium;
+        font-size: $fontSizeBase;
+        color: $fontColorDark;
+        i {
+            color: $lightGreen;
+        }
+    }
+    a {
+        color: $lightGreen;
+        font-size: 12px;
+        &:hover {
+            color: $darkGreen;
+        }
+    }
+    .currencyCode {
+        padding-top: 7px;
+        float: left;
+        margin-left: -5px;
+    }
+}
+
+.form-control {
     font-size: $fontSizeBase;
-    color: $fontColorDark;
+    border: $inputWidth solid $inputBorder;
+    &:focus {
+        box-shadow: none;
+        border: $inputWidth solid $inputFocusBorder;
+    }
 }
 
 //validation
 .form-validation.ng-submitted {
-    .form-control.ng-invalid{
-        border-color: $lightRed;
-    }
     .form-control.ng-dirty.ng-valid{
         border-color: $lightGreen;
     }
-    .form-control:focus.ng-invalid {
-        box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 6px $lightRed;
+    .form-control:focus.ng-dirty.ng-valid {
+        box-shadow: none;
+        border-color: $darkGreen;
+    }
+    .form-control.ng-invalid{
         border-color: $lightRed;
     }
-    .form-control:focus.ng-valid {
-        box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 6px $lightGreen;
+    .form-control:focus.ng-invalid {
+        box-shadow: none;;
+        border-color: $darkRed;
     }
     .error {
         color: $lightRed;
         padding-top: 5px;
+        font-size: $fontSizeBase;
         &:before {
             border: 5px solid transparent;
             float: left;

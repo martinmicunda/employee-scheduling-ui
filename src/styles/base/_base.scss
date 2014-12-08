@@ -4,7 +4,14 @@ body {
     height: 100%;
 }
 body {
-//    overflow-x: hidden;
+    font-family: 'Open Sans', "Helvetica Neue",Helvetica,Arial,sans-serif;
+    color: $fontColorLight;
+    font-size: $fontSizeBase;
+    overflow-x: hidden;
+}
+h1, h2, h3, h4, h5, h6{
+    font-weight: $fontWeightMedium;
+    color: $fontColorDark;
 }
 main {
     min-height: 100%;
@@ -22,11 +29,20 @@ footer {
     color: $mediumGrey;
     font-size: 12px;
 }
+label {
+    color: $fontColorDark;
+}
 a {
-    color: $mediumGrey;
+    color: $lightGreen;
+    transition: color 100ms ease-in-out;
+    -o-transition: color 100ms ease-in-out;
+    -ms-transition: color 100ms ease-in-out;
+    -moz-transition: color 100ms ease-in-out;
+    -webkit-transition: color 100ms ease-in-out;
 }
 a:hover {
-    color: $white;
+    outline: none;
+    color: $darkGreen;
 }
 .mr5 {
     margin-right: 5px!important;
@@ -37,3 +53,4 @@ a:hover {
 .mb10 {
     margin-bottom: 10px!important;
 }
+

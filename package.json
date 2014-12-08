@@ -43,7 +43,7 @@
     "run-sequence": "^0.3.7",
     "jshint-stylish": "^1.0.0",
     "main-bower-files": "^2.0.0",
-    "systemjs-builder": "^0.4.1",
+    "systemjs-builder": "^0.4.4",
     "you-shall-not-commit": "^0.0.1",
     "conventional-changelog": "^0.0.11",
     "gulp-if": "^1.2.4",

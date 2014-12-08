@@ -1,0 +1,14 @@
+[
+    {
+        "code": "employee",
+        "name": "Zamestnanec"
+    },
+    {
+        "code": "manager",
+        "name": "Manažér"
+    },
+    {
+        "code": "admin",
+        "name": "Administrátor"
+    }
+]

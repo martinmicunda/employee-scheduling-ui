@@ -1,3 +1,6 @@
+.navbar-nav {
+    font-size: 14px;
+}
 .header-nav > li > a > img {
     border: 2px solid #a8acb1;
     display: inline-block;
@@ -9,6 +12,12 @@
 .header-nav > li.active > a > img {
     border-color: #ffffff;
 }
+.header-nav > li:hover.active > a > img {
+    border-color: #ffffff;
+}
+.header-nav > li:hover > a > img {
+    border-color: $lightGreen;
+}
 //remove this style once you add proper logo
 .navbar-logo {
     float: left;
@@ -17,6 +26,7 @@
     border-color: #4DCACA #31A3A3 #1D8888;
     opacity: .9;
     filter: alpha(opacity=90);
+    border-radius: 2px;
 }
 .navbar-default {
     background-color: #2d353c;
@@ -28,7 +38,7 @@
 .navbar-default .navbar-nav > li > a:focus {
     background-color: #1a2229;
 //    background-color: #232a2f; soft brown hover
-    color: #ffffff;
+    color: $lightGreen;
 }
 
 .navbar-default .navbar-nav > .open > a,
@@ -56,7 +66,7 @@
     top: 7px;
     right: 12px;
     display: block;
-    background: #00acac;
+    background: $lightRed;
     line-height: 12px;
     font-weight: 300;
     padding: .3em .6em;
@@ -65,14 +75,13 @@
     border-radius: 20px;
 }
 .navbar-nav>li>a:active .label {
-    background: #008a8a;
-    border-color: #008a8a;
+    background: $darkRed;
 }
 .header-nav .dropdown-menu {
     border: 0;
     padding: 10px 0;
     font-size: 12px;
-    background-color: #1a2229;
+    background-color: $lightBlack;
     border-radius: 2px;
     -webkit-border-radius: 2px;
     -moz-border-radius: 2px;
@@ -91,7 +100,7 @@
     top: -15px;
     display: inline-block;
     border-right: 7px solid rgba(0, 0, 0, 0);
-    border-bottom: 6px solid #1a2229;
+    border-bottom: 6px solid $lightBlack;
     border-left: 7px solid rgba(0, 0, 0, 0);
     content: '';
 }
@@ -111,11 +120,10 @@
     color: #a8acb1;
     padding: 5px 17px;
     text-align: left;
-    font-weight: 600;
 }
 .header-nav .dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus {
     background-color: transparent;
-    color: #ffffff;
+    color: $lightGreen;
 }
 .header-nav .dropdown-menu > li > a > i {
     margin-right: 8px;
@@ -127,4 +135,10 @@
 .header-nav .dropdown-menu .divider {
     margin: 5px 0;
     background-color: #a8acb1;
+}
+.navbar-brand {
+    color: #ffffff!important;
+    .text-theme {
+        color: $lightGreen;
+    }
 }

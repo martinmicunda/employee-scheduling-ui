@@ -16,15 +16,18 @@ function employeeResourceMock($httpBackend) {
 
     $httpBackend.whenPUT(/\/employees/)
         .respond( (method, url, data) => {
-            console.log('url PUT',url);
-            //var dataJSON = JSON.parse(data);
-            //if(dataJSON.names[0].Value === '503') {
-            //    return [503, dataJSON];
-            //} else if(dataJSON.names[0].Value === '409') {
-            //    return [409, dataJSON];
-            //}
+            console.log('PUT',url);
+            var dataJSON = JSON.parse(data);
+            if(dataJSON.firstName === '503') {
+                return [503, dataJSON];
+            } else if(dataJSON.firstName === '409') {
+                return [409, dataJSON];
+            }
 
-            return [200, data];
+            // increment version number to fake real system
+            dataJSON.version++;
+
+            return [200, dataJSON];
         });
 }
 

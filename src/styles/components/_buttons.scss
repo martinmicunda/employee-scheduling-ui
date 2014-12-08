@@ -29,29 +29,217 @@
 }
 //**********
 
+/* Button - Success */
 .btn.btn-success {
     color: $white;
     background: $lightGreen;
     border-color: $lightGreen;
 }
-.btn.btn-success.active, .btn.btn-success:active,
-.btn.btn-success:focus, .btn.btn-success:hover,
+.btn.btn-success:hover,
+.btn.btn-success:focus,
+.btn.btn-success:active,
+.btn.btn-success.active,
 .open .dropdown-toggle.btn-success {
     background: $darkGreen;
     border-color: $darkGreen;
 }
+.btn-group .btn.btn-success:not(.active) + .btn.btn-success,
+.input-group-btn .btn.btn-success:not(.active) + .btn.btn-success {
+    border-left-color: $darkGreen;
+}
+
+/* Button - Default */
 .btn.btn-default {
     color: $white;
     background: #b6c2c9;
     border-color: #b6c2c9;
 }
-.btn-default.active, .btn-default:active,
-.btn-default:focus, .btn-default:hover,
+.btn-default:hover,
+.btn-default:focus,
+.btn-default:active,
+.btn-default.active,
 .open .dropdown-toggle.btn-default {
     background: #929ba1;
     border-color: #929ba1;
 }
+.btn-group .btn.btn-default:not(.active) + .btn.btn-default,
+.input-group-btn .btn.btn-default:not(.active) + .btn.btn-default {
+    border-left-color: #929ba1;
+}
 
-.dropdown-menu {
-    font-size: $fontSizeBase;
+/* Button - White */
+.btn.btn-white {
+    font-weight: normal;
+    color: #333;
+    background: $white;
+    border-color: #e2e7eb;
+}
+.btn.btn-white.btn-white-without-border {
+    border-color: $white;
+}
+.btn.btn-white.btn-white-without-border.active,
+.btn.btn-white.btn-white-without-border.active:hover,
+.btn.btn-white.btn-white-without-border.active:focus {
+    border-color: #ddd;
+}
+.btn.btn-white.btn-white-without-border:hover,
+.btn.btn-white.btn-white-without-border:focus {
+    border-color: #eee;
+}
+.btn-white:hover,
+.btn-white:focus,
+.btn-white:active,
+.btn-white.active,
+.open .dropdown-toggle.btn-white {
+    background: #e2e7eb;
+    border-color: #d8dde1;
+}
+.btn-group .btn.btn-white:not(.active) + .btn.btn-white,
+.input-group-btn .btn.btn-white:not(.active) + .btn.btn-white {
+    border-left-color: #eee;
+}
+
+/* 3.14.6 Component - Button - Warning */
+
+.btn.btn-warning {
+    color: $white;
+    background: $lightOrange;
+    border-color: $lightOrange;
+}
+.btn-warning:hover,
+.btn-warning:focus,
+.btn-warning:active,
+.btn-warning.active,
+.open .dropdown-toggle.btn-warning {
+    background: $darkOrange;
+    border-color: $darkOrange;
+}
+.btn-group .btn.btn-warning:not(.active) + .btn.btn-warning,
+.input-group-btn .btn.btn-warning:not(.active) + .btn.btn-warning {
+    border-left-color: $darkOrange;
+}
+
+
+/* 3.14.7 Component - Button - Danger */
+
+.btn.btn-danger {
+    color: $white;
+    background: $lightRed;
+    border-color: $lightRed;
+}
+.btn-danger:hover,
+.btn-danger:focus,
+.btn-danger:active,
+.btn-danger.active,
+.open .dropdown-toggle.btn-danger {
+    background: $darkRed;
+    border-color: $darkRed;
+}
+.btn-group .btn.btn-danger:not(.active) + .btn.btn-danger,
+.input-group-btn .btn.btn-danger:not(.active) + .btn.btn-danger {
+    border-left-color: $darkRed;
+}
+
+
+/* Button - Info */
+.btn.btn-info {
+    color: $white;
+    background: $lightBlue;
+    border-color: $lightBlue;
+}
+.btn-info:hover,
+.btn-info:focus,
+.btn-info:active,
+.btn-info.active,
+.open .dropdown-toggle.btn-info {
+    background: $darkBlue;
+    border-color: $darkBlue;
+}
+.btn-group .btn.btn-info:not(.active) + .btn.btn-info,
+.input-group-btn .btn.btn-info:not(.active) + .btn.btn-info {
+    border-left-color: $darkBlue;
+}
+
+
+
+
+
+//TODO: remove this once issue with ng animate button is resolved
+@-webkit-keyframes btn-ng-bs-rotation {
+    0% {
+        -webkit-transform: rotate(0);
+        transform: rotate(0);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+@-moz-keyframes btn-ng-bs-rotation {
+    0% {
+        -moz-transform: rotate(0);
+        transform: rotate(0);
+    }
+    100% {
+        -moz-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+@-o-keyframes btn-ng-bs-rotation {
+    0% {
+        -o-transform: rotate(0);
+        transform: rotate(0);
+    }
+    100% {
+        -o-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+@keyframes btn-ng-bs-rotation {
+    0% {
+        transform: rotate(0);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+.btn-ng-bs-animated .icons {
+    opacity: 0;
+    width: 0;
+    -webkit-transition: opacity 0.15s, width 0.15s;
+    -moz-transition: opacity 0.15s, width 0.15s;
+    -o-transition: opacity 0.15s, width 0.15s;
+    transition: opacity 0.15s, width 0.15s;
+}
+.btn-ng-bs-animated.icons-only .icons,
+.btn-ng-bs-animated.is-active .icons {
+    opacity: 1;
+    width: 1em;
+}
+.btn-ng-bs-animated.is-active .icons.pull-left {
+    margin-right: 0.4em;
+}
+.btn-ng-bs-animated.icons-only.is-active .icons.pull-left {
+    margin-right: 0;
+}
+.btn-ng-bs-animated .icon-initial {
+    display: none;
+}
+.btn-ng-bs-animated.icons-only .icon-initial {
+    display: inline-block;
+}
+.btn-ng-bs-animated.is-active .icon-initial {
+    display: none;
+}
+.btn-ng-bs-animated.is-active .icons.pull-right {
+    margin-left: 0.4em;
+}
+.btn-ng-bs-animated.is-active .icons .icon-spinner {
+    -webkit-animation: btn-ng-bs-rotation 2s infinite linear;
+    -moz-animation: btn-ng-bs-rotation 2s infinite linear;
+    -o-animation: btn-ng-bs-rotation 2s infinite linear;
+    animation: btn-ng-bs-rotation 2s infinite linear;
+}
+.btn-ng-bs-animated.icons-only .text {
+    display: none;
 }

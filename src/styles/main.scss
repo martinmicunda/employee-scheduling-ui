@@ -3,11 +3,14 @@
 @import "base/base";
 
 @import "modules/header";
-@import "components/buttons";
+@import "modules/animate";
 
+@import "components/buttons";
 @import "components/tabs";
 @import "components/panels";
 @import "components/typography";
 @import "components/progress-bars";
-@import "components/tables";
+@import "components/table";
 @import "components/forms";
+@import "components/modal";
+@import "components/label";

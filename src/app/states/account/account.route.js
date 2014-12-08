@@ -11,14 +11,17 @@ function accountRoute($stateProvider) {
             templateUrl: 'app/states/account/account.html',
             controller: 'AccountController as vm',
             resolve: {/* @ngInject */
-                employee:function(EmployeeResource){
+                employee: function(EmployeeResource){
                     return EmployeeResource.get('1');
-                },
-                positions: function(){
-                    return ['cooker', 'animator', 'sales', 'CEO'];
-                },
-                roles: function(){
-                    return ['user', 'manager', 'admin'];
+                },/* @ngInject */
+                languages: function(LanguageResource) {
+                    return LanguageResource.getList();
+                },/* @ngInject */
+                positions: function(PositionResource){
+                    return PositionResource.getList({lang: 'en'}); // TODO:(martin) language should comes from user profile
+                },/* @ngInject */
+                roles: function(RoleResource){
+                    return RoleResource.getList({lang: 'en'}); // TODO:(martin) language should comes from user profile
                 }
             }
         });

@@ -8,6 +8,10 @@ import coreModule from './core/core.module';
 
 // app component modules
 import employeeModule from './components/employee/employee';
+import languageModule from './components/language/language';
+import positionModule from './components/position/position';
+import roleModule from './components/role/role';
+import uiWidgetsModule from './components/ui-widgets/ui-widgets';
 
 // app state (feature) modules
 import accountModule from './states/account/account';
@@ -41,6 +45,10 @@ let mainModule = angular.module('app', [
 
     //  component modules
     employeeModule.name,
+    languageModule.name,
+    positionModule.name,
+    roleModule.name,
+    uiWidgetsModule.name,
 
     // app state (feature) modules
     accountModule.name,

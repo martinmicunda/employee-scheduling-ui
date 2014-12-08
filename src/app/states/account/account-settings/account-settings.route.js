@@ -1,7 +1,7 @@
 /**
  * @ngInject
  */
-export default function accountSettingsRoute($stateProvider) {
+function accountSettingsRoute($stateProvider) {
     'use strict';
 
     return $stateProvider
@@ -10,3 +10,4 @@ export default function accountSettingsRoute($stateProvider) {
             templateUrl: 'app/states/account/account-settings/account-settings.html'
         });
 }
+export default accountSettingsRoute;
