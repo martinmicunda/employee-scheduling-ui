@@ -14,6 +14,15 @@ function employeeResourceMock($httpBackend) {
             }
         });
 
+    $httpBackend.whenGET(/\/employees/)
+        .respond( (method, url) => {
+            console.log('GET',url);
+            var request = new XMLHttpRequest();
+            request.open('GET', 'app/components/employee/fixtures/employees.json', false);
+            request.send(null);
+            return [200, request.response];
+        });
+
     $httpBackend.whenPUT(/\/employees/)
         .respond( (method, url, data) => {
             console.log('PUT',url);

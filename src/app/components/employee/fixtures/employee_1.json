@@ -1,12 +1,14 @@
 {
     "id": "1",
     "version": 2,
+    "avatar": "me.jpg",
     "firstName": "Martin",
     "lastName": "Micunda",
     "email": "martinmicunda@hotmail.com",
     "language": "en",
     "position": "ceo",
     "role": "admin",
+    "status": "active",
     "contactDetails": {
         "phoneNumber": "+353767889",
         "address": "12 Smithfield",

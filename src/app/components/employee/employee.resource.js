@@ -9,6 +9,12 @@ class EmployeeResource {
             .get();
     }
 
+    getList() {
+        return this.Restangular
+            .all('employees')
+            .getList();
+    }
+
     objectKeys(object) {
         return Object.keys(this.Restangular.stripRestangular(object));
     }

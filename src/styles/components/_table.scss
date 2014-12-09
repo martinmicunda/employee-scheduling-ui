@@ -33,19 +33,24 @@
     height: 30px;
 }
 
+.table-info {
+    padding-top: 8px;
+    color: $fontColorDark;
+}
+
 .table-filter {
     color: $fontColorDark;
+    .checkbox {
+        display: inline;
+    }
     input {
         border: 1px solid $inputBorder;
         background: #edf0f5;
         padding: 6px 12px;
-        line-height: 1.42857143;
         color: #555;
-        -webkit-border-radius: 3px;
-        -moz-border-radius: 3px;
         border-radius: 3px;
-        height: 34px;
         margin-left: 10px;
+        margin-right: 10px;
     }
     input:focus {
         outline: 0;
@@ -59,6 +64,7 @@
     -webkit-border-radius: 3px;
     -moz-border-radius: 3px;
     border-radius: 3px;
+    margin-top: 20px;
 }
 .table > thead > tr > th {
     color: $fontColorDark;

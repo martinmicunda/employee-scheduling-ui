@@ -7,7 +7,7 @@
             <div class="row">
                 <div class="col-md-6 col-sm-6">
                     <div class="table-filter">
-                        Search: <input type="text"> <input type="checkbox" value=""> hide inactive employees
+                        Search: <input type="search" ng-model="vm.filterField" ng-change="vm.filterEmployees()"><span class="checkbox"><label><input type="checkbox" value="">hide inactive employees</label></span>
                     </div>
                 </div>
                 <div class="col-md-6 col-sm-6">
@@ -20,7 +20,6 @@
                     </div>
                 </div>
             </div>
-            <br/>
             <div class="table-responsive">
                 <table class="table table-hover">
                     <thead>
@@ -37,59 +36,15 @@
                     </thead>
                     <tbody>
                     <!-- TODO: delete icon should not be displayed for current user (user that is looking at the list)-->
-                        <tr>
-                            <td><img src="../../images/me.jpg" alt="" class="img-circle"></td>
-                            <td>Martin Micunda</td>
-                            <td>nicky@hotmail.com</td>
-                            <td>+354843430</td>
-                            <td>CEO</td>
-                            <td>Admin</td>
-                            <td><span class="label label-success">Active</span></td>
-                            <td>
-                                <a href="javascript:void(0);" tooltip-placement="top" tooltip="send message"><i class="fa fa-comment-o fa-fw"></i></a>
-                                <a href="javascript:void(0);" tooltip-placement="top" tooltip="see schedule"><i class="fa fa-calendar fa-fw"></i></a>
-                                <a href="javascript:void(0);" tooltip-placement="top" tooltip="delete"><i class="fa fa-trash fa-fw"></i></a>
-                                <a href="javascript:void(0);" tooltip-placement="top" tooltip="edit"><i class="fa fa-pencil fa-fw"></i></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><img src="../../images/avatar.png" alt="" class="img-circle"></td>
-                            <td>Edmund Wong</td>
-                            <td>edmund@yahoo.com</td>
-                            <td>+354843430</td>
-                            <td>Sales</td>
-                            <td>Employee</td>
-                            <td><span class="label label-success">Active</span></td>
-                            <td>
-                                <a href="javascript:void(0);" tooltip-placement="top" tooltip="send message"><i class="fa fa-comment-o fa-fw"></i></a>
-                                <a href="javascript:void(0);" tooltip-placement="top" tooltip="see schedule"><i class="fa fa-calendar fa-fw"></i></a>
-                                <a href="javascript:void(0);" tooltip-placement="top" tooltip="delete"><i class="fa fa-trash fa-fw"></i></a>
-                                <a href="javascript:void(0);" tooltip-placement="top" tooltip="edit"><i class="fa fa-pencil fa-fw"></i></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><img src="../../images/avatar.png" alt="" class="img-circle"></td>
-                            <td>Harvinder Singh</td>
-                            <td>harvinder@gmail.com</td>
-                            <td>+354843430</td>
-                            <td>Animator</td>
-                            <td>Employee</td>
-                            <td><span class="label label-warning">Pending</span></td>
-                            <td>
-                                <a href="javascript:void(0);" tooltip-placement="top" tooltip="send message"><i class="fa fa-comment-o fa-fw"></i></a>
-                                <a href="javascript:void(0);" tooltip-placement="top" tooltip="see schedule"><i class="fa fa-calendar fa-fw"></i></a>
-                                <a href="javascript:void(0);" tooltip-placement="top" tooltip="delete"><i class="fa fa-trash fa-fw"></i></a>
-                                <a href="javascript:void(0);" tooltip-placement="top" tooltip="edit"><i class="fa fa-pencil fa-fw"></i></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><img src="../../images/avatar.png" alt="" class="img-circle"></td>
-                            <td>Terry Khoo</td>
-                            <td>terry@gmail.com</td>
-                            <td>+354843430</td>
-                            <td>Animator</td>
-                            <td>Manager</td>
-                            <td><span class="label label-default">Inactive</span></td>
+                        <tr ng-repeat="employee in vm.filteredEmployees track by employee.id">
+                            <td><img ng-src="../../images/{{::employee.avatar}}" alt="" class="img-circle"></td>
+                            <td>{{::employee.firstName}} {{employee.lastName}}</td>
+                            <td>{{::employee.email}}</td>
+                            <td>{{::employee.contactDetails.phoneNumber}}</td>
+                            <td>{{::employee.position}}</td>
+                            <td>{{::employee.role}}</td>
+                            <td><span class="label"
+                                      ng-class="{'label-success': employee.status === 'active', 'label-warning': employee.status === 'pending', 'label-default': employee.status === 'inactive'}">{{::employee.status}}</span></td>
                             <td>
                                 <a href="javascript:void(0);" tooltip-placement="top" tooltip="send message"><i class="fa fa-comment-o fa-fw"></i></a>
                                 <a href="javascript:void(0);" tooltip-placement="top" tooltip="see schedule"><i class="fa fa-calendar fa-fw"></i></a>
@@ -102,22 +57,23 @@
             </div>
             <div class="row">
                 <div class="col-md-6 col-sm-6">
-                    <div class="dataTables_info">Showing 1 to 10 of 57 employees</div>
+                    <div class="table-info">Showing 1 to {{vm.employeesPerPage}} of {{vm.totalEmployees}} employees</div>
                 </div>
                 <div class="col-md-6 col-sm-6">
-                    <div class="dataTables_paginate paging_bootstrap pagination">
-                        <ul class="pagination m-t-0 m-b-0">
-                            <li class="prev disabled">
-                                <a href="#">← Previous</a>
-                            </li>
-                            <li class="active"><a href="#">1</a></li>
-                            <li><a href="#">2</a></li>
-                            <li><a href="#">3</a></li>
-                            <li><a href="#">4</a></li>
-                            <li><a href="#">5</a></li>
-                            <li class="next"><a href="#">Next → </a></li>
-                        </ul>
-                    </div>
+                    <!--<ul class="pagination pull-right">-->
+                        <!--<li class="prev disabled">-->
+                            <!--<a href="#">← Previous</a>-->
+                        <!--</li>-->
+                        <!--<li class="active"><a href="#">1</a></li>-->
+                        <!--<li><a href="#">2</a></li>-->
+                        <!--<li><a href="#">3</a></li>-->
+                        <!--<li><a href="#">4</a></li>-->
+                        <!--<li><a href="#">5</a></li>-->
+                        <!--<li class="next"><a href="#">Next → </a></li>-->
+                    <!--</ul>-->
+                    <!--<div ng-if="filteredFlights.length <= itemsPerPage">-->
+                    <pagination class="pull-right" total-items="vm.filteredEmployees.length" ng-model="vm.currentPage" previous-text="← Previous" next-text="Next →"></pagination>
+                    <!--</div>-->
                 </div>
             </div>
         </div>

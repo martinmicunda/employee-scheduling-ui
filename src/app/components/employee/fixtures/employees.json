@@ -1,0 +1,327 @@
+[
+    {
+        "id": "1",
+        "version": 2,
+        "avatar": "me.jpg",
+        "firstName": "Martin",
+        "lastName": "Micunda",
+        "email": "martinmicunda@hotmail.com",
+        "language": "en",
+        "position": "ceo",
+        "role": "admin",
+        "status": "active",
+        "contactDetails": {
+            "phoneNumber": "+353767889",
+            "address": "12 Smithfield",
+            "city": "Dublin",
+            "zipCode": "7"
+        },
+        "bankDetails": {
+            "bankName": "AIB",
+            "accountNumber": "123456890YU",
+            "accountName": "Martin Micunda"
+        },
+        "hourlyRates": {
+            "rate": 8,
+            "currencyCode": "EUR"
+        }
+    },
+    {
+        "id": "2",
+        "version": 2,
+        "avatar": "avatar.png",
+        "firstName": "Edmund",
+        "lastName": "Wong",
+        "email": "edmund@yahoo.com",
+        "language": "en",
+        "position": "sales",
+        "role": "employee",
+        "status": "active",
+        "contactDetails": {
+            "phoneNumber": "+353767889",
+            "address": "12 Smithfield",
+            "city": "Dublin",
+            "zipCode": "7"
+        },
+        "bankDetails": {
+            "bankName": "AIB",
+            "accountNumber": "123456890YU",
+            "accountName": "Edmund Wong"
+        },
+        "hourlyRates": {
+            "rate": 8,
+            "currencyCode": "EUR"
+        }
+    },
+    {
+        "id": "3",
+        "version": 2,
+        "avatar": "avatar.png",
+        "firstName": "Harvinder",
+        "lastName": "Singh",
+        "email": "harvinder@gmail.com",
+        "language": "en",
+        "position": "animator",
+        "role": "employee",
+        "status": "pending",
+        "contactDetails": {
+            "phoneNumber": "+353767889",
+            "address": "12 Smithfield",
+            "city": "Dublin",
+            "zipCode": "7"
+        },
+        "bankDetails": {
+            "bankName": "AIB",
+            "accountNumber": "123456890YU",
+            "accountName": "Harvinder Singh"
+        },
+        "hourlyRates": {
+            "rate": 8,
+            "currencyCode": "EUR"
+        }
+    },
+    {
+        "id": "4",
+        "version": 2,
+        "avatar": "avatar.png",
+        "firstName": "Terry",
+        "lastName": "Khoo",
+        "email": "terry@gmail.com",
+        "language": "en",
+        "position": "animator",
+        "role": "manager",
+        "status": "inactive",
+        "contactDetails": {
+            "phoneNumber": "+353767889",
+            "address": "12 Smithfield",
+            "city": "Dublin",
+            "zipCode": "7"
+        },
+        "bankDetails": {
+            "bankName": "AIB",
+            "accountNumber": "123456890YU",
+            "accountName": "Terry Khoo"
+        },
+        "hourlyRates": {
+            "rate": 8,
+            "currencyCode": "EUR"
+        }
+    },
+    {
+        "id": "5",
+        "version": 2,
+        "avatar": "me.jpg",
+        "firstName": "Martin",
+        "lastName": "Micunda 5",
+        "email": "martinmicunda@hotmail.com",
+        "language": "en",
+        "position": "ceo",
+        "role": "admin",
+        "status": "active",
+        "contactDetails": {
+            "phoneNumber": "+353767889",
+            "address": "12 Smithfield",
+            "city": "Dublin",
+            "zipCode": "7"
+        },
+        "bankDetails": {
+            "bankName": "AIB",
+            "accountNumber": "123456890YU",
+            "accountName": "Martin Micunda"
+        },
+        "hourlyRates": {
+            "rate": 8,
+            "currencyCode": "EUR"
+        }
+    },
+    {
+        "id": "6",
+        "version": 2,
+        "avatar": "avatar.png",
+        "firstName": "Edmund",
+        "lastName": "Wong 6",
+        "email": "edmund@yahoo.com",
+        "language": "en",
+        "position": "sales",
+        "role": "employee",
+        "status": "active",
+        "contactDetails": {
+            "phoneNumber": "+353767889",
+            "address": "12 Smithfield",
+            "city": "Dublin",
+            "zipCode": "7"
+        },
+        "bankDetails": {
+            "bankName": "AIB",
+            "accountNumber": "123456890YU",
+            "accountName": "Edmund Wong"
+        },
+        "hourlyRates": {
+            "rate": 8,
+            "currencyCode": "EUR"
+        }
+    },
+    {
+        "id": "7",
+        "version": 2,
+        "avatar": "avatar.png",
+        "firstName": "Harvinder",
+        "lastName": "Singh 7",
+        "email": "harvinder@gmail.com",
+        "language": "en",
+        "position": "animator",
+        "role": "employee",
+        "status": "pending",
+        "contactDetails": {
+            "phoneNumber": "+353767889",
+            "address": "12 Smithfield",
+            "city": "Dublin",
+            "zipCode": "7"
+        },
+        "bankDetails": {
+            "bankName": "AIB",
+            "accountNumber": "123456890YU",
+            "accountName": "Harvinder Singh"
+        },
+        "hourlyRates": {
+            "rate": 8,
+            "currencyCode": "EUR"
+        }
+    },
+    {
+        "id": "8",
+        "version": 2,
+        "avatar": "avatar.png",
+        "firstName": "Terry",
+        "lastName": "Khoo 8",
+        "email": "terry@gmail.com",
+        "language": "en",
+        "position": "animator",
+        "role": "manager",
+        "status": "inactive",
+        "contactDetails": {
+            "phoneNumber": "+353767889",
+            "address": "12 Smithfield",
+            "city": "Dublin",
+            "zipCode": "7"
+        },
+        "bankDetails": {
+            "bankName": "AIB",
+            "accountNumber": "123456890YU",
+            "accountName": "Terry Khoo"
+        },
+        "hourlyRates": {
+            "rate": 8,
+            "currencyCode": "EUR"
+        }
+    },
+    {
+        "id": "9",
+        "version": 2,
+        "avatar": "avatar.png",
+        "firstName": "Harvinder",
+        "lastName": "Singh 9",
+        "email": "harvinder@gmail.com",
+        "language": "en",
+        "position": "animator",
+        "role": "employee",
+        "status": "pending",
+        "contactDetails": {
+            "phoneNumber": "+353767889",
+            "address": "12 Smithfield",
+            "city": "Dublin",
+            "zipCode": "7"
+        },
+        "bankDetails": {
+            "bankName": "AIB",
+            "accountNumber": "123456890YU",
+            "accountName": "Harvinder Singh"
+        },
+        "hourlyRates": {
+            "rate": 8,
+            "currencyCode": "EUR"
+        }
+    },
+    {
+        "id": "10",
+        "version": 2,
+        "avatar": "avatar.png",
+        "firstName": "Terry",
+        "lastName": "Khoo 10",
+        "email": "terry@gmail.com",
+        "language": "en",
+        "position": "animator",
+        "role": "manager",
+        "status": "inactive",
+        "contactDetails": {
+            "phoneNumber": "+353767889",
+            "address": "12 Smithfield",
+            "city": "Dublin",
+            "zipCode": "7"
+        },
+        "bankDetails": {
+            "bankName": "AIB",
+            "accountNumber": "123456890YU",
+            "accountName": "Terry Khoo"
+        },
+        "hourlyRates": {
+            "rate": 8,
+            "currencyCode": "EUR"
+        }
+    },
+    {
+        "id": "11",
+        "version": 2,
+        "avatar": "avatar.png",
+        "firstName": "Harvinder",
+        "lastName": "Singh 11",
+        "email": "harvinder@gmail.com",
+        "language": "en",
+        "position": "animator",
+        "role": "employee",
+        "status": "pending",
+        "contactDetails": {
+            "phoneNumber": "+353767889",
+            "address": "12 Smithfield",
+            "city": "Dublin",
+            "zipCode": "7"
+        },
+        "bankDetails": {
+            "bankName": "AIB",
+            "accountNumber": "123456890YU",
+            "accountName": "Harvinder Singh"
+        },
+        "hourlyRates": {
+            "rate": 8,
+            "currencyCode": "EUR"
+        }
+    },
+    {
+        "id": "12",
+        "version": 2,
+        "avatar": "avatar.png",
+        "firstName": "Terry",
+        "lastName": "Khoo 12",
+        "email": "terry@gmail.com",
+        "language": "en",
+        "position": "animator",
+        "role": "manager",
+        "status": "inactive",
+        "contactDetails": {
+            "phoneNumber": "+353767889",
+            "address": "12 Smithfield",
+            "city": "Dublin",
+            "zipCode": "7"
+        },
+        "bankDetails": {
+            "bankName": "AIB",
+            "accountNumber": "123456890YU",
+            "accountName": "Terry Khoo"
+        },
+        "hourlyRates": {
+            "rate": 8,
+            "currencyCode": "EUR"
+        }
+    }
+
+]
