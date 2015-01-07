@@ -12,6 +12,7 @@ import languageModule from './components/language/language';
 import positionModule from './components/position/position';
 import roleModule from './components/role/role';
 import uiWidgetsModule from './components/ui-widgets/ui-widgets';
+import paginationModule from './components/pagination/pagination';
 
 // app state (feature) modules
 import accountModule from './states/account/account';
@@ -43,12 +44,13 @@ let mainModule = angular.module('app', [
     // app core module
     coreModule.name,
 
-    //  component modules
+    // component modules
     employeeModule.name,
     languageModule.name,
     positionModule.name,
     roleModule.name,
     uiWidgetsModule.name,
+    paginationModule.name,
 
     // app state (feature) modules
     accountModule.name,

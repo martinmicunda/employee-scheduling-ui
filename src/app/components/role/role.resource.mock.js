@@ -1,4 +1,5 @@
-//import employee from './fixtures/languages.json!json';
+import rolesEN from './fixtures/roles_en.json!json';
+import rolesSK from './fixtures/roles_sk.json!json';
 
 function roleResourceMock($httpBackend) {
     'use strict';
@@ -6,15 +7,10 @@ function roleResourceMock($httpBackend) {
     $httpBackend.whenGET(/\/roles\?lang*/)
         .respond( (method, url) => {
             console.log('GET',url);
-            var request = new XMLHttpRequest();
-            if(url.contains('lang=en')) {
-                request.open('GET', 'app/components/role/fixtures/roles_en.json', false);
-                request.send(null);
-                return [200, request.response];
+            if(url.includes('lang=en')) {
+                return [200, rolesEN];
             } else if(url.contains('lang=sk'))  {
-                request.open('GET', 'app/components/role/fixtures/roles_sk.json', false);
-                request.send(null);
-                return [200, request.response];
+                return [200, rolesSK];
             }
         });
 }

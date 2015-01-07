@@ -53,7 +53,7 @@ function mmUnsavedFormWarningModal($modal, $state, UnsavedFormsService) {
         var onRouteChangeOff = scope.$on('$stateChangeStart', function(event, toState) {// jshint unused: false
             if (!UnsavedFormsService.areFormsClean()) {
                 $modal.open({
-                    templateUrl: 'myModalContent.html',
+                    templateUrl: 'unsavedWarningModal.html',
                     controller: ['$modalInstance', '$state', function($modalInstance, $state) {
                         var vm = this;
 

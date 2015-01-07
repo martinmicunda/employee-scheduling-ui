@@ -12,7 +12,7 @@
                 </div>
                 <div class="col-md-6 col-sm-6">
                     <div class="pull-right">
-                        <button type="button" class="btn btn-sm btn-success">Add Employee</button>
+                        <button type="button" class="btn btn-sm btn-success" ui-sref="employees.add.account-details">Add Employee</button>
                         <div class="btn-group">
                             <button class="btn btn-sm btn-info active"><i class="fa fa-align-justify fa-fw"></i> Table</button>
                             <button class="btn btn-sm btn-info"><i class="fa fa-th-large fa-fw"></i> Grid</button>
@@ -36,7 +36,7 @@
                     </thead>
                     <tbody>
                     <!-- TODO: delete icon should not be displayed for current user (user that is looking at the list)-->
-                        <tr ng-repeat="employee in vm.filteredEmployees track by employee.id">
+                        <tr ng-repeat="employee in vm.filteredEmployees | startFrom:(vm.currentPage-1)*vm.employeesPerPage | limitTo:vm.employeesPerPage">
                             <td><img ng-src="../../images/{{::employee.avatar}}" alt="" class="img-circle"></td>
                             <td>{{::employee.firstName}} {{employee.lastName}}</td>
                             <td>{{::employee.email}}</td>
@@ -48,8 +48,8 @@
                             <td>
                                 <a href="javascript:void(0);" tooltip-placement="top" tooltip="send message"><i class="fa fa-comment-o fa-fw"></i></a>
                                 <a href="javascript:void(0);" tooltip-placement="top" tooltip="see schedule"><i class="fa fa-calendar fa-fw"></i></a>
-                                <a href="javascript:void(0);" tooltip-placement="top" tooltip="delete"><i class="fa fa-trash fa-fw"></i></a>
-                                <a href="javascript:void(0);" tooltip-placement="top" tooltip="edit"><i class="fa fa-pencil fa-fw"></i></a>
+                                <a mm-really-click="vm.deleteEmployee(employee)" tooltip-placement="top" tooltip="delete"><i class="fa fa-trash fa-fw"></i></a>
+                                <a ui-sref=".edit.account-details({id: employee.id})" tooltip-placement="top" tooltip="edit"><i class="fa fa-pencil fa-fw"></i></a>
                             </td>
                         </tr>
                     </tbody>
@@ -57,25 +57,25 @@
             </div>
             <div class="row">
                 <div class="col-md-6 col-sm-6">
-                    <div class="table-info">Showing 1 to {{vm.employeesPerPage}} of {{vm.totalEmployees}} employees</div>
+                    <div class="table-info">Showing {{((vm.currentPage-1)*vm.employeesPerPage) + 1}} to {{vm.currentPage * vm.employeesPerPage}} of {{vm.filteredEmployees.length}} employees</div>
                 </div>
                 <div class="col-md-6 col-sm-6">
-                    <!--<ul class="pagination pull-right">-->
-                        <!--<li class="prev disabled">-->
-                            <!--<a href="#">← Previous</a>-->
-                        <!--</li>-->
-                        <!--<li class="active"><a href="#">1</a></li>-->
-                        <!--<li><a href="#">2</a></li>-->
-                        <!--<li><a href="#">3</a></li>-->
-                        <!--<li><a href="#">4</a></li>-->
-                        <!--<li><a href="#">5</a></li>-->
-                        <!--<li class="next"><a href="#">Next → </a></li>-->
-                    <!--</ul>-->
-                    <!--<div ng-if="filteredFlights.length <= itemsPerPage">-->
                     <pagination class="pull-right" total-items="vm.filteredEmployees.length" ng-model="vm.currentPage" previous-text="← Previous" next-text="Next →"></pagination>
-                    <!--</div>-->
                 </div>
             </div>
         </div>
     </div>
 </div>
+<script type="text/ng-template" id="deleteModal.html">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="vm.cancel()">×</button>
+        <h4 class="modal-title">Delete Employee</h4>
+    </div>
+    <div class="modal-body">
+        <p>Are you sure you want delete this employee?</p>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-sm btn-white" ng-click="vm.cancel()">Cancel</button>
+        <button class="btn btn-sm btn-success" ng-click="vm.ok()">OK</button>
+    </div>
+</script>

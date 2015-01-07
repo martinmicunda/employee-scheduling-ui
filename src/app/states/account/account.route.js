@@ -19,9 +19,6 @@ function accountRoute($stateProvider) {
                 },/* @ngInject */
                 positions: function(PositionResource){
                     return PositionResource.getList({lang: 'en'}); // TODO:(martin) language should comes from user profile
-                },/* @ngInject */
-                roles: function(RoleResource){
-                    return RoleResource.getList({lang: 'en'}); // TODO:(martin) language should comes from user profile
                 }
             }
         });

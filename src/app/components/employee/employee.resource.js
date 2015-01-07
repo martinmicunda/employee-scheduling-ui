@@ -15,6 +15,12 @@ class EmployeeResource {
             .getList();
     }
 
+    delete(id) {
+        return this.Restangular
+            .one('employees', id)
+            .remove();
+    }
+
     objectKeys(object) {
         return Object.keys(this.Restangular.stripRestangular(object));
     }

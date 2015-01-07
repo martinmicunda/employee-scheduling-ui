@@ -1,10 +1,12 @@
-class AccountController {
-    constructor(employee, languages, positions, EmployeeResource) {
+class EmployeesEditController {
+    constructor(employee, languages, positions, roles, EmployeeResource, $modalInstance) {
+        this.$modalInstance = $modalInstance;
         this.EmployeeResource = EmployeeResource;
         this.employeeOrigin = angular.copy(employee); // TODO: is there way to do that in ES6??
         this.employee = employee;
         this.languages = languages;
         this.positions = positions;
+        this.roles = roles;
         this.profileComplete = EmployeeResource.calculateProfileCompleteness(employee);
         this.isSubmitting = null;
         this.result = null;
@@ -15,6 +17,10 @@ class AccountController {
             buttonSuccessText: 'Saved',
             animationCompleteTime: '1200'
         };
+    }
+
+    cancel() {
+        this.$modalInstance.dismiss('cancel');
     }
 
     save(form) {
@@ -41,4 +47,4 @@ class AccountController {
     }
 }
 
-export default AccountController;
+export default EmployeesEditController;

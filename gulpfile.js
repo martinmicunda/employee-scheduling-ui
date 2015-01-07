@@ -144,9 +144,8 @@ var paths = {
             test:       'src/app/core/config/core.config.test.js',
             prod:       'src/app/core/config/core.config.prod.js'
         },
-        scripts:        ['src/app/**/*.module.js',
-            'src/app/**/*.js',
-            '!src/app/**/*.spec.js'
+        scripts:        ['src/app/**/*.js',
+                         '!src/app/**/*.spec.js'
         ],
         html:           'src/index.html',
         templates:      'src/app/**/*.html'
@@ -313,17 +312,18 @@ gulp.task('scripts', 'Compile JS files into the app.js', function (cb) {
     var builder = require('systemjs-builder');
     builder.reset();
 
-    builder.loadConfig('./src/jspm.conf.js')
-        .then(function() {
-            builder.loader.baseURL = path.resolve('./src/');
-            builder.build('app/app', paths.tmp.scripts + 'app.js', { sourceMaps: true, config: {sourceRoot: 'src/.tmp/scripts/'} })
-                .then(function() {
-                    return cb();
-                })
-                .catch(function(ex) {
-                    cb(new Error(ex));
-                });
-        });
+    //builder.loadConfig('./src/jspm.conf.js')
+    //    .then(function() {
+    //        builder.loader.baseURL = path.resolve('./src/');
+    //        builder.build('app/app', paths.tmp.scripts + 'app.js', { sourceMaps: true, config: {sourceRoot: 'src/.tmp/scripts/'} })
+    //            .then(function() {
+    //                return cb();
+    //            })
+    //            .catch(function(ex) {
+    //                cb(new Error(ex));
+    //            });
+    //    });
+    cb();
 });
 
  /**

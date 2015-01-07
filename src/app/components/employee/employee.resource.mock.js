@@ -1,4 +1,5 @@
-//import employee from './fixtures/employee_1.json!json';
+import employee from './fixtures/employee_1.json!json';
+import employees from './fixtures/employees.json!json';
 
 function employeeResourceMock($httpBackend) {
     'use strict';
@@ -6,21 +7,15 @@ function employeeResourceMock($httpBackend) {
     $httpBackend.whenGET(/\/employees\/[a-z]*/)
         .respond( (method, url) => {
             console.log('GET',url);
-            var request = new XMLHttpRequest();
-            if(url.contains('employees/1')) { // contains should be changed to includes
-                request.open('GET', 'app/components/employee/fixtures/employee_1.json', false);
-                request.send(null);
-                return [200, request.response];
+            if(url.includes('employees/1')) {
+                return [200, employee];
             }
         });
 
     $httpBackend.whenGET(/\/employees/)
         .respond( (method, url) => {
             console.log('GET',url);
-            var request = new XMLHttpRequest();
-            request.open('GET', 'app/components/employee/fixtures/employees.json', false);
-            request.send(null);
-            return [200, request.response];
+            return [200, employees];
         });
 
     $httpBackend.whenPUT(/\/employees/)
@@ -37,6 +32,19 @@ function employeeResourceMock($httpBackend) {
             dataJSON.version++;
 
             return [200, dataJSON];
+        });
+
+    $httpBackend.whenDELETE(/\/employees/)
+        .respond( (method, url, data) => {
+            console.log('DELETE',url);
+            //var dataJSON = JSON.parse(data);
+            //if(dataJSON.firstName[0].Value === '503') {
+            //    return [503, dataJSON];
+            //} else if(dataJSON.firstName[0].Value === '409') {
+            //    return [409, dataJSON];
+            //}
+
+            return [200, {}];
         });
 }
 

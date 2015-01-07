@@ -33,6 +33,7 @@ label {
     color: $fontColorDark;
 }
 a {
+    cursor: pointer;
     color: $lightGreen;
     transition: color 100ms ease-in-out;
     -o-transition: color 100ms ease-in-out;
@@ -53,4 +54,12 @@ a:hover {
 .mb10 {
     margin-bottom: 10px!important;
 }
-
+.pl-0 {
+    padding-left: 0;
+}
+.well {
+    padding: 15px;
+    background: #fff;
+    box-shadow: none;
+    -webkit-box-shadow: none;
+}

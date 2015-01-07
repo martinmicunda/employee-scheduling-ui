@@ -3,6 +3,10 @@
     color: $lightRed;
 }
 
+.form-wizard .nav-tabs {
+    border-bottom: none;
+}
+
 form {
     label {
         font-weight: $fontWeightMedium;
@@ -35,6 +39,47 @@ form {
     }
 }
 
+.form-wizard .nav-tabs {
+    border-bottom: none;
+    li a {
+        background: #f0f3f4;
+        margin-right: 0;
+        border-radius: 0;
+        color: $fontColorDark;
+        font-size: 13px;
+    }
+    li a:hover {
+        background: #d3dadf;
+        border-color: transparent;
+    }
+    li.active a {
+        background-color: $lightGreen;
+        border: 0;
+        color: $white;
+    }
+    li.active a:hover {
+        background-color: $lightGreen;
+    }
+    li.active .menu-icon, li .menu-icon {
+        display: block;
+        width: 20px;
+        text-align: center;
+        border-radius: 25px;
+        line-height: 20px;
+        font-size: 14px;
+        margin: 0 auto 5px;
+        color: $white;
+    }
+    li.active .menu-icon {
+        background: $darkGreen;
+    }
+    li .menu-icon {
+        background: #6d7479;
+    }
+}
+.form-wizard .pager {
+    margin: 0;
+}
 //validation
 .form-validation.ng-submitted {
     .form-control.ng-dirty.ng-valid{
