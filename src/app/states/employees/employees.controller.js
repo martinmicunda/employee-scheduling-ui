@@ -30,7 +30,6 @@ class EmployeesController {
             }
         }.bind(this));
     }
-
 }
 
 export default EmployeesController;

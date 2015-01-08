@@ -46,7 +46,7 @@
                             <td><span class="label"
                                       ng-class="{'label-success': employee.status === 'active', 'label-warning': employee.status === 'pending', 'label-default': employee.status === 'inactive'}">{{::employee.status}}</span></td>
                             <td>
-                                <a href="javascript:void(0);" tooltip-placement="top" tooltip="send message"><i class="fa fa-comment-o fa-fw"></i></a>
+                                <a ui-sref=".message({id: employee.id})" tooltip-placement="top" tooltip="send message"><i class="fa fa-comment-o fa-fw"></i></a>
                                 <a href="javascript:void(0);" tooltip-placement="top" tooltip="see schedule"><i class="fa fa-calendar fa-fw"></i></a>
                                 <a mm-really-click="vm.deleteEmployee(employee)" tooltip-placement="top" tooltip="delete"><i class="fa fa-trash fa-fw"></i></a>
                                 <a ui-sref=".edit.account-details({id: employee.id})" tooltip-placement="top" tooltip="edit"><i class="fa fa-pencil fa-fw"></i></a>
@@ -59,7 +59,7 @@
                 <div class="col-md-6 col-sm-6">
                     <div class="table-info">Showing {{((vm.currentPage-1)*vm.employeesPerPage) + 1}} to {{vm.currentPage * vm.employeesPerPage}} of {{vm.filteredEmployees.length}} employees</div>
                 </div>
-                <div class="col-md-6 col-sm-6">
+                <div class="col-md-6 col-sm-6" ng-if="vm.filteredEmployees.length > vm.employeesPerPage">
                     <pagination class="pull-right" total-items="vm.filteredEmployees.length" ng-model="vm.currentPage" previous-text="← Previous" next-text="Next →"></pagination>
                 </div>
             </div>

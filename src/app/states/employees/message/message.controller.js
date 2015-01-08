@@ -1,19 +1,15 @@
-class EmployeesEditController {
-    constructor(employee, languages, positions, roles, EmployeeResource, $modalInstance) {
-        this.$modalInstance = $modalInstance;
-        this.EmployeeResource = EmployeeResource;
+class EmployeesMessageController {
+    constructor(employee, $modalInstance) {
         this.employee = employee;
-        this.languages = languages;
-        this.positions = positions;
-        this.roles = roles;
-        this.profileComplete = EmployeeResource.calculateProfileCompleteness(employee);
+        this.email = {to: employee.email};
+        this.$modalInstance = $modalInstance;
         this.isSubmitting = null;
         this.result = null;
         this.saveButtonOptions = {
             iconsPosition: 'right',
-            buttonDefaultText: 'Save',
-            buttonSubmittingText: 'Saving',
-            buttonSuccessText: 'Saved',
+            buttonDefaultText: 'Send',
+            buttonSubmittingText: 'Sending',
+            buttonSuccessText: 'Sent',
             animationCompleteTime: '1200'
         };
     }
@@ -25,11 +21,9 @@ class EmployeesEditController {
     save(form) {
         if(!form.$valid) {return;}
         this.isSubmitting = true;
-        this.employee.put().then(function(employee) {
-            this.profileComplete = this.EmployeeResource.calculateProfileCompleteness(this.employee);
-            this.employee = employee;
+        this.employee.put().then(function() {
             this.result = 'success';
-            form.$setPristine();
+            this.cancel();
         }.bind(this), function(response) {
             this.result = 'error';
             if(response.status === 409) {
@@ -41,4 +35,4 @@ class EmployeesEditController {
     }
 }
 
-export default EmployeesEditController;
+export default EmployeesMessageController;

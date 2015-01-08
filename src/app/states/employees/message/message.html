@@ -1,0 +1,26 @@
+<form class="form-validation" name="messageForm" role="form" novalidate>
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="vm.cancel()">×</button>
+        <h4 class="modal-title">Send Message</h4>
+    </div>
+    <div class="modal-body form-wizard">
+        <div class="form-group">
+            <label for="subject">Subject</label>
+            <input name="subject" type="text" ng-model="vm.email.subject" class="form-control" id="subject" required>
+            <div ng-if="messageForm.$submitted" ng-messages="messageForm.subject.$error">
+                <div ng-message="required" class="error">This field is required.</div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="message">Message</label>
+            <textarea name="message" type="text" ng-model="vm.email.message" class="form-control" id="message" rows="4" required></textarea>
+            <div ng-if="messageForm.$submitted" ng-messages="messageForm.message.$error">
+                <div ng-message="required" class="error">This field is required.</div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <jp-ng-bs-animated-button class="btn btn-sm btn-success" ng-click="vm.save(messageForm)" is-submitting="vm.isSubmitting" result="vm.result" options="vm.saveButtonOptions"></jp-ng-bs-animated-button>
+    </div>
+</form>
