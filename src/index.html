@@ -9,16 +9,10 @@
         <meta name="viewport" content="width=device-width">
         <link href="favicon.ico" rel="shortcut icon" type="image/x-icon"/>
 
-        <!-- build:css_libs styles/vendor.min.css -->
-        <!-- bower:css -->
-        <link rel="stylesheet" href="vendor/bootstrap-css-only/css/bootstrap.css" />
-        <link rel="stylesheet" href="vendor/font-awesome/css/font-awesome.css" />
-        <!-- endbower -->
-        <!-- endbuild -->
+        <!-- TODO: (martin) the bootstrap.css should be load in vendor.js but how I make sure that vendor css files are loaded before main.css as vendor css files are load through JS -->
+        <link rel="stylesheet" href="jspm_packages/github/fyockm/bootstrap-css-only@3.3.0/css/bootstrap.css"/>
 
-        <!-- build:css styles/app.min.css -->
         <link rel="stylesheet" href=".tmp/styles/main.css" />
-        <!-- endbuild -->
     </head>
     <body>
         <!--[if lt IE 10]>
@@ -26,7 +20,6 @@
             your browser</a> to improve your experience.</p>
         <![endif]-->
 
-        <!--<div ui-view></div>-->
         <header id="header" ng-include src="'app/core/layout/header/layout.header.html'"></header>
         <main ui-view autoscroll="true" class="container-fluid"></main>
         <footer id="footer" ng-include src="'app/core/layout/footer/layout.footer.html'"></footer>

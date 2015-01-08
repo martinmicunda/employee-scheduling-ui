@@ -13,14 +13,12 @@ var pkg            = require('./package.json');
 var del            = require('del');
 var path           = require('path');
 var gulp           = require('gulp');
-var bower          = require('bower');
 var karma          = require('karma').server;
 var moment         = require('moment');
 var semver         = require('semver');
 var wiredep        = require('wiredep').stream;
 var changelog      = require('conventional-changelog');
 var runSequence    = require('run-sequence');
-var mainBowerFiles = require('main-bower-files');
 
 /**
  * Load Gulp plugins listed in 'package.json' and attaches
@@ -172,10 +170,6 @@ var paths = {
         e2e:            'test/e2e/**/*.e2e.js'
     },
     /**
-     * The 'vendor' folder is where our bower dependencies are hold.
-     */
-    vendor:             'src/vendor/',
-    /**
      * The 'tmp' folder is where our html templates are compiled to JavaScript during
      * the build process and then they are concatenating with all other js files and
      * copy to 'dist' folder.
@@ -244,27 +238,6 @@ $.help(gulp);
  */
 gulp.task('clean', 'Delete \'build\' and \'.tmp\' directories', function (cb) {
     return del([paths.build.basePath, paths.tmp.basePath], cb);
-});
-
-/**
- * The 'bower-install' task install all bower components specify in `bower.json`
- * from bower repository and inject bower components into the `index.html`.
- */
-gulp.task('bower-install', 'Install all bower dependencies specify in bower.json and inject them into the index.html', function () {
-    bower.commands.install([], {}, {})
-        .on('end', function(){
-            return gulp.src(paths.app.html)
-                .pipe(wiredep({
-                    directory: paths.vendor,
-                    ignorePath: paths.app.basePath
-                }))
-                .pipe(gulp.dest(paths.app.basePath))
-                .pipe($.size({title: 'bower'}));
-        })
-        .on('error', function (error) {
-            log(COLORS.red(error));
-            return process.exit(1);
-        });
 });
 
 /**
@@ -370,9 +343,6 @@ gulp.task('watch', 'Watch files for changes', function () {
     // Watch html files
     gulp.watch([paths.app.html, paths.app.templates], ['htmlhint']);
 
-    // Watch bower file
-    gulp.watch('bower.json', ['bower-install']);
-
     // this is just hack solution see https://github.com/vohof/gulp-livereload/issues/36
     gulp.on('stop', function(){
         $.livereload.changed();
@@ -382,10 +352,10 @@ gulp.task('watch', 'Watch files for changes', function () {
 /**
  * The 'copy' task just copies files from A to B. We use it here
  * to copy our files that haven't been copied by other tasks
- * e.g. (bower.json, favicon, etc.) into the `build/dist` directory.
+ * e.g. (favicon, etc.) into the `build/dist` directory.
  */
-gulp.task('extras', 'Copy project files that haven\'t been copied by \'compile\' task e.g. (bower.json, favicon, etc.) into the \'build/dist\' directory', function () {
-    return gulp.src([paths.app.basePath + '*.{ico,png,txt}', 'bower.json'])
+gulp.task('extras', 'Copy project files that haven\'t been copied by \'compile\' task e.g. (favicon, etc.) into the \'build/dist\' directory', function () {
+    return gulp.src([paths.app.basePath + '*.{ico,png,txt}'])
         .pipe(gulp.dest(paths.build.dist.basePath));
 });
 
@@ -393,7 +363,7 @@ gulp.task('extras', 'Copy project files that haven\'t been copied by \'compile\'
  * The 'fonts' task copies fonts to `build/dist` directory.
  */
 gulp.task('fonts', 'Copy fonts to `build/dist` directory', function () {
-    return gulp.src(mainBowerFiles().concat(paths.app.fonts))
+    return gulp.src(paths.app.fonts)
         .pipe($.filter('**/*.{eot,svg,ttf,woff}'))
         .pipe($.flatten())
         .pipe(gulp.dest(paths.build.dist.fonts))
@@ -510,13 +480,11 @@ gulp.task('karma', 'Run unit tests without coverage check', function (cb) {
 });
 
 /**
- * The 'setup' task is to configure environment, compile SASS to CSS,
- * install bower dependencies and inject installed bower dependencies
- * into the `index.html`.
+ * The 'setup' task is to configure environment, compile SASS to CSS.
  */
-gulp.task('setup', 'Configure environment, compile SASS to CSS and install bower dependencies',  function (cb) {
+gulp.task('setup', 'Configure environment, compile SASS to CSS',  function (cb) {
     runSequence(
-        ['bower-install', 'styles', 'scripts'],
+        ['styles', 'scripts'],
         cb
     );
 });
@@ -628,7 +596,7 @@ gulp.task('test', 'Run unit and e2e tests', ['karma'], function () {
  */
 gulp.task('build', 'Build application for deployment', function (cb) {
     runSequence(
-        ['clean', 'bower-install'],
+        ['clean'],
         ['compile', 'extras', 'images', 'fonts'],
         cb
     );
@@ -644,9 +612,9 @@ gulp.task('build', 'Build application for deployment', function (cb) {
 //---------------------------------------------
 
 /**
- * The 'bump' task bump version number in package.json & bower.json.
+ * The 'bump' task bump version number in package.json.
  */
-gulp.task('bump', 'Bump version number in package.json & bower.json', ['jshint', 'htmlhint', 'test:unit'], function () {
+gulp.task('bump', 'Bump version number in package.json', ['jshint', 'htmlhint', 'test:unit'], function () {
     var HAS_REQUIRED_ATTRIBUTE = !!argv.type ? !!argv.type.match(new RegExp(/major|minor|patch/)) : false;
 
     if (!HAS_REQUIRED_ATTRIBUTE) {
@@ -659,7 +627,7 @@ gulp.task('bump', 'Bump version number in package.json & bower.json', ['jshint',
         return process.exit(1);
     }
 
-    return gulp.src(['package.json', 'bower.json'])
+    return gulp.src(['package.json'])
         .pipe($.bump({type: argv.type}))
         .pipe(gulp.dest('./'));
 });
@@ -680,18 +648,13 @@ gulp.task('changelog', 'Generate changelog', function(cb) {
 });
 
 /**
- * The 'release' task push bower.json, package.json and CHANGELOG.md to GitHub.
+ * The 'release' task push package.json and CHANGELOG.md to GitHub.
  */
 gulp.task('release', 'Release bumped version number to GitHub repo', function (cb) {
     var exec = require('child_process').exec;
 
     if(!semver.valid(pkg.version)) {
         log(COLORS.red('Error: Invalid version number - ' + pkg.version + '. Please fix the the version number in package.json and run \'gulp publish\' command again.'));
-        return process.exit(1);
-    }
-
-    if(!semver.valid(require('./bower.json').version)) {
-        log(COLORS.red('Error: Invalid version number - ' + pkg.version + '. Please fix the the version number in bower.json and run \'gulp publish\' command again.'));
         return process.exit(1);
     }
 
@@ -704,7 +667,7 @@ gulp.task('release', 'Release bumped version number to GitHub repo', function (c
         log(COLORS.blue('Pushing to GitHub ...'));
         var commitMsg = 'chore(release): v' + pkg.version;
 
-        exec('git add CHANGELOG.md package.json bower.json', childProcessCompleted);
+        exec('git add CHANGELOG.md package.json', childProcessCompleted);
         exec('git commit -m "' + commitMsg + '" --no-verify', childProcessCompleted);
         exec('git push origin master', childProcessCompleted);
 
