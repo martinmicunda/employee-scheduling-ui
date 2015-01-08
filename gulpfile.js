@@ -288,7 +288,7 @@ gulp.task('scripts', 'Compile JS files into the app.js', function (cb) {
     //builder.loadConfig('./src/jspm.conf.js')
     //    .then(function() {
     //        builder.loader.baseURL = path.resolve('./src/');
-    //        builder.build('app/app', paths.tmp.scripts + 'app.js', { sourceMaps: true, config: {sourceRoot: 'src/.tmp/scripts/'} })
+    //        builder.build('app/main', paths.tmp.scripts + 'main.js', { sourceMaps: true, config: {sourceRoot: 'src/.tmp/scripts/'} })
     //            .then(function() {
     //                return cb();
     //            })

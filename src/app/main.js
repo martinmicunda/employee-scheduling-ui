@@ -18,7 +18,7 @@ import paginationModule from './components/pagination/pagination';
 import accountModule from './states/account/account';
 import customersModule from './states/customers/customers.module';
 import dashboardModule from './states/dashboard/dashboard.module';
-import documentsModule from './states/documents/kidsfun/documents.kidsfun.module';
+import documentsModule from './states/documents/documents';
 import employeesModule from './states/employees/employees';
 import reportsModule from './states/reports/reports.module';
 import scheduleModule from './states/schedule/schedule.module';

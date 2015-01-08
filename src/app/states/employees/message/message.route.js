@@ -1,7 +1,7 @@
 /**
  * @ngInject
  */
-function employeesAddRoute($stateProvider) {
+function employeesMessageRoute($stateProvider) {
     'use strict';
 
     $stateProvider
@@ -26,5 +26,5 @@ function employeesAddRoute($stateProvider) {
         });
 }
 
-export default employeesAddRoute;
+export default employeesMessageRoute;
 

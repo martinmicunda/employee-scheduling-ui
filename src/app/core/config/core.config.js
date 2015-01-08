@@ -29,7 +29,7 @@ export function coreConfig($locationProvider, $provide, $urlRouterProvider, Rest
     $urlRouterProvider.otherwise('/404');
 
     // the `when` method says if the url is `/` redirect to `/dashboard` what is basically our `home` for this application
-    $urlRouterProvider.when('/', '/schedule');
+    $urlRouterProvider.when('/', '/employees');
 }
 
 /**
