@@ -1,8 +1,6 @@
 'use strict';
 
-/**
- * @ngInject
- */
+/* @ngInject */
 export function coreConfig($locationProvider, $provide, $urlRouterProvider, RestangularProvider, localStorageServiceProvider) {
 
     // use "e-scheduling" as a localStorage name prefix so app doesn’t accidently read data from another app using the same variable names
@@ -32,11 +30,3 @@ export function coreConfig($locationProvider, $provide, $urlRouterProvider, Rest
     $urlRouterProvider.when('/', '/employees');
 }
 
-/**
- * @ngInject
- */
-export function coreRun($rootScope, $state, $stateParams) {
-    // make $state and $stateParams available across all application
-    $rootScope.$state = $state;
-    $rootScope.$stateParams = $stateParams;
-}

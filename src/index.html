@@ -30,14 +30,11 @@
         <script src="jspm.conf.js"></script>
         <!--<script src=".tmp/scripts/app.js"></script>-->
 
+        <!--<script src="jspm_packages/traceur-runtime.js"></script>-->
+        <!--<script src="build.js"></script>-->
+
         <script>
-            System.import('app/main').then(function(){
-                angular.element(document).ready(function() {
-                    angular.bootstrap(document, ['app'], {
-                        //strictDi: true
-                    });
-                });
-            }).catch(console.error.bind(console)); // make sure any errors are print to console
+            System.import('app/bootstrap').catch(console.error.bind(console)); // make sure any errors are print to console
         </script>
 
         <!-- build:remove -->

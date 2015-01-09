@@ -5,6 +5,12 @@
 .img-bordered-dark {
     box-shadow: 0 0 0 3px #b6c2c9;
 }
+.img-bordered-success {
+    box-shadow: 0 0 0 3px $lightGreen;
+}
+.img-bordered-warning {
+    box-shadow: 0 0 0 3px $lightOrange;
+}
 
 .list-table {
     display: table;

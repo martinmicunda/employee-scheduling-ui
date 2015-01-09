@@ -36,11 +36,6 @@ let mainModule = angular.module('app', [
     'LocalStorageModule',
     'jp.ng-bs-animated-button',
 
-    // mm components modules
-    //'mm.authentication',
-    //'mm.user',
-    //'mm.centered',
-
     // app core module
     coreModule.name,
 
