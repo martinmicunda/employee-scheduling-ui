@@ -10,5 +10,5 @@ import 'github:grevory/angular-local-storage';
 import 'github:jeremypeters/ng-bs-animated-button';
 
 // css vendor files
-import 'font-awesome/css/font-awesome.css!';
+//import 'font-awesome/css/font-awesome.css!';
 //import 'github:fyockm/bootstrap-css-only/css/bootstrap.css!';

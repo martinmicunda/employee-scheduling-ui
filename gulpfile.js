@@ -16,7 +16,6 @@ var gulp           = require('gulp');
 var karma          = require('karma').server;
 var moment         = require('moment');
 var semver         = require('semver');
-var wiredep        = require('wiredep').stream;
 var changelog      = require('conventional-changelog');
 var runSequence    = require('run-sequence');
 
@@ -32,7 +31,7 @@ var $ = require('gulp-load-plugins')();
 //   !!!FEEL FREE TO EDIT THESE VARIABLES!!!
 //=============================================
 
-var MODULE_NAME          = 'locationManager';
+var MODULE_NAME          = 'app';
 var PRODUCTION_URL       = 'http://your-production-url.com';
 var DEVELOPMENT_URL      = 'http://127.0.0.1:3000';
 var PRODUCTION_CDN_URL   = 'http://cdn.your-production-url.com';
@@ -91,24 +90,6 @@ function bytediffFormatter(data) {
     ' and is ' + formatPercent(1-data.percent, 2) + '%' + difference);
 }
 
-/*global paths: true*/
-function excludeFiles() {
-    var configEnvFile = [];
-
-    switch(ENV) {
-        case 'dev':
-            configEnvFile = ['!' + paths.app.config.test, '!' + paths.app.config.prod, '!' + paths.test.mock];
-            break;
-        case 'test':
-            configEnvFile = ['!' + paths.app.config.dev, '!' + paths.app.config.prod];
-            break;
-        case 'prod':
-            configEnvFile = ['!' + paths.app.config.dev, '!' + paths.app.config.test, '!' + paths.test.mock];
-            break;
-    }
-    return configEnvFile;
-}
-
 
 //=============================================
 //            DECLARE PATHS
@@ -134,7 +115,7 @@ var paths = {
      */
     app: {
         basePath:       'src/',
-        fonts:          'src/fonts/**/*.{eot,svg,ttf,woff}',
+        fonts:          ['src/fonts/**/*.{eot,svg,ttf,woff}', 'src/jspm_packages/**/*.{eot,svg,ttf,woff}'],
         styles:         'src/styles/**/*.scss',
         images:         'src/images/**/*.{png,gif,jpg,jpeg}',
         config: {
@@ -213,7 +194,7 @@ var banner = $.util.template(
     '/**\n' +
     ' * <%= pkg.description %>\n' +
     ' * @version v<%= pkg.version %> - <%= today %>\n' +
-    ' * @author <%= pkg.author %>\n' +
+    ' * @author <%= pkg.author.name %>\n' +
     ' * @copyright <%= year %>(c) <%= pkg.author.name %>\n' +
     ' * @license <%= pkg.license.type %>, <%= pkg.license.url %>\n' +
     ' */\n', {file: '', pkg: pkg, today: moment(new Date()).format('D/MM/YYYY'), year: new Date().toISOString().substr(0, 4)});
@@ -281,14 +262,14 @@ gulp.task('styles', 'Compile sass files into the main.css', function () {
         .pipe(gulp.dest(paths.tmp.styles));
 });
 
-gulp.task('scripts', 'Compile JS files into the app.js', function (cb) {
+gulp.task('bundle', 'Create JS production bundle', ['jshint'], function (cb) {
     var builder = require('systemjs-builder');
     builder.reset();
 
     //builder.loadConfig('./src/jspm.conf.js')
     //    .then(function() {
     //        builder.loader.baseURL = path.resolve('./src/');
-    //        builder.build('app/main', paths.tmp.scripts + 'main.js', { sourceMaps: true, config: {sourceRoot: 'src/.tmp/scripts/'} })
+    //        builder.buildSFX('app/bootstrap', paths.tmp.scripts + 'bootstrap.js', { sourceMaps: true, config: {sourceRoot: paths.tmp.scripts} })
     //            .then(function() {
     //                return cb();
     //            })
@@ -296,31 +277,13 @@ gulp.task('scripts', 'Compile JS files into the app.js', function (cb) {
     //                cb(new Error(ex));
     //            });
     //    });
-    cb();
-});
+    ////cb();
+    var exec = require('child_process').exec;
+    exec('cd src && jspm bundle-sfx app/bootstrap .tmp/scripts/build.js', function (err) {
+        if (err) {return cb(err);}
 
- /**
- * Compile JS files into the app.js.
- */
-gulp.task('scriptss', 'Compile JS files into the app.js', ['jshint'], function () {
-    //var to5 = require('gulp-6to5');
-    var pp = {
-        modules: 'instantiate',
-        types: true,
-        typeAssertions: true,
-        annotations: true,
-        typeAssertionModule: 'assert',
-        experimental: true
-    };
-    return gulp.src(paths.app.scripts.concat(excludeFiles()))
-        .pipe($.sourcemaps.init())
-        .pipe($.traceur(pp))
-        //.pipe(to5({modules: 'amd'}))
-        //.pipe($.concat('app.js'))
-        //.pipe($.ngAnnotate({add: true, single_quotes: true, stats: true}))
-        //.pipe($.uglify())
-        .pipe($.sourcemaps.write('../maps'))
-        .pipe(gulp.dest(paths.tmp.scripts));
+        cb();
+    });
 });
 
 /**
@@ -338,7 +301,7 @@ gulp.task('watch', 'Watch files for changes', function () {
     gulp.watch(paths.app.styles, ['styles']);
 
     // Watch js files
-    gulp.watch([paths.app.scripts, paths.gulpfile], ['scripts']);
+    gulp.watch([paths.app.scripts, paths.gulpfile], ['jshint']);
 
     // Watch html files
     gulp.watch([paths.app.html, paths.app.templates], ['htmlhint']);
@@ -409,7 +372,7 @@ gulp.task('templatecache', 'Minify html templates and create template cache js f
  *    html     - replace local path with CDN url, minify
  */
 gulp.task('compile', 'Does the same as \'jshint\', \'htmlhint\', \'images\', \'templates\' tasks but also compile all JS, CSS and HTML files',
-    ['jshint', 'htmlhint', 'templatecache', 'styles', 'scripts'], function () {
+    ['htmlhint', 'templatecache', 'styles', 'bundle'], function () {
         var projectHeader = $.header(banner);
 
         return gulp.src(paths.app.html)
@@ -417,33 +380,25 @@ gulp.task('compile', 'Does the same as \'jshint\', \'htmlhint\', \'images\', \'t
                 starttag: '<!-- inject:templates:js -->',
                 ignorePath: [paths.app.basePath]
             }))
+            .pipe($.inject(gulp.src(paths.tmp.scripts + 'build.js', {read: false}), {
+                starttag: '<!-- inject:build:js -->',
+                ignorePath: [paths.app.basePath]
+            }))
             .pipe($.usemin({
                 css:        [
                     $.if(!!argv.cdn, $.cdnizer({defaultCDNBase: CDN_BASE, relativeRoot: 'styles', files: ['**/*.{gif,png,jpg,jpeg}']})),
                     $.bytediff.start(),
-                    $.minifyCss(),
+                    $.minifyCss({keepSpecialComments:0}),
                     $.bytediff.stop(bytediffFormatter),
                     $.rev(),
                     projectHeader
-                ],
-                css_libs:   [
-                    $.bytediff.start(),
-                    $.minifyCss(),
-                    $.bytediff.stop(bytediffFormatter),
-                    $.rev()
                 ],
                 js:         [
-                    $.bytediff.start(),
-                    $.uglify(),
-                    $.bytediff.stop(bytediffFormatter),
+                    //$.bytediff.start(),
+                    //$.uglify(),
+                    //$.bytediff.stop(bytediffFormatter),
                     $.rev(),
                     projectHeader
-                ],
-                js_libs:    [
-                    $.bytediff.start(),
-                    $.uglify(),
-                    $.bytediff.stop(bytediffFormatter),
-                    $.rev()
                 ],
                 html:       [
                     $.if(!!argv.cdn, $.cdnizer({defaultCDNBase: CDN_BASE, files: ['**/*.{js,css}']})),
@@ -484,7 +439,7 @@ gulp.task('karma', 'Run unit tests without coverage check', function (cb) {
  */
 gulp.task('setup', 'Configure environment, compile SASS to CSS',  function (cb) {
     runSequence(
-        ['styles', 'scripts'],
+        ['styles'],
         cb
     );
 });

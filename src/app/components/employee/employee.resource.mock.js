@@ -35,7 +35,7 @@ function employeeResourceMock($httpBackend) {
         });
 
     $httpBackend.whenDELETE(/\/employees/)
-        .respond( (method, url, data) => {
+        .respond( (method, url) => { // data
             console.log('DELETE',url);
             //var dataJSON = JSON.parse(data);
             //if(dataJSON.firstName[0].Value === '503') {

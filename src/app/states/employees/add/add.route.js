@@ -13,33 +13,24 @@ function employeesAddRoute($stateProvider) {
             onEnter: ['$stateParams', '$state', '$modal', function($stateParams, $state, $modal) {
                 $modal.open({
                     templateUrl: 'app/states/employees/add/add.html',
-                    resolve: {
-                        //item: function() { new Item(123).get(); }
+                    resolve: {/* @ngInject */
+                        languages: function(LanguageResource) {
+                            return LanguageResource.getList();
+                        },/* @ngInject */
+                        positions: function(PositionResource){
+                            return PositionResource.getList({lang: 'en'}); // TODO:(martin) language should comes from user profile
+                        },/* @ngInject */
+                        roles: function(RoleResource){
+                            return RoleResource.getList({lang: 'en'}); // TODO:(martin) language should comes from user profile
+                        }
                     },
-                    controller: ['$modalInstance', function($modalInstance) {
-                        var vm = this;
-
-                        vm.cancel = function() {
-                            $modalInstance.dismiss('cancel');
-                        };
-                    }],
+                    controller: 'EmployeesAddController',
                     controllerAs: 'vm',
                     size: 'lg'
                 }).result.finally(function() {
                         $state.go('employees');
                     });
-            }],
-            resolve: {/* @ngInject */
-                languages: function(languages) {
-                    return languages;
-                },/* @ngInject */
-                positions: function(positions){
-                    return positions;
-                },/* @ngInject */
-                roles: function(roles){
-                    return roles;
-                }
-            }
+            }]
         });
 }
 

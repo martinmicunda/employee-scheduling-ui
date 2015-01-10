@@ -40,7 +40,7 @@ function init {
 }
 
 function cleanGhPagesBranch {
-    git clone --quiet --branch=gh-pages https://$GH_TOKEN@github.com/martinmicunda/employee-scheduling.git gh-pages/
+    git clone --quiet --branch=gh-pages https://$GH_TOKEN@github.com/martinmicunda/employee-scheduling-ui.git gh-pages/
     cd gh-pages
     git rm -rf .
     git add -f .
@@ -53,7 +53,7 @@ function cleanGhPagesBranch {
 function deployToHeroku {
     # Install Heroku CLI
     wget -qO- https://toolbelt.heroku.com/install-ubuntu.sh | sh
-    git remote add heroku git@heroku.com:employee-scheduling.git
+    git remote add heroku git@heroku.com:employee-scheduling-ui.git
 
     # Turn off warnings about SSH keys
     echo "Host heroku.com" >> ~/.ssh/config
@@ -70,7 +70,7 @@ function deployToHeroku {
     yes | heroku keys:add
 
     # Push latest build/dist to heroku
-    heroku git:clone -a employee-scheduling heroku/
+    heroku git:clone -a employee-scheduling-ui heroku/
     cd heroku
     git rm -rf .
     cp -R ../build/dist/* .
@@ -87,13 +87,14 @@ function run {
 
     # Install NPM packages
     npm install
-
-    echo "-- Build production app code"
-    gulp build --notest --nocdn
+    jspm install
 
     echo "-- Running unit tests "
-    gulp test:unit
+#    gulp test:unit
 #    gulp test:e2e --browsers=Firefox
+
+    echo "-- Build production app code"
+    gulp build
 
     if [[ "$PULL_REQUEST" != "false" ]]; then
         echo "-- This is a pull request build; will not push build out."
@@ -156,7 +157,7 @@ function run {
         # Publish to GitHub gs-pages branch
         gulp gh-pages
 
-        deployToHeroku "Deploy prerelease v$NEW_VERSION"
+#        deployToHeroku "Deploy prerelease v$NEW_VERSION"
 
         echo "#############################################"
         echo "# Complete! Prerelease v$VERSION published! #"

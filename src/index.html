@@ -7,12 +7,14 @@
         <title>Employee Scheduling</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
-        <link href="favicon.ico" rel="shortcut icon" type="image/x-icon"/>
 
-        <!-- TODO: (martin) the bootstrap.css should be load in vendor.js but how I make sure that vendor css files are loaded before main.css as vendor css files are load through JS -->
+        <!-- build:css styles/main.min.css -->
+        <!-- TODO: (martin) the bootstrap.css & font awesome should be load in vendor.js but how I make sure that vendor css files are loaded before main.css as vendor css files are load through JS -->
         <link rel="stylesheet" href="jspm_packages/github/fyockm/bootstrap-css-only@3.3.0/css/bootstrap.css"/>
+        <link rel="stylesheet" href="jspm_packages/npm/font-awesome@4.2.0/css/font-awesome.css"/>
 
         <link rel="stylesheet" href=".tmp/styles/main.css" />
+        <!-- endbuild -->
     </head>
     <body>
         <!--[if lt IE 10]>
@@ -24,20 +26,18 @@
         <main ui-view autoscroll="true" class="container-fluid"></main>
         <footer id="footer" ng-include src="'app/core/layout/footer/layout.footer.html'"></footer>
 
-        <!--<script src="jspm_packages/traceur-runtime.js"></script>-->
-        <!--<script src="jspm_packages/es6-module-loader.js"></script>-->
+        <!-- build:js scripts/main.min.js -->
+        <script src="jspm_packages/traceur-runtime.js"></script>
+        <!-- inject:build:js --><!-- endinject -->
+        <!-- inject:templates:js --><!-- endinject -->
+        <!-- endbuild -->
+
+        <!-- build:remove -->
         <script src="jspm_packages/system.js"></script>
         <script src="jspm.conf.js"></script>
-        <!--<script src=".tmp/scripts/app.js"></script>-->
-
-        <!--<script src="jspm_packages/traceur-runtime.js"></script>-->
-        <!--<script src="build.js"></script>-->
-
         <script>
             System.import('app/bootstrap').catch(console.error.bind(console)); // make sure any errors are print to console
         </script>
-
-        <!-- build:remove -->
         <!--<script src="http://192.168.33.10:35729/livereload.js?snipver=1"></script>-->
         <script src="http://localhost:35729/livereload.js?snipver=1"></script>
         <!-- endbuild -->
