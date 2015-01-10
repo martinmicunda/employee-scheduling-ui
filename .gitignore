@@ -21,9 +21,6 @@ node_modules
 # IDEs
 .idea/
 
-# Bower 3rd dependencies
-src/vendor/
-
 # JSPM
 src/jspm_packages/
 
