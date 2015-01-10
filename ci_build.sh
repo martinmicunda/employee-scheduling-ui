@@ -81,6 +81,11 @@ function deployToHeroku {
     rm -rf heroku
 }
 
+function buildProductionCode {
+    echo "-- Build production app code"
+    gulp build --cdn
+}
+
 function run {
 
     init
@@ -93,8 +98,8 @@ function run {
 #    gulp test:unit
 #    gulp test:e2e --browsers=Firefox
 
-    echo "-- Build production app code"
-    gulp build --cdn
+#    echo "-- Build production app code"
+#    gulp build --cdn
 
     if [[ "$PULL_REQUEST" != "false" ]]; then
         echo "-- This is a pull request build; will not push build out."
@@ -143,16 +148,18 @@ function run {
         # Remove old artifacts from gh-pages branch
 #        cleanGhPagesBranch "Remove old artifacts and preparing branch for prerelease v$NEW_VERSION"
 
-        replaceJsonProp "build/dist/package.json" "version" "$NEW_VERSION"
+        replaceJsonProp "package.json" "version" "$NEW_VERSION"
         echo "-- Build version is $NEW_VERSION"
 
         # Load version to make sure package.json was updated correctly
-        VERSION=$(readJsonProp "build/dist/package.json" "version")
+        VERSION=$(readJsonProp "package.json" "version")
 
         if [[ "$NEW_VERSION" != "$VERSION" ]]; then
             echo "-- The package.json was not updated correctly. The package.json version should be $NEW_VERSION but is $VERSION! Aborting build."
             exit 1
         fi
+
+        buildProductionCode
 
         # Publish to GitHub gh-pages branch
         npm run deploy
