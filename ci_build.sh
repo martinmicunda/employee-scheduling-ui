@@ -39,67 +39,25 @@ function init {
     echo "COMMIT=$COMMIT"
 }
 
-function cleanGhPagesBranch {
-    git clone --quiet --branch=gh-pages https://$GH_TOKEN@github.com/martinmicunda/employee-scheduling-ui.git gh-pages/
-    cd gh-pages
-    git rm -rf .
-    git add -f .
-    git commit -m "$1"
-    git push -f origin gh-pages > /dev/null
-    cd ../
-    rm -rf gh-pages
-}
-
-function deployToHeroku {
-    # Install Heroku CLI
-    wget -qO- https://toolbelt.heroku.com/install-ubuntu.sh | sh
-    git remote add heroku git@heroku.com:employee-scheduling-ui.git
-
-    # Turn off warnings about SSH keys
-    echo "Host heroku.com" >> ~/.ssh/config
-    echo "   StrictHostKeyChecking no" >> ~/.ssh/config
-    echo "   CheckHostIP no" >> ~/.ssh/config
-    echo "   UserKnownHostsFile=/dev/null" >> ~/.ssh/config
-
-    # Clear Heroku SSH keys
-#    heroku keys:remove ~/.ssh/config
-   heroku keys:clear
-#    heroku keys:remove travis-${TRAVIS_JOB_ID}@example.com
-
-    # Add a new SSH key to Heroku
-    yes | heroku keys:add
-
-    # Push latest build/dist to heroku
-    heroku git:clone -a employee-scheduling-ui heroku/
-    cd heroku
-    git rm -rf .
-    cp -R ../build/dist/* .
-    git add -A .
-    git commit -m "$1"
-    git push -f heroku master
-    cd ../
-    rm -rf heroku
-}
-
-function buildProductionCode {
+function deploy {
     echo "-- Build production app code"
     gulp build --cdn
+
+    # Publish to GitHub gh-pages branch
+    npm run deploy
 }
 
 function run {
 
     init
 
-    # Install NPM packages
+    # Install NPM ad JSPM packages
     npm install
     jspm install
 
     echo "-- Running unit tests "
 #    gulp test:unit
 #    gulp test:e2e --browsers=Firefox
-
-#    echo "-- Build production app code"
-#    gulp build --cdn
 
     if [[ "$PULL_REQUEST" != "false" ]]; then
         echo "-- This is a pull request build; will not push build out."
@@ -116,19 +74,13 @@ function run {
         echo "# Releasing v$VERSION! #"
         echo "#########################"
 
-        TAG_NAME="v$VERSION"
+        deploy
 
-        # Remove old artifacts from gh-pages branch
-#        cleanGhPagesBranch "Remove old artifacts and preparing branch for release v$TAG_NAME"
+        TAG_NAME="v$VERSION"
 
         # Create and push the tag to Github
         git tag "$TAG_NAME" -m "chore(release): $TAG_NAME"
         git push origin $TAG_NAME
-
-        # Publish to GitHub gh-pages branch
-        npm run deploy
-
-#        deployToHeroku "Deploy release v$TAG_NAME"
 
         echo "##########################################"
         echo "# Complete! Release v$VERSION published! #"
@@ -145,9 +97,6 @@ function run {
 
         NEW_VERSION="$VERSION-build.$BUILD_NUMBER"
 
-        # Remove old artifacts from gh-pages branch
-#        cleanGhPagesBranch "Remove old artifacts and preparing branch for prerelease v$NEW_VERSION"
-
         replaceJsonProp "package.json" "version" "$NEW_VERSION"
         echo "-- Build version is $NEW_VERSION"
 
@@ -159,12 +108,7 @@ function run {
             exit 1
         fi
 
-        buildProductionCode
-
-        # Publish to GitHub gh-pages branch
-        npm run deploy
-
-#        deployToHeroku "Deploy prerelease v$NEW_VERSION"
+        deploy
 
         echo "#############################################"
         echo "# Complete! Prerelease v$VERSION published! #"

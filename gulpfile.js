@@ -336,7 +336,7 @@ gulp.task('watch', 'Watch files for changes', function () {
  * e.g. (favicon, etc.) into the `build/dist` directory.
  */
 gulp.task('extras', 'Copy project files that haven\'t been copied by \'compile\' task e.g. (favicon, etc.) into the \'build/dist\' directory', function () {
-    return gulp.src([paths.app.basePath + '*.{ico,png,txt}', 'package.json'])
+    return gulp.src([paths.app.basePath + '*.{ico,png,txt}'])
         .pipe(gulp.dest(paths.build.dist.basePath));
 });
 
