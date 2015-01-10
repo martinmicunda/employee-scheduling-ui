@@ -13,6 +13,7 @@ var pkg            = require('./package.json');
 var del            = require('del');
 var path           = require('path');
 var gulp           = require('gulp');
+var plato          = require('plato');
 var karma          = require('karma').server;
 var moment         = require('moment');
 var semver         = require('semver');
@@ -35,7 +36,7 @@ var MODULE_NAME          = 'app';
 var PRODUCTION_URL       = 'http://your-production-url.com';
 var GIT_REMOTE_URL       = 'https://'+ process.env.GH_TOKEN +'@github.com/martinmicunda/employee-scheduling-ui.git'; // 'git@github.com:martinmicunda/employee-scheduling-ui.git';
 var DEVELOPMENT_URL      = 'http://127.0.0.1:3000';
-var PRODUCTION_CDN_URL   = 'http://martinmicunda.github.io/employee-scheduling-ui/';
+var PRODUCTION_CDN_URL   = 'http://martinmicunda.github.io/employee-scheduling-ui/dist/';
 var TEMPLATE_BASE_PATH   = 'app';
 
 
@@ -147,6 +148,7 @@ var paths = {
         testReports: {
             coverage:   'test/test-reports/coverage/'
         },
+        platoReports:   'test/plato',
         mock:           'src/app/**/*.mock.js',
         unit:           'src/app/**/*.spec.js',
         e2e:            'test/e2e/**/*.e2e.js'
@@ -220,6 +222,21 @@ $.help(gulp);
  */
 gulp.task('clean', 'Delete \'build\' and \'.tmp\' directories', function (cb) {
     return del([paths.build.basePath, paths.tmp.basePath], cb);
+});
+
+// TODO: Plato doesn't support ES6 yet see open issue here https://github.com/es-analysis/plato/issues/127
+gulp.task('plato', function(cb) {
+    var options = {
+        jshint: {
+            options: {
+                strict: true
+            }
+        },
+        complexity: {
+            trycatch: true
+        }
+    };
+    plato.inspect(paths.app.scripts.concat('!' + paths.test.mock), paths.test.platoReports, options, cb);
 });
 
 /**
