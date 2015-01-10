@@ -94,7 +94,7 @@ function run {
 #    gulp test:e2e --browsers=Firefox
 
     echo "-- Build production app code"
-    gulp build
+    gulp build --cdn
 
     if [[ "$PULL_REQUEST" != "false" ]]; then
         echo "-- This is a pull request build; will not push build out."
@@ -121,7 +121,7 @@ function run {
         git push origin $TAG_NAME
 
         # Publish to GitHub gs-pages branch
-        gulp gh-pages
+        npm run deploy
 
         deployToHeroku "Deploy release v$TAG_NAME"
 
@@ -155,7 +155,7 @@ function run {
 #        fi
 
         # Publish to GitHub gs-pages branch
-        gulp gh-pages
+        npm run deploy
 
 #        deployToHeroku "Deploy prerelease v$NEW_VERSION"
 

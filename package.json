@@ -12,7 +12,8 @@
     "jshint": "gulp jshint",
     "htmlhint": "gulp htmlhint",
     "test": "gulp test:unit",
-    "david": "david"
+    "david": "david",
+    "deploy": "gulp gh-pages"
   },
   "pre-commit": [
     "jshint",
