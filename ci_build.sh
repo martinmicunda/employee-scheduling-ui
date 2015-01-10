@@ -120,10 +120,10 @@ function run {
         git tag "$TAG_NAME" -m "chore(release): $TAG_NAME"
         git push origin $TAG_NAME
 
-        # Publish to GitHub gs-pages branch
+        # Publish to GitHub gh-pages branch
         npm run deploy
 
-        deployToHeroku "Deploy release v$TAG_NAME"
+#        deployToHeroku "Deploy release v$TAG_NAME"
 
         echo "##########################################"
         echo "# Complete! Release v$VERSION published! #"
@@ -143,18 +143,18 @@ function run {
         # Remove old artifacts from gh-pages branch
 #        cleanGhPagesBranch "Remove old artifacts and preparing branch for prerelease v$NEW_VERSION"
 
-#        replaceJsonProp "build/dist/package.json" "version" "$NEW_VERSION"
+        replaceJsonProp "build/dist/package.json" "version" "$NEW_VERSION"
         echo "-- Build version is $NEW_VERSION"
 
         # Load version to make sure package.json was updated correctly
-#        VERSION=$(readJsonProp "build/dist/package.json" "version")
-#
-#        if [[ "$NEW_VERSION" != "$VERSION" ]]; then
-#            echo "-- The package.json was not updated correctly. The package.json version should be $NEW_VERSION but is $VERSION! Aborting build."
-#            exit 1
-#        fi
+        VERSION=$(readJsonProp "build/dist/package.json" "version")
 
-        # Publish to GitHub gs-pages branch
+        if [[ "$NEW_VERSION" != "$VERSION" ]]; then
+            echo "-- The package.json was not updated correctly. The package.json version should be $NEW_VERSION but is $VERSION! Aborting build."
+            exit 1
+        fi
+
+        # Publish to GitHub gh-pages branch
         npm run deploy
 
 #        deployToHeroku "Deploy prerelease v$NEW_VERSION"
