@@ -37,7 +37,7 @@
   "devDependencies": {
     "del": "^1.1.1",
     "gulp": "^3.8.8",
-    "david": "^5.0.0",
+    "david": "^6.1.0",
     "semver": "^4.0.0",
     "moment": "^2.8.3",
     "run-sequence": "^0.3.7",
