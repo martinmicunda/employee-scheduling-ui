@@ -38,6 +38,8 @@
                     <tbody>
                     <!-- TODO: delete icon should not be displayed for current user (user that is looking at the list)-->
                         <tr ng-repeat="employee in vm.filteredEmployees | startFrom:(vm.currentPage-1)*vm.employeesPerPage | limitTo:vm.employeesPerPage">
+                            <td><img src="../../images/{{::employee.avatar}}" alt="" class="img-circle" title="{{::employee.firstName}} {{::employee.lastName}}"></td>
+
                             <td><img ng-src="../../images/{{::employee.avatar}}" alt="" class="img-circle" title="{{::employee.firstName}} {{::employee.lastName}}"></td>
                             <td>{{::employee.firstName}} {{::employee.lastName}}</td>
                             <td>{{::employee.email}}</td>

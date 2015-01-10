@@ -34,7 +34,7 @@ var $ = require('gulp-load-plugins')();
 var MODULE_NAME          = 'app';
 var PRODUCTION_URL       = 'http://your-production-url.com';
 var DEVELOPMENT_URL      = 'http://127.0.0.1:3000';
-var PRODUCTION_CDN_URL   = 'http://cdn.your-production-url.com';
+var PRODUCTION_CDN_URL   = 'http://martinmicunda.github.io/employee-scheduling-ui/';
 var TEMPLATE_BASE_PATH   = 'app';
 
 
@@ -565,6 +565,14 @@ gulp.task('build', 'Build application for deployment', function (cb) {
 //---------------------------------------------
 //               RELEASE TASKS
 //---------------------------------------------
+
+/**
+ * Publish 'build' folder to GitHub 'gh-pages' branch.
+ */
+gulp.task('gh-pages', 'Publish \'build\' folder to GitHub \'gh-pages\' branch', function () {
+    gulp.src(paths.build.dist.basePath + '**/*')
+        .pipe($.ghPages());
+});
 
 /**
  * The 'bump' task bump version number in package.json.
