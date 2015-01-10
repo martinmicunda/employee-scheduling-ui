@@ -31,9 +31,6 @@ src/jspm_packages/
 build/
 src/.tmp/
 
-# Ignore angular env file
-src/app/core/config/core.env.js
-
 # Test reports
 test/test-reports/
 
