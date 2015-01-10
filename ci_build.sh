@@ -143,7 +143,7 @@ function run {
         # Remove old artifacts from gh-pages branch
 #        cleanGhPagesBranch "Remove old artifacts and preparing branch for prerelease v$NEW_VERSION"
 
-        replaceJsonProp "build/dist/package.json" "version" "$NEW_VERSION"
+#        replaceJsonProp "build/dist/package.json" "version" "$NEW_VERSION"
         echo "-- Build version is $NEW_VERSION"
 
         # Load version to make sure package.json was updated correctly
