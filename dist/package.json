@@ -1,6 +1,6 @@
 {
   "name": "employee-scheduling-ui",
-  "version": "0.0.0-build.10",
+  "version": "0.0.0-build.11",
   "description": "An UI component for Employee Scheduling application.",
   "private": true,
   "author": {
