@@ -1,12 +1,12 @@
 'use strict';
 
-// vendor modules
+// vendor modules TODO: (martin) should I move 'vendor' to core module?
 import './vendor';
 
-// app core modules
-import coreModule from './core/core.module';
+// core modules
+import coreModule from './core/core';
 
-// app component modules
+// component modules
 import employeeModule from './components/employee/employee';
 import languageModule from './components/language/language';
 import positionModule from './components/position/position';
@@ -14,7 +14,7 @@ import roleModule from './components/role/role';
 import uiWidgetsModule from './components/ui-widgets/ui-widgets';
 import paginationModule from './components/pagination/pagination';
 
-// app state (feature) modules
+// state modules
 import accountModule from './states/account/account';
 import customersModule from './states/customers/customers.module';
 import dashboardModule from './states/dashboard/dashboard.module';
@@ -36,7 +36,7 @@ let mainModule = angular.module('app', [
     'LocalStorageModule',
     'jp.ng-bs-animated-button',
 
-    // app core module
+    // core modules
     coreModule.name,
 
     // component modules
@@ -47,7 +47,7 @@ let mainModule = angular.module('app', [
     uiWidgetsModule.name,
     paginationModule.name,
 
-    // app state (feature) modules
+    // state modules
     accountModule.name,
     customersModule.name,
     dashboardModule.name,

@@ -1,8 +1,6 @@
-/**
- * @ngInject
- */
-export default function scheduleRoute($stateProvider) {
-    'use strict';
+'use strict';
+
+function scheduleRoute($stateProvider) {
 
     $stateProvider
         .state('schedule', {
@@ -20,4 +18,4 @@ export default function scheduleRoute($stateProvider) {
         });
 }
 
-
+export default scheduleRoute;

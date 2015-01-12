@@ -1,6 +1,3 @@
-/**
- * @ngInject
- */
 function mmReallyClick($modal) {
     'use strict';
 

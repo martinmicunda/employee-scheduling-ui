@@ -295,7 +295,7 @@ gulp.task('bundle', 'Create JS production bundle', ['jshint'], function (cb) {
     //                cb(new Error(ex));
     //            });
     //    });
-    ////cb();
+    //cb();
     var exec = require('child_process').exec;
     exec('cd src && jspm bundle-sfx app/bootstrap .tmp/scripts/build.js', function (err) {
         if (err) {return cb(err);}

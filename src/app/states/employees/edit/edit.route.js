@@ -1,8 +1,6 @@
-/**
- * @ngInject
- */
+'use strict';
+
 function employeesEditRoute($stateProvider) {
-    'use strict';
 
     $stateProvider
         //http://blog.chorip.am/articles/angularsjs-ui-router-and-in-modal-nested-states/
@@ -12,19 +10,11 @@ function employeesEditRoute($stateProvider) {
                 var id = $stateParams.id;
                 $modal.open({
                     templateUrl: 'app/states/employees/edit/edit.html',
-                    resolve: {/* @ngInject */
-                        employee: function($stateParams, EmployeeResource) {
-                            return EmployeeResource.get(id);
-                        },/* @ngInject */
-                        languages: function(LanguageResource) {
-                            return LanguageResource.getList();
-                        },/* @ngInject */
-                        positions: function(PositionResource){
-                            return PositionResource.getList({lang: 'en'}); // TODO:(martin) language should comes from user profile
-                        },/* @ngInject */
-                        roles: function(RoleResource){
-                            return RoleResource.getList({lang: 'en'}); // TODO:(martin) language should comes from user profile
-                        }
+                    resolve: {
+                        employee: ($stateParams, EmployeeResource) => EmployeeResource.get(id),
+                        languages: LanguageResource => LanguageResource.getList(),
+                        positions: PositionResource => PositionResource.getList({lang: 'en'}), // TODO:(martin) language should comes from user profile
+                        roles: RoleResource => RoleResource.getList({lang: 'en'}) // TODO:(martin) language should comes from user profile
                     },
                     controller: 'EmployeesEditController',
                     controllerAs: 'vm',
@@ -35,6 +25,7 @@ function employeesEditRoute($stateProvider) {
             }]
         });
 }
+employeesEditRoute.$inject = ['$stateProvider'];
 
 export default employeesEditRoute;
 

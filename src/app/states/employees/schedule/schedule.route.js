@@ -1,8 +1,6 @@
-/**
- * @ngInject
- */
+'use strict';
+
 function employeesScheduleRoute($stateProvider) {
-    'use strict';
 
     $stateProvider
         .state('employees.schedule', {

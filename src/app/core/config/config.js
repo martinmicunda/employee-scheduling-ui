@@ -1,17 +1,16 @@
 'use strict';
 
-/* @ngInject */
-export function coreConfig($locationProvider, $provide, $urlRouterProvider, RestangularProvider, localStorageServiceProvider) {
+export function onConfig($locationProvider, $provide, $urlRouterProvider, RestangularProvider, localStorageServiceProvider) {
 
     // use "e-scheduling" as a localStorage name prefix so app doesn’t accidently read data from another app using the same variable names
     localStorageServiceProvider.setPrefix('employee-scheduling');
 
     // overwrite the default behaviour for $uiViewScroll service (scroll to top of the page)
-    $provide.decorator('$uiViewScroll', function ($delegate, $window) {
+    $provide.decorator('$uiViewScroll', ['$delegate', '$window', function ($delegate, $window) {
         return function () {
             $window.scrollTo(0,0);
         };
-    });
+    }]);
 
     /*********************************************************************
      * Route provider configuration based on these config constant values

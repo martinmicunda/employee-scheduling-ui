@@ -1,9 +1,6 @@
-/**
- * @ngInject
- */
-function bankDetailsRoute($stateProvider) {
-    'use strict';
+'use strict';
 
+function bankDetailsRoute($stateProvider) {
     return $stateProvider
         .state('account.bank-details', {
             url: '/bank-details',

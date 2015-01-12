@@ -1,8 +1,6 @@
-/**
- * @ngInject
- */
+'use strict';
+
 function employeesAccountDetailsRoute($stateProvider) {
-    'use strict';
 
     return $stateProvider
         .state('employees.add.account-details', {
@@ -14,5 +12,6 @@ function employeesAccountDetailsRoute($stateProvider) {
             }
         });
 }
+employeesAccountDetailsRoute.$inject = ['$stateProvider'];
 
 export default employeesAccountDetailsRoute;

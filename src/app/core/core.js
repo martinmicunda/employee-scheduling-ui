@@ -1,8 +1,8 @@
 import FooterController from './layout/footer/layout.footer.controller';
-import {coreConfig} from './config/core.config';
+import {onConfig} from './config/config';
 
-import coreTestModule from './config/core.config.test';
+import coreTestModule from './config/config.test';
 
 export default angular.module('app.core', [coreTestModule.name])
-    .config(coreConfig)
+    .config(onConfig)
     .controller('FooterController', FooterController);

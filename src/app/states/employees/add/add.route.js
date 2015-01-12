@@ -1,8 +1,6 @@
-/**
- * @ngInject
- */
+'use strict';
+
 function employeesAddRoute($stateProvider) {
-    'use strict';
 
     $stateProvider
         //http://blog.chorip.am/articles/angularsjs-ui-router-and-in-modal-nested-states/
@@ -33,6 +31,7 @@ function employeesAddRoute($stateProvider) {
             }]
         });
 }
+employeesAddRoute.$inject = ['$stateProvider'];
 
 export default employeesAddRoute;
 

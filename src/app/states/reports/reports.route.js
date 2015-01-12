@@ -1,8 +1,6 @@
-/**
- * @ngInject
- */
-export default function reportsRoute($stateProvider) {
-    'use strict';
+'use strict';
+
+function reportsRoute($stateProvider) {
 
     $stateProvider
         .state('reports', {
@@ -10,3 +8,5 @@ export default function reportsRoute($stateProvider) {
             templateUrl: 'app/states/reports/reports.html'
         });
 }
+
+export default reportsRoute;

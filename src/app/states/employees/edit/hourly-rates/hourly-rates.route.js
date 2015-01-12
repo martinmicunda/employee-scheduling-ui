@@ -1,8 +1,6 @@
-/**
- * @ngInject
- */
+'use strict';
+
 function hourlyRatesRoute($stateProvider) {
-    'use strict';
 
     return $stateProvider
         .state('employees.edit.hourly-rates', {

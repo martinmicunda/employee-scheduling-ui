@@ -13,7 +13,8 @@
     "htmlhint": "gulp htmlhint",
     "test": "gulp test:unit",
     "david": "david",
-    "deploy": "gulp gh-pages"
+    "deploy": "gulp gh-pages",
+    "postinstall": "jspm install"
   },
   "pre-commit": [
     "jshint",
@@ -37,15 +38,16 @@
   ],
   "devDependencies": {
     "del": "^1.1.1",
+    "jspm": "^0.10.4",
     "gulp": "^3.8.8",
     "david": "^6.1.0",
     "plato": "^1.3.0",
     "semver": "^4.0.0",
     "moment": "^2.8.3",
+    "pre-commit": "^0.0.9",
     "run-sequence": "^0.3.7",
     "jshint-stylish": "^1.0.0",
     "systemjs-builder": "^0.5.2",
-    "you-shall-not-commit": "^0.0.1",
     "conventional-changelog": "^0.0.11",
     "gulp-if": "^1.2.4",
     "gulp-rev": "^1.1.0",

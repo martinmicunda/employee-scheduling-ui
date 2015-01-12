@@ -1,9 +1,6 @@
-/**
- * @ngInject
- */
-export default function settingsRoute($stateProvider) {
-    'use strict';
+'use strict';
 
+function settingsRoute($stateProvider) {
     $stateProvider
         .state('settings', {
             url: '/settings',
@@ -11,4 +8,4 @@ export default function settingsRoute($stateProvider) {
         });
 }
 
-
+export default settingsRoute;

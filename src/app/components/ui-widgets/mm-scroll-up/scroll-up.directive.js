@@ -1,6 +1,3 @@
-/**
- * @ngInject
- */
 function mmScrollUp($location, $anchorScroll) {
     'use strict';
 

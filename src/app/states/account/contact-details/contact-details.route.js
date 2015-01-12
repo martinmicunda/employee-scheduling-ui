@@ -1,9 +1,6 @@
-/**
- * @ngInject
- */
-function contactDetailsRoute($stateProvider) {
-    'use strict';
+'use strict';
 
+function contactDetailsRoute($stateProvider) {
     return $stateProvider
         .state('account.contact-details', {
             url: '/contact-details',

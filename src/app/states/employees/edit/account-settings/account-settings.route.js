@@ -1,8 +1,6 @@
-/**
- * @ngInject
- */
+'use strict';
+
 function accountSettingsRoute($stateProvider) {
-    'use strict';
 
     return $stateProvider
         .state('employees.edit.account-settings', {
@@ -14,4 +12,5 @@ function accountSettingsRoute($stateProvider) {
             }
         });
 }
+
 export default accountSettingsRoute;

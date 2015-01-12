@@ -1,8 +1,6 @@
-/**
- * @ngInject
- */
+'use strict';
+
 function documentsRoute($stateProvider) {
-    'use strict';
 
     $stateProvider
         .state('documents', {

@@ -1,8 +1,6 @@
-/**
- * @ngInject
- */
-export default function dashboardRoute($stateProvider) {
-    'use strict';
+'use strict';
+
+function dashboardRoute($stateProvider) {
 
     $stateProvider
         .state('dashboard', {
@@ -18,3 +16,5 @@ export default function dashboardRoute($stateProvider) {
             //}
         });
 }
+
+export default dashboardRoute;

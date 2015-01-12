@@ -1,8 +1,6 @@
-/**
- * @ngInject
- */
+'use strict';
+
 function contactDetailsRoute($stateProvider) {
-    'use strict';
 
     return $stateProvider
         .state('employees.edit.contact-details', {

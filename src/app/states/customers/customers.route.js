@@ -1,8 +1,6 @@
-/**
- * @ngInject
- */
-export default function customersRoute($stateProvider) {
-    'use strict';
+'use strict';
+
+function customersRoute($stateProvider) {
 
     $stateProvider
         .state('customers', {
@@ -10,3 +8,5 @@ export default function customersRoute($stateProvider) {
             templateUrl: 'app/states/customers/customers.html'
         });
 }
+
+export default customersRoute;
