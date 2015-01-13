@@ -284,24 +284,17 @@ gulp.task('bundle', 'Create JS production bundle', ['jshint'], function (cb) {
     var builder = require('systemjs-builder');
     builder.reset();
 
-    //builder.loadConfig('./src/jspm.conf.js')
-    //    .then(function() {
-    //        builder.loader.baseURL = path.resolve('./src/');
-    //        builder.buildSFX('app/bootstrap', paths.tmp.scripts + 'bootstrap.js', { sourceMaps: true, config: {sourceRoot: paths.tmp.scripts} })
-    //            .then(function() {
-    //                return cb();
-    //            })
-    //            .catch(function(ex) {
-    //                cb(new Error(ex));
-    //            });
-    //    });
-    //cb();
-    var exec = require('child_process').exec;
-    exec('cd src && jspm bundle-sfx app/bootstrap .tmp/scripts/build.js', function (err) {
-        if (err) {return cb(err);}
-
-        cb();
-    });
+    builder.loadConfig('./src/jspm.conf.js')
+        .then(function() {
+            builder.config({ baseURL: path.resolve('./src') });
+            builder.buildSFX('app/bootstrap', paths.tmp.scripts + 'build.js', { sourceMaps: true, config: {sourceRoot: paths.tmp.scripts} })
+                .then(function() {
+                    return cb();
+                })
+                .catch(function(ex) {
+                    cb(new Error(ex));
+                });
+        });
 });
 
 /**
@@ -452,15 +445,6 @@ gulp.task('karma', 'Run unit tests without coverage check', function (cb) {
     });
 });
 
-/**
- * The 'setup' task is to configure environment, compile SASS to CSS.
- */
-gulp.task('setup', 'Configure environment, compile SASS to CSS',  function (cb) {
-    runSequence(
-        ['styles'],
-        cb
-    );
-});
 
 //=============================================
 //                MAIN TASKS
@@ -473,7 +457,7 @@ gulp.task('setup', 'Configure environment, compile SASS to CSS',  function (cb) 
 /**
  * The 'serve' task serve the dev environment.
  */
-gulp.task('serve', 'Serve for the dev environment', ['setup', 'watch'], function() {
+gulp.task('serve', 'Serve for the dev environment', ['styles', 'watch'], function() {
     gulp.src([paths.app.basePath])
         .pipe($.webserver({
             fallback: 'index.html',
@@ -580,10 +564,6 @@ gulp.task('build', 'Build application for deployment', function (cb) {
     }
 });
 
-//---------------------------------------------
-//               RELEASE TASKS
-//---------------------------------------------
-
 /**
  * Publish 'build' folder to GitHub 'gh-pages' branch.
  */
@@ -591,6 +571,10 @@ gulp.task('gh-pages', 'Publish \'build\' folder to GitHub \'gh-pages\' branch', 
     gulp.src(paths.build.basePath + '**/*')
         .pipe($.ghPages({remoteUrl: GIT_REMOTE_URL}));
 });
+
+//---------------------------------------------
+//               RELEASE TASKS
+//---------------------------------------------
 
 /**
  * The 'bump' task bump version number in package.json.
