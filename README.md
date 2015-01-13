@@ -12,6 +12,6 @@ An UI component for [Employee Scheduling](https://github.com/martinmicunda/emplo
 
 ## License
 
-    Copyright (c) 2014 Martin Micunda  
+    Copyright (c) 2014-2015 Martin Micunda  
 
     Source code is open source and released under the GNU GPL v3 license.
