@@ -10,3 +10,8 @@ An UI component for [Employee Scheduling](https://github.com/martinmicunda/emplo
 
 **Note: :warning: This project is under development.**
 
+## License
+
+    Copyright (c) 2014 Martin Micunda  
+
+    Source code is open source and released under the [GNU GPL v3 license](LICENSE).
