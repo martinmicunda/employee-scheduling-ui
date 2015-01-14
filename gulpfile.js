@@ -266,7 +266,7 @@ gulp.task('htmlhint', 'Hint HTML files', function () {
 /**
  * Compile SASS files into the main.css.
  */
-gulp.task('styles', 'Compile sass files into the main.css', function () {
+gulp.task('sass', 'Compile sass files into the main.css', function () {
     // if it's set to `true` the gulp.watch will keep gulp from stopping
     // every time we mess up sass files
     var errLogToConsole = ENV === 'dev' || ENV === 'test';
@@ -309,7 +309,7 @@ gulp.task('watch', 'Watch files for changes', function () {
     gulp.watch([paths.app.images, paths.app.fonts]);
 
     // Watch css files
-    gulp.watch(paths.app.styles, ['styles']);
+    gulp.watch(paths.app.styles, ['sass']);
 
     // Watch js files
     gulp.watch([paths.app.scripts, paths.gulpfile], ['jshint']);
@@ -383,7 +383,7 @@ gulp.task('templatecache', 'Minify html templates and create template cache js f
  *    html     - replace local path with CDN url, minify
  */
 gulp.task('compile', 'Does the same as \'jshint\', \'htmlhint\', \'images\', \'templates\' tasks but also compile all JS, CSS and HTML files',
-    ['htmlhint', 'templatecache', 'styles', 'bundle'], function () {
+    ['htmlhint', 'templatecache', 'sass', 'bundle'], function () {
         var projectHeader = $.header(banner);
 
         return gulp.src(paths.app.html)
@@ -457,7 +457,7 @@ gulp.task('karma', 'Run unit tests without coverage check', function (cb) {
 /**
  * The 'serve' task serve the dev environment.
  */
-gulp.task('serve', 'Serve for the dev environment', ['styles', 'watch'], function() {
+gulp.task('serve', 'Serve for the dev environment', ['sass', 'watch'], function() {
     gulp.src([paths.app.basePath])
         .pipe($.webserver({
             fallback: 'index.html',
