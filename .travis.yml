@@ -19,10 +19,6 @@ before_install:
   - "export DISPLAY=:99.0"
   - "sh -e /etc/init.d/xvfb start"
 
-# install dependencies necessary to run this build
-install:
-  - npm install --quiet
-
 script:
   - bash -ex ./ci_build.sh
 

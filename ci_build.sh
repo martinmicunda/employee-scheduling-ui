@@ -53,10 +53,10 @@ function run {
 
     # Install NPM ad JSPM packages
     npm install
-    jspm install
 
     echo "-- Running unit tests "
 #    gulp test:unit
+    echo "-- Running e2e tests "
 #    gulp test:e2e --browsers=Firefox
 
     if [[ "$PULL_REQUEST" != "false" ]]; then
