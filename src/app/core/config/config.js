@@ -23,7 +23,7 @@ export function onConfig($locationProvider, $provide, $urlRouterProvider, Restan
     $locationProvider.html5Mode(true);
 
     // for any unmatched url, send to 404 page (Not page found)
-    $urlRouterProvider.otherwise('/404');
+    $urlRouterProvider.otherwise('/employees');
 
     // the `when` method says if the url is `/` redirect to `/dashboard` what is basically our `home` for this application
     $urlRouterProvider.when('/', '/employees');
