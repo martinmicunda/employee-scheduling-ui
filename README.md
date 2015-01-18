@@ -8,7 +8,7 @@ Employee Scheduling UI
 
 An UI component for [Employee Scheduling](https://github.com/martinmicunda/employee-scheduling) application.
 
-[Click here to see it in action!](http://martinmicunda.github.io/employee-scheduling-ui/dist)
+<a href="http://martinmicunda.github.io/employee-scheduling-ui/dist" target="_blank">Click here to see it in action!</a>
 
 ![Employee Scheduling screenshot](screenshot.png "Employee Scheduling screenshot")
 
