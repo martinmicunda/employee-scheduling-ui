@@ -9,7 +9,7 @@ Employee Scheduling UI
 An UI component for [Employee Scheduling](https://github.com/martinmicunda/employee-scheduling) application.
 
 ## Demo
-This demo is running from [gh-pages](https://github.com/martinmicunda/employee-scheduling-ui/tree/gh-pages) branch in backend-less development env (see [backend-less](#Backend-less) section).
+This demo is running from [gh-pages](https://github.com/martinmicunda/employee-scheduling-ui/tree/gh-pages) branch in backend-less development env (see [backend-less](#backend-less) section).
 
 <a href="http://martinmicunda.github.io/employee-scheduling-ui/dist" target="_blank">Click here to see it in action!</a>
 
