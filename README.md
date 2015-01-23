@@ -65,13 +65,13 @@ TODO: add development local steps once the backend is completed
   * Useful for demoing UI work without backend
   
 ```bash
-gulp serve
+$ gulp serve
 ```
 
 ### Production
 See [build](#build) section for more details how `build` is created.
 ```bash
-gulp serve:dist
+$ gulp serve:dist
 ```
 
 ## Build
