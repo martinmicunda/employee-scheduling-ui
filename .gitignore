@@ -22,11 +22,11 @@ node_modules
 .idea/
 
 # JSPM
-src/jspm_packages/
+jspm_packages/
 
 # Build and tmp folders for production
 build/
-src/.tmp/
+.tmp/
 
 # Test reports
 test/test-reports/

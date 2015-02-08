@@ -7,5 +7,6 @@ function contactDetailsRoute($stateProvider) {
             templateUrl: 'app/states/account/contact-details/contact-details.html'
         });
 }
+contactDetailsRoute.$inject = ['$stateProvider'];
 
 export default contactDetailsRoute;

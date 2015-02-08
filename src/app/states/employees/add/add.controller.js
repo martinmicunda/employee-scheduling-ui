@@ -22,5 +22,6 @@ class EmployeesAddController {
     //}
 
 }
+EmployeesAddController.$inject = ['languages', 'positions', 'roles', 'EmployeeResource', '$state', '$modalInstance'];
 
 export default EmployeesAddController;

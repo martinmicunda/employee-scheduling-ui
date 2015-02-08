@@ -12,5 +12,6 @@ function bankDetailsRoute($stateProvider) {
             }
         });
 }
+bankDetailsRoute.$inject = ['$stateProvider'];
 
 export default bankDetailsRoute;

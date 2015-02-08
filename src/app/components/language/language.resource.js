@@ -10,5 +10,6 @@ class LanguageResource {
             .getList();
     }
 }
+LanguageResource.$inject = ['Restangular'];
 
 export default LanguageResource;

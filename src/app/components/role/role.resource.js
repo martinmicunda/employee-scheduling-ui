@@ -10,5 +10,6 @@ class RoleResource {
             .getList(query);
     }
 }
+RoleResource.$inject = ['Restangular'];
 
 export default RoleResource;

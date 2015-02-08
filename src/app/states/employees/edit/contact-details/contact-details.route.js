@@ -12,5 +12,6 @@ function contactDetailsRoute($stateProvider) {
             }
         });
 }
+contactDetailsRoute.$inject = ['$stateProvider'];
 
 export default contactDetailsRoute;

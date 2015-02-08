@@ -7,5 +7,6 @@ function bankDetailsRoute($stateProvider) {
             templateUrl: 'app/states/account/bank-details/bank-details.html'
         });
 }
+bankDetailsRoute.$inject = ['$stateProvider'];
 
 export default bankDetailsRoute;

@@ -34,5 +34,6 @@ class EmployeesMessageController {
         }.bind(this));
     }
 }
+EmployeesMessageController.$inject = ['employee', '$modalInstance'];
 
 export default EmployeesMessageController;

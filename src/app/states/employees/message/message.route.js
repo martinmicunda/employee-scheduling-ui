@@ -1,7 +1,6 @@
 'use strict';
 
 function employeesMessageRoute($stateProvider) {
-
     $stateProvider
         .state('employees.message', {
             url: '/:id/message',
@@ -23,6 +22,7 @@ function employeesMessageRoute($stateProvider) {
             }]
         });
 }
+employeesMessageRoute.$inject = ['$stateProvider'];
 
 export default employeesMessageRoute;
 

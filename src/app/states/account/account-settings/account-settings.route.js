@@ -7,5 +7,6 @@ function accountSettingsRoute($stateProvider) {
             templateUrl: 'app/states/account/account-settings/account-settings.html'
         });
 }
+accountSettingsRoute.$inject = ['$stateProvider'];
 
 export default accountSettingsRoute;

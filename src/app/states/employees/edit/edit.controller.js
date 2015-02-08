@@ -40,5 +40,6 @@ class EmployeesEditController {
         }.bind(this));
     }
 }
+EmployeesEditController.$inject = ['employee', 'languages', 'positions', 'roles', 'EmployeeResource', '$modalInstance'];
 
 export default EmployeesEditController;

@@ -28,4 +28,6 @@ export function onConfig($locationProvider, $provide, $urlRouterProvider, Restan
     // the `when` method says if the url is `/` redirect to `/dashboard` what is basically our `home` for this application
     $urlRouterProvider.when('/', '/employees');
 }
+onConfig.$inject = ['$locationProvider', '$provide', '$urlRouterProvider', 'RestangularProvider', 'localStorageServiceProvider'];
+
 

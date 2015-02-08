@@ -7,5 +7,6 @@ class EmployeesScheduleController {
         this.$modalInstance.dismiss('cancel');
     }
 }
+EmployeesScheduleController.$inject = ['$modalInstance'];
 
 export default EmployeesScheduleController;

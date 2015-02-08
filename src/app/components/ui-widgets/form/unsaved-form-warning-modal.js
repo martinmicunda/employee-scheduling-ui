@@ -79,6 +79,7 @@ function mmUnsavedFormWarningModal($modal, $state, UnsavedFormsService) {
         });
     }
 }
+mmUnsavedFormWarningModal.$inject = ['$modal', '$state', 'UnsavedFormsService'];
 
 export default angular.module('mm.unsavedFormWarningModal', [])
     .directive('mmUnsavedFormWarningModal', mmUnsavedFormWarningModal)

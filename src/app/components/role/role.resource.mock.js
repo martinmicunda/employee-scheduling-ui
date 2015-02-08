@@ -14,5 +14,6 @@ function roleResourceMock($httpBackend) {
             }
         });
 }
+roleResourceMock.$inject = ['$httpBackend'];
 
 export default roleResourceMock;

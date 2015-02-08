@@ -17,8 +17,11 @@ var plato          = require('plato');
 var karma          = require('karma').server;
 var moment         = require('moment');
 var semver         = require('semver');
+var httpProxy      = require('http-proxy');
 var changelog      = require('conventional-changelog');
+var modRewrite     = require('connect-modrewrite');
 var runSequence    = require('run-sequence');
+var browserSync    = require('browser-sync');
 
 /**
  * Load Gulp plugins listed in 'package.json' and attaches
@@ -92,6 +95,36 @@ function bytediffFormatter(data) {
     ' and is ' + formatPercent(1-data.percent, 2) + '%' + difference);
 }
 
+var proxyTarget = 'http://localhost:8000/';
+var proxyApiPrefix = 'api';
+var proxy = httpProxy.createProxyServer({
+    target: proxyTarget
+});
+
+var proxyMiddleware = function(req, res, next) {
+    if (req.url.indexOf(proxyApiPrefix) !== -1) {
+        proxy.web(req, res);
+    } else {
+        next();
+    }
+};
+function startBrowserSync(baseDir, files, browser) {
+    browser = browser === undefined ? 'default' : browser;
+
+    browserSync({
+        files: files,
+        port: 8000,
+        notify: false,
+        server: {
+            baseDir: baseDir,
+            middleware: [
+                proxyMiddleware,
+                modRewrite(['!\\.\\w+$ /index.html [L]']) // require for HTML5 mode
+            ]
+        },
+        browser: browser
+    });
+}
 
 //=============================================
 //            DECLARE PATHS
@@ -117,7 +150,7 @@ var paths = {
      */
     app: {
         basePath:       'src/',
-        fonts:          ['src/fonts/**/*.{eot,svg,ttf,woff}', 'src/jspm_packages/**/*.{eot,svg,ttf,woff}'],
+        fonts:          ['src/fonts/**/*.{eot,svg,ttf,woff}', 'jspm_packages/**/*.{eot,svg,ttf,woff}'],
         styles:         'src/styles/**/*.scss',
         images:         'src/images/**/*.{png,gif,jpg,jpeg}',
         config: {
@@ -159,9 +192,9 @@ var paths = {
      * copy to 'dist' folder.
      */
     tmp: {
-        basePath:       'src/.tmp/',
-        styles:         'src/.tmp/styles/',
-        scripts:        'src/.tmp/scripts/'
+        basePath:       '.tmp/',
+        styles:         '.tmp/styles/',
+        scripts:        '.tmp/scripts/'
     },
     /**
      * The 'build' folder is where our app resides once it's
@@ -221,7 +254,10 @@ $.help(gulp);
  * The 'clean' task delete 'build' and '.tmp' directories.
  */
 gulp.task('clean', 'Delete \'build\' and \'.tmp\' directories', function (cb) {
-    return del([paths.build.basePath, paths.tmp.basePath], cb);
+    var files = [].concat(paths.build.basePath, paths.tmp.basePath);
+    log('Cleaning: ' + COLORS.blue(files));
+
+    return del(files, cb);
 });
 
 // TODO: Plato doesn't support ES6 yet see open issue here https://github.com/es-analysis/plato/issues/127
@@ -277,17 +313,18 @@ gulp.task('sass', 'Compile sass files into the main.css', function () {
         .pipe($.autoprefixer('last 2 version'))
         .pipe($.concat('main.css'))
         .pipe($.sourcemaps.write('../maps'))
-        .pipe(gulp.dest(paths.tmp.styles));
+        .pipe(gulp.dest(paths.tmp.styles))
+        .pipe($.filter('**/*.css')) // Filtering stream to only css files
+        .pipe(browserSync.reload({stream:true}));
 });
 
 gulp.task('bundle', 'Create JS production bundle', ['jshint'], function (cb) {
     var builder = require('systemjs-builder');
-    builder.reset();
 
-    builder.loadConfig('./src/jspm.conf.js')
+    builder.loadConfig('./jspm.conf.js')
         .then(function() {
-            builder.config({ baseURL: path.resolve('./src') });
-            builder.buildSFX('app/bootstrap', paths.tmp.scripts + 'build.js', { sourceMaps: true, config: {sourceRoot: paths.tmp.scripts} })
+            //builder.config({ lib: path.resolve('src/app') });
+            builder.buildSFX('src/app/bootstrap', paths.tmp.scripts + 'build.js', { sourceMaps: true, config: {sourceRoot: paths.tmp.scripts} })
                 .then(function() {
                     return cb();
                 })
@@ -302,25 +339,17 @@ gulp.task('bundle', 'Create JS production bundle', ['jshint'], function (cb) {
  * change, and then to execute the listed tasks when they do.
  */
 gulp.task('watch', 'Watch files for changes', function () {
-    // Listen on port 35729
-    $.livereload.listen();
-
     // Watch images and fonts files
-    gulp.watch([paths.app.images, paths.app.fonts]);
+    gulp.watch([paths.app.images, paths.app.fonts], [browserSync.reload]);
 
     // Watch css files
     gulp.watch(paths.app.styles, ['sass']);
 
     // Watch js files
-    gulp.watch([paths.app.scripts, paths.gulpfile], ['jshint']);
+    gulp.watch([paths.app.scripts, paths.gulpfile], ['jshint', browserSync.reload]);
 
     // Watch html files
-    gulp.watch([paths.app.html, paths.app.templates], ['htmlhint']);
-
-    // this is just hack solution see https://github.com/vohof/gulp-livereload/issues/36
-    gulp.on('stop', function(){
-        $.livereload.changed();
-    });
+    gulp.watch([paths.app.html, paths.app.templates], ['htmlhint', browserSync.reload]);
 });
 
 /**
@@ -405,9 +434,9 @@ gulp.task('compile', 'Does the same as \'jshint\', \'htmlhint\', \'images\', \'t
                     projectHeader
                 ],
                 js:         [
-                    //$.bytediff.start(),
-                    //$.uglify(),
-                    //$.bytediff.stop(bytediffFormatter),
+                    $.bytediff.start(),
+                    $.uglify(),
+                    $.bytediff.stop(bytediffFormatter),
                     $.rev(),
                     projectHeader
                 ],
@@ -458,11 +487,7 @@ gulp.task('karma', 'Run unit tests without coverage check', function (cb) {
  * The 'serve' task serve the dev environment.
  */
 gulp.task('serve', 'Serve for the dev environment', ['sass', 'watch'], function() {
-    gulp.src([paths.app.basePath])
-        .pipe($.webserver({
-            fallback: 'index.html',
-            open: true
-        }));
+    startBrowserSync(['.tmp', 'src', 'jspm_packages', './' ]);
 });
 gulp.task('default', 'Watch files and build environment', ['serve']);
 
@@ -470,11 +495,7 @@ gulp.task('default', 'Watch files and build environment', ['serve']);
  * The 'serve:dist' task serve the prod environment.
  */
 gulp.task('serve:dist', 'Serve the prod environment', ['build'], function() {
-    gulp.src(paths.build.dist.basePath)
-        .pipe($.webserver({
-            fallback: 'index.html',
-            open: true
-        }));
+    startBrowserSync([paths.build.dist.basePath]);
 });
 
 //---------------------------------------------

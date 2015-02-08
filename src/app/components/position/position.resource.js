@@ -10,5 +10,6 @@ class PositionResource {
             .getList(query);
     }
 }
+PositionResource.$inject = ['Restangular'];
 
 export default PositionResource;

@@ -13,6 +13,8 @@ function onRunTest($httpBackend) {
     $httpBackend.whenGET(/^\w+.*/).passThrough();
     $httpBackend.whenPOST(/^\w+.*/).passThrough();
 }
+onConfigTest.$inject = ['$provide'];
+onRunTest.$inject = ['$httpBackend'];
 
 export default angular.module('app.core.test', [])
     .config(onConfigTest)

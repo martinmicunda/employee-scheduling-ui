@@ -47,6 +47,7 @@ function employeeResourceMock($httpBackend) {
             return [200, {}];
         });
 }
+employeeResourceMock.$inject = ['$httpBackend'];
 
 export default employeeResourceMock;
 

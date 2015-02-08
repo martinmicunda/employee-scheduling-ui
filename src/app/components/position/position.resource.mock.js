@@ -14,5 +14,6 @@ function positionResourceMock($httpBackend) {
             }
         });
 }
+positionResourceMock.$inject = ['$httpBackend'];
 
 export default positionResourceMock;

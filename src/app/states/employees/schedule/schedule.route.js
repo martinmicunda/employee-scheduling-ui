@@ -23,6 +23,7 @@ function employeesScheduleRoute($stateProvider) {
             }]
         });
 }
+employeesScheduleRoute.$inject = ['$stateProvider'];
 
 export default employeesScheduleRoute;
 

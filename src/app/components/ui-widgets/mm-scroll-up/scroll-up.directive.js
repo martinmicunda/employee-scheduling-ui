@@ -14,6 +14,7 @@ function mmScrollUp($location, $anchorScroll) {
         });
     }
 }
+mmScrollUp.$inject = ['$location', '$anchorScroll'];
 
 export default angular.module('mmScrollUp', [])
     .directive('mmScrollUp', mmScrollUp);

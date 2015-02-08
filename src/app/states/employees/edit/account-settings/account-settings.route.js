@@ -12,5 +12,6 @@ function accountSettingsRoute($stateProvider) {
             }
         });
 }
+accountSettingsRoute.$inject = ['$stateProvider'];
 
 export default accountSettingsRoute;

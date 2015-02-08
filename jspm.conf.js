@@ -2,8 +2,8 @@ System.config({
   "baseURL": "./",
   "paths": {
     "*": "*.js",
+    "employee-scheduling-ui/*": "src/*.js",
     "github:*": "jspm_packages/github/*.js",
-    "employee-scheduling-ui/*": "app/*.js",
     "npm:*": "jspm_packages/npm/*.js"
   }
 });
@@ -24,7 +24,13 @@ System.config({
     "github:lodash/lodash": "github:lodash/lodash@2.4.1",
     "github:mgonto/restangular": "github:mgonto/restangular@1.4.0",
     "json": "github:systemjs/plugin-json@0.1.0",
+    "github:angular-ui/bootstrap-bower@0.12.0": {
+      "angular": "github:angular/bower-angular@1.2.28"
+    },
     "github:angular/bower-angular-animate@1.3.8": {
+      "angular": "github:angular/bower-angular@1.3.8"
+    },
+    "github:angular/bower-angular-mocks@1.3.8": {
       "angular": "github:angular/bower-angular@1.3.8"
     }
   }

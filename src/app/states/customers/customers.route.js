@@ -8,5 +8,6 @@ function customersRoute($stateProvider) {
             templateUrl: 'app/states/customers/customers.html'
         });
 }
+customersRoute.$inject = ['$stateProvider'];
 
 export default customersRoute;

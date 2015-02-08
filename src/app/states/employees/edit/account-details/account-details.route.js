@@ -12,5 +12,6 @@ function employeesAccountDetailsRoute($stateProvider) {
             }
         });
 }
+employeesAccountDetailsRoute.$inject = ['$stateProvider'];
 
 export default employeesAccountDetailsRoute;

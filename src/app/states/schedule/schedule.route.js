@@ -1,7 +1,6 @@
 'use strict';
 
 function scheduleRoute($stateProvider) {
-
     $stateProvider
         .state('schedule', {
             url: '/schedule',
@@ -17,5 +16,6 @@ function scheduleRoute($stateProvider) {
             //}
         });
 }
+scheduleRoute.$inject = ['$stateProvider'];
 
 export default scheduleRoute;

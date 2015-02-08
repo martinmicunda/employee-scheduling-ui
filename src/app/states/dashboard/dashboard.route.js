@@ -16,5 +16,6 @@ function dashboardRoute($stateProvider) {
             //}
         });
 }
+dashboardRoute.$inject = ['$stateProvider'];
 
 export default dashboardRoute;

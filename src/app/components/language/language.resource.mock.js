@@ -9,5 +9,6 @@ function languageResourceMock($httpBackend) {
             return [200, languages];
         });
 }
+languageResourceMock.$inject = ['$httpBackend'];
 
 export default languageResourceMock;

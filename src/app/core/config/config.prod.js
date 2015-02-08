@@ -6,6 +6,7 @@ function onConfigProd($compileProvider, $httpProvider) {
     // around the same time via $rootScope.$applyAsync to get better performance gain in production
     $httpProvider.useApplyAsync(true);
 }
+onConfigProd.$inject = ['$compileProvider', '$httpProvider'];
 
 export default angular.module('app.core.prod', [])
     .config(onConfigProd);

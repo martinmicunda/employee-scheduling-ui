@@ -35,5 +35,6 @@ class EmployeesController {
         }.bind(this));
     }
 }
+EmployeesController.$inject = ['employees', 'languages', 'positions', 'roles', 'EmployeeResource', 'filterFilter'];
 
 export default EmployeesController;

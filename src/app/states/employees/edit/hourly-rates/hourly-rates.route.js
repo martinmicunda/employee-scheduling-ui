@@ -1,7 +1,6 @@
 'use strict';
 
 function hourlyRatesRoute($stateProvider) {
-
     return $stateProvider
         .state('employees.edit.hourly-rates', {
             url: '/hourly-rates',
@@ -12,5 +11,6 @@ function hourlyRatesRoute($stateProvider) {
             }
         });
 }
+hourlyRatesRoute.$inject = ['$stateProvider'];
 
 export default hourlyRatesRoute;
