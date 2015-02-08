@@ -6,7 +6,7 @@ Employee Scheduling UI
 
 **Note: :warning: This project is under development.**
 
-An UI component for [Employee Scheduling](https://github.com/martinmicunda/employee-scheduling) application.
+An UI component for [Employee Scheduling](https://github.com/martinmicunda/employee-scheduling) application. My talk from AngulaJS meetup in Dublin on "**How to start writing apps with ES6, AngularJS 1.x and JSPM**" can be found [here](http://martinmicunda.com/presentations/how-to-start-writing-apps-with-es6-angular-1x-and-jspm/how-to-start-writing-apps-with-es6-angular-1x-and-jspm.html#/).
 
 ## Demo
 This demo is running from [gh-pages](https://github.com/martinmicunda/employee-scheduling-ui/tree/gh-pages) branch in backend-less development env (see [backend-less](#backend-less) section).
@@ -22,7 +22,7 @@ This demo is running from [gh-pages](https://github.com/martinmicunda/employee-s
   * Mocked Backend Workflow - help with mocking backend-less development
   * Achieve some of the Angular 2.0 goals while still running on Angular 1.3.x
   * Produce optimised, production ready code for deployment and automatically deploy this code to [gh-pages](https://github.com/martinmicunda/employee-scheduling-ui/tree/gh-pages) after each commit via [Travis CI](https://travis-ci.org/martinmicunda/employee-scheduling-ui)
-     
+
 ##<a name="installation-and-configuration"></a> Installation & Configuration
 
 ###<a name="platform-and-tools"></a> Platform & Tools
