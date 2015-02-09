@@ -323,7 +323,6 @@ gulp.task('bundle', 'Create JS production bundle', ['jshint'], function (cb) {
 
     builder.loadConfig('./jspm.conf.js')
         .then(function() {
-            //builder.config({ lib: path.resolve('src/app') });
             builder.buildSFX('src/app/bootstrap', paths.tmp.scripts + 'build.js', { sourceMaps: true, config: {sourceRoot: paths.tmp.scripts} })
                 .then(function() {
                     return cb();
