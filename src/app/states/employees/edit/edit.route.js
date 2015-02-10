@@ -1,5 +1,7 @@
 'use strict';
 
+import template from './edit.html!text';
+
 function employeesEditRoute($stateProvider) {
 
     $stateProvider
@@ -9,12 +11,12 @@ function employeesEditRoute($stateProvider) {
             onEnter: ['$stateParams', '$state', '$modal', function($stateParams, $state, $modal) {
                 var id = $stateParams.id;
                 $modal.open({
-                    templateUrl: 'app/states/employees/edit/edit.html',
+                    template: template,
                     resolve: {
-                        employee: ($stateParams, EmployeeResource) => EmployeeResource.get(id),
-                        languages: LanguageResource => LanguageResource.getList(),
-                        positions: PositionResource => PositionResource.getList({lang: 'en'}), // TODO:(martin) language should comes from user profile
-                        roles: RoleResource => RoleResource.getList({lang: 'en'}) // TODO:(martin) language should comes from user profile
+                        employee: ['$stateParams', 'EmployeeResource', ($stateParams, EmployeeResource) => EmployeeResource.get(id)],
+                        languages: ['LanguageResource', LanguageResource => LanguageResource.getList()],
+                        positions: ['PositionResource', PositionResource => PositionResource.getList({lang: 'en'})], // TODO:(martin) language should comes from user profile
+                        roles: ['RoleResource', RoleResource => RoleResource.getList({lang: 'en'})] // TODO:(martin) language should comes from user profile
                     },
                     controller: 'EmployeesEditController',
                     controllerAs: 'vm',

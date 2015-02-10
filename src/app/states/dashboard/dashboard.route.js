@@ -1,5 +1,7 @@
 'use strict';
 
+import template from './dashboard.html!text';
+
 function dashboardRoute($stateProvider) {
 
     $stateProvider
@@ -7,7 +9,7 @@ function dashboardRoute($stateProvider) {
             url: '/dashboard',
             //abstract: true,
             //controller: 'UserCtrl as vm',
-            templateUrl: 'app/states/dashboard/dashboard.html',
+            template: template
 
             //views: {
             //    '@container': {

@@ -1,5 +1,7 @@
 'use strict';
 
+import template from './account-settings.html!text';
+
 function employeesAccountSettingsRoute($stateProvider) {
 
     return $stateProvider
@@ -7,7 +9,7 @@ function employeesAccountSettingsRoute($stateProvider) {
             url: '/account-settings',
             views: {
                 'modal@': {
-                    templateUrl: 'app/states/employees/add/account-settings/account-settings.html'
+                    template: template
                 }
             }
         });

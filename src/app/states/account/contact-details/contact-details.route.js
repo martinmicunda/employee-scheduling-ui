@@ -1,10 +1,12 @@
 'use strict';
 
+import template from './contact-details.html!text';
+
 function contactDetailsRoute($stateProvider) {
     return $stateProvider
         .state('account.contact-details', {
             url: '/contact-details',
-            templateUrl: 'app/states/account/contact-details/contact-details.html'
+            template: template
         });
 }
 contactDetailsRoute.$inject = ['$stateProvider'];

@@ -1,10 +1,12 @@
 'use strict';
 
+import template from './account-settings.html!text';
+
 function accountSettingsRoute($stateProvider) {
     return $stateProvider
         .state('account.account-settings', {
             url: '/account-settings',
-            templateUrl: 'app/states/account/account-settings/account-settings.html'
+            template: template
         });
 }
 accountSettingsRoute.$inject = ['$stateProvider'];

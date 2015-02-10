@@ -1,10 +1,12 @@
 'use strict';
 
+import template from './schedule.html!text';
+
 function scheduleRoute($stateProvider) {
     $stateProvider
         .state('schedule', {
             url: '/schedule',
-            templateUrl: 'app/states/schedule/schedule.html'
+            template: template
             //controller: 'LocationsController as vm',
             //resolve: {
             //    locations: function (HierarchiesResource) {

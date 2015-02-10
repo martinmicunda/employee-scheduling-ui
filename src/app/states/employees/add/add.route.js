@@ -1,5 +1,7 @@
 'use strict';
 
+import template from './add.html!text';
+
 function employeesAddRoute($stateProvider) {
 
     $stateProvider
@@ -10,17 +12,11 @@ function employeesAddRoute($stateProvider) {
             url: '/add',
             onEnter: ['$stateParams', '$state', '$modal', function($stateParams, $state, $modal) {
                 $modal.open({
-                    templateUrl: 'app/states/employees/add/add.html',
-                    resolve: {/* @ngInject */
-                        languages: function(LanguageResource) {
-                            return LanguageResource.getList();
-                        },/* @ngInject */
-                        positions: function(PositionResource){
-                            return PositionResource.getList({lang: 'en'}); // TODO:(martin) language should comes from user profile
-                        },/* @ngInject */
-                        roles: function(RoleResource){
-                            return RoleResource.getList({lang: 'en'}); // TODO:(martin) language should comes from user profile
-                        }
+                    template: template,
+                    resolve: {
+                        languages: ['LanguageResource', LanguageResource => LanguageResource.getList()],
+                        positions: ['PositionResource', PositionResource => PositionResource.getList({lang: 'en'})], // TODO:(martin) language should comes from user profile
+                        roles: ['RoleResource', RoleResource => RoleResource.getList({lang: 'en'})] // TODO:(martin) language should comes from user profile
                     },
                     controller: 'EmployeesAddController',
                     controllerAs: 'vm',

@@ -35,13 +35,10 @@ var $ = require('gulp-load-plugins')();
 //   !!!FEEL FREE TO EDIT THESE VARIABLES!!!
 //=============================================
 
-var MODULE_NAME          = 'app';
 var PRODUCTION_URL       = 'http://your-production-url.com';
 var GIT_REMOTE_URL       = 'https://'+ process.env.GH_TOKEN +'@github.com/martinmicunda/employee-scheduling-ui.git'; // 'git@github.com:martinmicunda/employee-scheduling-ui.git';
 var DEVELOPMENT_URL      = 'http://127.0.0.1:3000';
 var PRODUCTION_CDN_URL   = 'http://martinmicunda.github.io/employee-scheduling-ui/dist/';
-var TEMPLATE_BASE_PATH   = 'app';
-
 
 //=============================================
 //            DECLARE VARIABLES
@@ -318,6 +315,9 @@ gulp.task('sass', 'Compile sass files into the main.css', function () {
         .pipe(browserSync.reload({stream:true}));
 });
 
+/**
+ * Create JS production bundle.
+ */
 gulp.task('bundle', 'Create JS production bundle', ['jshint'], function (cb) {
     var builder = require('systemjs-builder');
 
@@ -386,21 +386,6 @@ gulp.task('images', 'Minifies and copies images to `build/dist` directory', func
 });
 
 /**
- * The 'templates' task replace local links with CDN links, minify
- * all project html templates and create template cache js file.
- */
-gulp.task('templatecache', 'Minify html templates and create template cache js file', function() {
-    return gulp.src(paths.app.templates)
-        .pipe($.if(!!argv.cdn, $.cdnizer({defaultCDNBase: CDN_BASE, relativeRoot: '/', files: ['**/*.{gif,png,jpg,jpeg}']})))
-        .pipe($.minifyHtml({empty:true}))
-        .pipe($.angularTemplatecache({
-            module: MODULE_NAME,
-            root: TEMPLATE_BASE_PATH
-        }))
-        .pipe(gulp.dest(paths.tmp.scripts));
-});
-
-/**
  * The 'compile' task compile all js, css and html files.
  *
  * 1. it compiles and minify html templates to js template cache
@@ -411,14 +396,10 @@ gulp.task('templatecache', 'Minify html templates and create template cache js f
  *    html     - replace local path with CDN url, minify
  */
 gulp.task('compile', 'Does the same as \'jshint\', \'htmlhint\', \'images\', \'templates\' tasks but also compile all JS, CSS and HTML files',
-    ['htmlhint', 'templatecache', 'sass', 'bundle'], function () {
+    ['htmlhint', 'sass', 'bundle'], function () {
         var projectHeader = $.header(banner);
 
         return gulp.src(paths.app.html)
-            .pipe($.inject(gulp.src(paths.tmp.scripts + 'templates.js', {read: false}), {
-                starttag: '<!-- inject:templates:js -->',
-                ignorePath: [paths.app.basePath]
-            }))
             .pipe($.inject(gulp.src(paths.tmp.scripts + 'build.js', {read: false}), {
                 starttag: '<!-- inject:build:js -->',
                 ignorePath: [paths.app.basePath]
@@ -433,6 +414,7 @@ gulp.task('compile', 'Does the same as \'jshint\', \'htmlhint\', \'images\', \'t
                     projectHeader
                 ],
                 js:         [
+                    $.if(!!argv.cdn, $.cdnizer({defaultCDNBase: CDN_BASE, relativeRoot: '/', files: ['**/*.{gif,png,jpg,jpeg}']})),
                     $.bytediff.start(),
                     $.uglify(),
                     $.bytediff.stop(bytediffFormatter),

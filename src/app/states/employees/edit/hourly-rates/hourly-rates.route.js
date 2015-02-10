@@ -1,12 +1,14 @@
 'use strict';
 
+import template from './hourly-rates.html!text';
+
 function hourlyRatesRoute($stateProvider) {
     return $stateProvider
         .state('employees.edit.hourly-rates', {
             url: '/hourly-rates',
             views: {
                 'modal@': {
-                    templateUrl: 'app/states/employees/edit/hourly-rates/hourly-rates.html'
+                    template: template
                 }
             }
         });

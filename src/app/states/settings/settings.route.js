@@ -1,10 +1,12 @@
 'use strict';
 
+import template from './settings.html!text';
+
 function settingsRoute($stateProvider) {
     $stateProvider
         .state('settings', {
             url: '/settings',
-            templateUrl: 'app/settings/settings.html'
+            template: template
         });
 }
 settingsRoute.$inject = ['$stateProvider'];

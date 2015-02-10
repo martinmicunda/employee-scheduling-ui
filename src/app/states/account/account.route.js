@@ -1,11 +1,13 @@
 'use strict';
 
+import template from './account.html!text';
+
 function accountRoute($stateProvider) {
     return $stateProvider
         .state('account', {
             url: '/account',
             abstract: true,
-            templateUrl: 'app/states/account/account.html',
+            template: template,
             controller: 'AccountController as vm',
             resolve: {
                 employee: ['EmployeeResource', EmployeeResource => EmployeeResource.get('1')],

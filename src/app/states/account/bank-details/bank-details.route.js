@@ -1,10 +1,12 @@
 'use strict';
 
+import template from './bank-details.html!text';
+
 function bankDetailsRoute($stateProvider) {
     return $stateProvider
         .state('account.bank-details', {
             url: '/bank-details',
-            templateUrl: 'app/states/account/bank-details/bank-details.html'
+            template: template
         });
 }
 bankDetailsRoute.$inject = ['$stateProvider'];

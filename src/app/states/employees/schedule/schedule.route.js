@@ -1,5 +1,7 @@
 'use strict';
 
+import template from './schedule.html!text';
+
 function employeesScheduleRoute($stateProvider) {
 
     $stateProvider
@@ -8,7 +10,7 @@ function employeesScheduleRoute($stateProvider) {
             onEnter: ['$stateParams', '$state', '$modal', function($stateParams, $state, $modal) {
                 //var id = $stateParams.id;
                 $modal.open({
-                    templateUrl: 'app/states/employees/schedule/schedule.html',
+                    template: template,
                     resolve: {/* @ngInject */
                         //employee: function(EmployeeResource) {
                         //    return EmployeeResource.get(id);

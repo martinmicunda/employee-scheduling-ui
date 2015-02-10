@@ -1,5 +1,7 @@
 'use strict';
 
+import template from './account-details.html!text';
+
 function employeesAccountDetailsRoute($stateProvider) {
 
     return $stateProvider
@@ -7,7 +9,7 @@ function employeesAccountDetailsRoute($stateProvider) {
             url: '/account-details',
             views: {
                 'modal@': {
-                    templateUrl: 'app/states/employees/edit/account-details/account-details.html'
+                    template: template
                 }
             }
         });

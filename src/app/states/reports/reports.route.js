@@ -1,10 +1,12 @@
 'use strict';
 
+import template from './reports.html!text';
+
 function reportsRoute($stateProvider) {
     $stateProvider
         .state('reports', {
             url: '/reports',
-            templateUrl: 'app/states/reports/reports.html'
+            template: template
         });
 }
 reportsRoute.$inject = ['$stateProvider'];

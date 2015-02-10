@@ -24,6 +24,7 @@ System.config({
     "github:lodash/lodash": "github:lodash/lodash@2.4.1",
     "github:mgonto/restangular": "github:mgonto/restangular@1.4.0",
     "json": "github:systemjs/plugin-json@0.1.0",
+    "text": "github:systemjs/plugin-text@0.0.2",
     "github:angular-ui/bootstrap-bower@0.12.0": {
       "angular": "github:angular/bower-angular@1.2.28"
     },

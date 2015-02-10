@@ -1,5 +1,7 @@
 'use strict';
 
+import template from './message.html!text';
+
 function employeesMessageRoute($stateProvider) {
     $stateProvider
         .state('employees.message', {
@@ -7,11 +9,9 @@ function employeesMessageRoute($stateProvider) {
             onEnter: ['$stateParams', '$state', '$modal', function($stateParams, $state, $modal) {
                 var id = $stateParams.id;
                 $modal.open({
-                    templateUrl: 'app/states/employees/message/message.html',
-                    resolve: {/* @ngInject */
-                        employee: function(EmployeeResource) {
-                            return EmployeeResource.get(id);
-                        }
+                    template: template,
+                    resolve: {
+                        employee: ['EmployeeResource', EmployeeResource => EmployeeResource.get(id)]
                     },
                     controller: 'EmployeesMessageController',
                     controllerAs: 'vm',

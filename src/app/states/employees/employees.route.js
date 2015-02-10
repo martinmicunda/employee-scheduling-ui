@@ -1,10 +1,12 @@
 'use strict';
 
+import template from './employees.html!text';
+
 function employeesRoute($stateProvider) {
     $stateProvider
         .state('employees', {
             url: '/employees',
-            templateUrl: 'app/states/employees/employees.html',
+            template: template,
             controller: 'EmployeesController as vm',
             resolve: {
                 employees: ['EmployeeResource', EmployeeResource => EmployeeResource.getList()],
