@@ -107,6 +107,7 @@ var proxyMiddleware = function(req, res, next) {
 };
 function startBrowserSync(baseDir, files, browser) {
     browser = browser === undefined ? 'default' : browser;
+    files = files === undefined ? 'default' : files;
 
     browserSync({
         files: files,
