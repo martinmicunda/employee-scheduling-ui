@@ -1,6 +1,6 @@
 function mmReallyClick($modal) {
     'use strict';
-
+    'ngInject';
     let directive = {
         restrict: 'EA',
         scope:{
@@ -34,7 +34,6 @@ function mmReallyClick($modal) {
         });
     }
 }
-mmReallyClick.$inject = ['$modal'];
 
 export default angular.module('mm.mmReallyClickWidget', [])
     .directive('mmReallyClick', mmReallyClick);

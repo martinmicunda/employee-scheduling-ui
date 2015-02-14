@@ -1,5 +1,6 @@
 class EmployeeResource {
     constructor(Restangular) {
+        'ngInject';
         this.Restangular = Restangular;
     }
 
@@ -49,6 +50,5 @@ class EmployeeResource {
         return (((totalObjectProperties - totalEmptyObjectProperties) * 100)/ totalObjectProperties).toFixed(0);
     }
 }
-EmployeeResource.$inject = ['Restangular'];
 
 export default EmployeeResource;

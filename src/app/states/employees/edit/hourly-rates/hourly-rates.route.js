@@ -3,6 +3,7 @@
 import template from './hourly-rates.html!text';
 
 function hourlyRatesRoute($stateProvider) {
+    'ngInject';
     return $stateProvider
         .state('employees.edit.hourly-rates', {
             url: '/hourly-rates',
@@ -13,6 +14,5 @@ function hourlyRatesRoute($stateProvider) {
             }
         });
 }
-hourlyRatesRoute.$inject = ['$stateProvider'];
 
 export default hourlyRatesRoute;

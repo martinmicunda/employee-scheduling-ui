@@ -1,9 +1,10 @@
+'use strict';
+
 import positionsEN from './fixtures/positions_en.json!json';
 import positionsSK from './fixtures/positions_sk.json!json';
 
 function positionResourceMock($httpBackend) {
-    'use strict';
-
+    'ngInject';
     $httpBackend.whenGET(/\/positions\?lang*/)
         .respond( (method, url) => {
             console.log('GET',url);
@@ -14,6 +15,5 @@ function positionResourceMock($httpBackend) {
             }
         });
 }
-positionResourceMock.$inject = ['$httpBackend'];
 
 export default positionResourceMock;

@@ -320,7 +320,8 @@ gulp.task('sass', 'Compile sass files into the main.css', function () {
  * Create JS production bundle.
  */
 gulp.task('bundle', 'Create JS production bundle', ['jshint'], function (cb) {
-    var builder = require('systemjs-builder');
+    var Builder = require('systemjs-builder');
+    var builder = new Builder();
 
     builder.loadConfig('./jspm.conf.js')
         .then(function() {
@@ -417,6 +418,7 @@ gulp.task('compile', 'Does the same as \'jshint\', \'htmlhint\', \'images\', \'t
                 js:         [
                     $.if(!!argv.cdn, $.cdnizer({defaultCDNBase: CDN_BASE, relativeRoot: '/', files: ['**/*.{gif,png,jpg,jpeg}']})),
                     $.bytediff.start(),
+                    $.ngAnnotate({add: true, single_quotes: true, stats: true}),
                     $.uglify(),
                     $.bytediff.stop(bytediffFormatter),
                     $.rev(),

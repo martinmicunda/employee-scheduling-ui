@@ -1,5 +1,6 @@
 class RoleResource {
     constructor(Restangular) {
+        'ngInject';
         this.Restangular = Restangular;
     }
 
@@ -10,6 +11,5 @@ class RoleResource {
             .getList(query);
     }
 }
-RoleResource.$inject = ['Restangular'];
 
 export default RoleResource;

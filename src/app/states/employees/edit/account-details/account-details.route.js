@@ -3,7 +3,7 @@
 import template from './account-details.html!text';
 
 function employeesAccountDetailsRoute($stateProvider) {
-
+    'ngInject';
     return $stateProvider
         .state('employees.edit.account-details', {
             url: '/account-details',
@@ -14,6 +14,5 @@ function employeesAccountDetailsRoute($stateProvider) {
             }
         });
 }
-employeesAccountDetailsRoute.$inject = ['$stateProvider'];
 
 export default employeesAccountDetailsRoute;

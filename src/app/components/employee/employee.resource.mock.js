@@ -1,9 +1,10 @@
+'use strict';
+
 import employee from './fixtures/employee_1.json!json';
 import employees from './fixtures/employees.json!json';
 
 function employeeResourceMock($httpBackend) {
-    'use strict';
-
+    'ngInject';
     $httpBackend.whenGET(/\/employees\/[a-z]*/)
         .respond( (method, url) => {
             console.log('GET',url);
@@ -47,7 +48,6 @@ function employeeResourceMock($httpBackend) {
             return [200, {}];
         });
 }
-employeeResourceMock.$inject = ['$httpBackend'];
 
 export default employeeResourceMock;
 

@@ -3,6 +3,7 @@
 import template from './schedule.html!text';
 
 function scheduleRoute($stateProvider) {
+    'ngInject';
     $stateProvider
         .state('schedule', {
             url: '/schedule',
@@ -18,6 +19,5 @@ function scheduleRoute($stateProvider) {
             //}
         });
 }
-scheduleRoute.$inject = ['$stateProvider'];
 
 export default scheduleRoute;

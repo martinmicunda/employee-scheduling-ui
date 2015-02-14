@@ -1,5 +1,6 @@
 class EmployeesController {
     constructor(employees, languages, positions, roles, EmployeeResource, filterFilter) {
+        'ngInject';
         this.EmployeeResource = EmployeeResource;
         this.employees = employees;
         this.filteredEmployees = angular.copy(employees); // TODO: is there way to do that in ES6??
@@ -35,6 +36,5 @@ class EmployeesController {
         }.bind(this));
     }
 }
-EmployeesController.$inject = ['employees', 'languages', 'positions', 'roles', 'EmployeeResource', 'filterFilter'];
 
 export default EmployeesController;

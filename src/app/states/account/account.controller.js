@@ -1,5 +1,6 @@
 class AccountController {
     constructor(employee, languages, positions, EmployeeResource) {
+        'ngInject';
         this.EmployeeResource = EmployeeResource;
         this.employeeOrigin = angular.copy(employee); // TODO: is there way to do that in ES6??
         this.employee = employee;
@@ -40,6 +41,5 @@ class AccountController {
         this.employee = angular.copy(this.employeeOrigin); // TODO: is there way to do that in ES6??
     }
 }
-AccountController.$inject = ['employee', 'languages', 'positions', 'EmployeeResource'];
 
 export default AccountController;

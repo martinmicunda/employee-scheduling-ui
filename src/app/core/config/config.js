@@ -1,7 +1,7 @@
 'use strict';
 
 export function onConfig($locationProvider, $provide, $urlRouterProvider, RestangularProvider, localStorageServiceProvider) {
-
+    'ngInject';
     // use "e-scheduling" as a localStorage name prefix so app doesn’t accidently read data from another app using the same variable names
     localStorageServiceProvider.setPrefix('employee-scheduling');
 
@@ -28,6 +28,4 @@ export function onConfig($locationProvider, $provide, $urlRouterProvider, Restan
     // the `when` method says if the url is `/` redirect to `/dashboard` what is basically our `home` for this application
     $urlRouterProvider.when('/', '/employees');
 }
-onConfig.$inject = ['$locationProvider', '$provide', '$urlRouterProvider', 'RestangularProvider', 'localStorageServiceProvider'];
-
 

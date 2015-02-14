@@ -1,3 +1,5 @@
+'use strict';
+
 class UnsavedFormsService {
     constructor() {
         this.forms = [];
@@ -34,7 +36,7 @@ class UnsavedFormsService {
  * @ngInject
  */
 function mmUnsavedFormWarningModal($modal, $state, UnsavedFormsService) {
-    'use strict';
+    'ngInject';
 
     let directive = {
         require: '^form',
@@ -79,7 +81,6 @@ function mmUnsavedFormWarningModal($modal, $state, UnsavedFormsService) {
         });
     }
 }
-mmUnsavedFormWarningModal.$inject = ['$modal', '$state', 'UnsavedFormsService'];
 
 export default angular.module('mm.unsavedFormWarningModal', [])
     .directive('mmUnsavedFormWarningModal', mmUnsavedFormWarningModal)

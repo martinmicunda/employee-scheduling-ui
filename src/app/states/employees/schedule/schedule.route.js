@@ -3,11 +3,11 @@
 import template from './schedule.html!text';
 
 function employeesScheduleRoute($stateProvider) {
-
+    'ngInject';
     $stateProvider
         .state('employees.schedule', {
             url: '/:id/schedule',
-            onEnter: ['$stateParams', '$state', '$modal', function($stateParams, $state, $modal) {
+            onEnter: function($stateParams, $state, $modal) {
                 //var id = $stateParams.id;
                 $modal.open({
                     template: template,
@@ -22,10 +22,9 @@ function employeesScheduleRoute($stateProvider) {
                 }).result.finally(function() {
                         $state.go('employees');
                     });
-            }]
+            }
         });
 }
-employeesScheduleRoute.$inject = ['$stateProvider'];
 
 export default employeesScheduleRoute;
 

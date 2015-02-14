@@ -3,15 +3,16 @@
 import template from './message.html!text';
 
 function employeesMessageRoute($stateProvider) {
+    'ngInject';
     $stateProvider
         .state('employees.message', {
             url: '/:id/message',
-            onEnter: ['$stateParams', '$state', '$modal', function($stateParams, $state, $modal) {
+            onEnter: function($stateParams, $state, $modal) {
                 var id = $stateParams.id;
                 $modal.open({
                     template: template,
                     resolve: {
-                        employee: ['EmployeeResource', EmployeeResource => EmployeeResource.get(id)]
+                        employee: EmployeeResource => EmployeeResource.get(id)
                     },
                     controller: 'EmployeesMessageController',
                     controllerAs: 'vm',
@@ -19,10 +20,9 @@ function employeesMessageRoute($stateProvider) {
                 }).result.finally(function() {
                         $state.go('employees');
                     });
-            }]
+            }
         });
 }
-employeesMessageRoute.$inject = ['$stateProvider'];
 
 export default employeesMessageRoute;
 

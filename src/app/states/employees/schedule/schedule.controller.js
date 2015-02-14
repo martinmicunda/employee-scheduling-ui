@@ -1,5 +1,6 @@
 class EmployeesScheduleController {
     constructor($modalInstance) {
+        'ngInject';
         this.$modalInstance = $modalInstance;
     }
 
@@ -7,6 +8,5 @@ class EmployeesScheduleController {
         this.$modalInstance.dismiss('cancel');
     }
 }
-EmployeesScheduleController.$inject = ['$modalInstance'];
 
 export default EmployeesScheduleController;

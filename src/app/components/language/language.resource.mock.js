@@ -1,7 +1,9 @@
+'use strict';
+
 import languages from './fixtures/languages.json!json';
 
 function languageResourceMock($httpBackend) {
-    'use strict';
+    'ngInject';
 
     $httpBackend.whenGET(/\/languages/)
         .respond( (method, url) => {
@@ -9,6 +11,5 @@ function languageResourceMock($httpBackend) {
             return [200, languages];
         });
 }
-languageResourceMock.$inject = ['$httpBackend'];
 
 export default languageResourceMock;

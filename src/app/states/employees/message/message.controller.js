@@ -1,5 +1,6 @@
 class EmployeesMessageController {
     constructor(employee, $modalInstance) {
+        'ngInject';
         this.employee = employee;
         this.email = {to: employee.email};
         this.$modalInstance = $modalInstance;
@@ -34,6 +35,5 @@ class EmployeesMessageController {
         }.bind(this));
     }
 }
-EmployeesMessageController.$inject = ['employee', '$modalInstance'];
 
 export default EmployeesMessageController;

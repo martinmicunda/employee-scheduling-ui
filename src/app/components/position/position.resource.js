@@ -1,5 +1,6 @@
 class PositionResource {
     constructor(Restangular) {
+        'ngInject';
         this.Restangular = Restangular;
     }
 
@@ -10,6 +11,5 @@ class PositionResource {
             .getList(query);
     }
 }
-PositionResource.$inject = ['Restangular'];
 
 export default PositionResource;

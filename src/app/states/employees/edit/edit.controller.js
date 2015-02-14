@@ -1,5 +1,6 @@
 class EmployeesEditController {
     constructor(employee, languages, positions, roles, EmployeeResource, $modalInstance) {
+        'ngInject';
         this.$modalInstance = $modalInstance;
         this.EmployeeResource = EmployeeResource;
         this.employee = employee;
@@ -40,6 +41,5 @@ class EmployeesEditController {
         }.bind(this));
     }
 }
-EmployeesEditController.$inject = ['employee', 'languages', 'positions', 'roles', 'EmployeeResource', '$modalInstance'];
 
 export default EmployeesEditController;
