@@ -37,7 +37,7 @@ $ npm install -g gulp
 ```
 ###<a name="installation"></a> Installation
 
-**1.** Clone main repository:
+**1.** Clone or [fork](https://github.com/martinmicunda/employee-scheduling-ui/fork) this repository:
 ```bash
 $ git clone git@github.com:martinmicunda/employee-scheduling-ui.git 
 $ cd employee-scheduling-ui
