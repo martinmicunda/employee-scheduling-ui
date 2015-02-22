@@ -13,6 +13,7 @@
     "htmlhint": "gulp htmlhint",
     "test": "gulp test:unit",
     "david": "david",
+    "build": "gulp build",
     "deploy": "gulp gh-pages",
     "postinstall": "jspm install"
   },

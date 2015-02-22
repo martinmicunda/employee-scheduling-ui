@@ -41,7 +41,7 @@ function init {
 
 function deploy {
     echo "-- Build production app code"
-    gulp build --cdn
+    npm run build -- --cdn
 
     # Publish to GitHub gh-pages branch
     npm run deploy
