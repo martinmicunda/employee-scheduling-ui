@@ -9,8 +9,6 @@ notifications:
 
 env:
   global:
-    - USERNAME=martinmicunda
-    - PROJECT_NAME=employee-scheduling-ui
     # travis-encrypt -r martinmicunda/employee-scheduling-ui GH_TOKEN=<https://help.github.com/articles/creating-an-access-token-for-command-line-use> --add env.global
     - secure: cQyV8hRn1z3yHxuj2ZIGdvS1lRJJEDpNs/cS/4In/QFuq6JR1m/QxZGlJghLqMa/xfdNi0C2u0lpY7AYTPiTByotR8mGfbJHM9wpcFBQuMILclKkta0i9tZDfbog9UQG/ZAGhe+9IR0VsYLTvZTu/8qwH3wywls9sWTn7TDoBl0=
     # COVERALLS_REPO_TOKEN
