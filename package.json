@@ -126,7 +126,7 @@
     "url": "https://github.com/martinmicunda/employee-scheduling-ui/master/LICENSE"
   },
   "engines": {
-    "node": ">=0.10",
-    "npm": ">=1.4.x"
+    "node": ">=0.12",
+    "npm": ">=2.0.0"
   }
 }
