@@ -36,7 +36,6 @@ var $ = require('gulp-load-plugins')();
 //=============================================
 
 var PRODUCTION_URL       = 'http://your-production-url.com';
-var GIT_REMOTE_URL       = 'https://'+ process.env.GH_TOKEN +'@github.com/martinmicunda/employee-scheduling-ui.git'; // 'git@github.com:martinmicunda/employee-scheduling-ui.git';
 var DEVELOPMENT_URL      = 'http://127.0.0.1:3000';
 var PRODUCTION_CDN_URL   = 'http://martinmicunda.github.io/employee-scheduling-ui/dist/';
 
@@ -571,10 +570,14 @@ gulp.task('build', 'Build application for deployment', function (cb) {
 
 /**
  * Publish 'build' folder to GitHub 'gh-pages' branch.
+ * To deploy with Travis CI:
+ *   1. Generate OAuth token on GitHub > Settings > Application page
+ *   2. Encrypt and save that token into the `.travis.yml` file by running:
+ *      `travis encrypt GITHUB_TOKEN="<your-oauth-token>" --add`
  */
 gulp.task('gh-pages', 'Publish \'build\' folder to GitHub \'gh-pages\' branch', function () {
-    gulp.src(paths.build.basePath + '**/*')
-        .pipe($.ghPages({remoteUrl: GIT_REMOTE_URL}));
+    return gulp.src(paths.build.basePath + '**/*')
+        .pipe($.ghPages({remoteUrl: 'https://'+ process.env.GH_TOKEN +'@github.com/{username}/{projectname}.git'}));
 });
 
 //---------------------------------------------

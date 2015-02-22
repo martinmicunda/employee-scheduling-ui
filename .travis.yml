@@ -20,5 +20,5 @@ before_install:
   - "sh -e /etc/init.d/xvfb start"
 
 script:
-  - bash -ex ./ci_build.sh
+  - bash -ex ./bin/ci_build.sh
 
