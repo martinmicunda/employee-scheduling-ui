@@ -577,7 +577,7 @@ gulp.task('build', 'Build application for deployment', function (cb) {
  */
 gulp.task('gh-pages', 'Publish \'build\' folder to GitHub \'gh-pages\' branch', function () {
     return gulp.src(paths.build.basePath + '**/*')
-        .pipe($.ghPages({remoteUrl: 'https://'+ process.env.GH_TOKEN +'@github.com/martinmicunda/employee-scheduling-ui.git'}));
+        .pipe($.ghPages({remoteUrl: 'https://'+ process.env.GH_TOKEN +'@github.com/'+ process.env.USERNAME +'/'+ process.env.PROJECT_NAME +'.git'}));
 });
 
 //---------------------------------------------

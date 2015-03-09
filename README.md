@@ -49,8 +49,8 @@ $ npm install
 ```
 > **Note:** Verify that all 3rd party dependencies from [package.json](package.json) are installed on your local machine. If you have followed the instructions and there have been no errors when executing the above commands, the dependencies should be installed.
      
-## Development
-### Local
+## How to Run
+### Development
 TODO: add development local steps once the backend is completed
 
 ###<a name="backend-less"></a> Backend-less
@@ -74,7 +74,7 @@ See [build](#build) section for more details how `build` is created.
 $ gulp serve:dist
 ```
 
-## Build
+##<a name="build"> How to Build
 The build task get app ready for production. The build task include concatenation, minification, compression, cdn etc. If there have been no errors when executing the build command, the build should be located in `build/dist` directory and this build is ready for uploading to the server! To initiate a full build, you simply run the follow task:
 ```bash
 $ gulp build
@@ -84,6 +84,12 @@ If you want use CDN then add your CDN url to `PRODUCTION_CDN_URL` variable in [`
 ```bash
 $ gulp build --cdn
 ```
+
+## How to Test
+TODO
+
+## How to Deploy
+TODO
 
 ##Tips
 ```

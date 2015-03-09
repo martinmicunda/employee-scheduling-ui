@@ -7,12 +7,12 @@
     "name": "Martin Micunda",
     "url": "http://martinmicunda.com"
   },
-  "homepage": "http://employee-scheduling.herokuapp.com",
+  "homepage": "http://martinmicunda.github.io/employee-scheduling-ui/dist",
   "scripts": {
     "jshint": "gulp jshint",
     "htmlhint": "gulp htmlhint",
     "test": "gulp test:unit",
-    "david": "david",
+    "outdated": "npm outdated --depth 0",
     "build": "gulp build",
     "deploy": "gulp gh-pages",
     "postinstall": "jspm install"
@@ -21,7 +21,7 @@
     "jshint",
     "htmlhint",
     "test",
-    "david"
+    "outdated"
   ],
   "repository": {
     "type": "git",
@@ -41,7 +41,6 @@
     "del": "^1.1.1",
     "jspm": "^0.13.4",
     "gulp": "^3.8.8",
-    "david": "^6.1.0",
     "plato": "^1.3.0",
     "semver": "^4.0.0",
     "moment": "^2.8.3",
