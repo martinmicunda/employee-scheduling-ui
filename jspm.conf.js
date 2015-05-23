@@ -16,32 +16,29 @@ System.config({
 
 System.config({
   "map": {
-    "angular": "github:angular/bower-angular@1.3.8",
-    "angular-animate": "github:angular/bower-angular-animate@1.3.8",
-    "angular-mocks": "github:angular/bower-angular-mocks@1.3.8",
-    "angular-ui-router": "github:angular-ui/ui-router@0.2.11",
+    "angular": "github:angular/bower-angular@1.4.0-rc.2",
+    "angular-animate": "github:angular/bower-angular-animate@1.4.0-rc.2",
+    "angular-mocks": "github:angular/bower-angular-mocks@1.4.0-rc.2",
+    "angular-ui-router": "github:angular-ui/ui-router@0.2.14",
     "babel": "npm:babel-core@5.4.2",
     "babel-runtime": "npm:babel-runtime@5.4.2",
     "core-js": "npm:core-js@0.9.10",
     "css": "github:systemjs/plugin-css@0.1.10",
-    "font-awesome": "npm:font-awesome@4.2.0",
-    "github:angular-ui/bootstrap-bower": "github:angular-ui/bootstrap-bower@0.12.0",
-    "github:angular/bower-angular-messages": "github:angular/bower-angular-messages@1.3.8",
-    "github:fyockm/bootstrap-css-only": "github:fyockm/bootstrap-css-only@3.3.0",
+    "font-awesome": "npm:font-awesome@4.3.0",
+    "github:angular-ui/bootstrap-bower": "github:angular-ui/bootstrap-bower@0.12.1",
+    "github:angular/bower-angular-messages": "github:angular/bower-angular-messages@1.4.0-rc.2",
+    "github:fyockm/bootstrap-css-only": "github:fyockm/bootstrap-css-only@3.3.4",
     "github:grevory/angular-local-storage": "github:grevory/angular-local-storage@0.0.5",
     "github:jeremypeters/ng-bs-animated-button": "github:jeremypeters/ng-bs-animated-button@2.0.3",
-    "github:lodash/lodash": "github:lodash/lodash@2.4.1",
-    "github:mgonto/restangular": "github:mgonto/restangular@1.4.0",
+    "github:lodash/lodash": "github:lodash/lodash@3.8.0",
+    "github:mgonto/restangular": "github:mgonto/restangular@1.5.1",
     "json": "github:systemjs/plugin-json@0.1.0",
     "text": "github:systemjs/plugin-text@0.0.2",
-    "github:angular-ui/bootstrap-bower@0.12.0": {
+    "github:angular-ui/bootstrap-bower@0.12.1": {
       "angular": "github:angular/bower-angular@1.2.28"
     },
-    "github:angular/bower-angular-animate@1.3.8": {
-      "angular": "github:angular/bower-angular@1.3.8"
-    },
-    "github:angular/bower-angular-mocks@1.3.8": {
-      "angular": "github:angular/bower-angular@1.3.8"
+    "github:angular-ui/ui-router@0.2.14": {
+      "angular": "github:angular/bower-angular@1.4.0-rc.2"
     },
     "github:jspm/nodelibs-assert@0.1.0": {
       "assert": "npm:assert@1.3.0"
@@ -81,8 +78,8 @@ System.config({
     "github:jspm/nodelibs-util@0.1.0": {
       "util": "npm:util@0.10.3"
     },
-    "github:mgonto/restangular@1.4.0": {
-      "angular": "github:angular/bower-angular@1.3.8",
+    "github:mgonto/restangular@1.5.1": {
+      "angular": "github:angular/bower-angular@1.4.0-rc.2",
       "lodash": "npm:lodash@3.8.0"
     },
     "github:systemjs/plugin-css@0.1.10": {
@@ -131,6 +128,9 @@ System.config({
     },
     "npm:events-browserify@0.0.1": {
       "process": "github:jspm/nodelibs-process@0.1.1"
+    },
+    "npm:font-awesome@4.3.0": {
+      "css": "github:systemjs/plugin-css@0.1.10"
     },
     "npm:https-browserify@0.0.0": {
       "http": "github:jspm/nodelibs-http@1.7.1"

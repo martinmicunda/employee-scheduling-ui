@@ -23,6 +23,18 @@
                     </a>
                 </li>
                 <li ui-sref-active="active">
+                    <a ui-sref="schedule">
+                        <i class="fa fa-fw fa-check"></i>
+                        Availability
+                    </a>
+                </li>
+                <li ui-sref-active="active">
+                    <a ui-sref="documents">
+                        <i class="fa fa-fw fa-file-text"></i>
+                        Documents
+                    </a>
+                </li>
+                <li ui-sref-active="active">
                     <a ui-sref="employees">
                         <i class="fa fa-fw fa-users"></i>
                         Employees
@@ -31,13 +43,7 @@
                 <li ui-sref-active="active">
                     <a ui-sref="customers">
                         <i class="fa fa-fw fa-cubes"></i>
-                        Customers
-                    </a>
-                </li>
-                <li ui-sref-active="active">
-                    <a ui-sref="documents">
-                        <i class="fa fa-fw fa-file-text"></i>
-                        Documents
+                        Partners
                     </a>
                 </li>
                 <li ui-sref-active="active">
@@ -51,6 +57,9 @@
                 <li class="dropdown hidden-xs">
                     <!--<a ui-fullscreen></a>-->
                     <!--<i class="fa fa-expand fa-fw text"></i>-->
+                </li>
+                <li class="dropdown">
+                    <i class="fa fa-comments-o fa-2x"></i>
                 </li>
                 <li class="dropdown" dropdown>
                     <a href="javascript:;" dropdown-toggle class="dropdown-toggle notification">
@@ -89,20 +98,17 @@
                     <ul class="dropdown-menu animated fadeInRight" role="menu">
                         <li ui-sref-active="active">
                             <a ui-sref="account.account-details">
-                                <i class="fa fa-fw fa-user"></i>
-                                My Account
+                                <i class="fa fa-fw fa-user"></i> My Account
                             </a>
                         </li>
                         <li ui-sref-active="active">
-                            <a ui-sref="settings">
-                                <i class="fa fa-fw fa-cogs"></i>
-                                App Settings
-                                <!--e.g. language, user roles, user positions -->
+                            <a ui-sref="settings.positions">
+                                <i class="fa fa-fw fa-cogs"></i> App Settings
                             </a>
                         </li>
                         <li>
                             <a href="#">
-                                <i class="fa fa-fw fa-retweet"></i> Switch Account
+                                <i class="fa fa-fw fa-tasks"></i> Activity
                             </a>
                         </li>
                         <li>

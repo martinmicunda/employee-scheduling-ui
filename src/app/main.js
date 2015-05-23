@@ -11,8 +11,10 @@ import employeeModule from './components/employee/employee';
 import languageModule from './components/language/language';
 import positionModule from './components/position/position';
 import roleModule from './components/role/role';
+import locationModule from './components/location/location';
 import uiWidgetsModule from './components/ui-widgets/ui-widgets';
 import paginationModule from './components/pagination/pagination';
+import settingModule from './components/setting/setting';
 
 // state modules
 import accountModule from './states/account/account';
@@ -22,7 +24,7 @@ import documentsModule from './states/documents/documents';
 import employeesModule from './states/employees/employees';
 import reportsModule from './states/reports/reports.module';
 import scheduleModule from './states/schedule/schedule.module';
-import settingsModule from './states/settings/settings.module';
+import settingsModule from './states/settings/settings';
 
 let mainModule = angular.module('app', [
     // angular modules
@@ -46,6 +48,8 @@ let mainModule = angular.module('app', [
     roleModule.name,
     uiWidgetsModule.name,
     paginationModule.name,
+    settingModule.name,
+    locationModule.name,
 
     // state modules
     accountModule.name,

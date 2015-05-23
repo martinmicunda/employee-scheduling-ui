@@ -1,11 +1,8 @@
 class AccountController {
-    constructor(employee, languages, positions, EmployeeResource) {
+    constructor(employee, EmployeeResource) {
         'ngInject';
         this.EmployeeResource = EmployeeResource;
-        this.employeeOrigin = angular.copy(employee); // TODO: is there way to do that in ES6??
         this.employee = employee;
-        this.languages = languages;
-        this.positions = positions;
         this.profileComplete = EmployeeResource.calculateProfileCompleteness(employee);
         this.isSubmitting = null;
         this.result = null;
@@ -24,7 +21,6 @@ class AccountController {
         this.profileComplete = this.EmployeeResource.calculateProfileCompleteness(this.employee);
         this.employee.put().then(function(employee) {
             this.employee = employee;
-            this.employeeOrigin = angular.copy(employee); // TODO: is there way to do that in ES6??
             this.result = 'success';
             form.$setPristine();
         }.bind(this), function(response) {
@@ -35,10 +31,6 @@ class AccountController {
                 //toaster.pop('error', 'Error:', 'Location could not be updated. Please try again!');
             }
         }.bind(this));
-    }
-
-    reset() {
-        this.employee = angular.copy(this.employeeOrigin); // TODO: is there way to do that in ES6??
     }
 }
 

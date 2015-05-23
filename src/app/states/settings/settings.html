@@ -1,1 +1,12 @@
-<p>settings</p>
+<div class="container-fluid">
+    <div class="row">
+        <aside class="col-sm-12 col-md-3 animated fadeInLeft">
+            <ul class="list-group list-group-tabs">
+                <li class="list-group-item" ui-sref-active="active"><a ui-sref="settings.positions"><i class="fa fa-user fa-fw "></i>&nbsp;Positions</a></li>
+                <li class="list-group-item" ui-sref-active="active"><a ui-sref="settings.locations"><i class="fa fa-map-marker fa-fw"></i>&nbsp;Locations</a></li>
+                <li class="list-group-item" ui-sref-active="active"><a ui-sref="settings.language"><i class="fa fa-language fa-fw"></i>&nbsp;Language</a></li>
+            </ul>
+        </aside>
+        <section ui-view></section>
+    </div>
+</div>
