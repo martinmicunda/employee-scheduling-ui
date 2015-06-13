@@ -124,12 +124,9 @@
       "core-js": "npm:core-js@^0.9.4"
     }
   },
-  "license": {
-    "type": "GNU GPL v3 license",
-    "url": "https://github.com/martinmicunda/employee-scheduling-ui/master/LICENSE"
-  },
+  "license": "GPL-3.0",
   "engines": {
-    "node": ">=0.12",
+    "node": ">=0.12.x",
     "npm": ">=2.0.0"
   }
 }
