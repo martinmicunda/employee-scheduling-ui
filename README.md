@@ -2,7 +2,7 @@ Employee Scheduling UI
 ======================
 
 [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/martinmicunda/employee-scheduling-ui?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-[![Build Status](https://secure.travis-ci.org/martinmicunda/employee-scheduling-ui.png)](http://travis-ci.org/martinmicunda/employee-scheduling-ui) [![devDependency Status](https://david-dm.org/martinmicunda/employee-scheduling-ui/dev-status.png)](https://david-dm.org/martinmicunda/employee-scheduling-ui#info=devDependencies) 
+[![Build Status](https://secure.travis-ci.org/martinmicunda/employee-scheduling-ui.png)](http://travis-ci.org/martinmicunda/employee-scheduling-ui) [![Build status](https://ci.appveyor.com/api/projects/status/32r7s2skrgm9ubva/branch/master)](https://ci.appveyor.com/project/martinmicunda/employee-scheduling-ui) [![devDependency Status](https://david-dm.org/martinmicunda/employee-scheduling-ui/dev-status.png)](https://david-dm.org/martinmicunda/employee-scheduling-ui#info=devDependencies) 
 
 **Note: :warning: This project is under development.**
 

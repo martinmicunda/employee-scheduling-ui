@@ -23,7 +23,8 @@ before_install:
   - npm install -g jspm
   - jspm config endpoints.github.auth $GH_TOKEN
 
-script:
+install:
   - npm install
+#script:
 #  - bash -ex ./bin/ci_build.sh
 
