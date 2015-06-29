@@ -1,16 +1,17 @@
 System.config({
   "baseURL": "./",
+  "defaultJSExtensions": true,
   "transpiler": "babel",
   "babelOptions": {
     "optional": [
       "runtime"
-    ]
+    ],
+    "stage": 1
   },
   "paths": {
-    "*": "*.js",
     "employee-scheduling-ui/*": "src/*.js",
-    "github:*": "jspm_packages/github/*.js",
-    "npm:*": "jspm_packages/npm/*.js"
+    "github:*": "jspm_packages/github/*",
+    "npm:*": "jspm_packages/npm/*"
   }
 });
 
@@ -20,11 +21,12 @@ System.config({
     "angular-animate": "github:angular/bower-angular-animate@1.4.0-rc.2",
     "angular-mocks": "github:angular/bower-angular-mocks@1.4.0-rc.2",
     "angular-ui-router": "github:angular-ui/ui-router@0.2.14",
-    "babel": "npm:babel-core@5.4.2",
-    "babel-runtime": "npm:babel-runtime@5.4.2",
-    "core-js": "npm:core-js@0.9.10",
+    "babel": "npm:babel-core@5.5.8",
+    "babel-runtime": "npm:babel-runtime@5.5.8",
+    "core-js": "npm:core-js@0.9.17",
     "css": "github:systemjs/plugin-css@0.1.10",
     "font-awesome": "npm:font-awesome@4.3.0",
+    "font-awesome.css": "npm:font-awesome@4.3.0",
     "github:angular-ui/bootstrap-bower": "github:angular-ui/bootstrap-bower@0.12.1",
     "github:angular/bower-angular-messages": "github:angular/bower-angular-messages@1.4.0-rc.2",
     "github:fyockm/bootstrap-css-only": "github:fyockm/bootstrap-css-only@3.3.4",
@@ -33,6 +35,7 @@ System.config({
     "github:lodash/lodash": "github:lodash/lodash@3.8.0",
     "github:mgonto/restangular": "github:mgonto/restangular@1.5.1",
     "json": "github:systemjs/plugin-json@0.1.0",
+    "ng-classy": "npm:ng-classy@0.0.3",
     "text": "github:systemjs/plugin-text@0.0.2",
     "github:angular-ui/bootstrap-bower@0.12.1": {
       "angular": "github:angular/bower-angular@1.2.28"
@@ -93,8 +96,17 @@ System.config({
       "path": "github:jspm/nodelibs-path@0.1.0",
       "process": "github:jspm/nodelibs-process@0.1.1"
     },
+    "npm:angular-ui-router@0.2.15": {
+      "process": "github:jspm/nodelibs-process@0.1.1"
+    },
+    "npm:angular@1.4.1": {
+      "process": "github:jspm/nodelibs-process@0.1.1"
+    },
     "npm:assert@1.3.0": {
       "util": "npm:util@0.10.3"
+    },
+    "npm:babel-runtime@5.5.8": {
+      "process": "github:jspm/nodelibs-process@0.1.1"
     },
     "npm:buffer@3.2.2": {
       "base64-js": "npm:base64-js@0.0.8",
@@ -120,8 +132,10 @@ System.config({
       "path": "github:jspm/nodelibs-path@0.1.0",
       "process": "github:jspm/nodelibs-process@0.1.1"
     },
-    "npm:core-js@0.9.10": {
-      "process": "github:jspm/nodelibs-process@0.1.1"
+    "npm:core-js@0.9.17": {
+      "fs": "github:jspm/nodelibs-fs@0.1.2",
+      "process": "github:jspm/nodelibs-process@0.1.1",
+      "systemjs-json": "github:systemjs/plugin-json@0.1.0"
     },
     "npm:core-util-is@1.0.1": {
       "buffer": "github:jspm/nodelibs-buffer@0.1.0"
@@ -140,6 +154,10 @@ System.config({
     },
     "npm:lodash@3.8.0": {
       "process": "github:jspm/nodelibs-process@0.1.1"
+    },
+    "npm:ng-classy@0.0.3": {
+      "angular": "npm:angular@1.4.1",
+      "angular-ui-router": "npm:angular-ui-router@0.2.15"
     },
     "npm:os-browserify@0.1.2": {
       "os": "github:jspm/nodelibs-os@0.1.0"

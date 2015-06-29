@@ -1,6 +1,9 @@
 /*jshint camelcase: false */
 'use strict';
 
+
+//!!!! https://github.com/google/web-starter-kit/blob/master/gulpfile.babel.js
+
 //=============================================
 //               DEPENDENCIES
 //=============================================
@@ -324,7 +327,7 @@ gulp.task('bundle', 'Create JS production bundle', ['jshint'], function (cb) {
 
     builder.loadConfig('./jspm.conf.js')
         .then(function() {
-            builder.buildSFX('src/app/bootstrap', paths.tmp.scripts + 'build.js', { sourceMaps: true, config: {sourceRoot: paths.tmp.scripts} })
+            builder.buildSFX('src/app/app', paths.tmp.scripts + 'build.js', { sourceMaps: true, config: {sourceRoot: paths.tmp.scripts} })
                 .then(function() {
                     return cb();
                 })
@@ -417,7 +420,7 @@ gulp.task('compile', 'Does the same as \'jshint\', \'htmlhint\', \'images\', \'t
                 js:         [
                     $.if(!!argv.cdn, $.cdnizer({defaultCDNBase: CDN_BASE, relativeRoot: '/', files: ['**/*.{gif,png,jpg,jpeg}']})),
                     $.bytediff.start(),
-                    $.ngAnnotate({add: true, single_quotes: true, stats: true}),
+                    //$.ngAnnotate({add: true, single_quotes: true, stats: true}),
                     $.uglify(),
                     $.bytediff.stop(bytediffFormatter),
                     $.rev(),

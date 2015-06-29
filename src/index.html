@@ -10,8 +10,8 @@
 
         <!-- build:css(.tmp) styles/main.min.css -->
         <!-- TODO: (martin) the bootstrap.css & font awesome should be load in vendor.js but how I make sure that vendor css files are loaded before main.css as vendor css files are load through JS -->
-        <link rel="stylesheet" href="../jspm_packages/github/fyockm/bootstrap-css-only@3.3.0/css/bootstrap.css"/>
-        <link rel="stylesheet" href="../jspm_packages/npm/font-awesome@4.2.0/css/font-awesome.css"/>
+        <link rel="stylesheet" href="../jspm_packages/github/fyockm/bootstrap-css-only@3.3.4/css/bootstrap.css"/>
+        <link rel="stylesheet" href="../jspm_packages/npm/font-awesome@4.3.0/css/font-awesome.css"/>
 
         <link rel="stylesheet" href="styles/main.css" />
         <!-- endbuild -->
@@ -22,9 +22,7 @@
             your browser</a> to improve your experience.</p>
         <![endif]-->
 
-        <header id="header" ng-include src="'app/core/layout/header/layout.header.html'"></header>
-        <main ui-view autoscroll="true" class="container-fluid"></main>
-        <footer id="footer" ng-include src="'app/core/layout/footer/layout.footer.html'"></footer>
+        <div ui-view></div>
 
         <!-- build:js(.) scripts/main.min.js -->
         <!-- inject:build:js --><!-- endinject -->
@@ -34,7 +32,7 @@
         <script src="jspm_packages/system.js"></script>
         <script src="jspm.conf.js"></script>
         <script>
-            System.import('app/bootstrap').catch(console.error.bind(console)); // make sure any errors are print to console
+            System.import('app/app').catch(console.error.bind(console)); // make sure any errors are print to console
         </script>
         <!-- endbuild -->
     </body>

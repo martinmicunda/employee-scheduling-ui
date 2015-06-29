@@ -1,0 +1,45 @@
+<div class="container-fluid">
+    <div class="row">
+        <aside class="col-sm-12 col-md-3 animated fadeInLeft">
+            <ul class="list-table mb10">
+                <li style="width:70px;">
+                    <img class="img-circle img-bordered-light" src="../../../images/me.jpg" alt="" width="65px">
+                </li>
+                <li class="text-left">
+                    <h5 class="font-weight-heavy ellipsis">Martin Micunda</h5>
+                    <div>
+                        <!-- TODO: this should progress directive mm-progress-bar -->
+                        <div class="progress progress-xs mb5">
+                            <div class="progress-bar"
+                                 ng-class="{'progress-bar-success': vm.profileComplete >= 70, 'progress-bar-warning': vm.profileComplete < 70 && vm.profileComplete >= 40, 'progress-bar-danger': vm.profileComplete < 40}"
+                                 ng-style="{'width': vm.profileComplete + '%'}"></div>
+                        </div>
+                        <p class="text-muted clearfix">
+                            <span class="pull-left">Profile complete</span>
+                            <span class="pull-right">{{vm.profileComplete}}%</span>
+                        </p>
+                    </div>
+                </li>
+            </ul>
+            <ul class="list-group list-group-tabs">
+                <li class="list-group-item" ui-sref-active="active"><a ui-sref="app.account.account-details"><i class="fa fa-user fa-fw "></i>&nbsp;Account Details</a></li>
+                <li class="list-group-item" ui-sref-active="active"><a ui-sref="app.account.contact-details"><i class="fa fa-pencil-square-o fa-fw"></i>&nbsp;Contact Details</a></li>
+                <li class="list-group-item" ui-sref-active="active"><a ui-sref="app.account.password"><i class="fa fa-key fa-fw"></i>&nbsp;Password</a></li>
+            </ul>
+        </aside>
+        <section ui-view></section>
+    </div>
+</div>
+<script type="text/ng-template" id="unsavedWarningModal.html">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="vm.cancel()">×</button>
+        <h4 class="modal-title">Unsaved Changes</h4>
+    </div>
+    <div class="modal-body">
+        <p>You have unsaved changes. Leave the page?</p>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-sm btn-white" ng-click="vm.cancel()">Cancel</button>
+        <button class="btn btn-sm btn-success" ng-click="vm.ok()">Ignore Changes</button>
+    </div>
+</script>

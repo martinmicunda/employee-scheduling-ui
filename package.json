@@ -15,7 +15,8 @@
     "outdated": "npm outdated --depth 0",
     "build": "gulp build",
     "deploy": "gulp gh-pages",
-    "postinstall": "jspm install"
+    "postinstall": "jspm install",
+    "jspm": "jspm"
   },
   "pre-commit": [
     "jshint",
@@ -38,7 +39,7 @@
   ],
   "devDependencies": {
     "del": "^1.1.1",
-    "jspm": "^0.15.6",
+    "jspm": "0.16.0-beta",
     "gulp": "^3.8.8",
     "plato": "^1.4.0",
     "semver": "^4.3.4",
@@ -48,7 +49,7 @@
     "browser-sync": "^2.7.1",
     "run-sequence": "^1.1.0",
     "jshint-stylish": "^1.0.2",
-    "systemjs-builder": "^0.10.6",
+    "systemjs-builder": "^0.11.3",
     "connect-modrewrite": "^0.8.1",
     "conventional-changelog": "^0.0.17",
     "gulp-if": "^1.2.4",
@@ -61,7 +62,7 @@
     "gulp-cache": "^0.2.9",
     "gulp-uglify": "^1.2.0",
     "gulp-concat": "^2.5.2",
-    "gulp-jshint": "^1.10.0",
+    "gulp-jshint": "^1.11.0",
     "gulp-filter": "^2.0.2",
     "gulp-header": "^1.1.1",
     "gulp-inject": "^1.2.0",
@@ -105,9 +106,9 @@
       "angular": "github:angular/bower-angular@1.4.0-rc.2",
       "angular-animate": "github:angular/bower-angular-animate@1.4.0-rc.2",
       "angular-mocks": "github:angular/bower-angular-mocks@1.4.0-rc.2",
-      "angular-ui-router": "github:angular-ui/ui-router@0.2.14",
+      "angular-ui-router": "github:angular-ui/ui-router@0.2.15",
       "css": "github:systemjs/plugin-css@^0.1.10",
-      "font-awesome": "npm:font-awesome@4.3.0",
+      "font-awesome.css": "npm:font-awesome@4.3.0",
       "github:angular-ui/bootstrap-bower": "github:angular-ui/bootstrap-bower@0.12.1",
       "github:angular/bower-angular-messages": "github:angular/bower-angular-messages@1.4.0-rc.2",
       "github:fyockm/bootstrap-css-only": "github:fyockm/bootstrap-css-only@3.3.4",
@@ -116,12 +117,13 @@
       "github:lodash/lodash": "github:lodash/lodash@3.8.0",
       "github:mgonto/restangular": "github:mgonto/restangular@1.5.1",
       "json": "github:systemjs/plugin-json@0.1.0",
+      "ng-classy": "npm:ng-classy@0.3.0",
       "text": "github:systemjs/plugin-text@0.0.2"
     },
     "devDependencies": {
-      "babel": "npm:babel-core@^5.1.13",
-      "babel-runtime": "npm:babel-runtime@^5.1.13",
-      "core-js": "npm:core-js@^0.9.4"
+      "babel": "npm:babel-core@5.4.3",
+      "babel-runtime": "npm:babel-runtime@5.4.3",
+      "core-js": "npm:core-js@0.9.10"
     }
   },
   "license": "GPL-3.0",

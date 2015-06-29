@@ -16,11 +16,12 @@ This demo is running from [gh-pages](https://github.com/martinmicunda/employee-s
 ![Employee Scheduling screenshot](screenshot.png "Employee Scheduling screenshot")
 
 ## Features
-  * Use ES6 with Angular 1.3
+  * Use ES6 with Angular 1.x
   * Use ES6 Modules via [SystemJS](https://github.com/systemjs/systemjs) and [ES6 Module Loader Polyfill](https://github.com/ModuleLoader/es6-module-loader)
+  * Use [ES7 decorators](https://github.com/wycats/javascript-decorators) to avoid Angular 1 boilerplate code
   * Manage development and production workflow with [JSPM](http://jspm.io/), [SystemJS builder](https://github.com/systemjs/builder) and [Gulp](http://gulpjs.com/)
   * Mocked Backend Workflow - help with mocking backend-less development
-  * Achieve some of the Angular 2.0 goals while still running on Angular 1.3.x
+  * Achieve some of the Angular 2.0 goals while still running on Angular 1.x
   * Produce optimised, production ready code for deployment and automatically deploy this code to [gh-pages](https://github.com/martinmicunda/employee-scheduling-ui/tree/gh-pages) after each commit via [Travis CI](https://travis-ci.org/martinmicunda/employee-scheduling-ui)
 
 ##<a name="installation-and-configuration"></a> Installation & Configuration
@@ -101,10 +102,6 @@ brew update && brew doctor
 brew upgrade node       #update to latest node version
 npm shrinkwrap --dev    #Lock down dependency versions 
 ```
-
-##Roadmap
-* switch from [Node.js](http://nodejs.org/) to [io.js](https://iojs.org/)
-* switch form Gulp3 to Gulp 4
 
 ## License
 

@@ -1,0 +1,35 @@
+<!--//http://stackoverflow.com/questions/26043295/multistep-form-using-angular-ui-router TODO: wizard validation-->
+
+<div class="modal-header">
+    <button type="button" class="close" ng-click="vm.cancel()">×</button>
+    <h4 class="modal-title">Add Employee</h4>
+</div>
+<div class="modal-body form-wizard">
+    <form class="form-horizontal form-validation" name="accountDetailsForm" role="form" novalidate>
+        <div class="col-sm-12 col-md-3 pl-0">
+            <ul class="list-table mb10">
+                <li>
+                    <!-- TODO: this should progress directive mm-progress-bar -->
+                    <div class="progress progress-xs mb5">
+                        <div class="progress-bar"
+                             ng-class="{'progress-bar-success': vm.profileComplete >= 70, 'progress-bar-warning': vm.profileComplete < 70 && vm.profileComplete >= 40, 'progress-bar-danger': vm.profileComplete < 40}"
+                             ng-style="{'width': vm.profileComplete + '%'}"></div>
+                    </div>
+                    <p class="text-muted clearfix">
+                        <span class="pull-left">Profile complete</span>
+                        <span class="pull-right">{{vm.profileComplete}}%</span>
+                    </p>
+                </li>
+            </ul>
+            <ul class="nav nav-tabs nav-stacked">
+                <li ui-sref-active="active" class="text-center"><a ui-sref="app.employees.add.account-details"><div class="menu-icon">1</div><i class="fa fa-user fa-fw "></i>&nbsp;Account Details</a></li>
+                <li ui-sref-active="active" class="text-center"><a ui-sref="app.employees.add.account-settings"><div class="menu-icon">2</div><i class="fa fa-cogs fa-fw "></i>&nbsp;Account Settings</a></li>
+                <!--<li ui-sref-active="active" class="text-center"><a ui-sref="account.contact-details"><div class="menu-icon">3</div><i class="fa fa-pencil-square-o fa-fw"></i>&nbsp;Contact Details</a></li>-->
+                <!--<li ui-sref-active="active" class="text-center"><a ui-sref="account.bank-details"><div class="menu-icon">4</div><i class="fa fa-bank fa-fw"></i>&nbsp;Bank Details</a></li>-->
+                <!--<li ui-sref-active="active" class="text-center"><a ui-sref="account.hourly-rates"><div class="menu-icon">5</div><i class="fa fa-dollar fa-fw"></i>&nbsp;Hourly Rates</a></li>-->
+            </ul>
+        </div>
+
+            <div ui-view="modal"></div>
+    </form>
+</div>

@@ -1,17 +1,11 @@
+/**
+ * @author    Martin Micunda {@link http://martinmicunda.com}
+ * @copyright Copyright (c) 2015, Martin Micunda
+ * @license   GPL-3.0
+ */
 'use strict';
 
-import FooterController from './layout/footer/layout.footer.controller';
-import {onConfig} from './config/config';
+import './config/config';
+import './helpers/helpers';
+import './services/services';
 
-import template from './layout/footer/layout.footer.html!text';
-import template2 from './layout/header/layout.header.html!text';
-
-import coreTestModule from './config/config.test';
-
-export default angular.module('app.core', [coreTestModule.name])
-    .config(onConfig)
-    .controller('FooterController', FooterController)
-    .run(['$templateCache', function($templateCache) {
-        $templateCache.put('app/core/layout/footer/layout.footer.html', template);
-        $templateCache.put('app/core/layout/header/layout.header.html', template2);
-    }]);

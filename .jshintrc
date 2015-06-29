@@ -2,6 +2,9 @@
     "node": true,
     "browser": true,
     "esnext": true,
+    "ignoreDelimiters": [
+        { "start": "start-non-standard", "end": "end-non-standard" }
+    ],
     "bitwise": true,
     "camelcase": true,
     "curly": true,
