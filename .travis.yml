@@ -13,6 +13,8 @@ env:
     - PROJECT_NAME=employee-scheduling-ui
     # travis-encrypt -r martinmicunda/employee-scheduling-ui GH_TOKEN=<https://help.github.com/articles/creating-an-access-token-for-command-line-use> --add env.global
     - secure: cQyV8hRn1z3yHxuj2ZIGdvS1lRJJEDpNs/cS/4In/QFuq6JR1m/QxZGlJghLqMa/xfdNi0C2u0lpY7AYTPiTByotR8mGfbJHM9wpcFBQuMILclKkta0i9tZDfbog9UQG/ZAGhe+9IR0VsYLTvZTu/8qwH3wywls9sWTn7TDoBl0=
+    # JSPM_GH_TOKEN
+    - secure: G7kDlRsGDEHKxsvs7T0VV5cJX8M9H0lI0seu2UW3sBQjnGKLxDa06x3dlIi/p/Yb6Nha/EEwaqz4OX/z4NvlPUQQ1QIZ4RW8hZFlmXO6Y9800AuN74XhHg3UNdvJiTk+x23Pa7DW7Rer+yJG5AYf7lhoS240PB5cv+B8aU46GvA=
     # COVERALLS_REPO_TOKEN
 #    - secure: YDGbgsTSvN9evJIRhX22Y+P56VYK50bT1tnQrkMxLRANyyQc6UF/e5iKWm+Yy4/0OWq12o+2tTvBc/MgdwSE+t28E+VmdF/JcQDY2pHb8szQ6PjS1PCkeq3IbYvdsYTSAWOBa9coqXECwkwEdtI6tuGQpXL/MOnq7ZncOetdpF4=
 
@@ -21,7 +23,7 @@ before_install:
   - "export DISPLAY=:99.0"
   - "sh -e /etc/init.d/xvfb start"
   - npm install -g jspm
-  - jspm config endpoints.github.auth $GH_TOKEN
+  - jspm config endpoints.github.auth $JSPM_GH_TOKEN
 
 install:
   - npm install
