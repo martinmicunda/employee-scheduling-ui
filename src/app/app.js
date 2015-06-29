@@ -8,13 +8,14 @@
 // js vendor files
 import angular from 'angular';
 import 'angular-animate';
+import 'angular-messages';
 import 'angular-ui-router';
-import 'github:angular/bower-angular-messages';
-import 'github:lodash/lodash';
-import 'github:mgonto/restangular';
-import 'github:angular-ui/bootstrap-bower/ui-bootstrap-tpls';
-import 'github:grevory/angular-local-storage';
-import 'github:jeremypeters/ng-bs-animated-button';
+import _ from 'lodash';
+window._ = _;
+import 'restangular';
+import 'angular-ui/ui-bootstrap-tpls';
+import 'angular-local-storage';
+import 'ng-bs-animated-button';
 
 // css vendor files
 //import 'font-awesome/css/font-awesome.css!';
