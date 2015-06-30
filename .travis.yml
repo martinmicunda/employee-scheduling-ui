@@ -11,10 +11,10 @@ env:
   global:
     - USERNAME=martinmicunda
     - PROJECT_NAME=employee-scheduling-ui
-    # travis-encrypt -r martinmicunda/employee-scheduling-ui GH_TOKEN=<https://help.github.com/articles/creating-an-access-token-for-command-line-use> --add env.global
+    # travis encrypt -r martinmicunda/employee-scheduling-ui GH_TOKEN=<https://help.github.com/articles/creating-an-access-token-for-command-line-use> --add env.global
     - secure: cQyV8hRn1z3yHxuj2ZIGdvS1lRJJEDpNs/cS/4In/QFuq6JR1m/QxZGlJghLqMa/xfdNi0C2u0lpY7AYTPiTByotR8mGfbJHM9wpcFBQuMILclKkta0i9tZDfbog9UQG/ZAGhe+9IR0VsYLTvZTu/8qwH3wywls9sWTn7TDoBl0=
-    # JSPM_GITHUB_TOKEN=
-    - secure: ETPS55cHE21oMnYHF2cuQdQZj8JU1rZ+dHkYnCqxCFBpexwerZjbFuAGFQ/+WVlBLPj7KInsDgT4UGw9gEetchQgvWadmhL6aiamhxSZ5eENGeuc2qPg8lxCbt4ywnLEZGd5GQKmAJ2e4nnF0agrunu5f+OWt40YMop4MejL1wc=
+    # travis encrypt -r martinmicunda/employee-scheduling-ui 'JSPM_GITHUB_TOKEN=<JSPM_GITHUB_AUTH_TOKEN>'
+    - secure: PHaPBrVkFiZ2od+VY8UW84c0phQiq3FKXeRH/TsUqXuJkpXm8JfSJ3HE4ebx/dOyJjxVOpsHlsNRIQrH/Ztnxaat6sqKz2/mUDBgmhvmqpy4Y4IB/NhXYA3omBTjBKehk1cNmeOxf0L3raEzRJJG7+9Y/avBQhc1d5gGcMDgRBo=
     # COVERALLS_REPO_TOKEN
 #    - secure: YDGbgsTSvN9evJIRhX22Y+P56VYK50bT1tnQrkMxLRANyyQc6UF/e5iKWm+Yy4/0OWq12o+2tTvBc/MgdwSE+t28E+VmdF/JcQDY2pHb8szQ6PjS1PCkeq3IbYvdsYTSAWOBa9coqXECwkwEdtI6tuGQpXL/MOnq7ZncOetdpF4=
 
