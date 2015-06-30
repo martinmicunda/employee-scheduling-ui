@@ -14,7 +14,7 @@ env:
     # travis-encrypt -r martinmicunda/employee-scheduling-ui GH_TOKEN=<https://help.github.com/articles/creating-an-access-token-for-command-line-use> --add env.global
     - secure: cQyV8hRn1z3yHxuj2ZIGdvS1lRJJEDpNs/cS/4In/QFuq6JR1m/QxZGlJghLqMa/xfdNi0C2u0lpY7AYTPiTByotR8mGfbJHM9wpcFBQuMILclKkta0i9tZDfbog9UQG/ZAGhe+9IR0VsYLTvZTu/8qwH3wywls9sWTn7TDoBl0=
     # JSPM_GITHUB_TOKEN=
-    - secure: iEiJj9Fgkt0Fl05P5nuH1dEv6rHkbOvn8N8DN2TJ+0NeT7mso89KMkwPVTnfDvCgnFxPyEw/umFv0YYGSt4/kbtg6/RUIJJGVhjqBO05AmRh/3N6Ah9s9Gj5hgFvB/uMrgFPMNhnQUSMsMBukTaPiFmDiTjbxIOEzx/mJCbJfXA
+    - secure: hEM0vKG+3wDax9Fd0UJ3Ld5bxvyojdQeoeI+XGVIX2zTyZOHQ69nMftXVsDSgn67ccRUQndBxsEjsTSznSPt0cFlOZWtQXkuC1/dbw0u/weQRf777SfZIY9JCjkrpxzzcS2vpYcelmwJcK2N80xGbmcFe4/PUJ6cAFki9oOTeCg=
     # COVERALLS_REPO_TOKEN
 #    - secure: YDGbgsTSvN9evJIRhX22Y+P56VYK50bT1tnQrkMxLRANyyQc6UF/e5iKWm+Yy4/0OWq12o+2tTvBc/MgdwSE+t28E+VmdF/JcQDY2pHb8szQ6PjS1PCkeq3IbYvdsYTSAWOBa9coqXECwkwEdtI6tuGQpXL/MOnq7ZncOetdpF4=
 
