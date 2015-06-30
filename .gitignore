@@ -29,6 +29,6 @@ build/
 .tmp/
 
 # Test reports
-test/test-reports/
+test-reports/
 
 .sass-cache

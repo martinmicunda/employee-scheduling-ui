@@ -3,32 +3,19 @@
 module.exports = function (config) {
     config.set({
         // base path, that will be used to resolve files and exclude
-        basePath: '../../',
+        basePath: '',
 
-        frameworks: ['jasmine'],
+        frameworks: ['jspm', 'jasmine'],
 
         // list of files / patterns to load in the browser
         files: [
-            // libraries
-            'src/vendor/jquery/dist/jquery.js',
-            'src/vendor/angular/angular.js',
-            'src/vendor/angular-animate/angular-animate.js',
-            'src/vendor/bootstrap/dist/js/bootstrap.js',
-            'src/vendor/angular-bootstrap/ui-bootstrap-tpls.js',
-            'src/vendor/angular-ui-router/release/angular-ui-router.js',
-
-            // test libraries
-            'src/vendor/angular-mocks/angular-mocks.js',
-
-            // our app
-            'src/app/**/!(*.spec).js',
-
-            // tests
-            'src/app/**/*.spec.js'
-
-            // templates
-//            'public/app/**/*.html'
         ],
+
+        jspm: {
+            config: 'jspm.conf.js',
+            loadFiles: ['src/**/*.spec.js'],
+            serveFiles: ['src/app/**/*.{js,html,css,json}']
+        },
 
         // list of files to exclude
         exclude: [
@@ -40,23 +27,23 @@ module.exports = function (config) {
 
         junitReporter: {
             // will be resolved to basePath (in the same way as files/exclude patterns)
-            outputFile: 'test/test-reports/unit-test-report.xml',
+            outputFile: 'test-reports/unit-test-report.xml',
             suite: 'unit'
         },
 
         preprocessors: {
             // source files, that you wanna generate coverage for - do not include tests or libraries
             // (these files will be instrumented by Istanbul)
-            '**/src/app/**/!(*.spec).js': 'coverage'
+            'src/app/**/!(*.spec|*.mock).js': 'coverage',
             // TODO: (martin) this might be good for testing templates
             // generate js files from html templates
-            // '**/src/app/**/*.html': ['ng-html2js']
+            //'src/app/**/*.html': ['ng-html2js']
         },
 
         // TODO: (martin) this might be good for testing templates
         ngHtml2JsPreprocessor: {
             // strip this from the file path
-//            stripPrefix: 'public/app/',
+            //stripPrefix: 'src/app/',
             // prepend this to the
 //            prependPrefix: 'served/',
             // setting this option will create only a single module that contains templates
@@ -66,11 +53,20 @@ module.exports = function (config) {
 
         coverageReporter: {
             reporters: [
-                {type: 'html', dir: 'test/test-reports/coverage/'}, // will generate html report
-                {type: 'json', dir: 'test/test-reports/coverage/'}, // will generate json report file and this report is loaded to make sure failed coverage cause gulp to exit non-zero
-                {type: 'lcov', dir: 'test/test-reports/coverage/'}, // will generate Icov report file and this report is published to coveralls
-                {type: 'text-summary', dir: 'test/test-reports/coverage/'} // it does not generate any file but it will print coverage to console
-            ]
+                {type: 'html', dir: 'test-reports/coverage/'}, // will generate html report
+                {type: 'json', dir: 'test-reports/coverage/'}, // will generate json report file and this report is loaded to make sure failed coverage cause gulp to exit non-zero
+                {type: 'lcov', dir: 'test-reports/coverage/'}, // will generate Icov report file and this report is published to coveralls
+                {type: 'text-summary'} // it does not generate any file but it will print coverage to console
+            ],
+            instrumenters: { isparta : require('isparta') },
+            instrumenter: {
+                '**/*.js': 'isparta'
+            }
+        },
+
+        proxies: {
+            //'/src/': '/base/src/app/',
+            '/jspm_packages/': '/base/jspm_packages/'
         },
 
         // web server port
@@ -117,6 +113,7 @@ module.exports = function (config) {
 
         plugins: [
             'karma-jasmine',
+            'karma-jspm',
             'karma-chrome-launcher',
             'karma-firefox-launcher',
             'karma-safari-launcher',
