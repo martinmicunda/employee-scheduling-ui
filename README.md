@@ -126,12 +126,10 @@ TODO
 ##Tips
 ```
 # Maintenance 
-npm update -g           #update all outdated global packages
 npm update --save-dev   #update all outdated local packages (run from project directory) 
 npm update npm -g       #self npm update
 brew update && brew doctor
 brew upgrade node       #update to latest node version
-npm shrinkwrap --dev    #Lock down dependency versions 
 ```
 
 ## License

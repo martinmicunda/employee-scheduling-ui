@@ -1,0 +1,17 @@
+.login-container {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.login {
+    position: relative;
+    .login-content {
+        padding: 30px 40px;
+        color: #999;
+        width: 450px;
+        margin: 0 auto;
+    }
+}
+.bg-black {
+    background: $lightBlack;
+}

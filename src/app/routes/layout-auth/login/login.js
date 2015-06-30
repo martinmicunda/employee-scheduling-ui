@@ -23,5 +23,6 @@ class Login {
     login() {
         this.router.go('app.employees');
     }
+    // https://stormpath.com/blog/password-security-right-way/
 }
 
