@@ -19,12 +19,11 @@ class LanguageResourceMock {
                 return [200, languages];
             });
     }
+    //start-non-standard
+    @Inject('$httpBackend')
+    //end-non-standard
     static runFactory($httpBackend){
         LanguageResourceMock.instance = new LanguageResourceMock($httpBackend);
         return LanguageResourceMock.instance;
     }
 }
-LanguageResourceMock.runFactory.$inject = ['$httpBackend'];
-
-
-

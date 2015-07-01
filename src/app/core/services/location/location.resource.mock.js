@@ -19,9 +19,11 @@ class LocationResourceMock {
                 return [200, locations];
             });
     }
+    //start-non-standard
+    @Inject('$httpBackend')
+    //end-non-standard
     static runFactory($httpBackend){
         LocationResourceMock.instance = new LocationResourceMock($httpBackend);
         return LocationResourceMock.instance;
     }
 }
-LocationResourceMock.runFactory.$inject = ['$httpBackend'];

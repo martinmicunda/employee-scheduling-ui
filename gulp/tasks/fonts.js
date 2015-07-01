@@ -7,7 +7,6 @@
 
 import gulp from 'gulp';
 import size from 'gulp-size';
-import filter from 'gulp-filter';
 import flatten from 'gulp-flatten';
 import path from '../paths';
 
@@ -18,7 +17,6 @@ import path from '../paths';
  */
 gulp.task('fonts', () => {
     return gulp.src(path.app.fonts)
-        .pipe(filter('**/*.{eot,svg,ttf,woff}'))
         .pipe(flatten())
         .pipe(gulp.dest(path.build.dist.fonts))
         .pipe(size({title: 'fonts'}));

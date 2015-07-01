@@ -7,7 +7,7 @@
 
 import employee from './fixtures/employee_1.json!json';
 import employees from './fixtures/employees.json!json';
-import {Run} from '../../../ng-decorator'; // jshint unused: false
+import {Run, Inject} from '../../../ng-decorator'; // jshint unused: false
 
 //start-non-standard
 @Run()
@@ -57,11 +57,11 @@ class EmployeeResourceMock {
                 return [200, {}];
             });
     }
+    //start-non-standard
+    @Inject('$httpBackend')
+    //end-non-standard
     static runFactory($httpBackend){
         EmployeeResourceMock.instance = new EmployeeResourceMock($httpBackend);
         return EmployeeResourceMock.instance;
     }
 }
-EmployeeResourceMock.runFactory.$inject = ['$httpBackend'];
-
-

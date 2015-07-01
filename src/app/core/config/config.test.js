@@ -20,13 +20,14 @@ class ConfigurationTest {
         $provide.decorator('$httpBackend', angular.mock.e2e.$httpBackendDecorator);
     }
 
+    //start-non-standard
+    @Inject('$provide')
+    //end-non-standard
     static configFactory($provide){
         ConfigurationTest.instance = new ConfigurationTest($provide);
         return ConfigurationTest.instance;
     }
 }
-ConfigurationTest.configFactory.$inject = ['$provide'];
-
 
 //start-non-standard
 @Run()
@@ -36,11 +37,12 @@ class OnRunTest {
         $httpBackend.whenGET(/^\w+.*/).passThrough();
         $httpBackend.whenPOST(/^\w+.*/).passThrough();
     }
+
+    //start-non-standard
+    @Inject('$httpBackend')
+    //end-non-standard
     static runFactory($httpBackend){
         OnRunTest.instance = new OnRunTest($httpBackend);
         return OnRunTest.instance;
     }
 }
-OnRunTest.runFactory.$inject = ['$httpBackend'];
-
-

@@ -6,7 +6,7 @@
 'use strict';
 
 import './config.test'; // TODO: (martin) use systemJs conditional imports
-import {Config} from '../../ng-decorator'; // jshint unused: false
+import {Config, Inject} from '../../ng-decorator'; // jshint unused: false
 
 //start-non-standard
 @Config()
@@ -39,11 +39,11 @@ class Configuration {
         $urlRouterProvider.when('/', '/employees');
     }
 
+    //start-non-standard
+    @Inject('$locationProvider', '$provide', '$urlRouterProvider', 'RestangularProvider', 'localStorageServiceProvider')
+    //end-non-standard
     static configFactory($locationProvider, $provide, $urlRouterProvider, RestangularProvider, localStorageServiceProvider){
         Configuration.instance = new Configuration($locationProvider, $provide, $urlRouterProvider, RestangularProvider, localStorageServiceProvider);
         return Configuration.instance;
     }
 }
-Configuration.configFactory.$inject = ['$locationProvider', '$provide', '$urlRouterProvider', 'RestangularProvider', 'localStorageServiceProvider'];
-
-

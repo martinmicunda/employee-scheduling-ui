@@ -5,7 +5,7 @@
  */
 'use strict';
 
-import {Config} from '../../ng-decorator'; // jshint unused: false
+import {Config, Inject} from '../../ng-decorator'; // jshint unused: false
 
 //start-non-standard
 @Config()
@@ -19,10 +19,11 @@ class ConfigurationProd {
         $httpProvider.useApplyAsync(true);
     }
 
+    //start-non-standard
+    @Inject('$compileProvider', '$httpProvider')
+    //end-non-standard
     static configFactory($compileProvider, $httpProvider){
         ConfigurationProd.instance = new ConfigurationProd($compileProvider, $httpProvider);
         return ConfigurationProd.instance;
     }
 }
-ConfigurationProd.configFactory.$inject = ['$compileProvider', '$httpProvider'];
-

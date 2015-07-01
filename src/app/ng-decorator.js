@@ -5,9 +5,7 @@
  */
 'use strict';
 
-/**
- * We just have one angular module that include all others.
- */
+// TODO: (martin) I don't like that I have to create angular module in this file. The file should stand alone as separate library in the future. However it doesn't seems ES6 support e`xport` inside of `export default`..
 const app = angular.module('ngDecorator', [
     // angular modules
     'ngAnimate',
@@ -22,49 +20,55 @@ const app = angular.module('ngDecorator', [
 ]);
 
 function Run() {
-    return function decorator(Class) {
-        app.run(Class.runFactory);
+    return function decorator(target) {
+        app.run(target.runFactory);
     };
 }
 
 function Config() {
-    return function decorator(Class) {
-        app.config(Class.configFactory);
+    return function decorator(target) {
+        app.config(target.configFactory);
     };
 }
 
 function Service(options) {
-    return function decorator(Class) {
-        app.service(options.serviceName, Class);
+    return function decorator(target) {
+        app.service(options.serviceName, target);
     };
 }
 
 function Filter(filter) {
-    return function decorator(Class) {
+    return function decorator(target) {
         if (!filter.filterName) {
             throw new Error('@Filter() must contains filterName property!');
         }
-        app.filter(filter.filterName, Class.filterFactory);
+        app.filter(filter.filterName, target.filterFactory);
     };
 }
 
 function Inject(...dependencies) {
-    return function decorator(Class) {
-        Class.$inject = dependencies;
+    return function decorator(target, key, descriptor) {
+        // if it's true then we injecting dependencies into function and not Class constructor
+        if(descriptor) {
+            const fn = descriptor.value;
+            fn.$inject = dependencies;
+        } else {
+            target.$inject = dependencies;
+        }
     };
 }
 
 function Component(component) {
-    return function decorator(Class) {
+    return function decorator(target) {
         if (typeof component !== 'object') {
             throw new Error('@Component() must be defined!');
         }
 
-        if (Class.$initView) {
-            Class.$initView(component.selector);
+        if (target.$initView) {
+            target.$initView(component.selector);
         }
 
-        Class.$isComponent = true;
+        target.$isComponent = true;
     };
 }
 
@@ -102,21 +106,21 @@ function View(view) {
 }
 
 function Directive(options) {
-    return function decorator(Class) {
+    return function decorator(target) {
         const directiveName = dashCaseToCamelCase(options.selector);
-        app.directive(directiveName, Class.directiveFactory);
+        app.directive(directiveName, target.directiveFactory);
     };
 }
 
 function RouteConfig(stateName, options) {
-    return function decorator(Class) {
+    return function decorator(target) {
         app.config(['$stateProvider', ($stateProvider) => {
             $stateProvider.state(stateName, Object.assign({
-                controller: Class,
+                controller: target,
                 controllerAs: 'vm'
             }, options));
         }]);
-        app.controller(Class.name, Class);
+        app.controller(target.name, target);
     };
 }
 
@@ -124,11 +128,7 @@ function RouteConfig(stateName, options) {
 function pascalCaseToCamelCase(str) {
     return str.charAt(0).toLowerCase() + str.substring(1);
 }
-//function camelCaseToDashCase(str) {
-//    return str.replace(/[A-Z]/g, function($1) {
-//        return '-' + $1.toLowerCase();
-//    });
-//}
+
 function dashCaseToCamelCase(string) {
     return string.replace( /-([a-z])/ig, function( all, letter ) {
         return letter.toUpperCase();
@@ -137,5 +137,3 @@ function dashCaseToCamelCase(string) {
 
 export default app;
 export {Component, View, RouteConfig, Inject, Run, Config, Service, Filter, Directive};
-
-

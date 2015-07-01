@@ -29,7 +29,7 @@ const paths = {
      */
     app: {
         basePath:       `${root}/src/`,
-        fonts:          [`${root}/src/fonts/**/*.{eot,svg,ttf,woff}`, `${root}/jspm_packages/**/*.{eot,svg,ttf,woff}`],
+        fonts:          [`${root}/src/fonts/**/*.{eot,svg,ttf,woff,woff2}`, `${root}/jspm_packages/**/*.{eot,svg,ttf,woff,woff2}`],
         styles:         `${root}/src/styles/**/*.scss`,
         images:         `${root}/src/images/**/*.{png,gif,jpg,jpeg}`,
         config: {

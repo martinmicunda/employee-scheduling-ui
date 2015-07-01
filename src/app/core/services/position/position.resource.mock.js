@@ -24,9 +24,11 @@ class PositionResourceMock {
                 }
             });
     }
+    //start-non-standard
+    @Inject('$httpBackend')
+    //end-non-standard
     static runFactory($httpBackend){
         PositionResourceMock.instance = new PositionResourceMock($httpBackend);
         return PositionResourceMock.instance;
     }
 }
-PositionResourceMock.runFactory.$inject = ['$httpBackend'];

@@ -19,9 +19,11 @@ class SettingResourceMock {
                 return [200, settings];
             });
     }
+    //start-non-standard
+    @Inject('$httpBackend')
+    //end-non-standard
     static runFactory($httpBackend){
         SettingResourceMock.instance = new SettingResourceMock($httpBackend);
         return SettingResourceMock.instance;
     }
 }
-SettingResourceMock.runFactory.$inject = ['$httpBackend'];

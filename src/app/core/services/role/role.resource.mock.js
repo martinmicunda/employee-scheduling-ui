@@ -24,9 +24,11 @@ class RoleResourceMock {
                 }
             });
     }
+    //start-non-standard
+    @Inject('$httpBackend')
+    //end-non-standard
     static runFactory($httpBackend){
         RoleResourceMock.instance = new RoleResourceMock($httpBackend);
         return RoleResourceMock.instance;
     }
 }
-RoleResourceMock.runFactory.$inject = ['$httpBackend'];
