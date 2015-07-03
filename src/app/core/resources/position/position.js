@@ -5,26 +5,36 @@
  */
 'use strict';
 
-import './language.resource.mock';
+import './position.mock';
 import {Service, Inject} from '../../../ng-decorator'; // jshint unused: false
 
 //start-non-standard
 @Service({
-    serviceName: 'LanguageResource'
+    serviceName: 'PositionResource'
 })
 @Inject('Restangular')
 //end-non-standard
-class LanguageResource {
+class PositionResource {
     constructor(Restangular) {
         this.Restangular = Restangular;
     }
 
+    get(id) {
+        return this.Restangular
+            .one('positions', id)
+            .get();
+    }
+
     getList() {
         return this.Restangular
-            .all('languages')
+            .all('positions')
             .withHttpConfig({cache: true})
             .getList();
     }
+
+    create(position) {
+        return this.Restangular
+            .all('positions')
+            .post(position);
+    }
 }
-
-

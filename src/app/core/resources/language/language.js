@@ -5,24 +5,26 @@
  */
 'use strict';
 
-import './location.resource.mock';
+import './language.mock';
 import {Service, Inject} from '../../../ng-decorator'; // jshint unused: false
 
 //start-non-standard
 @Service({
-    serviceName: 'LocationResource'
+    serviceName: 'LanguageResource'
 })
 @Inject('Restangular')
 //end-non-standard
-class LocationResource {
+class LanguageResource {
     constructor(Restangular) {
         this.Restangular = Restangular;
     }
 
     getList() {
         return this.Restangular
-            .all('locations')
+            .all('languages')
             .withHttpConfig({cache: true})
             .getList();
     }
 }
+
+

@@ -5,6 +5,8 @@
  */
 'use strict';
 
+import angular from 'angular';
+
 // TODO: (martin) I don't like that I have to create angular module in this file. The file should stand alone as separate library in the future. However it doesn't seems ES6 support e`xport` inside of `export default`..
 const app = angular.module('ngDecorator', [
     // angular modules

@@ -96,9 +96,11 @@ class MmUnsavedFormWarningModal {
         });
     }
 
+    //start-non-standard
+    @Inject('$modal', '$state', 'UnsavedFormsService')
+    //end-non-standard
     static directiveFactory($modal, $state, UnsavedFormsService){
         MmUnsavedFormWarningModal.instance = new MmUnsavedFormWarningModal($modal, $state, UnsavedFormsService);
         return MmUnsavedFormWarningModal.instance;
     }
 }
-MmUnsavedFormWarningModal.directiveFactory.$inject = ['$modal', '$state', 'UnsavedFormsService'];

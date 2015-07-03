@@ -79,3 +79,4 @@ class EmployeeEdit {
         });
     }
 }
+// http://www.sitepoint.com/creating-stateful-modals-angularjs-angular-ui-router/

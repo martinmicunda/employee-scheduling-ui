@@ -1,5 +1,7 @@
 'use strict';
 
+require('phantomjs-polyfill');
+
 module.exports = function (config) {
     config.set({
         // base path, that will be used to resolve files and exclude
@@ -9,6 +11,7 @@ module.exports = function (config) {
 
         // list of files / patterns to load in the browser
         files: [
+            './node_modules/phantomjs-polyfill/bind-polyfill.js'
         ],
 
         jspm: {

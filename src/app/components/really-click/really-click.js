@@ -40,10 +40,12 @@ class MmReallyClick {
         });
     }
 
+    //start-non-standard
+    @Inject('$modal')
+    //end-non-standard
     static directiveFactory($modal){
         MmReallyClick.instance = new MmReallyClick($modal);
         return MmReallyClick.instance;
     }
 }
-MmReallyClick.directiveFactory.$inject = ['$modal'];
 

@@ -27,7 +27,7 @@ class Configuration {
          * Route provider configuration based on these config constant values
          *********************************************************************/
             // set restful base API Route
-        RestangularProvider.setBaseUrl('/api/v1');
+        RestangularProvider.setBaseUrl('/api');
 
         // use the HTML5 History API
         $locationProvider.html5Mode(true);

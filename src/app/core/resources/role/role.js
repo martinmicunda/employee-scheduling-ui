@@ -5,36 +5,24 @@
  */
 'use strict';
 
-import './employee.resource.mock';
+import './role.mock';
 import {Service, Inject} from '../../../ng-decorator'; // jshint unused: false
 
 //start-non-standard
 @Service({
-    serviceName: 'EmployeeResource'
+    serviceName: 'RoleResource'
 })
 @Inject('Restangular')
 //end-non-standard
-class EmployeeResource {
+class RoleResource {
     constructor(Restangular) {
         this.Restangular = Restangular;
     }
 
-    get(id) {
+    getList(query) {
         return this.Restangular
-            .one('employees', id)
-            .get();
-    }
-
-    getList() {
-        return this.Restangular
-            .all('employees')
-            .getList();
-    }
-
-    delete(id) {
-        return this.Restangular
-            .one('employees', id)
-            .remove();
+            .all('roles')
+            .withHttpConfig({cache: true})
+            .getList(query);
     }
 }
-

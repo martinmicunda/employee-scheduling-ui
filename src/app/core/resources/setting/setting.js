@@ -5,24 +5,24 @@
  */
 'use strict';
 
-import './position.resource.mock';
+import './setting.mock';
 import {Service, Inject} from '../../../ng-decorator'; // jshint unused: false
 
 //start-non-standard
 @Service({
-    serviceName: 'PositionResource'
+    serviceName: 'SettingResource'
 })
 @Inject('Restangular')
 //end-non-standard
-class PositionResource {
+class SettingResource {
     constructor(Restangular) {
         this.Restangular = Restangular;
     }
 
-    getList(query) {
+    getList() {
         return this.Restangular
-            .all('positions')
+            .one('settings')
             .withHttpConfig({cache: true})
-            .getList(query);
+            .get();
     }
 }

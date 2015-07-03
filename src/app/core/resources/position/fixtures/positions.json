@@ -1,0 +1,18 @@
+[
+    {
+        "id": "1",
+        "name": "Junior Animator"
+    },
+    {
+        "id": "2",
+        "name": "Senior Animator"
+    },
+    {
+        "id": "3",
+        "name": "Teacher"
+    },
+    {
+        "id": "4",
+        "name": "Manager"
+    }
+]

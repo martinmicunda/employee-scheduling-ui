@@ -29,9 +29,11 @@ class MmScrollUp {
         });
     }
 
+    //start-non-standard
+    @Inject('$modal', '$anchorScroll')
+    //end-non-standard
     static directiveFactory($location, $anchorScroll){
         MmScrollUp.instance = new MmScrollUp($location, $anchorScroll);
         return MmScrollUp.instance;
     }
 }
-MmScrollUp.directiveFactory.$inject = ['$modal', '$anchorScroll'];

@@ -5,6 +5,8 @@
  */
 'use strict';
 
+import './add/add';
+import './edit/edit';
 import template from './positions.html!text';
 import {RouteConfig, Inject} from '../../../../ng-decorator'; // jshint unused: false
 
@@ -13,39 +15,14 @@ import {RouteConfig, Inject} from '../../../../ng-decorator'; // jshint unused: 
     url: '/positions',
     template: template,
     resolve: {
-        positions: ['PositionResource', PositionResource => PositionResource.getList({lang: 'en'})] // TODO:(martin) language should comes from user profile
+        positions: ['PositionResource', PositionResource => PositionResource.getList()]
     }
 })
-@Inject('positions')
+@Inject('positions', 'PositionService')
 //end-non-standard
 class SettingPositions {
-    constructor(positions) {
+    constructor(positions, PositionService) {
         this.positions = positions;
-        this.isSubmitting = null;
-        this.result = null;
-        this.saveButtonOptions = {
-            iconsPosition: 'right',
-            buttonDefaultText: 'Save',
-            buttonSubmittingText: 'Saving',
-            buttonSuccessText: 'Saved',
-            animationCompleteTime: '1200'
-        };
-    }
-
-    save(form) {
-        if(!form.$valid) {return;}
-        this.isSubmitting = true;
-        //this.employee.put().then(function(employee) {
-        //    this.employee = employee;
-        //    this.result = 'success';
-        //    form.$setPristine();
-        //}.bind(this), function(response) {
-        //    this.result = 'error';
-        //    if(response.status === 409) {
-        //        //toaster.pop('warning', 'Warning:', 'Another user has updated this location while you were editing');
-        //    } else {
-        //        //toaster.pop('error', 'Error:', 'Location could not be updated. Please try again!');
-        //    }
-        //}.bind(this));
+        PositionService.setPositions(positions);
     }
 }

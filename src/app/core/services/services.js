@@ -5,10 +5,7 @@
  */
 'use strict';
 
-import './employee/employee';
-import './language/language';
-import './location/location';
-import './role/role';
-import './setting/setting';
-import './position/position';
+import './employee';
+import './form';
+import './position'
 

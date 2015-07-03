@@ -7,5 +7,6 @@
 
 import './config/config';
 import './helpers/helpers';
+import './resources/resources';
 import './services/services';
 
