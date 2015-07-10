@@ -23,8 +23,6 @@ before_install:
   - npm install -g jspm
   - jspm config registries.github.auth $JSPM_GITHUB_TOKEN
 
-install:
-  - npm install
-#script:
-#  - bash -ex ./bin/ci_build.sh
+script:
+  - bash -ex ./bin/ci_build.sh
 
