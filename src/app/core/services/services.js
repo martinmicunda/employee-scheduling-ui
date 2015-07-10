@@ -7,5 +7,5 @@
 
 import './employee';
 import './form';
-import './position'
+import './position';
 
