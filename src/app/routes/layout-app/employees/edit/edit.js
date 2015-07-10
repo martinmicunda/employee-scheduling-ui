@@ -11,7 +11,7 @@ import './bank-details/bank-details';
 import './contact-details/contact-details';
 import './hourly-rates/hourly-rates';
 import template from './edit.html!text';
-import {RouteConfig, Inject} from '../../../../ng-decorator'; // jshint unused: false
+import {RouteConfig, Inject} from '../../../../ng-decorators'; // jshint unused: false
 
 //start-non-standard
 //http://blog.chorip.am/articles/angularsjs-ui-router-and-in-modal-nested-states/

@@ -6,7 +6,7 @@
 'use strict';
 
 import template from './bank-details.html!text';
-import {RouteConfig} from '../../../../../ng-decorator'; // jshint unused: false
+import {RouteConfig} from '../../../../../ng-decorators'; // jshint unused: false
 
 //start-non-standard
 @RouteConfig('app.employees.edit.bank-details', {

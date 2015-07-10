@@ -7,7 +7,7 @@
 
 import './login/login';
 import template from './layout-auth.html!text';
-import {RouteConfig} from '../../ng-decorator'; // jshint unused: false
+import {RouteConfig} from '../../ng-decorators'; // jshint unused: false
 
 //start-non-standard
 @RouteConfig('auth', {

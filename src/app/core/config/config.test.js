@@ -10,7 +10,7 @@
  */
 import 'angular-mocks';
 import angular from 'angular';
-import {Config, Run, Inject} from '../../ng-decorator'; // jshint unused: false
+import {Config, Run, Inject} from '../../ng-decorators'; // jshint unused: false
 
 //start-non-standard
 @Config()

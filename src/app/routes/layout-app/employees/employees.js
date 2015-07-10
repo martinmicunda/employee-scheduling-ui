@@ -10,7 +10,7 @@ import './edit/edit';
 import './message/message';
 import './schedule/schedule';
 import template from './employees.html!text';
-import {RouteConfig, Inject} from '../../../ng-decorator'; // jshint unused: false
+import {RouteConfig, Inject} from '../../../ng-decorators'; // jshint unused: false
 
 //start-non-standard
 @RouteConfig('app.employees', {

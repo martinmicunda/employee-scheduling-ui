@@ -5,7 +5,7 @@
  */
 'use strict';
 
-import {Filter} from '../../ng-decorator'; // jshint unused: false
+import {Filter} from '../../ng-decorators'; // jshint unused: false
 
 //start-non-standard
 @Filter({

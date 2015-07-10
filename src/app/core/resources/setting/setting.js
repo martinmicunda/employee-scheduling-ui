@@ -6,7 +6,7 @@
 'use strict';
 
 import './setting.mock';
-import {Service, Inject} from '../../../ng-decorator'; // jshint unused: false
+import {Service, Inject} from '../../../ng-decorators'; // jshint unused: false
 
 //start-non-standard
 @Service({

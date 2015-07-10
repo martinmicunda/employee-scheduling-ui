@@ -7,7 +7,7 @@
 
 import rolesEN from './fixtures/roles_en.json!json';
 import rolesSK from './fixtures/roles_sk.json!json';
-import {Run, Inject} from '../../../ng-decorator'; // jshint unused: false
+import {Run, Inject} from '../../../ng-decorators'; // jshint unused: false
 
 //start-non-standard
 @Run()

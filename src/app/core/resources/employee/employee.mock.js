@@ -7,7 +7,7 @@
 
 import employee from './fixtures/employee_1.json!json';
 import employees from './fixtures/employees.json!json';
-import {Run, Inject} from '../../../ng-decorator'; // jshint unused: false
+import {Run, Inject} from '../../../ng-decorators'; // jshint unused: false
 
 //start-non-standard
 @Run()

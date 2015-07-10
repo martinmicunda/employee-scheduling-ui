@@ -14,7 +14,7 @@ import './reports/reports';
 import './schedule/schedule';
 import './settings/settings';
 import template from './layout-app.html!text';
-import {RouteConfig} from '../../ng-decorator';  // jshint unused: false
+import {RouteConfig} from '../../ng-decorators';  // jshint unused: false
 
 //start-non-standard
 @RouteConfig('app', {

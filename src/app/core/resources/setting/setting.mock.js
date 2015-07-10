@@ -6,7 +6,7 @@
 'use strict';
 
 import settings from './fixtures/settings.json!json';
-import {Run, Inject} from '../../../ng-decorator'; // jshint unused: false
+import {Run, Inject} from '../../../ng-decorators'; // jshint unused: false
 
 //start-non-standard
 @Run()

@@ -6,7 +6,7 @@
 'use strict';
 
 import './config.test'; // TODO: (martin) use systemJs conditional imports
-import {Config, Inject} from '../../ng-decorator'; // jshint unused: false
+import {Config, Inject} from '../../ng-decorators'; // jshint unused: false
 
 //start-non-standard
 @Config()

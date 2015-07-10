@@ -25,7 +25,7 @@ import 'ng-bs-animated-button';
 import './components/components';
 import './core/core';
 import './routes/routes';
-import mainModule from './ng-decorator';
+import mainModule from './ng-decorators';
 
 angular.element(document).ready(function() {
     angular.bootstrap(document, [mainModule.name], {

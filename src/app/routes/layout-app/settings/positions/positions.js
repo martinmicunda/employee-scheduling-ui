@@ -8,7 +8,7 @@
 import './add/add';
 import './edit/edit';
 import template from './positions.html!text';
-import {RouteConfig, Inject} from '../../../../ng-decorator'; // jshint unused: false
+import {RouteConfig, Inject} from '../../../../ng-decorators'; // jshint unused: false
 
 //start-non-standard
 @RouteConfig('app.settings.positions', {

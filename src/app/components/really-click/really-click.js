@@ -5,7 +5,7 @@
  */
 'use strict';
 
-import {Directive, Inject} from '../../ng-decorator'; // jshint unused: false
+import {Directive, Inject} from '../../ng-decorators'; // jshint unused: false
 
 const MODAL = new WeakMap();
 //start-non-standard

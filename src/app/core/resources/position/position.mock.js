@@ -10,7 +10,7 @@ import position2 from './fixtures/position_2.json!json';
 import position3 from './fixtures/position_3.json!json';
 import position4 from './fixtures/position_4.json!json';
 import positions from './fixtures/positions.json!json';
-import {Run, Inject} from '../../../ng-decorator'; // jshint unused: false
+import {Run, Inject} from '../../../ng-decorators'; // jshint unused: false
 
 //start-non-standard
 @Run()

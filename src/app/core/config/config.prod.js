@@ -5,7 +5,7 @@
  */
 'use strict';
 
-import {Config, Inject} from '../../ng-decorator'; // jshint unused: false
+import {Config, Inject} from '../../ng-decorators'; // jshint unused: false
 
 //start-non-standard
 @Config()

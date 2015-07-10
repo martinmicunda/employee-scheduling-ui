@@ -5,7 +5,7 @@
  */
 'use strict';
 
-import {Directive, Inject} from '../../ng-decorator'; // jshint unused: false
+import {Directive, Inject} from '../../ng-decorators'; // jshint unused: false
 
 const LOCATION = new WeakMap();
 const ANCHOR_SCROLL = new WeakMap();

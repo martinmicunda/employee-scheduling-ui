@@ -9,7 +9,7 @@ import './account-details/account-details';
 import './contact-details/contact-details';
 import './password/password';
 import template from './account.html!text';
-import {RouteConfig, Inject} from '../../../ng-decorator'; // jshint unused: false
+import {RouteConfig, Inject} from '../../../ng-decorators'; // jshint unused: false
 
 //start-non-standard
 @RouteConfig('app.account', {

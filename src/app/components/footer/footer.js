@@ -1,7 +1,7 @@
 'use strict';
 
 import template from './footer.html!text';
-import {View, Component} from '../../ng-decorator'; // jshint unused: false
+import {View, Component} from '../../ng-decorators'; // jshint unused: false
 
 //start-non-standard
 @Component({
