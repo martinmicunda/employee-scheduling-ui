@@ -76,11 +76,11 @@ function run {
 
         deploy
 
-        TAG_NAME="v$VERSION"
-
-        # Create and push the tag to Github
-        git tag "$TAG_NAME" -m "chore(release): $TAG_NAME"
-        git push origin $TAG_NAME
+#        TAG_NAME="v$VERSION"
+#
+#        # Create and push the tag to Github
+#        git tag "$TAG_NAME" -m "chore(release): $TAG_NAME"
+#        git push origin $TAG_NAME
 
         echo "##########################################"
         echo "# Complete! Release v$VERSION published! #"

@@ -36,7 +36,7 @@ class Configuration {
         });
 
         // for any unmatched url, send to 404 page (Not page found)
-        //$urlRouterProvider.otherwise('/employees');
+        $urlRouterProvider.otherwise('/employees');
 
         // the `when` method says if the url is `/` redirect to `/dashboard` what is basically our `home` for this application
         $urlRouterProvider.when('/', '/employees');
