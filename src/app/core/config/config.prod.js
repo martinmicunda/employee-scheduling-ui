@@ -7,23 +7,16 @@
 
 import {Config, Inject} from '../../ng-decorators'; // jshint unused: false
 
-//start-non-standard
-@Config()
-//end-non-standard
 class ConfigurationProd {
-    constructor($compileProvider, $httpProvider) {
+    //start-non-standard
+    @Config()
+    @Inject('$compileProvider', '$httpProvider')
+    //end-non-standard
+    static configFactory($compileProvider, $httpProvider){
         // disabling debug data to get better performance gain in production
         $compileProvider.debugInfoEnabled(false);
         // configure $http service to combine processing of multiple http responses received at
         // around the same time via $rootScope.$applyAsync to get better performance gain in production
         $httpProvider.useApplyAsync(true);
-    }
-
-    //start-non-standard
-    @Inject('$compileProvider', '$httpProvider')
-    //end-non-standard
-    static configFactory($compileProvider, $httpProvider){
-        ConfigurationProd.instance = new ConfigurationProd($compileProvider, $httpProvider);
-        return ConfigurationProd.instance;
     }
 }

@@ -8,11 +8,12 @@
 import './config.test'; // TODO: (martin) use systemJs conditional imports
 import {Config, Inject} from '../../ng-decorators'; // jshint unused: false
 
-//start-non-standard
-@Config()
-//end-non-standard
 class Configuration {
-    constructor($locationProvider, $provide, $urlRouterProvider, RestangularProvider, localStorageServiceProvider) {
+    //start-non-standard
+    @Config()
+    @Inject('$locationProvider', '$provide', '$urlRouterProvider', 'RestangularProvider', 'localStorageServiceProvider')
+    //end-non-standard
+    static configFactory($locationProvider, $provide, $urlRouterProvider, RestangularProvider, localStorageServiceProvider){
         // use "e-scheduling" as a localStorage name prefix so app doesn’t accidently read data from another app using the same variable names
         localStorageServiceProvider.setPrefix('employee-scheduling');
 
@@ -40,13 +41,5 @@ class Configuration {
 
         // the `when` method says if the url is `/` redirect to `/dashboard` what is basically our `home` for this application
         $urlRouterProvider.when('/', '/employees');
-    }
-
-    //start-non-standard
-    @Inject('$locationProvider', '$provide', '$urlRouterProvider', 'RestangularProvider', 'localStorageServiceProvider')
-    //end-non-standard
-    static configFactory($locationProvider, $provide, $urlRouterProvider, RestangularProvider, localStorageServiceProvider){
-        Configuration.instance = new Configuration($locationProvider, $provide, $urlRouterProvider, RestangularProvider, localStorageServiceProvider);
-        return Configuration.instance;
     }
 }

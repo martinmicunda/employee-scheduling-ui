@@ -8,6 +8,7 @@
 import gulp from 'gulp';
 import ghPages from 'gulp-gh-pages';
 import path from '../paths';
+import {GH_PAGES_TOKEN, GH_PAGES_USERNAME, GH_PAGES_PROJECT_NAME} from '../const';
 
 /**
  * Publish 'build' folder to GitHub 'gh-pages' branch.
@@ -20,5 +21,5 @@ import path from '../paths';
  */
 gulp.task('gh-pages', () => {
     return gulp.src(path.build.basePath + '**/*')
-        .pipe(ghPages({remoteUrl: `https://${process.env.GH_TOKEN}@github.com/${process.env.USERNAME}/${process.env.PROJECT_NAME}.git`}));
+        .pipe(ghPages({remoteUrl: `https://${GH_PAGES_TOKEN}@github.com/${GH_PAGES_USERNAME}/${GH_PAGES_PROJECT_NAME}.git`}));
 });

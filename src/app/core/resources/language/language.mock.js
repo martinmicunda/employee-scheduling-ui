@@ -8,22 +8,16 @@
 import languages from './fixtures/languages.json!json';
 import {Run, Inject} from '../../../ng-decorators'; // jshint unused: false
 
-//start-non-standard
-@Run()
-//end-non-standard
 class LanguageResourceMock {
-    constructor($httpBackend) {
+    //start-non-standard
+    @Run()
+    @Inject('$httpBackend')
+    //end-non-standard
+    static runFactory($httpBackend){
         $httpBackend.whenGET(/\/languages/)
             .respond( (method, url) => {
                 console.log('GET',url);
                 return [200, languages];
             });
-    }
-    //start-non-standard
-    @Inject('$httpBackend')
-    //end-non-standard
-    static runFactory($httpBackend){
-        LanguageResourceMock.instance = new LanguageResourceMock($httpBackend);
-        return LanguageResourceMock.instance;
     }
 }

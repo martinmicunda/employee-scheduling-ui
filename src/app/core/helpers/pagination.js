@@ -7,21 +7,16 @@
 
 import {Filter} from '../../ng-decorators'; // jshint unused: false
 
-//start-non-standard
-@Filter({
-    filterName: 'startFrom'
-})
-//end-non-standard
-class StartFromFilter {
-    startFromFilter() {
+class PaginationFilters {
+    //start-non-standard
+    @Filter({
+        filterName: 'startFrom'
+    })
+    //end-non-standard
+    static startFromFilter() {
         return (input, start) => {
             start = +start; //parse to int
             return input.slice(start);
         };
-    }
-
-    static filterFactory(){
-        StartFromFilter.instance = new StartFromFilter();
-        return StartFromFilter.instance.startFromFilter();
     }
 }

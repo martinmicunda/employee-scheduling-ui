@@ -12,37 +12,23 @@ import 'angular-mocks';
 import angular from 'angular';
 import {Config, Run, Inject} from '../../ng-decorators'; // jshint unused: false
 
-//start-non-standard
-@Config()
-//end-non-standard
 class ConfigurationTest {
-    constructor($provide) {
-        $provide.decorator('$httpBackend', angular.mock.e2e.$httpBackendDecorator);
-    }
-
     //start-non-standard
+    @Config()
     @Inject('$provide')
     //end-non-standard
     static configFactory($provide){
-        ConfigurationTest.instance = new ConfigurationTest($provide);
-        return ConfigurationTest.instance;
+        $provide.decorator('$httpBackend', angular.mock.e2e.$httpBackendDecorator);
     }
 }
 
-//start-non-standard
-@Run()
-//end-non-standard
 class OnRunTest {
-    constructor($httpBackend) {
-        $httpBackend.whenGET(/^\w+.*/).passThrough();
-        $httpBackend.whenPOST(/^\w+.*/).passThrough();
-    }
-
     //start-non-standard
+    @Run()
     @Inject('$httpBackend')
     //end-non-standard
     static runFactory($httpBackend){
-        OnRunTest.instance = new OnRunTest($httpBackend);
-        return OnRunTest.instance;
+        $httpBackend.whenGET(/^\w+.*/).passThrough();
+        $httpBackend.whenPOST(/^\w+.*/).passThrough();
     }
 }

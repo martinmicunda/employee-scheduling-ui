@@ -9,11 +9,12 @@ import rolesEN from './fixtures/roles_en.json!json';
 import rolesSK from './fixtures/roles_sk.json!json';
 import {Run, Inject} from '../../../ng-decorators'; // jshint unused: false
 
-//start-non-standard
-@Run()
-//end-non-standard
 class RoleResourceMock {
-    constructor($httpBackend) {
+    //start-non-standard
+    @Run()
+    @Inject('$httpBackend')
+    //end-non-standard
+    static runFactory($httpBackend){
         $httpBackend.whenGET(/\/roles\?lang*/)
             .respond( (method, url) => {
                 console.log('GET',url);
@@ -23,12 +24,5 @@ class RoleResourceMock {
                     return [200, rolesSK];
                 }
             });
-    }
-    //start-non-standard
-    @Inject('$httpBackend')
-    //end-non-standard
-    static runFactory($httpBackend){
-        RoleResourceMock.instance = new RoleResourceMock($httpBackend);
-        return RoleResourceMock.instance;
     }
 }

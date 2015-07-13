@@ -22,29 +22,32 @@ const app = angular.module('ngDecorator', [
 ]);
 
 function Run() {
-    return function decorator(target) {
-        app.run(target.runFactory);
+    return function decorator(target, key, descriptor) {
+        app.run(descriptor.value);
     };
 }
 
 function Config() {
-    return function decorator(target) {
-        app.config(target.configFactory);
+    return function decorator(target, key, descriptor) {
+        app.config(descriptor.value);
     };
 }
 
 function Service(options) {
     return function decorator(target) {
+        if (!options.serviceName) {
+            throw new Error('@Service() must contains serviceName property!');
+        }
         app.service(options.serviceName, target);
     };
 }
 
 function Filter(filter) {
-    return function decorator(target) {
+    return function decorator(target, key, descriptor) {
         if (!filter.filterName) {
             throw new Error('@Filter() must contains filterName property!');
         }
-        app.filter(filter.filterName, target.filterFactory);
+        app.filter(filter.filterName, descriptor.value);
     };
 }
 

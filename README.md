@@ -20,7 +20,7 @@ This demo is running from [gh-pages](https://github.com/martinmicunda/employee-s
 ## Features
   * Use ES6 with Angular 1.x
   * Use ES6 Modules via [SystemJS](https://github.com/systemjs/systemjs) and [ES6 Module Loader Polyfill](https://github.com/ModuleLoader/es6-module-loader)
-  * Use [ES7 decorators](https://github.com/wycats/javascript-decorators) to avoid Angular 1 boilerplate code
+  * Use [ES7 decorators](https://github.com/wycats/javascript-decorators) to avoid Angular 1.x boilerplate code
   * Manage development and production workflow with [JSPM](http://jspm.io/), [SystemJS builder](https://github.com/systemjs/builder) and [Gulp](http://gulpjs.com/)
   * Mocked Backend Workflow - help with mocking backend-less development
   * Achieve some of the Angular 2.0 goals while still running on Angular 1.x

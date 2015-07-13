@@ -8,22 +8,16 @@
 import locations from './fixtures/locations.json!json';
 import {Run, Inject} from '../../../ng-decorators'; // jshint unused: false
 
-//start-non-standard
-@Run()
-//end-non-standard
 class LocationResourceMock {
-    constructor($httpBackend) {
+    //start-non-standard
+    @Run()
+    @Inject('$httpBackend')
+    //end-non-standard
+    static runFactory($httpBackend){
         $httpBackend.whenGET(/\/locations/)
             .respond( (method, url) => {
                 console.log('GET',url);
                 return [200, locations];
             });
-    }
-    //start-non-standard
-    @Inject('$httpBackend')
-    //end-non-standard
-    static runFactory($httpBackend){
-        LocationResourceMock.instance = new LocationResourceMock($httpBackend);
-        return LocationResourceMock.instance;
     }
 }
