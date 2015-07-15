@@ -19,10 +19,28 @@ class LocationResource {
         this.Restangular = Restangular;
     }
 
+    get(id) {
+        return this.Restangular
+            .one('locations', id)
+            .get();
+    }
+
     getList() {
         return this.Restangular
             .all('locations')
             .withHttpConfig({cache: true})
             .getList();
+    }
+
+    create(position) {
+        return this.Restangular
+            .all('locations')
+            .post(position);
+    }
+
+    delete(id) {
+        return this.Restangular
+            .one('locations', id)
+            .remove();
     }
 }

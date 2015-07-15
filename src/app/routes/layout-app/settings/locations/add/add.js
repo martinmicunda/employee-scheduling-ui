@@ -9,26 +9,26 @@ import template from './add.html!text';
 import {RouteConfig, Inject} from '../../../../../ng-decorators'; // jshint unused: false
 
 //start-non-standard
-@RouteConfig('app.settings.positions.add', {
+@RouteConfig('app.settings.locations.add', {
     url: '/add',
     onEnter: ['$state', '$modal', ($state, $modal) => {
         $modal.open({
             template: template,
-            controller: PositionAdd,
+            controller: LocationAdd,
             controllerAs: 'vm',
             size: 'md'
-        }).result.finally(() => $state.go('app.settings.positions'));
+        }).result.finally(() => $state.go('app.settings.locations'));
     }]
 })
-@Inject('$modalInstance', 'PositionResource', 'FormService', 'PositionService')
+@Inject('$modalInstance', 'LocationResource', 'FormService', 'LocationService')
 //end-non-standard
-class PositionAdd {
-    constructor($modalInstance, PositionResource, FormService, PositionService) {
+class LocationAdd {
+    constructor($modalInstance, LocationResource, FormService, LocationService) {
         this.$modalInstance = $modalInstance;
-        this.PositionResource = PositionResource;
-        this.PositionService = PositionService;
+        this.LocationResource = LocationResource;
+        this.LocationService = LocationService;
         this.FormService = FormService;
-        this.position= {};
+        this.location = {};
         this.isSubmitting = null;
         this.result = null;
         this.saveButtonOptions = FormService.getModalSaveButtonOptions();
@@ -41,9 +41,13 @@ class PositionAdd {
     save(form) {
         if(!form.$valid) {return;}
         this.isSubmitting = true;
-        this.PositionResource.create(this.position).then((position) => {
-            this.position.id = position.id;
-            this.PositionService.addPosition(this.position);
+        this.location.status = 'active';
+        if(this.LocationService.getLocations().length === 0) {
+            this.location.default = true;
+        }
+        this.LocationResource.create(this.location).then((location) => {
+            this.location.id = location.id;
+            this.LocationService.addLocation(this.location);
             this.FormService.success(this);
         }, (response) => {
             this.FormService.failure(this, response);

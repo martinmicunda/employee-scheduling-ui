@@ -11,7 +11,6 @@ import {Service} from '../../ng-decorators'; // jshint unused: false
 @Service({
     serviceName: 'FormService'
 })
-//@Inject('$timeout')
 //end-non-standard
 class FormService {
     constructor() {
@@ -35,20 +34,37 @@ class FormService {
         return this.saveButtonOptions;
     }
 
-    modalSuccess(self) {
+    success(self) {
+        self.hasError = false;
         self.result = 'success';
-        self.cancel();
+        if(typeof self.cancel === 'function') {
+            self.cancel();
+        }
     }
 
-    modalFailure(self, response) {
+    failure(self, response) {
         self.result = 'error';
         self.hasError = true;
         if(response.status === 404) {
-            //toaster.pop('warning', 'Warning:', 'Another user has updated this location while you were editing');
-        } else if(response.status === 409) {
-            //toaster.pop('warning', 'Warning:', 'Another user has updated this location while you were editing. Please reload the page and try again.');
+            self.errorMessage = 'The requested record could not be found.';
+        } else if(response.status === 409 && response.config.method === 'PUT') {
+            self.errorMessage = 'Another user has updated this record while you were editing. Please reload the page and try again.';
+        } else if(response.status === 409 && response.config.method === 'POST') {
+            self.errorMessage = 'This record already exist.';
         } else {
-            //toaster.pop('error', 'Error:', 'Location could not be updated. Please try again!');
+            let action;
+            switch(response.config.method) {
+                case 'POST':
+                    action = 'created';
+                    break;
+                case 'PUT':
+                    action = 'updated';
+                    break;
+                case 'DELETE':
+                    action = 'deleted';
+                    break;
+            }
+            self.errorMessage = `This record could not be ${action}. Please try again.`;
         }
     }
 }

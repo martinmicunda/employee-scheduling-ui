@@ -31,10 +31,7 @@ class Configuration {
         RestangularProvider.setBaseUrl('/api');
 
         // use the HTML5 History API
-        $locationProvider.html5Mode({
-            enabled: true,
-            requireBase: false
-        });
+        $locationProvider.html5Mode(true);
 
         // for any unmatched url, send to 404 page (Not page found)
         $urlRouterProvider.otherwise('/employees');

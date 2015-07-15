@@ -5,6 +5,8 @@
  */
 'use strict';
 
+import './add/add';
+import './edit/edit';
 import template from './locations.html!text';
 import {RouteConfig, Inject} from '../../../../ng-decorators'; // jshint unused: false
 
@@ -16,37 +18,26 @@ import {RouteConfig, Inject} from '../../../../ng-decorators'; // jshint unused:
         locations: ['LocationResource', LocationResource => LocationResource.getList()]
     }
 })
-@Inject('locations', 'LocationResource')
+@Inject('locations', 'LocationService', 'FormService')
 //end-non-standard
 class SettingLocations {
-    constructor(locations, LocationResource) {
-        this.LocationResource = LocationResource;
-        this.locations = locations;
-        this.isSubmitting = null;
-        this.result = null;
-        this.saveButtonOptions = {
-            iconsPosition: 'right',
-            buttonDefaultText: 'Save',
-            buttonSubmittingText: 'Saving',
-            buttonSuccessText: 'Saved',
-            animationCompleteTime: '1200'
-        };
+    constructor(locations, LocationService, FormService) {
+        LocationService.setLocations(locations);
+        this.locations = LocationService.getLocations();
+        this.FormService = FormService;
     }
 
-    save(form) {
-        if(!form.$valid) {return;}
-        this.isSubmitting = true;
-        //this.employee.put().then(function(employee) {
-        //    this.employee = employee;
-        //    this.result = 'success';
-        //    form.$setPristine();
-        //}.bind(this), function(response) {
-        //    this.result = 'error';
-        //    if(response.status === 409) {
-        //        //toaster.pop('warning', 'Warning:', 'Another user has updated this location while you were editing');
-        //    } else {
-        //        //toaster.pop('error', 'Error:', 'Location could not be updated. Please try again!');
-        //    }
-        //}.bind(this));
+    deleteLocation(location) {
+        if(location.default) {
+            this.hasError = true;
+            this.errorMessage = `The default location can't be deleted.`;
+        } else {
+            location.remove().then(() => {
+                this.locations.splice(this.locations.indexOf(location), 1);
+                this.FormService.success(this);
+            }, (response) => {
+                this.FormService.failure(this, response);
+            });
+        }
     }
 }

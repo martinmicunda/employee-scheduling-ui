@@ -22,10 +22,22 @@ class MmReallyClick {
         MODAL.set(this, $modal);
     }
 
-    link(scope, element) {
+    link(scope, element, attrs) {
         element.bind('click', () => {
             const modalInstance = MODAL.get(MmReallyClick.instance).open({
-                templateUrl: 'deleteModal.html',
+                template: `
+                    <div class="modal-header">
+                        <button type="button" class="close" ng-click="vm.cancel()">×</button>
+                        <h4 class="modal-title">${attrs.mmReallyHeader}</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>${attrs.mmReallyMessage}</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-sm btn-white" ng-click="vm.cancel()">Cancel</button>
+                        <button class="btn btn-sm btn-success" ng-click="vm.ok()">OK</button>
+                    </div>
+                `,
                 controller: ['$modalInstance', function($modalInstance) {
                     const vm = this;
 
@@ -48,4 +60,3 @@ class MmReallyClick {
         return MmReallyClick.instance;
     }
 }
-

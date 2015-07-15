@@ -10,5 +10,4 @@ import './really-click/really-click';
 import './mm-scroll-up/scroll-up.directive';
 import './header/header';
 import './footer/footer';
-
-
+import './modal/error-modal';

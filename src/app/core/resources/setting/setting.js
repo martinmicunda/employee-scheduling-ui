@@ -19,6 +19,12 @@ class SettingResource {
         this.Restangular = Restangular;
     }
 
+    get(id) {
+        return this.Restangular
+            .one('settings', id)
+            .get();
+    }
+
     getList() {
         return this.Restangular
             .one('settings')

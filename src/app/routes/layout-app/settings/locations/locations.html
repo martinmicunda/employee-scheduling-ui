@@ -4,6 +4,14 @@
             <h4 class="panel-title">Locations</h4>
         </div>
         <div class="panel-body">
+            <div ng-if="vm.hasError" class="row">
+                <div class="col-md-12 col-sm-12">
+                    <div class="alert alert-danger animated fadeIn">
+                        <strong>Error!</strong>
+                        {{vm.errorMessage}}
+                    </div>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-md-6 col-sm-6">
                     <div class="table-filter">
@@ -12,44 +20,32 @@
                 </div>
                 <div class="col-md-6 col-sm-6">
                     <div class="pull-right">
-                        <button type="button" class="btn btn-sm btn-success" ui-sref="app.employees.add.account-details">Add Position</button>
+                        <button type="button" class="btn btn-sm btn-success" ui-sref="app.settings.locations.add">Add Location</button>
                     </div>
                 </div>
             </div>
             <div class="table-responsive">
                 <table class="table table-hover">
                     <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Actions</th>
-                    </tr>
+                        <tr>
+                            <th>Name</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
                     </thead>
                     <tbody>
-                    <tr ng-repeat="location in vm.locations | filter:searchText | orderBy:'name'">
-                        <td>{{::location.name}}</td>
-                        <td>
-                            <a mm-really-click="vm.deleteEmployee(location)" tooltip-placement="top" tooltip="delete"><i class="fa fa-trash fa-fw"></i></a>
-                            <!--<a ui-sref=".edit.account-details({id: position.code})" tooltip-placement="top" tooltip="edit"><i class="fa fa-pencil fa-fw"></i></a>-->
-                        </td>
-                    </tr>
+                        <tr ng-repeat="location in vm.locations | filter:searchText | orderBy:'name'">
+                            <td>{{::location.name}} <span ng-show="location.default">(Default Location)</span></td>
+                            <td><span class="label"
+                                      ng-class="{'label-success': location.status === 'active', 'label-default': location.status === 'inactive'}">{{::location.status}}</span></td>
+                            <td>
+                                <a mm-really-click="vm.deleteLocation(location)" mm-really-header="Delete Location" mm-really-message="Are you sure you want delete this location?" tooltip-placement="top" tooltip="delete"><i class="fa fa-trash fa-fw"></i></a>
+                                <a ui-sref=".edit({id: location.id})" tooltip-placement="top" tooltip="edit"><i class="fa fa-pencil fa-fw"></i></a>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
 </div>
-
-<!--TODO: this should be directive and pass only header and body text as delete modal is use in multiple places-->
-<script type="text/ng-template" id="deleteModal.html">
-    <div class="modal-header">
-        <button type="button" class="close" ng-click="vm.cancel()">×</button>
-        <h4 class="modal-title">Delete Location</h4>
-    </div>
-    <div class="modal-body">
-        <p>Are you sure you want delete this location?</p>
-    </div>
-    <div class="modal-footer">
-        <button class="btn btn-sm btn-white" ng-click="vm.cancel()">Cancel</button>
-        <button class="btn btn-sm btn-success" ng-click="vm.ok()">OK</button>
-    </div>
-</script>

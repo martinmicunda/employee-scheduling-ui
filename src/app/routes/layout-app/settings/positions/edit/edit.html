@@ -6,7 +6,7 @@
     <div class="modal-body form-wizard">
         <div ng-if="vm.hasError" class="alert alert-danger animated fadeIn">
             <strong>Error!</strong>
-            Position could not be updated. Please try again.
+            {{vm.errorMessage}}
         </div>
         <div class="form-group required mb0">
             <label class="control-label col-sm-4">Name</label>

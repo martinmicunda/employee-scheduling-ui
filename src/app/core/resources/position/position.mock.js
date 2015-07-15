@@ -25,8 +25,12 @@ class PositionResourceMock {
                     return [200, position1];
                 } else if(url.includes('positions/2')) {
                     return [200, position2];
-                }  else if(url.includes('positions/3')) {
+                } else if(url.includes('positions/3')) {
                     return [200, position3];
+                } else if(url.includes('positions/5')) {
+                    return [404];
+                } else if(url.includes('positions/6')) {
+                    return [500];
                 }
 
                 return [200, position4];
@@ -43,11 +47,13 @@ class PositionResourceMock {
                 console.log('POST',url);
                 data = JSON.parse(data);
 
-                if(data.name === '500')  {
-                    return [500, {}];
+                if(data.name === '500') {
+                    return [500];
+                } else if(data.name === '409') {
+                    return [409];
                 }
 
-                return [201, {id:'5'}];
+                return [201, {id:'7'}];
             });
 
         $httpBackend.whenPUT(/\/positions/)
@@ -56,14 +62,28 @@ class PositionResourceMock {
                 data = JSON.parse(data);
 
                 if(data.name === '404') {
-                    return [404, {}];
-                } else if(data.name === '409')  {
-                    return [409, {}];
-                } else if(data.name === '500')  {
-                    return [500, {}];
+                    return [404];
+                } else if(data.name === '409') {
+                    return [409];
+                } else if(data.name === '500') {
+                    return [500];
                 }
 
                 return [200, data];
+            });
+
+        $httpBackend.whenDELETE(/\/positions/)
+            .respond( (method, url, data) => {
+                console.log('DELETE',url);
+                data = JSON.parse(data);
+
+                if(data.name === '404') {
+                    return [404];
+                } else if(data.name === '500') {
+                    return [500];
+                }
+
+                return [204];
             });
     }
 }

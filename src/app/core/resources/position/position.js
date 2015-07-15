@@ -37,4 +37,10 @@ class PositionResource {
             .all('positions')
             .post(position);
     }
+
+    delete(id) {
+        return this.Restangular
+            .one('positions', id)
+            .remove();
+    }
 }

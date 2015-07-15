@@ -21,18 +21,29 @@ import {RouteConfig, Inject} from '../../../../../ng-decorators'; // jshint unus
             resolve: {
                 position: ['PositionResource', (PositionResource) => PositionResource.get(id)]
             }
-        }).result.finally(function() {
-                $state.go('app.settings.positions');
-            });
+        }).result.then(() => {
+            }, (error) => {
+                if(error.status) {
+                    $modal.open({
+                        template: '<mm-error-modal cancel="vm.cancel()" error="vm.error"></mm-error-modal>',
+                        controller: ['$modalInstance', function ($modalInstance) {
+                            var vm = this;
+                            vm.error = error;
+                            vm.cancel = () => $modalInstance.dismiss('cancel');
+                        }],
+                        controllerAs: 'vm',
+                        size: 'md'
+                    }).result.finally(() => $state.go('app.settings.positions'));
+                }
+            }).finally(() => $state.go('app.settings.positions'));
     }]
 })
-@Inject('position', '$modalInstance', 'PositionResource', 'FormService', 'PositionService')
+@Inject('position', '$modalInstance', 'FormService', 'PositionService')
 //end-non-standard
 class PositionEdit {
-    constructor(position, $modalInstance, PositionResource, FormService, PositionService) {
+    constructor(position, $modalInstance, FormService, PositionService) {
         this.position = position;
         this.$modalInstance = $modalInstance;
-        this.PositionResource = PositionResource;
         this.PositionService = PositionService;
         this.FormService = FormService;
         this.isSubmitting = null;
@@ -49,9 +60,9 @@ class PositionEdit {
         this.isSubmitting = true;
         this.position.put().then(() => {
             this.PositionService.updatePosition(this.position);
-            this.FormService.modalSuccess(this);
+            this.FormService.success(this);
         }, (response) => {
-            this.FormService.modalFailure(this, response);
+            this.FormService.failure(this, response);
         }).finally(() => {
             form.$setPristine();
         });

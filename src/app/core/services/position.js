@@ -11,12 +11,10 @@ import {Service, Inject} from '../../ng-decorators'; // jshint unused: false
 @Service({
     serviceName: 'PositionService'
 })
-@Inject('Restangular')
 //end-non-standard
 class PositionService {
-    constructor(Restangular) {
+    constructor() {
         this.positions = [];
-        this.Restangular = Restangular;
     }
 
     getPositions() {
@@ -24,7 +22,6 @@ class PositionService {
     }
 
     setPositions(positions) {
-        positions = this.Restangular.stripRestangular(positions);
         this.positions = positions;
     }
 
@@ -35,13 +32,9 @@ class PositionService {
     updatePosition(position) {
         for (let i = 0; i < this.positions.length; i++) {
             if(this.positions[i].id === position.id) {
-                this.positions[i] = this.Restangular.stripRestangular(position);
+                this.positions[i] = position;
             }
         }
-        //const replace = Object.assign(this.positions);
-        //this.positions = [];
-        //this.positions = replace;
-        //console.log(this.positions);
     }
 }
 

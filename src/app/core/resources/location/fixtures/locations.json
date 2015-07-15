@@ -1,18 +1,33 @@
 [
     {
-        "code": "1234",
-        "name": "Location 1"
+        "id": "1",
+        "name": "Location 1",
+        "status": "active",
+        "default": true
     },
     {
-        "code": "1235",
-        "name": "Location 2"
+        "id": "2",
+        "name": "Location 2",
+        "status": "inactive"
     },
     {
-        "code": "1236",
-        "name": "Location 3"
+        "id": "3",
+        "name": "Location 3",
+        "status": "active"
     },
     {
-        "code": "1237",
-        "name": "Location 4"
+        "id": "4",
+        "name": "Location 4",
+        "status": "active"
+    },
+    {
+        "id": "5",
+        "name": "404",
+        "status": "active"
+    },
+    {
+        "id": "6",
+        "name": "500",
+        "status": "active"
     }
 ]

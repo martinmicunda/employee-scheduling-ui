@@ -98,6 +98,8 @@ function View(view) {
             } else {
                 directiveName = pascalCaseToCamelCase(directiveName);
             }
+            directiveName = dashCaseToCamelCase(directiveName);
+
             options = options || (options = {});
             options.bindToController = options.bindToController || options.bind || {};
 
