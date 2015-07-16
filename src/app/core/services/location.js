@@ -38,13 +38,6 @@ class LocationService {
     }
 
     getDefaultLocation() {
-        let location = null;
-        for (let i = 0; i < this.locations.length; i++) {
-            if(this.locations[i].default) {
-                location = this.locations[i];
-            }
-        }
-        //return this.locations.find(location => location.default); TODO: missing Array.prototype.find() polyfill
-        return location;
+        return this.locations.find(location => location.default);
     }
 }

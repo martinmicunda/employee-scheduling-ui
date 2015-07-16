@@ -42,10 +42,10 @@
   ],
   "devDependencies": {
     "del": "1.2.0",
-    "jspm": "0.16.0-beta",
+    "jspm": "0.16.0-beta.3",
     "gulp": "3.9.0",
     "plato": "1.5.0",
-    "babel": "5.5.8",
+    "babel": "5.6.23",
     "semver": "4.3.6",
     "moment": "2.10.3",
     "isparta": "3.0.3",
@@ -55,7 +55,7 @@
     "browser-sync": "2.7.13",
     "run-sequence": "1.1.1",
     "jshint-stylish": "2.0.1",
-    "systemjs-builder": "0.11.3",
+    "systemjs-builder": "0.12.2",
     "connect-modrewrite": "0.8.1",
     "conventional-changelog": "0.0.17",
     "gulp-if": "1.2.5",
@@ -125,7 +125,7 @@
       "text": "github:systemjs/plugin-text@0.0.2"
     },
     "devDependencies": {
-      "babel": "npm:babel-core@5.6.15",
+      "babel": "npm:babel-core@5.7.2",
       "babel-runtime": "npm:babel-runtime@5.6.15",
       "core-js": "npm:core-js@0.9.18"
     }
