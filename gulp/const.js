@@ -16,7 +16,7 @@ import pkg from '../package.json';
 export const E2E_STAGING_URL     = 'http://your-staging-url.com';
 export const E2E_DEVELOPMENT_URL = 'http://127.0.0.1:8000';
 export const API_URL = 'http://127.0.0.1:3000';
-export const CDN_URL = 'http://your-cdn-url.com/'; // make sure you include slash in the end!!
+export const CDN_URL = 'http://martinmicunda.com/employee-scheduling-ui/dist/'; // make sure you include slash in the end!!
 export const GH_PAGES_TOKEN = process.env.GH_TOKEN; // Generate OAuth token on GitHub > Settings > Application page
 export const GH_PAGES_USERNAME = process.env.USERNAME;
 export const GH_PAGES_PROJECT_NAME = process.env.PROJECT_NAME;
