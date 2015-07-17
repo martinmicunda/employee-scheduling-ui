@@ -1,0 +1,10 @@
+{
+    "id": "1",
+    "name": "Hotel 1",
+    "contactPerson": "Martin Micunda",
+    "email": "martinmicunda@test.com",
+    "phoneNumber": "+353767889",
+    "color": "#b56767",
+    "status": "active",
+    "note": "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+}

@@ -17,6 +17,7 @@ import 'restangular';
 import 'angular-ui/ui-bootstrap-tpls';
 import 'angular-local-storage';
 import 'ng-bs-animated-button';
+import 'angular-bootstrap-colorpicker';
 
 // css vendor files
 //import 'font-awesome/css/font-awesome.css!';

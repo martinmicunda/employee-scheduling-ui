@@ -8,6 +8,7 @@
 import './employee/employee';
 import './language/language';
 import './location/location';
+import './partner/partner';
 import './role/role';
 import './setting/setting';
 import './position/position';

@@ -1,1 +1,67 @@
-<p>Partners coming soon!</p>
+<div class="container-fluid">
+    <div class="panel panel-inverse">
+        <div class="panel-heading">
+            <h4 class="panel-title">Partners</h4>
+        </div>
+        <div class="panel-body">
+            <div ng-if="vm.hasError" class="row">
+                <div class="col-md-12 col-sm-12">
+                    <div class="alert alert-danger animated fadeIn">
+                        <strong>Error!</strong>
+                        {{vm.errorMessage}}
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-sm-6">
+                    <div class="table-filter">
+                        Search: <input type="search" ng-model="vm.filterField" ng-change="vm.filterPartners()"><span class="checkbox"><label><input type="checkbox" value="">hide inactive partners</label></span>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-6">
+                    <div class="pull-right">
+                        <button type="button" class="btn btn-sm btn-success" ui-sref="app.partners.add">Add Partner</button>&nbsp;
+                    </div>
+                </div>
+            </div>
+            <div class="table-responsive" ng-show="vm.listViewTable">
+                <table class="table table-hover animated fadeIn">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Contact Person</th>
+                            <th>Email</th>
+                            <th>Phone Number</th>
+                            <th>Color</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="partner in vm.filteredPartners | startFrom:(vm.currentPage-1)*vm.partnersPerPage | limitTo:vm.partnersPerPage">
+                            <td>{{::partner.name}}</td>
+                            <td>{{::partner.contactPerson}}</td>
+                            <td>{{::partner.email}}</td>
+                            <td>{{::partner.phoneNumber}}</td>
+                            <td>&nbsp;<span class="label" ng-style="{'background': partner.color}">&nbsp;</span></td>
+                            <td><span class="label"
+                                      ng-class="{'label-success': partner.status === 'active', 'label-default': partner.status === 'inactive'}">{{::partner.status}}</span></td>
+                            <td>
+                                <a mm-really-click="vm.deletePartner(partner)" mm-really-header="Delete Partner" mm-really-message="Are you sure you want delete this partner?" tooltip-placement="top" tooltip="delete"><i class="fa fa-trash fa-fw"></i></a>
+                                <a ui-sref=".edit({id: partner.id})" tooltip-placement="top" tooltip="edit"><i class="fa fa-pencil fa-fw"></i></a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="row">
+                <div class="col-md-6 col-sm-6">
+                    <div class="table-info">Showing {{((vm.currentPage-1)*vm.partnersPerPage) + 1}} to {{vm.currentPage * vm.partnersPerPage}} of {{vm.filteredPartners.length}} partners</div>
+                </div>
+                <div class="col-md-6 col-sm-6" ng-if="vm.filteredPartners.length > vm.partnersPerPage">
+                    <pagination class="pull-right" total-items="vm.filteredPartners.length" ng-model="vm.currentPage" previous-text="← Previous" next-text="Next →"></pagination>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

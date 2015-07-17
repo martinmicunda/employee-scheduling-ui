@@ -1,0 +1,82 @@
+[
+    {
+        "id": "1",
+        "name": "Hotel 1",
+        "contactPerson": "Martin Micunda",
+        "email": "martinmicunda@test.com",
+        "phoneNumber": "+353767889",
+        "color": "#ff5b57",
+        "status": "active",
+        "note": "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+    },
+    {
+        "id": "2",
+        "name": "404",
+        "contactPerson": "Martin Micunda",
+        "email": "martinmicunda@test.com",
+        "phoneNumber": "+353767889",
+        "color": "#ff5b57",
+        "status": "active",
+        "note": ""
+    },
+    {
+        "id": "3",
+        "name": "500",
+        "contactPerson": "Edmund Wong",
+        "email": "edmundwong@test.com",
+        "phoneNumber": "+353767889",
+        "color": "#ff5b57",
+        "status": "active",
+        "note": ""
+    },
+    {
+        "id": "4",
+        "name": "Hotel 2",
+        "contactPerson": "Edmund Wong",
+        "email": "edmundwong@test.com",
+        "phoneNumber": "+353767889",
+        "color": "#ff5b57",
+        "status": "inactive",
+        "note": "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+    },
+    {
+        "id": "5",
+        "name": "Hotel 3",
+        "contactPerson": "Martin Micunda",
+        "email": "martinmicunda@test.com",
+        "phoneNumber": "+353767889",
+        "color": "#ff5b57",
+        "status": "active",
+        "note": ""
+    },
+    {
+        "id": "6",
+        "name": "Hotel 3",
+        "contactPerson": "Martin Micunda",
+        "email": "martinmicunda@test.com",
+        "phoneNumber": "+353767889",
+        "color": "#eeeeee",
+        "status": "active",
+        "note": ""
+    },
+    {
+        "id": "7",
+        "name": "Hotel 4",
+        "contactPerson": "Martin Micunda",
+        "email": "martinmicunda@test.com",
+        "phoneNumber": "+353767889",
+        "color": "#dddddd",
+        "status": "inactive",
+        "note": ""
+    },
+    {
+        "id": "8",
+        "name": "Hotel 5",
+        "contactPerson": "Martin Micunda",
+        "email": "martinmicunda@test.com",
+        "phoneNumber": "+353767889",
+        "color": "#cccccc",
+        "status": "active",
+        "note": ""
+    }
+]

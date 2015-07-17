@@ -8,5 +8,5 @@
 import './employee';
 import './form';
 import './location';
+import './partner';
 import './position';
-

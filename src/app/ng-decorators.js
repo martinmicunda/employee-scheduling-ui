@@ -18,6 +18,7 @@ const app = angular.module('ngDecorator', [
     'ui.router',
     'ui.bootstrap',
     'LocalStorageModule',
+    'colorpicker.module',
     'jp.ng-bs-animated-button'
 ]);
 

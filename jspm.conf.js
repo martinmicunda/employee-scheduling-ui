@@ -19,6 +19,7 @@ System.config({
   "map": {
     "angular": "github:angular/bower-angular@1.4.1",
     "angular-animate": "npm:angular-animate@1.4.1",
+    "angular-bootstrap-colorpicker": "github:buberdds/angular-bootstrap-colorpicker@3.0.18",
     "angular-local-storage": "github:grevory/angular-local-storage@0.0.5",
     "angular-messages": "npm:angular-messages@1.4.1",
     "angular-mocks": "npm:angular-mocks@1.4.1",
@@ -189,3 +190,4 @@ System.config({
     }
   }
 });
+

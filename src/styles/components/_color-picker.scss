@@ -1,0 +1,28 @@
+.color-picker-wrapper {
+    position: relative;
+}
+.color-picker-wrapper .color-picker-swatch.color-picker-swatch-left {
+    right: 18px;
+}
+.color-picker-wrapper .color-picker-swatch {
+    top: 3px;
+    width: 28px;
+    height: 28px;
+    border-radius: 3px;
+    position: absolute;
+    vertical-align: middle;
+    background-position: -80px 0;
+    border: 1px solid #ccc;
+    padding: 0;
+    margin: 0;
+    display: inline-block;
+    cursor: pointer;
+}
+.color-picker-wrapper .color-picker-swatch .color-picker-swatch-color {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: inherit;
+}
