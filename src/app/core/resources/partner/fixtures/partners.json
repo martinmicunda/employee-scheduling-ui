@@ -10,7 +10,7 @@
         "note": "Lorem Ipsum is simply dummy text of the printing and typesetting industry."
     },
     {
-        "id": "2",
+        "id": "404",
         "name": "404",
         "contactPerson": "Martin Micunda",
         "email": "martinmicunda@test.com",
@@ -20,7 +20,7 @@
         "note": ""
     },
     {
-        "id": "3",
+        "id": "500",
         "name": "500",
         "contactPerson": "Edmund Wong",
         "email": "edmundwong@test.com",
@@ -51,7 +51,7 @@
     },
     {
         "id": "6",
-        "name": "Hotel 3",
+        "name": "Hotel 4",
         "contactPerson": "Martin Micunda",
         "email": "martinmicunda@test.com",
         "phoneNumber": "+353767889",
@@ -61,7 +61,7 @@
     },
     {
         "id": "7",
-        "name": "Hotel 4",
+        "name": "Hotel 5",
         "contactPerson": "Martin Micunda",
         "email": "martinmicunda@test.com",
         "phoneNumber": "+353767889",
@@ -71,7 +71,7 @@
     },
     {
         "id": "8",
-        "name": "Hotel 5",
+        "name": "Hotel 6",
         "contactPerson": "Martin Micunda",
         "email": "martinmicunda@test.com",
         "phoneNumber": "+353767889",

@@ -15,20 +15,25 @@ import {Config, Run, Inject} from '../../ng-decorators'; // jshint unused: false
 class ConfigurationTest {
     //start-non-standard
     @Config()
-    @Inject('$provide')
+    @Inject('$provide', 'localStorageServiceProvider')
     //end-non-standard
-    static configFactory($provide){
+    static configFactory($provide, localStorageServiceProvider){
         $provide.decorator('$httpBackend', angular.mock.e2e.$httpBackendDecorator);
+        // use "e-scheduling-test" as a localStorage name prefix so app doesn’t accidently read data from another app using the same variable names
+        localStorageServiceProvider.setPrefix('employee-scheduling-test');
     }
 }
 
 class OnRunTest {
     //start-non-standard
     @Run()
-    @Inject('$httpBackend')
+    @Inject('$httpBackend', 'localStorageService')
     //end-non-standard
-    static runFactory($httpBackend){
+    static runFactory($httpBackend, localStorageService){
         $httpBackend.whenGET(/^\w+.*/).passThrough();
         $httpBackend.whenPOST(/^\w+.*/).passThrough();
+
+        // clear all locale storage for employee-scheduling-test
+        localStorageService.clearAll();
     }
 }

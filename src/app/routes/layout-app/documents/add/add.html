@@ -1,0 +1,41 @@
+<form class="form-horizontal form-validation" name="documentAddForm" role="form" novalidate>
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="vm.cancel()">×</button>
+        <h4 class="modal-title">Add Document</h4>
+    </div>
+    <div class="modal-body form-wizard">
+        <div ng-if="vm.hasError" class="alert alert-danger animated fadeIn">
+            <strong>Error!</strong>
+            {{vm.errorMessage}}
+        </div>
+        <div class="form-group required">
+            <label class="control-label col-sm-4">Name</label>
+            <div class="col-sm-5">
+                <input name="name" type="text" ng-model="vm.partner.name" class="form-control" required>
+                <div ng-if="documentAddForm.$submitted" ng-messages="documentAddForm.name.$error">
+                    <div ng-message="required" class="error">This field is required.</div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-4">Lock the folder?</label>
+            <div class="col-sm-5">
+                <span class="checkbox"><input type="checkbox" value="" class="ml0"></span>
+            </div>
+        </div>
+
+        <div class="form-group mb0">
+            <label class="control-label col-sm-4">Note</label>
+            <div class="col-sm-5">
+                <textarea rows="5" name="note" ng-model="vm.partner.note" class="form-control"></textarea>
+                <!--<select name="spellingLanguage" class="form-control" ng-model="vm.spelling.language" ng-options="language.code as language.name for language in vm.languages">-->
+                    <!--<option value="">&#45;&#45; choose language &#45;&#45;</option>-->
+                <!--</select>-->
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" ng-click="vm.cancel()" class="btn btn-sm btn-white">Close</button>
+        <jp-ng-bs-animated-button class="btn btn-sm btn-success" ng-click="vm.save(documentAddForm)" is-submitting="vm.isSubmitting" result="vm.result" options="vm.saveButtonOptions"></jp-ng-bs-animated-button>
+    </div>
+</form>

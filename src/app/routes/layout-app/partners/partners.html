@@ -24,7 +24,7 @@
                     </div>
                 </div>
             </div>
-            <div class="table-responsive" ng-show="vm.listViewTable">
+            <div class="table-responsive">
                 <table class="table table-hover animated fadeIn">
                     <thead>
                         <tr>
@@ -38,7 +38,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="partner in vm.filteredPartners | startFrom:(vm.currentPage-1)*vm.partnersPerPage | limitTo:vm.partnersPerPage">
+                        <tr ng-repeat="partner in vm.filteredPartners | startFrom:(vm.currentPage-1)*vm.partnersPerPage | limitTo:vm.partnersPerPage  | orderBy:'name'">
                             <td>{{::partner.name}}</td>
                             <td>{{::partner.contactPerson}}</td>
                             <td>{{::partner.email}}</td>

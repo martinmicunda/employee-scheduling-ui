@@ -12,50 +12,85 @@ import {Run, Inject} from '../../../ng-decorators'; // jshint unused: false
 class EmployeeResourceMock {
     //start-non-standard
     @Run()
-    @Inject('$httpBackend')
+    @Inject('$httpBackend', 'localStorageService')
     //end-non-standard
-    static runFactory($httpBackend){
+    static runFactory($httpBackend, localStorageService){
+        employees.forEach(function (employee) {
+            localStorageService.set(`employee_${employee.id}`, employee);
+        });
+
         $httpBackend.whenGET(/\/employees\/[a-z]*/)
             .respond( (method, url) => {
                 console.log('GET',url);
-                if(url.includes('employees/1')) {
-                    return [200, employee];
+                const id = url.match(/\/employees\/(\d+)/)[1];
+                const employeeLocal = localStorageService.get(`employee_${id}`);
+
+                if(id === '404') {
+                    return [404];
+                } else if(id === '500') {
+                    return [500];
                 }
+
+                return [200, employeeLocal ? employeeLocal : employee];
             });
 
         $httpBackend.whenGET(/\/employees/)
             .respond( (method, url) => {
                 console.log('GET',url);
-                return [200, employees];
+                const employeesLocal = localStorageService.findLocalStorageItems(/\.employee_(\d+)/);
+
+                return [200, employeesLocal.length > 0 ? employeesLocal : employees];
+            });
+
+        $httpBackend.whenPOST(/\/employees/)
+            .respond( (method, url, data) => {
+                console.log('POST',url);
+                data = JSON.parse(data);
+
+                if(data.firstName === '500') {
+                    return [500];
+                } else if(data.firstName === '409') {
+                    return [409];
+                }
+
+                data.id = Math.floor(Date.now() / 1000);
+                localStorageService.set(`employee_${data.id}`, data);
+
+                return [201, {id: data.id}];
             });
 
         $httpBackend.whenPUT(/\/employees/)
             .respond( (method, url, data) => {
                 console.log('PUT',url);
-                var dataJSON = JSON.parse(data);
-                if(dataJSON.firstName === '503') {
-                    return [503, dataJSON];
-                } else if(dataJSON.firstName === '409') {
-                    return [409, dataJSON];
+                data = JSON.parse(data);
+
+                if(data.firstName === '404') {
+                    return [404];
+                } else if(data.firstName === '409') {
+                    return [409];
+                } else if(data.firstName === '500') {
+                    return [500];
                 }
 
-                // increment version number to fake real system
-                dataJSON.version++;
-
-                return [200, dataJSON];
+                localStorageService.set(`employee_${data.id}`, data);
+                return [200, data];
             });
 
         $httpBackend.whenDELETE(/\/employees/)
-            .respond( (method, url) => { // data
+            .respond( (method, url, data) => {
                 console.log('DELETE',url);
-                //var dataJSON = JSON.parse(data);
-                //if(dataJSON.firstName[0].Value === '503') {
-                //    return [503, dataJSON];
-                //} else if(dataJSON.firstName[0].Value === '409') {
-                //    return [409, dataJSON];
-                //}
+                data = JSON.parse(data);
 
-                return [200, {}];
+                if(data.firstName === '404') {
+                    return [404];
+                } else if(data.firstName === '500') {
+                    return [500];
+                }
+
+                const id = url.match(/\/employees\/(\d+)/)[1];
+                localStorageService.remove(`employee_${id}`);
+
+                return [204];
             });
     }
 }

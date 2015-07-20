@@ -6,40 +6,40 @@
 'use strict';
 
 import position1 from './fixtures/position_1.json!json';
-import position2 from './fixtures/position_2.json!json';
-import position3 from './fixtures/position_3.json!json';
-import position4 from './fixtures/position_4.json!json';
 import positions from './fixtures/positions.json!json';
 import {Run, Inject} from '../../../ng-decorators'; // jshint unused: false
 
 class PositionResourceMock {
     //start-non-standard
     @Run()
-    @Inject('$httpBackend')
+    @Inject('$httpBackend', 'localStorageService')
     //end-non-standard
-    static runFactory($httpBackend){
+    static runFactory($httpBackend, localStorageService){
+        positions.forEach(function (position) {
+            localStorageService.set(`position_${position.id}`, position);
+        });
+
         $httpBackend.whenGET(/\/positions\/[a-z]*/)
             .respond( (method, url) => {
                 console.log('GET',url);
-                if(url.includes('positions/1')) {
-                    return [200, position1];
-                } else if(url.includes('positions/2')) {
-                    return [200, position2];
-                } else if(url.includes('positions/3')) {
-                    return [200, position3];
-                } else if(url.includes('positions/5')) {
+                const id = url.match(/\/positions\/(\d+)/)[1];
+                const positionLocal = localStorageService.get(`position_${id}`);
+
+                if(id === '404') {
                     return [404];
-                } else if(url.includes('positions/6')) {
+                } else if(id === '500') {
                     return [500];
                 }
 
-                return [200, position4];
+                return [200, positionLocal ? positionLocal : position1];
             });
 
         $httpBackend.whenGET(/\/positions/)
             .respond( (method, url) => {
                 console.log('GET',url);
-                return [200, positions];
+                const positionsLocal = localStorageService.findLocalStorageItems(/\.position_(\d+)/);
+
+                return [200, positionsLocal.length > 0 ? positionsLocal : positions];
             });
 
         $httpBackend.whenPOST(/\/positions/)
@@ -53,7 +53,10 @@ class PositionResourceMock {
                     return [409];
                 }
 
-                return [201, {id:'7'}];
+                data.id = Math.floor(Date.now() / 1000);
+                localStorageService.set(`position_${data.id}`, data);
+
+                return [201, {id: data.id}];
             });
 
         $httpBackend.whenPUT(/\/positions/)
@@ -69,6 +72,7 @@ class PositionResourceMock {
                     return [500];
                 }
 
+                localStorageService.set(`position_${data.id}`, data);
                 return [200, data];
             });
 
@@ -82,6 +86,9 @@ class PositionResourceMock {
                 } else if(data.name === '500') {
                     return [500];
                 }
+
+                const id = url.match(/\/positions\/(\d+)/)[1];
+                localStorageService.remove(`position_${id}`);
 
                 return [204];
             });

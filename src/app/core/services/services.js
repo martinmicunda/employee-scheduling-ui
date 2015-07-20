@@ -10,3 +10,4 @@ import './form';
 import './location';
 import './partner';
 import './position';
+import './document';

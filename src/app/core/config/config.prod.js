@@ -10,9 +10,12 @@ import {Config, Inject} from '../../ng-decorators'; // jshint unused: false
 class ConfigurationProd {
     //start-non-standard
     @Config()
-    @Inject('$compileProvider', '$httpProvider')
+    @Inject('$compileProvider', '$httpProvider', 'localStorageServiceProvider')
     //end-non-standard
-    static configFactory($compileProvider, $httpProvider){
+    static configFactory($compileProvider, $httpProvider, localStorageServiceProvider){
+        // use "e-scheduling" as a localStorage name prefix so app doesn’t accidently read data from another app using the same variable names
+        localStorageServiceProvider.setPrefix('employee-scheduling');
+
         // disabling debug data to get better performance gain in production
         $compileProvider.debugInfoEnabled(false);
         // configure $http service to combine processing of multiple http responses received at

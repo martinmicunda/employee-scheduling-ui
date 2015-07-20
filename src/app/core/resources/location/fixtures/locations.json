@@ -21,12 +21,12 @@
         "status": "active"
     },
     {
-        "id": "5",
+        "id": "404",
         "name": "404",
         "status": "active"
     },
     {
-        "id": "6",
+        "id": "500",
         "name": "500",
         "status": "active"
     }

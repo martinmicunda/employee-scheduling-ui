@@ -22,17 +22,15 @@ import {RouteConfig, Inject} from '../../../ng-decorators'; // jshint unused: fa
 //end-non-standard
 class Partners {
     constructor(partners, FormService, PartnerService, filterFilter) {
-        this.partners = partners;
+        PartnerService.setPartners(partners);
+        this.partners = PartnerService.getPartners();
         this.FormService = FormService;
         this.filteredPartners = Object.assign(partners);
-        PartnerService.setPartners(partners);
-        this.positions = PartnerService.getPartners();
         this.filterField = '';
         this.filterFilter = filterFilter;
         // pagination
         this.currentPage = 1;
         this.partnersPerPage = 10;
-        this.listViewTable = true;
     }
 
     filterPartners() {

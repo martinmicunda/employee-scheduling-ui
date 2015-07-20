@@ -5,13 +5,41 @@
  */
 'use strict';
 
+import './add/add';
+//import './edit/edit';
 import template from './documents.html!text';
-import {RouteConfig} from '../../../ng-decorators'; // jshint unused: false
+import {RouteConfig, Inject} from '../../../ng-decorators'; // jshint unused: false
 
 //start-non-standard
 @RouteConfig('app.documents', {
     url: '/documents',
-    template: template
+    template: template,
+    resolve: {
+        documents: ['DocumentResource', DocumentResource => DocumentResource.getList()],
+    }
 })
+@Inject('documents', 'FormService', 'DocumentService', 'filterFilter')
 //end-non-standard
-class Documents {}
+class Documents {
+    constructor(documents, FormService, DocumentService, filterFilter) {
+        DocumentService.setDocuments(documents);
+        this.documents = DocumentService.getDocuments();
+        this.FormService = FormService;
+        this.filteredDocuments = Object.assign(documents);
+        this.filterField = '';
+        this.filterFilter = filterFilter;
+    }
+
+    filterDocuments() {
+        this.filteredDocuments = this.filterFilter(this.documents, {folderName: this.filterField});
+    }
+
+    deleteDocument(document) {
+        document.remove().then(() => {
+            this.documents.splice(this.documents.indexOf(document), 1);
+            this.filteredDocuments.splice(this.filteredDocuments.indexOf(document), 1);
+        },(response) => {
+            this.FormService.failure(this, response);
+        });
+    }
+}

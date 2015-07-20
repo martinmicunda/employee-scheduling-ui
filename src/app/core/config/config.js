@@ -11,12 +11,9 @@ import {Config, Inject} from '../../ng-decorators'; // jshint unused: false
 class Configuration {
     //start-non-standard
     @Config()
-    @Inject('$locationProvider', '$provide', '$urlRouterProvider', 'RestangularProvider', 'localStorageServiceProvider')
+    @Inject('$locationProvider', '$provide', '$urlRouterProvider', 'RestangularProvider')
     //end-non-standard
-    static configFactory($locationProvider, $provide, $urlRouterProvider, RestangularProvider, localStorageServiceProvider){
-        // use "e-scheduling" as a localStorage name prefix so app doesn’t accidently read data from another app using the same variable names
-        localStorageServiceProvider.setPrefix('employee-scheduling');
-
+    static configFactory($locationProvider, $provide, $urlRouterProvider, RestangularProvider){
         // overwrite the default behaviour for $uiViewScroll service (scroll to top of the page)
         $provide.decorator('$uiViewScroll', ['$delegate', '$window', function ($delegate, $window) {
             return function () {
@@ -24,10 +21,28 @@ class Configuration {
             };
         }]);
 
+        // enhance localStorageService
+        $provide.decorator('localStorageService', ['$delegate', '$window', function($delegate, $window) {
+            $delegate.findLocalStorageItems = function (query) {
+                let i, results = [];
+                for (i in $window.localStorage) {
+                    if ($window.localStorage.hasOwnProperty(i)) {
+                        if (i.match(query) || (!query && typeof i === 'string')) {
+                            const value = JSON.parse($window.localStorage.getItem(i));
+                            results.push(value);
+                        }
+                    }
+                }
+                return results;
+            };
+
+            return $delegate;
+        }]);
+
         /*********************************************************************
          * Route provider configuration based on these config constant values
          *********************************************************************/
-            // set restful base API Route
+        // set restful base API Route
         RestangularProvider.setBaseUrl('/api');
 
         // use the HTML5 History API

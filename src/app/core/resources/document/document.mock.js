@@ -5,25 +5,25 @@
  */
 'use strict';
 
-import partner1 from './fixtures/partner_1.json!json';
-import partners from './fixtures/partners.json!json';
+import document1 from './fixtures/document_1.json!json';
+import documents from './fixtures/documents.json!json';
 import {Run, Inject} from '../../../ng-decorators'; // jshint unused: false
 
-class PositionResourceMock {
+class DocumentResourceMock {
     //start-non-standard
     @Run()
-    @Inject('$httpBackend', 'localStorageService', '$window')
+    @Inject('$httpBackend','localStorageService')
     //end-non-standard
-    static runFactory($httpBackend, localStorageService, $window){
-        partners.forEach(function (partner) {
-            localStorageService.set(`partner_${partner.id}`, partner);
+    static runFactory($httpBackend, localStorageService){
+        documents.forEach(function (document) {
+            localStorageService.set(`document_${document.id}`, document);
         });
 
-        $httpBackend.whenGET(/\/partners\/[a-z]*/)
+        $httpBackend.whenGET(/\/documents\/[a-z]*/)
             .respond( (method, url) => {
                 console.log('GET',url);
-                const id = url.match(/\/partners\/(\d+)/)[1];
-                const partnerLocal = localStorageService.get(`partner_${id}`);
+                const id = url.match(/\/documents\/(\d+)/)[1];
+                const documentLocal = localStorageService.get(`document_${id}`);
 
                 if(id === '404') {
                     return [404];
@@ -31,18 +31,18 @@ class PositionResourceMock {
                     return [500];
                 }
 
-                return [200, partnerLocal ? partnerLocal : partner1];
+                return [200, documentLocal ? documentLocal : document1];
             });
 
-        $httpBackend.whenGET(/\/partners/)
+        $httpBackend.whenGET(/\/documents/)
             .respond( (method, url) => {
                 console.log('GET',url);
-                const partnersLocal = localStorageService.findLocalStorageItems(/\.partner_(\d+)/);
+                const documentsLocal = localStorageService.findLocalStorageItems(/\.document_(\d+)/);
 
-                return [200, partnersLocal.length > 0 ? partnersLocal : partners];
+                return [200, documentsLocal.length > 0 ? documentsLocal : documents];
             });
 
-        $httpBackend.whenPOST(/\/partners/)
+        $httpBackend.whenPOST(/\/documents/)
             .respond( (method, url, data) => {
                 console.log('POST',url);
                 data = JSON.parse(data);
@@ -54,12 +54,12 @@ class PositionResourceMock {
                 }
 
                 data.id = Math.floor(Date.now() / 1000);
-                localStorageService.set(`partner_${data.id}`, data);
+                localStorageService.set(`document_${data.id}`, data);
 
                 return [201, {id: data.id}];
             });
 
-        $httpBackend.whenPUT(/\/partners/)
+        $httpBackend.whenPUT(/\/documents/)
             .respond( (method, url, data) => {
                 console.log('PUT',url);
                 data = JSON.parse(data);
@@ -72,11 +72,11 @@ class PositionResourceMock {
                     return [500];
                 }
 
-                localStorageService.set(`partner_${data.id}`, data);
+                localStorageService.set(`document_${data.id}`, data);
                 return [200, data];
             });
 
-        $httpBackend.whenDELETE(/\/partners/)
+        $httpBackend.whenDELETE(/\/documents/)
             .respond( (method, url, data) => {
                 console.log('DELETE',url);
                 data = JSON.parse(data);
@@ -87,8 +87,8 @@ class PositionResourceMock {
                     return [500];
                 }
 
-                const id = url.match(/\/partners\/(\d+)/)[1];
-                localStorageService.remove(`partner_${id}`);
+                const id = url.match(/\/documents\/(\d+)/)[1];
+                localStorageService.remove(`document_${id}`);
 
                 return [204];
             });

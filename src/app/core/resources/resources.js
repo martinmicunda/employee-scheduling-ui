@@ -12,5 +12,4 @@ import './partner/partner';
 import './role/role';
 import './setting/setting';
 import './position/position';
-
-
+import './document/document';
