@@ -6,6 +6,7 @@
 'use strict';
 
 import './location.mock';
+import AbstractResource from '../abstract-resource';
 import {Service, Inject} from '../../../ng-decorators'; // jshint unused: false
 
 //start-non-standard
@@ -14,33 +15,8 @@ import {Service, Inject} from '../../../ng-decorators'; // jshint unused: false
 })
 @Inject('Restangular')
 //end-non-standard
-class LocationResource {
+class LocationResource extends AbstractResource {
     constructor(Restangular) {
-        this.Restangular = Restangular;
-    }
-
-    get(id) {
-        return this.Restangular
-            .one('locations', id)
-            .get();
-    }
-
-    getList() {
-        return this.Restangular
-            .all('locations')
-            .withHttpConfig({cache: true})
-            .getList();
-    }
-
-    create(position) {
-        return this.Restangular
-            .all('locations')
-            .post(position);
-    }
-
-    delete(id) {
-        return this.Restangular
-            .one('locations', id)
-            .remove();
+        super(Restangular, 'locations');
     }
 }

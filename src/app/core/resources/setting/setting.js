@@ -6,6 +6,7 @@
 'use strict';
 
 import './setting.mock';
+import AbstractResource from '../abstract-resource';
 import {Service, Inject} from '../../../ng-decorators'; // jshint unused: false
 
 //start-non-standard
@@ -14,21 +15,8 @@ import {Service, Inject} from '../../../ng-decorators'; // jshint unused: false
 })
 @Inject('Restangular')
 //end-non-standard
-class SettingResource {
+class SettingResource extends AbstractResource {
     constructor(Restangular) {
-        this.Restangular = Restangular;
-    }
-
-    get(id) {
-        return this.Restangular
-            .one('settings', id)
-            .get();
-    }
-
-    getList() {
-        return this.Restangular
-            .one('settings')
-            .withHttpConfig({cache: true})
-            .get();
+        super(Restangular, 'settings');
     }
 }

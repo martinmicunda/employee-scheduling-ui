@@ -10,7 +10,7 @@
 form {
     label {
         font-weight: $fontWeightMedium;
-        font-size: 12p;
+        font-size: 13px;
         color: $fontColorDark;
         i {
             color: $lightGreen;
@@ -90,6 +90,10 @@ form {
 }
 .form-wizard .pager {
     margin: 0;
+}
+select[multiple] {
+    height: 200px;
+    overflow:auto;
 }
 //validation
 .form-validation.ng-submitted {

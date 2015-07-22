@@ -13,7 +13,7 @@ import {RouteConfig, Inject} from '../../../../ng-decorators'; // jshint unused:
     url: '/language',
     template: template,
     resolve: {
-        languages: ['LanguageResource', LanguageResource => LanguageResource.getList()],
+        languages: ['LanguageResource', LanguageResource => LanguageResource.getList(null, true)],
         setting: ['SettingResource', SettingResource => SettingResource.get('app')]
     }
 })

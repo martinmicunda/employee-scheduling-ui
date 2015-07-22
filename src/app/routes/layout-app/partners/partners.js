@@ -18,13 +18,14 @@ import {RouteConfig, Inject} from '../../../ng-decorators'; // jshint unused: fa
         partners: ['PartnerResource', PartnerResource => PartnerResource.getList()],
     }
 })
-@Inject('partners', 'FormService', 'PartnerService', 'filterFilter')
+@Inject('partners', 'FormService', 'PartnerResource', 'PartnerService', 'filterFilter')
 //end-non-standard
 class Partners {
-    constructor(partners, FormService, PartnerService, filterFilter) {
+    constructor(partners, FormService, PartnerResource, PartnerService, filterFilter) {
         PartnerService.setPartners(partners);
         this.partners = PartnerService.getPartners();
         this.FormService = FormService;
+        this.PartnerResource = PartnerResource;
         this.filteredPartners = Object.assign(partners);
         this.filterField = '';
         this.filterFilter = filterFilter;
@@ -38,7 +39,7 @@ class Partners {
     }
 
     deletePartner(partner) {
-        partner.remove().then(() => {
+        this.PartnerResource.delete(partner.id).then(() => {
             this.partners.splice(this.partners.indexOf(partner), 1);
             this.filteredPartners.splice(this.filteredPartners.indexOf(partner), 1);
         },(response) => {

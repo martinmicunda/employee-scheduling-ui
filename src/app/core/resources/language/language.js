@@ -6,6 +6,7 @@
 'use strict';
 
 import './language.mock';
+import AbstractResource from '../abstract-resource';
 import {Service, Inject} from '../../../ng-decorators'; // jshint unused: false
 
 //start-non-standard
@@ -14,16 +15,9 @@ import {Service, Inject} from '../../../ng-decorators'; // jshint unused: false
 })
 @Inject('Restangular')
 //end-non-standard
-class LanguageResource {
+class LanguageResource extends AbstractResource {
     constructor(Restangular) {
-        this.Restangular = Restangular;
-    }
-
-    getList() {
-        return this.Restangular
-            .all('languages')
-            .withHttpConfig({cache: true})
-            .getList();
+        super(Restangular, 'languages');
     }
 }
 

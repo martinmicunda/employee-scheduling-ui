@@ -18,9 +18,9 @@ import {RouteConfig, Inject} from '../../../ng-decorators'; // jshint unused: fa
     template: template,
     resolve: {
         employees: ['EmployeeResource', EmployeeResource => EmployeeResource.getList()],
-        languages: ['LanguageResource', LanguageResource => LanguageResource.getList()],
+        languages: ['LanguageResource', LanguageResource => LanguageResource.getList(null, true)],
         positions: ['PositionResource', PositionResource => PositionResource.getList({lang: 'en'})], // TODO:(martin) language should comes from user profile
-        roles: ['RoleResource', RoleResource => RoleResource.getList({lang: 'en'})] // TODO:(martin) language should comes from user profile
+        roles: ['RoleResource', RoleResource => RoleResource.getList({lang: 'en'}, true)] // TODO:(martin) language should comes from user profile
     }
 })
 @Inject('employees', 'languages', 'positions', 'roles', 'EmployeeResource', 'filterFilter')

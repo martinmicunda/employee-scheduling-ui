@@ -6,6 +6,7 @@
 'use strict';
 
 import './document.mock';
+import AbstractResource from '../abstract-resource';
 import {Service, Inject} from '../../../ng-decorators'; // jshint unused: false
 
 //start-non-standard
@@ -14,32 +15,8 @@ import {Service, Inject} from '../../../ng-decorators'; // jshint unused: false
 })
 @Inject('Restangular')
 //end-non-standard
-class DocumentResource {
+class DocumentResource extends AbstractResource {
     constructor(Restangular) {
-        this.Restangular = Restangular;
-    }
-
-    get(id) {
-        return this.Restangular
-            .one('documents', id)
-            .get();
-    }
-
-    getList() {
-        return this.Restangular
-            .all('documents')
-            .getList();
-    }
-
-    create(document) {
-        return this.Restangular
-            .all('documents')
-            .post(document);
-    }
-
-    delete(id) {
-        return this.Restangular
-            .one('documents', id)
-            .remove();
+        super(Restangular, 'documents');
     }
 }

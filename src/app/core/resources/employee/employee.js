@@ -6,6 +6,7 @@
 'use strict';
 
 import './employee.mock';
+import AbstractResource from '../abstract-resource';
 import {Service, Inject} from '../../../ng-decorators'; // jshint unused: false
 
 //start-non-standard
@@ -14,26 +15,8 @@ import {Service, Inject} from '../../../ng-decorators'; // jshint unused: false
 })
 @Inject('Restangular')
 //end-non-standard
-class EmployeeResource {
+class EmployeeResource extends AbstractResource {
     constructor(Restangular) {
-        this.Restangular = Restangular;
-    }
-
-    get(id) {
-        return this.Restangular
-            .one('employees', id)
-            .get();
-    }
-
-    getList() {
-        return this.Restangular
-            .all('employees')
-            .getList();
-    }
-
-    delete(id) {
-        return this.Restangular
-            .one('employees', id)
-            .remove();
+        super(Restangular, 'employees');
     }
 }

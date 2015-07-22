@@ -6,6 +6,7 @@
 'use strict';
 
 import template from './add.html!text';
+import {ROLE} from '../../../../core/constants/constants';
 import {RouteConfig, Inject} from '../../../../ng-decorators'; // jshint unused: false
 
 //start-non-standard
@@ -31,8 +32,11 @@ class DocumentAdd {
         this.DocumentResource = DocumentResource;
         this.DocumentService = DocumentService;
         this.FormService = FormService;
-        this.employeesWithoutAccess = employees;
+        this.employeesWithoutAccess = employees.filter((employee) => employee.role !== ROLE.MANAGER && employee.role !== ROLE.ADMIN);
         this.employeesWithAccess = [];
+        this.lock = false;
+        this.selectedEmployeeWithoutAccess = [];
+        this.selectedEmployeeWithAccess = [];
         this.document = {};
         this.isSubmitting = null;
         this.result = null;
@@ -46,6 +50,10 @@ class DocumentAdd {
     save(form) {
         if(!form.$valid) {return;}
         this.isSubmitting = true;
+        if(this.employeesWithAccess.length > 0) {
+            this.document.employees = [];
+            this.employeesWithAccess.forEach(employee => this.document.employees.push(employee.id));
+        }
         this.DocumentResource.create(this.document).then((document) => {
             this.document.id = document.id;
             this.DocumentService.addDocument(this.document);
@@ -55,5 +63,37 @@ class DocumentAdd {
         }).finally(() => {
             form.$setPristine();
         });
+    }
+
+    addAccess() {
+        if(this.selectedEmployeeWithoutAccess.length > 0) {
+            const selectedEmployeeWithoutAccessTemp = this.employeesWithoutAccess
+                    .filter((employee) => this.selectedEmployeeWithoutAccess.filter((emp) => emp === employee.id).length > 0);
+
+            this.employeesWithAccess = this.employeesWithAccess.concat(selectedEmployeeWithoutAccessTemp);
+
+            selectedEmployeeWithoutAccessTemp.forEach((employee) => {
+                const index = this.employeesWithoutAccess.findIndex(employeeWithoutAccess => employee.id === employeeWithoutAccess.id);
+                this.employeesWithoutAccess.splice(index, 1);
+            });
+
+            this.selectedEmployeeWithoutAccess = [];
+        }
+    }
+
+    removeAccess() {
+        if(this.selectedEmployeeWithAccess.length > 0) {
+            const selectedEmployeeWithAccessTemp = this.employeesWithAccess
+                .filter((employee) => this.selectedEmployeeWithAccess.filter((emp) => emp === employee.id).length > 0);
+
+            this.employeesWithoutAccess = this.employeesWithoutAccess.concat(selectedEmployeeWithAccessTemp);
+
+            selectedEmployeeWithAccessTemp.forEach((employee) => {
+                const index = this.employeesWithAccess.findIndex(employeeWithAccess => employee.id === employeeWithAccess.id);
+                this.employeesWithAccess.splice(index, 1);
+            });
+
+            this.selectedEmployeeWithAccess = [];
+        }
     }
 }

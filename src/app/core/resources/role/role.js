@@ -6,6 +6,7 @@
 'use strict';
 
 import './role.mock';
+import AbstractResource from '../abstract-resource';
 import {Service, Inject} from '../../../ng-decorators'; // jshint unused: false
 
 //start-non-standard
@@ -14,15 +15,8 @@ import {Service, Inject} from '../../../ng-decorators'; // jshint unused: false
 })
 @Inject('Restangular')
 //end-non-standard
-class RoleResource {
+class RoleResource extends AbstractResource {
     constructor(Restangular) {
-        this.Restangular = Restangular;
-    }
-
-    getList(query) {
-        return this.Restangular
-            .all('roles')
-            .withHttpConfig({cache: true})
-            .getList(query);
+        super(Restangular, 'roles');
     }
 }

@@ -18,13 +18,14 @@ import {RouteConfig, Inject} from '../../../ng-decorators'; // jshint unused: fa
         documents: ['DocumentResource', DocumentResource => DocumentResource.getList()],
     }
 })
-@Inject('documents', 'FormService', 'DocumentService', 'filterFilter')
+@Inject('documents', 'FormService', 'DocumentResource', 'DocumentService', 'filterFilter')
 //end-non-standard
 class Documents {
-    constructor(documents, FormService, DocumentService, filterFilter) {
+    constructor(documents, FormService, DocumentResource, DocumentService, filterFilter) {
         DocumentService.setDocuments(documents);
         this.documents = DocumentService.getDocuments();
         this.FormService = FormService;
+        this.DocumentResource = DocumentResource;
         this.filteredDocuments = Object.assign(documents);
         this.filterField = '';
         this.filterFilter = filterFilter;
@@ -35,7 +36,7 @@ class Documents {
     }
 
     deleteDocument(document) {
-        document.remove().then(() => {
+        this.DocumentResource.delete(document.id).then(() => {
             this.documents.splice(this.documents.indexOf(document), 1);
             this.filteredDocuments.splice(this.filteredDocuments.indexOf(document), 1);
         },(response) => {
