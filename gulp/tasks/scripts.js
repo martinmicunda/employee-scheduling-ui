@@ -5,10 +5,16 @@
  */
 'use strict';
 
+import util from 'gulp-util';
 import gulp from 'gulp';
 import jshint from 'gulp-jshint';
+import gulpif from 'gulp-if';
+import cdnizer from 'gulp-cdnizer';
 import preprocess from 'gulp-preprocess';
 import path from '../paths';
+import {CDN_URL} from '../const';
+
+const HAS_CDN = !!util.env.cdn;
 
 /**
  * The 'jshint' task defines the rules of our hinter as well as which files
@@ -24,9 +30,15 @@ gulp.task('jshint', () => {
         .pipe(jshint.reporter('fail'));
 });
 
+gulp.task('html-preprocess', () => {
+    return gulp.src(path.app.templates)
+        .pipe(gulpif(HAS_CDN, cdnizer({defaultCDNBase: CDN_URL, relativeRoot: '/', files: ['**/*.{gif,png,jpg,jpeg}']})))
+        .pipe(gulp.dest(path.tmp.scripts + 'app'));
+});
+
 // TODO: (martin) remove this task once problem with conditional import for systemjs-builder will be fixed
-gulp.task('js-preprocess', () => {
-    return gulp.src(path.app.scripts.concat([path.app.templates, path.app.json]))
+gulp.task('js-preprocess', ['html-preprocess'], () => {
+    return gulp.src(path.app.scripts.concat([path.app.json]))
         .pipe(preprocess())
         .pipe(gulp.dest(path.tmp.scripts + 'app'));
 });

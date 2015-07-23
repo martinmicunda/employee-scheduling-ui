@@ -117,7 +117,7 @@ gulp.task('compile', ['htmlhint', 'sass', 'bundle'], () => {
                 projectHeader
             ],
             html:       [
-                gulpif(HAS_CDN, cdnizer({defaultCDNBase: CDN_URL, files: ['**/*.{js,css}']})),
+                gulpif(HAS_CDN, cdnizer({defaultCDNBase: CDN_URL, files: ['**/*.{js,css,gif,png,jpg,jpeg}']})),
                 bytediff.start(),
                 minifyHtml({empty:true}),
                 bytediff.stop(bytediffFormatter)
