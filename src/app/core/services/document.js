@@ -5,6 +5,7 @@
  */
 'use strict';
 
+import StorageService from './storage';
 import {Service, Inject} from '../../ng-decorators'; // jshint unused: false
 
 //start-non-standard
@@ -12,28 +13,32 @@ import {Service, Inject} from '../../ng-decorators'; // jshint unused: false
     serviceName: 'DocumentService'
 })
 //end-non-standard
-class DocumentService {
+class DocumentService extends StorageService {
     constructor() {
-        this.documents = [];
+        super([]);
+        this.files = [];
     }
 
-    getDocuments() {
-        return this.documents;
+    getFiles() {
+        return this.files;
     }
 
-    setDocuments(documents) {
-        this.documents = documents;
+    setFiles(files) {
+        this.files = files;
     }
 
-    addDocument(document) {
-        this.documents.push(document);
-    }
+    grantAccess(selectedEmployees, employeesWithoutAccess, employeesWithAccess) {
+        if(selectedEmployees.length > 0) {
+            const selectedEmployeesTemp = employeesWithoutAccess
+                .filter((employee) => selectedEmployees.filter((emp) => emp === employee.id).length > 0);
 
-    updateDocument(document) {
-        for (let i = 0; i < this.documents.length; i++) {
-            if(this.documents[i].id === document.id) {
-                this.documents[i] = document;
-            }
+            selectedEmployeesTemp.forEach((employee) => {
+                const index = employeesWithoutAccess.findIndex(employeeWithoutAccess => employee.id === employeeWithoutAccess.id);
+                employeesWithoutAccess.splice(index, 1);
+            });
+
+            selectedEmployees = [];
+            return employeesWithAccess.concat(selectedEmployeesTemp);
         }
     }
 }

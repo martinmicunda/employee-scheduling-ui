@@ -2,14 +2,31 @@
     {
         "id": "1",
         "name": "Folder 1",
-        "employees": ["1", "2"]
+        "isLocked": true,
+        "employees": ["6", "7"]
     },
     {
         "id": "2",
-        "name": "Folder 2"
+        "name": "Folder 2",
+        "isLocked": false,
+        "employees": []
     },
     {
         "id": "3",
-        "name": "Folder 3"
+        "name": "Folder 3",
+        "isLocked": false,
+        "employees": []
+    },
+    {
+        "id": "404",
+        "name": "404",
+        "isLocked": false,
+        "employees": []
+    },
+    {
+        "id": "500",
+        "name": "500",
+        "isLocked": false,
+        "employees": []
     }
 ]

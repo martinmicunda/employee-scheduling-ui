@@ -59,7 +59,7 @@ class PositionEdit {
         if(!form.$valid) {return;}
         this.isSubmitting = true;
         this.position.put().then(() => {
-            this.PositionService.updatePosition(this.position);
+            this.PositionService.update(this.position);
             this.FormService.success(this);
         }, (response) => {
             this.FormService.failure(this, response);

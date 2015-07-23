@@ -44,7 +44,7 @@ class PartnerAdd {
         this.partner.status = 'active';
         this.PartnerResource.create(this.partner).then((partner) => {
             this.partner.id = partner.id;
-            this.PartnerService.addPartner(this.partner);
+            this.PartnerService.add(this.partner);
             this.FormService.success(this);
         }, (response) => {
             this.FormService.failure(this, response);

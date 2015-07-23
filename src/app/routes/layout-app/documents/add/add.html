@@ -20,11 +20,11 @@
         <div class="form-group">
             <label class="control-label col-sm-4">Lock the folder?</label>
             <div class="col-sm-5">
-                <span class="checkbox"><input type="checkbox" ng-model="vm.lock" class="ml0"></span>
+                <span class="checkbox"><input type="checkbox" ng-model="vm.document.isLocked" class="ml0"></span>
             </div>
         </div>
 
-        <div class="form-group mb0" ng-if="vm.lock">
+        <div class="form-group mb0" ng-show="vm.document.isLocked">
             <div class="col-sm-5">
                 <i><label class="control-label">who has not access</label></i>
                 <select name="selectedEmployeeWithoutAccess" multiple class="form-control" ng-model="vm.selectedEmployeeWithoutAccess" ng-options="employee.id as employee.firstName + ' ' + employee.lastName for employee in vm.employeesWithoutAccess | orderBy:'firstName'"></select>
@@ -35,10 +35,7 @@
             </div>
             <div class="col-sm-5">
                 <i><label class="control-label">who has access</label></i>
-                <select name="selectedEmployeeWithAccess" multiple class="form-control" ng-model="vm.selectedEmployeeWithAccess" ng-options="employee.id as employee.firstName + ' ' + employee.lastName for employee in vm.employeesWithAccess | orderBy:'firstName'" required></select>
-                <div ng-if="documentAddForm.$submitted" ng-messages="documentAddForm.selectedEmployeeWithAccess.$error">
-                    <div ng-message="required" class="error">This field is required.</div>
-                </div>
+                <select name="selectedEmployeeWithAccess" multiple class="form-control" ng-model="vm.selectedEmployeeWithAccess" ng-options="employee.id as employee.firstName + ' ' + employee.lastName for employee in vm.employeesWithAccess | orderBy:'firstName'"></select>
             </div>
         </div>
     </div>

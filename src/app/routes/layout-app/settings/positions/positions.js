@@ -22,8 +22,8 @@ import {RouteConfig, Inject} from '../../../../ng-decorators'; // jshint unused:
 //end-non-standard
 class SettingPositions {
     constructor(positions, PositionResource, PositionService, FormService) {
-        PositionService.setPositions(positions);
-        this.positions = PositionService.getPositions();
+        PositionService.setList(positions);
+        this.positions = PositionService.getList();
         this.FormService = FormService;
         this.PositionResource = PositionResource;
     }

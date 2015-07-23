@@ -19,4 +19,10 @@ class DocumentResource extends AbstractResource {
     constructor(Restangular) {
         super(Restangular, 'documents');
     }
+
+    getDocumentFiles(id) {
+        return this.restangular
+            .one(this.route, id)
+            .customGET('files');
+    }
 }

@@ -32,9 +32,8 @@ class DocumentAdd {
         this.DocumentResource = DocumentResource;
         this.DocumentService = DocumentService;
         this.FormService = FormService;
-        this.employeesWithoutAccess = employees.filter((employee) => employee.role !== ROLE.MANAGER && employee.role !== ROLE.ADMIN);
+        this.employeesWithoutAccess = employees.filter((employee) => employee.role !== ROLE.MANAGER && employee.role !== ROLE.ADMIN); // TODO: (martin) this should not be required and instead value should be filtered on back end
         this.employeesWithAccess = [];
-        this.lock = false;
         this.selectedEmployeeWithoutAccess = [];
         this.selectedEmployeeWithAccess = [];
         this.document = {};
@@ -50,13 +49,13 @@ class DocumentAdd {
     save(form) {
         if(!form.$valid) {return;}
         this.isSubmitting = true;
-        if(this.employeesWithAccess.length > 0) {
-            this.document.employees = [];
+        this.document.employees = [];
+        if(this.document.isLocked) {
             this.employeesWithAccess.forEach(employee => this.document.employees.push(employee.id));
         }
         this.DocumentResource.create(this.document).then((document) => {
             this.document.id = document.id;
-            this.DocumentService.addDocument(this.document);
+            this.DocumentService.add(this.document);
             this.FormService.success(this);
         }, (response) => {
             this.FormService.failure(this, response);
@@ -66,34 +65,12 @@ class DocumentAdd {
     }
 
     addAccess() {
-        if(this.selectedEmployeeWithoutAccess.length > 0) {
-            const selectedEmployeeWithoutAccessTemp = this.employeesWithoutAccess
-                    .filter((employee) => this.selectedEmployeeWithoutAccess.filter((emp) => emp === employee.id).length > 0);
-
-            this.employeesWithAccess = this.employeesWithAccess.concat(selectedEmployeeWithoutAccessTemp);
-
-            selectedEmployeeWithoutAccessTemp.forEach((employee) => {
-                const index = this.employeesWithoutAccess.findIndex(employeeWithoutAccess => employee.id === employeeWithoutAccess.id);
-                this.employeesWithoutAccess.splice(index, 1);
-            });
-
-            this.selectedEmployeeWithoutAccess = [];
-        }
+        const employeesWithAccess = this.DocumentService.grantAccess(this.selectedEmployeeWithoutAccess, this.employeesWithoutAccess, this.employeesWithAccess);
+        if(employeesWithAccess) {this.employeesWithAccess = employeesWithAccess;}
     }
 
     removeAccess() {
-        if(this.selectedEmployeeWithAccess.length > 0) {
-            const selectedEmployeeWithAccessTemp = this.employeesWithAccess
-                .filter((employee) => this.selectedEmployeeWithAccess.filter((emp) => emp === employee.id).length > 0);
-
-            this.employeesWithoutAccess = this.employeesWithoutAccess.concat(selectedEmployeeWithAccessTemp);
-
-            selectedEmployeeWithAccessTemp.forEach((employee) => {
-                const index = this.employeesWithAccess.findIndex(employeeWithAccess => employee.id === employeeWithAccess.id);
-                this.employeesWithAccess.splice(index, 1);
-            });
-
-            this.selectedEmployeeWithAccess = [];
-        }
+        const employeesWithoutAccess = this.DocumentService.grantAccess(this.selectedEmployeeWithAccess, this.employeesWithAccess, this.employeesWithoutAccess);
+        if(employeesWithoutAccess) {this.employeesWithoutAccess = employeesWithoutAccess;}
     }
 }

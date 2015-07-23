@@ -7,7 +7,10 @@
     }
     .panel-title {
         line-height: 20px;
-        font-size: 13px
+        font-size: 13px;
+        a {
+            color: $lightGreen;
+        }
     }
 
     .panel-body {

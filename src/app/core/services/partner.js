@@ -5,6 +5,7 @@
  */
 'use strict';
 
+import StorageService from './storage';
 import {Service, Inject} from '../../ng-decorators'; // jshint unused: false
 
 //start-non-standard
@@ -12,29 +13,8 @@ import {Service, Inject} from '../../ng-decorators'; // jshint unused: false
     serviceName: 'PartnerService'
 })
 //end-non-standard
-class PartnerService {
+class PartnerService extends StorageService {
     constructor() {
-        this.partners = [];
-    }
-
-    getPartners() {
-        return this.partners;
-    }
-
-    setPartners(partners) {
-        this.partners = partners;
-    }
-
-    addPartner(partner) {
-        this.partners.push(partner);
-    }
-
-    updatePartner(partner) {
-        for (let i = 0; i < this.partners.length; i++) {
-            if(this.partners[i].id === partner.id) {
-                this.partners[i] = partner;
-            }
-        }
+        super([]);
     }
 }
-

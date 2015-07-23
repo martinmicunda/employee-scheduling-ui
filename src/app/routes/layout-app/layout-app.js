@@ -8,6 +8,7 @@
 import './account/account';
 import './availability/availability';
 import './documents/documents';
+import './documents-files/documents-files';
 import './employees/employees';
 import './partners/partners';
 import './reports/reports';

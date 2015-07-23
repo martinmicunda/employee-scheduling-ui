@@ -43,7 +43,7 @@ class PositionAdd {
         this.isSubmitting = true;
         this.PositionResource.create(this.position).then((position) => {
             this.position.id = position.id;
-            this.PositionService.addPosition(this.position);
+            this.PositionService.add(this.position);
             this.FormService.success(this);
         }, (response) => {
             this.FormService.failure(this, response);

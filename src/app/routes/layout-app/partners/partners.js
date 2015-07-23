@@ -22,8 +22,8 @@ import {RouteConfig, Inject} from '../../../ng-decorators'; // jshint unused: fa
 //end-non-standard
 class Partners {
     constructor(partners, FormService, PartnerResource, PartnerService, filterFilter) {
-        PartnerService.setPartners(partners);
-        this.partners = PartnerService.getPartners();
+        PartnerService.setList(partners);
+        this.partners = PartnerService.getList();
         this.FormService = FormService;
         this.PartnerResource = PartnerResource;
         this.filteredPartners = Object.assign(partners);

@@ -15,7 +15,7 @@
             <div class="row">
                 <div class="col-md-6 col-sm-6">
                     <div class="table-filter">
-                        Search: <input type="search" ng-model="vm.filterField" ng-change="vm.filterDocuments()"></span>
+                        Search: <input type="search" ng-model="vm.searchText"></span>
                     </div>
                 </div>
                 <div class="col-md-6 col-sm-6">
@@ -25,12 +25,12 @@
                 </div>
             </div>
             <div class="row animated fadeIn mt20">
-                <div class="col-lg-1 col-md-2 col-sm-2" ng-repeat="document in vm.filteredDocuments">
+                <div class="col-lg-1 col-md-2 col-sm-2" ng-repeat="document in vm.documents | filter:vm.searchText">
                     <div>
                         <div class="text-center" style="padding-top: 9px;">
-                            <a><span class="fa-stack fa-3x">
+                            <a ui-sref="app.documents-files({id: document.id})"><span class="fa-stack fa-3x">
                               <i class="fa fa-folder-o fa-stack-2x"></i>
-                              <i ng-show="document.employees.length > 0" class="fa fa-lock fa-stack-1x pt5"></i>
+                              <i ng-show="document.isLocked" class="fa fa-lock fa-stack-1x pt5"></i>
                             </span></a>
                         </div>
                         <div class="caption text-center">

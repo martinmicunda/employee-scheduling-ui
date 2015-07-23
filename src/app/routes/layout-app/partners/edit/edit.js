@@ -60,7 +60,7 @@ class PartnerEdit {
         if(!form.$valid) {return;}
         this.isSubmitting = true;
         this.partner.put().then(() => {
-            this.PartnerService.updatePartner(this.partner);
+            this.PartnerService.update(this.partner);
             this.FormService.success(this);
         }, (response) => {
             this.FormService.failure(this, response);

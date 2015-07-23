@@ -5,6 +5,7 @@
  */
 'use strict';
 
+import StorageService from './storage';
 import {Service, Inject} from '../../ng-decorators'; // jshint unused: false
 
 //start-non-standard
@@ -12,29 +13,8 @@ import {Service, Inject} from '../../ng-decorators'; // jshint unused: false
     serviceName: 'PositionService'
 })
 //end-non-standard
-class PositionService {
+class PositionService extends StorageService {
     constructor() {
-        this.positions = [];
-    }
-
-    getPositions() {
-        return this.positions;
-    }
-
-    setPositions(positions) {
-        this.positions = positions;
-    }
-
-    addPosition(position) {
-        this.positions.push(position);
-    }
-
-    updatePosition(position) {
-        for (let i = 0; i < this.positions.length; i++) {
-            if(this.positions[i].id === position.id) {
-                this.positions[i] = position;
-            }
-        }
+        super([]);
     }
 }
-

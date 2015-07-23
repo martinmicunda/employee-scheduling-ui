@@ -42,12 +42,12 @@ class LocationAdd {
         if(!form.$valid) {return;}
         this.isSubmitting = true;
         this.location.status = 'active';
-        if(this.LocationService.getLocations().length === 0) {
+        if(this.LocationService.getList().length === 0) {
             this.location.default = true;
         }
         this.LocationResource.create(this.location).then((location) => {
             this.location.id = location.id;
-            this.LocationService.addLocation(this.location);
+            this.LocationService.add(this.location);
             this.FormService.success(this);
         }, (response) => {
             this.FormService.failure(this, response);

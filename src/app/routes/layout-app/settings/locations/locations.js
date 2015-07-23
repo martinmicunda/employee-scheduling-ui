@@ -22,8 +22,8 @@ import {RouteConfig, Inject} from '../../../../ng-decorators'; // jshint unused:
 //end-non-standard
 class SettingLocations {
     constructor(locations, LocationResource, LocationService, FormService) {
-        LocationService.setLocations(locations);
-        this.locations = LocationService.getLocations();
+        LocationService.setList(locations);
+        this.locations = LocationService.getList();
         this.FormService = FormService;
         this.LocationResource = LocationResource;
     }

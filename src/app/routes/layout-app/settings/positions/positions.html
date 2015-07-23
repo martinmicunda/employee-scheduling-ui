@@ -15,7 +15,7 @@
             <div class="row">
                 <div class="col-md-6 col-sm-6">
                     <div class="table-filter">
-                        Search <input type="search" ng-model="searchText">
+                        Search <input type="search" ng-model="vm.searchText">
                     </div>
                 </div>
                 <div class="col-md-6 col-sm-6">
@@ -33,7 +33,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="position in vm.positions | filter:searchText | orderBy:'name'">
+                        <tr ng-repeat="position in vm.positions | filter:vm.searchText | orderBy:'name'">
                             <td>{{::position.name}}</td>
                             <td>
                                 <a mm-really-click="vm.deletePosition(position)" mm-really-header="Delete Position" mm-really-message="Are you sure you want delete this position?" tooltip-placement="top" tooltip="delete"><i class="fa fa-trash fa-fw"></i></a>

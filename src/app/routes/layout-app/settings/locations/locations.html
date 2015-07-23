@@ -15,7 +15,7 @@
             <div class="row">
                 <div class="col-md-6 col-sm-6">
                     <div class="table-filter">
-                        Search <input type="search" ng-model="searchText">
+                        Search <input type="search" ng-model="vm.searchText">
                     </div>
                 </div>
                 <div class="col-md-6 col-sm-6">
@@ -34,7 +34,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="location in vm.locations | filter:searchText | orderBy:'name'">
+                        <tr ng-repeat="location in vm.locations | filter:vm.searchText | orderBy:'name'">
                             <td>{{::location.name}} <span ng-show="location.default">(Default Location)</span></td>
                             <td><span class="label"
                                       ng-class="{'label-success': location.status === 'active', 'label-default': location.status === 'inactive'}">{{::location.status}}</span></td>

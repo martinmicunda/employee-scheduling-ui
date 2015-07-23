@@ -1,1 +1,6 @@
-{}
+{
+    "id": "1",
+    "name": "Folder 1",
+    "isLocked": true,
+    "employees": ["6", "7"]
+}

@@ -66,8 +66,8 @@ class LocationEdit {
             // TODO: (martin) should I try to do bulk update?
             this.location.put().then(() => {
                 defaultLocation.put().then(() => {
-                    this.LocationService.updateLocation(this.location);
-                    this.LocationService.updateLocation(defaultLocation);
+                    this.LocationService.update(this.location);
+                    this.LocationService.update(defaultLocation);
                     this.FormService.success(this);
                 }, (response) => {
                     this.FormService.failure(this, response);
@@ -79,7 +79,7 @@ class LocationEdit {
             });
         } else {
             this.location.put().then(() => {
-                this.LocationService.updateLocation(this.location);
+                this.LocationService.update(this.location);
                 this.FormService.success(this);
             }, (response) => {
                 this.FormService.failure(this, response);
