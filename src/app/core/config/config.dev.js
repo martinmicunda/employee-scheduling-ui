@@ -5,7 +5,7 @@
  */
 'use strict';
 
-import {Config, Inject} from '../../ng-decorators'; // jshint unused: false
+import {Config, Run, Inject} from '../../ng-decorators'; // jshint unused: false
 
 class ConfigurationProd {
     //start-non-standard
@@ -14,6 +14,17 @@ class ConfigurationProd {
     //end-non-standard
     static configFactory(localStorageServiceProvider){
         // use "e-scheduling" as a localStorage name prefix so app doesn’t accidently read data from another app using the same variable names
-        localStorageServiceProvider.setPrefix('employee-scheduling');
+        localStorageServiceProvider.setPrefix('employee-scheduling-dev');
+    }
+}
+
+class OnRunTest {
+    //start-non-standard
+    @Run()
+    @Inject('localStorageService')
+    //end-non-standard
+    static runFactory(localStorageService){
+        // clear all locale storage for employee-scheduling-dev
+        localStorageService.clearAll();
     }
 }

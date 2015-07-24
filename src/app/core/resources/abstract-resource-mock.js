@@ -11,6 +11,7 @@ class AbstractResourceMock {
         const patternGet = new RegExp(`\/${route}\/[a-z]*`);
         const patternId = new RegExp(`\/${route}\/(\\d+|[a-z]*)`);
         const key = route.slice(0, -1);
+        const patternLocalStorage = new RegExp(`${key}_(\\d+|[a-z]*)`);
 
         mockListData.forEach(function (data) {
             localStorageService.set(`${key}_${data.id}`, data);
@@ -34,7 +35,7 @@ class AbstractResourceMock {
         $httpBackend.whenGET(patternBase)
             .respond( (method, url) => {
                 console.log('GET',url);
-                const dataListLocal = localStorageService.findLocalStorageItems(patternId);
+                const dataListLocal = localStorageService.findLocalStorageItems(patternLocalStorage);
 
                 return [200, dataListLocal.length > 0 ? dataListLocal : mockListData];
             });

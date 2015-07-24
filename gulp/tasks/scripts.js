@@ -32,7 +32,7 @@ gulp.task('jshint', () => {
 
 gulp.task('html-preprocess', () => {
     return gulp.src(path.app.templates)
-        .pipe(gulpif(HAS_CDN, cdnizer({defaultCDNBase: CDN_URL, relativeRoot: '/', files: ['**/*.{gif,png,jpg,jpeg}']})))
+        .pipe(gulpif(HAS_CDN, cdnizer({defaultCDNBase: CDN_URL, relativeRoot: '/', files: ['**/*.{gif,png,jpg,jpeg}'], matchers: [/(<img\s.*?data-src=["'])(.+?)(["'].*?>)/gi]})))
         .pipe(gulp.dest(path.tmp.scripts + 'app'));
 });
 
