@@ -78,7 +78,10 @@ gulp.task('clean', (cb) => {
  * @return {Stream}
  */
 gulp.task('extras', () => {
-    return gulp.src([path.app.basePath + '*.{ico,png,txt}', path.app.basePath + '404.html'])
+    gulp.src([path.app.basePath + '404.html'])
+        .pipe(gulp.dest(path.build.basePath));
+
+    return gulp.src([path.app.basePath + '*.{ico,png,txt}'])
         .pipe(gulp.dest(path.build.dist.basePath));
 });
 
