@@ -20,6 +20,7 @@ export const CDN_URL = 'http://martinmicunda.com/employee-scheduling-ui/dist/'; 
 export const GH_PAGES_TOKEN = process.env.GH_TOKEN; // Generate OAuth token on GitHub > Settings > Application page
 export const GH_PAGES_USERNAME = process.env.USERNAME;
 export const GH_PAGES_PROJECT_NAME = process.env.PROJECT_NAME;
+export const GH_PAGES_BASE_URL = `/dist/`;
 export const COVERAGE = {
     statements : 95,
     branches : 90,

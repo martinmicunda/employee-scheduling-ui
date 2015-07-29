@@ -21,7 +21,7 @@ import minifyCss from 'gulp-minify-css';
 import minifyHtml from 'gulp-minify-html';
 import runSequence from 'run-sequence';
 import path from '../paths';
-import {BANNER, CDN_URL} from '../const';
+import {BANNER, CDN_URL, GH_PAGES_BASE_URL} from '../const';
 
 //=============================================
 //            UTILS FUNCTIONS
@@ -29,6 +29,8 @@ import {BANNER, CDN_URL} from '../const';
 const LOG = util.log;
 const COLORS = util.colors;
 const HAS_CDN = !!util.env.cdn;
+const SET_GH_PAGES_BASE_URL = !!util.env.ghpages;
+const BASE_URL = SET_GH_PAGES_BASE_URL ? GH_PAGES_BASE_URL : '/';
 
 /**
  * Format a number as a percentage
@@ -76,7 +78,7 @@ gulp.task('clean', (cb) => {
  * @return {Stream}
  */
 gulp.task('extras', () => {
-    return gulp.src([path.app.basePath + '*.{ico,png,txt}'])
+    return gulp.src([path.app.basePath + '*.{ico,png,txt}', path.app.basePath + '404.html'])
         .pipe(gulp.dest(path.build.dist.basePath));
 });
 
@@ -97,6 +99,10 @@ gulp.task('compile', ['htmlhint', 'sass', 'bundle'], () => {
         .pipe(inject(gulp.src(path.tmp.scripts + 'build.js', {read: false}), {
             starttag: '<!-- inject:build:js -->',
             ignorePath: [path.app.basePath]
+        }))
+        .pipe(inject(gulp.src('.'), {
+            starttag: '<!-- inject:baseUrl -->',
+            transform: () => `<base href="${BASE_URL}">`
         }))
         .pipe(usemin({
             css:        [

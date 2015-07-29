@@ -5,6 +5,7 @@
  */
 'use strict';
 
+// TODO: rename it this storage to CacheStorage
 class StorageService {
     constructor(records) {
         this.records = records;

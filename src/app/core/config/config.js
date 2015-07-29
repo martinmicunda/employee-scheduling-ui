@@ -21,6 +21,7 @@ class Configuration {
             };
         }]);
 
+        // TODO: https://github.com/willmendesneto/keepr/blob/master/dist%2Fkeepr.js and http://willmendesneto.github.io/2014/10/28/creating-a-crud-in-a-single-angular-controller/ for crypto locale storage
         // enhance localStorageService
         $provide.decorator('localStorageService', ['$delegate', '$window', function($delegate, $window) {
             $delegate.findLocalStorageItems = function (query) {
