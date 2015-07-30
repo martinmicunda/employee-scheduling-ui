@@ -50,7 +50,7 @@ class Configuration {
         $locationProvider.html5Mode(true);
 
         // for any unmatched url, send to 404 page (Not page found)
-        $urlRouterProvider.otherwise('/employees');
+        $urlRouterProvider.otherwise('/404');
 
         // the `when` method says if the url is `/` redirect to `/dashboard` what is basically our `home` for this application
         $urlRouterProvider.when('/', '/employees');
