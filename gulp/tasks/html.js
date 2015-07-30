@@ -18,6 +18,7 @@ import path from '../paths';
  */
 gulp.task('htmlhint', () => {
     return gulp.src([path.app.html, path.app.templates])
+        .pipe(htmlhint('.htmlhintrc'))
         .pipe(htmlhint.reporter())
         .pipe(htmlhint.failReporter());
 });
