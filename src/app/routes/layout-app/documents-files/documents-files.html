@@ -1,7 +1,7 @@
 <div class="container-fluid">
     <div class="panel panel-inverse">
         <div class="panel-heading">
-            <h4 class="panel-title"><a ui-sref="app.documents">Documents</a> > {{::vm.folderName.name}}</h4>
+            <h4 class="panel-title"><a ui-sref="app.documents">Documents</a> &gt; {{::vm.folderName.name}}</h4>
         </div>
         <div class="panel-body">
             <div ng-if="vm.hasError" class="row">
@@ -15,7 +15,7 @@
             <div class="row">
                 <div class="col-md-6 col-sm-6">
                     <div class="table-filter">
-                        Search: <input type="search" ng-model="vm.searchText"></span>
+                        Search: <input type="search" ng-model="vm.searchText">
                     </div>
                 </div>
                 <div class="col-md-6 col-sm-6">
