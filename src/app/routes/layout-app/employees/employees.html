@@ -38,7 +38,7 @@
                     <tbody>
                     <!-- TODO: delete icon should not be displayed for current user (user that is looking at the list)-->
                         <tr ng-repeat="employee in vm.filteredEmployees | startFrom:(vm.currentPage-1)*vm.employeesPerPage | limitTo:vm.employeesPerPage">
-                            <td><img ng-src="../images/{{::employee.avatar}}" alt="" class="img-circle" title="{{::employee.firstName}} {{::employee.lastName}}"></td>
+                            <td><img ng-src="./images/{{::employee.avatar}}" alt="" class="img-circle" title="{{::employee.firstName}} {{::employee.lastName}}"></td>
                             <td>{{::employee.firstName}} {{::employee.lastName}}</td>
                             <td>{{::employee.email}}</td>
                             <td>{{::employee.contactDetails.phoneNumber}}</td>
@@ -61,7 +61,7 @@
                     <div class="col-lg-2 col-md-3 col-sm-3" ng-repeat="employee in vm.filteredEmployees | startFrom:(vm.currentPage-1)*vm.employeesPerPage | limitTo:vm.employeesPerPage">
                         <div class="thumbnail">
                             <div class="text-center" style="padding-top: 9px;">
-                                <img ng-src="../images/{{::employee.avatar}}" alt=""
+                                <img ng-src="./images/{{::employee.avatar}}" alt=""
                                      ng-class="{'img-bordered-success': employee.status === 'active', 'img-bordered-warning': employee.status === 'pending', 'img-bordered-dark': employee.status === 'inactive'}"
                                      class="img-circle"
                                      title="{{::employee.firstName}} {{::employee.lastName}}"
