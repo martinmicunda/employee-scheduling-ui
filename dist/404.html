@@ -19,6 +19,7 @@ show up in the browser history.
     var baseUrl = '/employee-scheduling-ui/dist/';
     var pathname = window.location.pathname.split(baseUrl);
     var url = window.location.protocol + '//' + window.location.host + baseUrl + '#' + pathname[1] + window.location.search;
+    console.log('url ' + url);
     window.location.replace(url);
 </script>
 </body>
