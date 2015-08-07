@@ -5,7 +5,6 @@
  */
 'use strict';
 
-import './layout-auth/layout-auth';
 import './layout-app/layout-app';
-
-
+import './layout-auth/layout-auth';
+import './layout-error/layout-error';

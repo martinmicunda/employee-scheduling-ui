@@ -38,7 +38,7 @@ class MmReallyClick {
                         <button class="btn btn-sm btn-success" ng-click="vm.ok()">OK</button>
                     </div>
                 `,
-                controller: ['$modalInstance', function($modalInstance) {
+                controller: ['$modalInstance', function($modalInstance) {  // do not use arrow function as 'this' doesn't work
                     const vm = this;
 
                     vm.ok = () => $modalInstance.close();

@@ -6,7 +6,7 @@
 'use strict';
 
 import './config.test'; // TODO: (martin) use systemJs conditional imports
-import {Config, Inject} from '../../ng-decorators'; // jshint unused: false
+import {Config, Run, Inject} from '../../ng-decorators'; // jshint unused: false
 
 class Configuration {
     //start-non-standard
@@ -54,5 +54,20 @@ class Configuration {
 
         // the `when` method says if the url is `/` redirect to `/dashboard` what is basically our `home` for this application
         $urlRouterProvider.when('/', '/employees');
+    }
+}
+
+class OnRun {
+    //start-non-standard
+    @Run()
+    @Inject('$rootScope', '$state', '$log')
+    //end-non-standard
+    static runFactory($rootScope, $state, $log){
+        $rootScope.$on('$stateChangeError', function (event, toState, toParams, fromState, fromParams, error) {
+            event.preventDefault();
+            $log.error(error.stack);
+            $state.get('error').error = error;
+            $state.go('500');
+        });
     }
 }
