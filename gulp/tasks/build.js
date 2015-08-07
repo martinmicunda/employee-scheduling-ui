@@ -96,7 +96,6 @@ gulp.task('extras', () => {
  * @return {Stream}
  */
 gulp.task('compile', ['htmlhint', 'sass', 'bundle'], () => {
-    const projectHeader = header(BANNER);
 
     return gulp.src(path.app.html)
         .pipe(inject(gulp.src(path.tmp.scripts + 'build.js', {read: false}), {
@@ -114,7 +113,7 @@ gulp.task('compile', ['htmlhint', 'sass', 'bundle'], () => {
                 minifyCss({keepSpecialComments: 0}),
                 bytediff.stop(bytediffFormatter),
                 rev(),
-                projectHeader
+                header(BANNER)
             ],
             /*jshint camelcase: false */
             js:         [
@@ -123,7 +122,7 @@ gulp.task('compile', ['htmlhint', 'sass', 'bundle'], () => {
                 uglify(),
                 bytediff.stop(bytediffFormatter),
                 rev(),
-                projectHeader
+                header(BANNER)
             ],
             html:       [
                 gulpif(HAS_CDN, cdnizer({defaultCDNBase: CDN_URL, files: ['**/*.{js,css,gif,png,jpg,jpeg}']})),
