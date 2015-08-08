@@ -30,9 +30,21 @@ import {RouteConfig, Inject} from '../../../../ng-decorators'; // jshint unused:
             controller: EmployeeEdit,
             controllerAs: 'vm',
             size: 'lg'
-        }).result.finally(function() {
-                $state.go('app.employees');
-            });
+        }).result.then(() => {
+            }, (error) => {
+                if(error.status) {
+                    $modal.open({
+                        template: '<mm-error-modal cancel="vm.cancel()" error="vm.error"></mm-error-modal>',
+                        controller: ['$modalInstance', function ($modalInstance) {
+                            var vm = this;
+                            vm.error = error;
+                            vm.cancel = () => $modalInstance.dismiss('cancel');
+                        }],
+                        controllerAs: 'vm',
+                        size: 'md'
+                    }).result.finally(() => $state.go('app.employees'));
+                }
+            }).finally(() => $state.go('app.employees'));
     }]
 })
 @Inject('employee', 'languages', 'positions', 'roles', 'EmployeeService', '$modalInstance')

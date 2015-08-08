@@ -4,18 +4,11 @@
             <h4 class="panel-title">Locations</h4>
         </div>
         <div class="panel-body">
-            <div ng-if="vm.hasError" class="row">
-                <div class="col-md-12 col-sm-12">
-                    <div class="alert alert-danger animated fadeIn">
-                        <strong>Error!</strong>
-                        {{vm.errorMessage}}
-                    </div>
-                </div>
-            </div>
+            <alert-danger has-error="vm.hasError" error-message="vm.errorMessage"></alert-danger>
             <div class="row">
                 <div class="col-md-6 col-sm-6">
                     <div class="table-filter">
-                        Search <input type="search" ng-model="vm.searchText">
+                        Search: <input type="search" ng-init="searchFilter = {}" ng-model="searchFilter.$">
                     </div>
                 </div>
                 <div class="col-md-6 col-sm-6">
@@ -25,16 +18,16 @@
                 </div>
             </div>
             <div class="table-responsive">
-                <table class="table table-hover">
+                <table si-table class="table table-hover animated fadeIn">
                     <thead>
                         <tr>
-                            <th>Name</th>
-                            <th>Status</th>
+                            <th sort-by="name" sort-init="asc">Name</th>
+                            <th sort-by="status">Status</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="location in vm.locations | filter:vm.searchText | orderBy:'name'">
+                        <tr si-sortable="single" ng-repeat="location in vm.locations | filter:searchFilter">
                             <td>{{::location.name}} <span ng-show="location.default">(Default Location)</span></td>
                             <td><span class="label"
                                       ng-class="{'label-success': location.status === 'active', 'label-default': location.status === 'inactive'}">{{::location.status}}</span></td>
@@ -44,6 +37,13 @@
                             </td>
                         </tr>
                     </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="100%">
+                                <si-table-pagination limit="10" class="pull-right" previous-text="← Previous" next-text="Next →"/>
+                            </td>
+                        </tr>
+                    </tfoot>
                 </table>
             </div>
         </div>

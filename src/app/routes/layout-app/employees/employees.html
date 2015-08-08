@@ -4,10 +4,11 @@
             <h4 class="panel-title">Employees</h4>
         </div>
         <div class="panel-body">
+            <alert-danger has-error="vm.hasError" error-message="vm.errorMessage"></alert-danger>
             <div class="row">
                 <div class="col-md-6 col-sm-6">
                     <div class="table-filter">
-                        Search: <input type="search" ng-model="vm.filterField" ng-change="vm.filterEmployees()"><span class="checkbox"><label><input type="checkbox" value="">hide inactive employees</label></span>
+                        Search: <input type="search" ng-init="searchFilter = {}" ng-model="searchFilter.$">
                     </div>
                 </div>
                 <div class="col-md-6 col-sm-6">
@@ -20,24 +21,23 @@
                     </div>
                 </div>
             </div>
-            <div class="table-responsive" ng-show="vm.listViewTable">
-                <!--http://vendroid.venmond.com/pages-ecommerce-products.php TODO: possible look of filter in table-->
-                <table class="table table-hover animated fadeIn">
+            <div class="table-responsive" ng-if="vm.listViewTable">
+                <table si-table class="table table-hover animated fadeIn">
                     <thead>
                         <tr>
                             <th>Photo</th>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Phone Number</th>
-                            <th>Position</th>
-                            <th>Role</th>
-                            <th>Status</th>
+                            <th sort-by="firstName" sort-init="asc">Name</th>
+                            <th sort-by="email">Email</th>
+                            <th sort-by="contactDetails.phoneNumber">Phone Number</th>
+                            <th sort-by="position">Position</th>
+                            <th sort-by="role">Role</th>
+                            <th sort-by="status">Status</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
-                    <!-- TODO: delete icon should not be displayed for current user (user that is looking at the list)-->
-                        <tr ng-repeat="employee in vm.filteredEmployees | startFrom:(vm.currentPage-1)*vm.employeesPerPage | limitTo:vm.employeesPerPage">
+                        <!-- TODO: delete icon should not be displayed for current user (user that is looking at the list)-->
+                        <tr si-sortable="single" ng-repeat="employee in vm.employees | filter:searchFilter">
                             <td><img ng-src="./images/{{::employee.avatar}}" alt="" class="img-circle" title="{{::employee.firstName}} {{::employee.lastName}}"></td>
                             <td>{{::employee.firstName}} {{::employee.lastName}}</td>
                             <td>{{::employee.email}}</td>
@@ -49,16 +49,23 @@
                             <td>
                                 <a ui-sref=".message({id: employee.id})" tooltip-placement="top" tooltip="send message"><i class="fa fa-comment-o fa-fw"></i></a>
                                 <a ui-sref=".schedule({id: employee.id})" tooltip-placement="top" tooltip="see schedule"><i class="fa fa-calendar fa-fw"></i></a>
-                                <a mm-really-click="vm.deleteEmployee(employee)" tooltip-placement="top" tooltip="delete"><i class="fa fa-trash fa-fw"></i></a>
+                                <a mm-really-click="vm.deleteEmployee(employee)" mm-really-header="Delete Employee" mm-really-message="Are you sure you want delete this employee?" tooltip-placement="top" tooltip="delete"><i class="fa fa-trash fa-fw"></i></a>
                                 <a ui-sref=".edit.account-details({id: employee.id})" tooltip-placement="top" tooltip="edit"><i class="fa fa-pencil fa-fw"></i></a>
                             </td>
                         </tr>
                     </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="100%">
+                                <si-table-pagination limit="10" class="pull-right" previous-text="← Previous" next-text="Next →"/>
+                            </td>
+                        </tr>
+                    </tfoot>
                 </table>
             </div>
-            <div ng-show="!vm.listViewTable">
+            <div ng-if="!vm.listViewTable">
                 <div class="row animated fadeIn mt20">
-                    <div class="col-lg-2 col-md-3 col-sm-3" ng-repeat="employee in vm.filteredEmployees | startFrom:(vm.currentPage-1)*vm.employeesPerPage | limitTo:vm.employeesPerPage">
+                    <div class="col-lg-2 col-md-3 col-sm-3" ng-repeat="employee in vm.employees | filter:searchFilter">
                         <div class="thumbnail">
                             <div class="text-center" style="padding-top: 9px;">
                                 <img ng-src="./images/{{::employee.avatar}}" alt=""
@@ -74,7 +81,7 @@
                                 <div>
                                     <a ui-sref=".message({id: employee.id})" tooltip-placement="top" tooltip="send message"><i class="fa fa-comment-o fa-fw"></i></a>
                                     <a ui-sref=".schedule({id: employee.id})" tooltip-placement="top" tooltip="see schedule"><i class="fa fa-calendar fa-fw"></i></a>
-                                    <a mm-really-click="vm.deleteEmployee(employee)" tooltip-placement="top" tooltip="delete"><i class="fa fa-trash fa-fw"></i></a>
+                                    <a mm-really-click="vm.deleteEmployee(employee)" mm-really-header="Delete Employee" mm-really-message="Are you sure you want delete this employee?" tooltip-placement="top" tooltip="delete"><i class="fa fa-trash fa-fw"></i></a>
                                     <a ui-sref=".edit.account-details({id: employee.id})" tooltip-placement="top" tooltip="edit"><i class="fa fa-pencil fa-fw"></i></a>
                                 </div>
                             </div>
@@ -82,27 +89,6 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-6 col-sm-6">
-                    <div class="table-info">Showing {{((vm.currentPage-1)*vm.employeesPerPage) + 1}} to {{vm.currentPage * vm.employeesPerPage}} of {{vm.filteredEmployees.length}} employees</div>
-                </div>
-                <div class="col-md-6 col-sm-6" ng-if="vm.filteredEmployees.length > vm.employeesPerPage">
-                    <pagination class="pull-right" total-items="vm.filteredEmployees.length" ng-model="vm.currentPage" previous-text="← Previous" next-text="Next →"></pagination>
-                </div>
-            </div>
         </div>
     </div>
 </div>
-<script type="text/ng-template" id="deleteModal.html">
-    <div class="modal-header">
-        <button type="button" class="close" ng-click="vm.cancel()">×</button>
-        <h4 class="modal-title">Delete Employee</h4>
-    </div>
-    <div class="modal-body">
-        <p>Are you sure you want delete this employee?</p>
-    </div>
-    <div class="modal-footer">
-        <button class="btn btn-sm btn-white" ng-click="vm.cancel()">Cancel</button>
-        <button class="btn btn-sm btn-success" ng-click="vm.ok()">OK</button>
-    </div>
-</script>

@@ -1,5 +1,59 @@
 [
     {
+        "id": "404",
+        "version": 2,
+        "avatar": "me.jpg",
+        "firstName": "404",
+        "lastName": "error",
+        "email": "404@error.com",
+        "language": "en",
+        "position": "ceo",
+        "role": "admin",
+        "status": "active",
+        "contactDetails": {
+            "phoneNumber": "+353767889",
+            "address": "12 Smithfield",
+            "city": "Dublin",
+            "zipCode": "7"
+        },
+        "bankDetails": {
+            "bankName": "AIB",
+            "accountNumber": "123456890YU",
+            "accountName": "Martin Micunda"
+        },
+        "hourlyRates": {
+            "rate": 8,
+            "currencyCode": "EUR"
+        }
+    },
+    {
+        "id": "500",
+        "version": 2,
+        "avatar": "avatar.png",
+        "firstName": "500",
+        "lastName": "error",
+        "email": "500@error.com",
+        "language": "en",
+        "position": "sales",
+        "role": "employee",
+        "status": "active",
+        "contactDetails": {
+            "phoneNumber": "+353767889",
+            "address": "12 Smithfield",
+            "city": "Dublin",
+            "zipCode": "7"
+        },
+        "bankDetails": {
+            "bankName": "AIB",
+            "accountNumber": "123456890YU",
+            "accountName": "Edmund Wong"
+        },
+        "hourlyRates": {
+            "rate": 8,
+            "currencyCode": "EUR"
+        }
+    },
+    {
         "id": "1",
         "version": 2,
         "avatar": "me.jpg",

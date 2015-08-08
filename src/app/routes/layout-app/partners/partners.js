@@ -15,35 +15,25 @@ import {RouteConfig, Inject} from '../../../ng-decorators'; // jshint unused: fa
     url: '/partners',
     template: template,
     resolve: {
-        partners: ['PartnerResource', PartnerResource => PartnerResource.getList()],
+        init: ['PartnerModel', PartnerModel => PartnerModel.initCollection()]
     }
 })
-@Inject('partners', 'FormService', 'PartnerResource', 'PartnerService', 'filterFilter')
+@Inject('FormService', 'PartnerResource', 'PartnerModel')
 //end-non-standard
 class Partners {
-    constructor(partners, FormService, PartnerResource, PartnerService, filterFilter) {
-        PartnerService.setList(partners);
-        this.partners = PartnerService.getList();
+    constructor(FormService, PartnerResource, PartnerModel) {
+        this.partners = PartnerModel.getCollection();
         this.FormService = FormService;
         this.PartnerResource = PartnerResource;
-        this.filteredPartners = Object.assign(partners);
-        this.filterField = '';
-        this.filterFilter = filterFilter;
-        // pagination
-        this.currentPage = 1;
-        this.partnersPerPage = 10;
-    }
-
-    filterPartners() {
-        this.filteredPartners = this.filterFilter(this.partners, {name: this.filterField});
     }
 
     deletePartner(partner) {
         this.PartnerResource.delete(partner.id).then(() => {
             this.partners.splice(this.partners.indexOf(partner), 1);
-            this.filteredPartners.splice(this.filteredPartners.indexOf(partner), 1);
+            this.FormService.success(this);
         },(response) => {
             this.FormService.failure(this, response);
         });
     }
 }
+//http://stackoverflow.com/questions/25046191/is-it-good-practice-to-combine-create-and-edit-controllers-in-angularjs

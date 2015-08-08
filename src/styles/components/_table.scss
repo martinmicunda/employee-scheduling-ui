@@ -71,11 +71,16 @@
     -moz-border-radius: 3px;
     border-radius: 3px;
     margin-top: 20px;
+    margin-bottom: 0;
 }
 .table > thead > tr > th {
     color: $fontColorDark;
     font-weight: 600;
     border-bottom: 2px solid #e2e7eb !important;
+    a {
+        color: $fontColorDark;
+        text-decoration: none;
+    }
 }
 .table > thead > tr > th,
 .table > tbody > tr > th,
@@ -86,6 +91,9 @@
     border-color: #e2e7eb;
     padding: 10px 15px;
     vertical-align: middle;
+}
+.table > tfoot > tr > td {
+    padding: 15px 0 0;
 }
 .table-hover > tbody > tr:hover > td,
 .table-hover > tbody > tr:hover > th {

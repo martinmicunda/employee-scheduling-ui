@@ -5,7 +5,7 @@
  */
 'use strict';
 
-import template from './error-modal.html!text';
+import template from './modal-error.html!text';
 import {Directive, Inject} from '../../ng-decorators'; // jshint unused: false
 
 //start-non-standard

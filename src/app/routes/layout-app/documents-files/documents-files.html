@@ -4,14 +4,7 @@
             <h4 class="panel-title"><a ui-sref="app.documents">Documents</a> &gt; {{::vm.folderName.name}}</h4>
         </div>
         <div class="panel-body">
-            <div ng-if="vm.hasError" class="row">
-                <div class="col-md-12 col-sm-12">
-                    <div class="alert alert-danger animated fadeIn">
-                        <strong>Error!</strong>
-                        {{vm.errorMessage}}
-                    </div>
-                </div>
-            </div>
+            <alert-danger has-error="vm.hasError" error-message="vm.errorMessage"></alert-danger>
             <div class="row">
                 <div class="col-md-6 col-sm-6">
                     <div class="table-filter">
@@ -25,24 +18,31 @@
                 </div>
             </div>
             <div class="table-responsive">
-                <table class="table table-hover animated fadeIn">
+                <table si-table class="table table-hover animated fadeIn">
                     <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Date Created</th>
-                        <th>Actions</th>
-                    </tr>
+                        <tr>
+                            <th sort-by="name" sort-init="asc">Name</th>
+                            <th sort-by="created">Date Created</th>
+                            <th>Actions</th>
+                        </tr>
                     </thead>
                     <tbody>
-                    <tr ng-repeat="file in vm.files | filter:vm.searchText | orderBy:'name'">
-                        <td>{{::file.name}}</td>
-                        <td>{{::file.created}}</td>
-                        <td>
-                            <a mm-really-click="vm.deletePartner(partner)" mm-really-header="Delete File" mm-really-message="Are you sure you want delete this file?" tooltip-placement="top" tooltip="delete"><i class="fa fa-trash fa-fw"></i></a>
-                            <a ui-sref=".edit({url: file.url})" tooltip-placement="top" tooltip="view"><i class="fa fa-eye fa-fw"></i></a>
-                        </td>
-                    </tr>
+                        <tr si-sortable="single" ng-repeat="file in vm.files | filter:vm.searchText">
+                            <td>{{::file.name}}</td>
+                            <td>{{::file.created}}</td>
+                            <td>
+                                <a mm-really-click="vm.deletePartner(partner)" mm-really-header="Delete File" mm-really-message="Are you sure you want delete this file?" tooltip-placement="top" tooltip="delete"><i class="fa fa-trash fa-fw"></i></a>
+                                <a ui-sref=".edit({url: file.url})" tooltip-placement="top" tooltip="view"><i class="fa fa-eye fa-fw"></i></a>
+                            </td>
+                        </tr>
                     </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="100%">
+                                <si-table-pagination limit="10" class="pull-right" previous-text="← Previous" next-text="Next →"/>
+                            </td>
+                        </tr>
+                    </tfoot>
                 </table>
             </div>
         </div>

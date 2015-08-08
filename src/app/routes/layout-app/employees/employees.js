@@ -17,32 +17,23 @@ import {RouteConfig, Inject} from '../../../ng-decorators'; // jshint unused: fa
     url: '/employees',
     template: template,
     resolve: {
+        roles: ['RoleResource', RoleResource => RoleResource.getList({lang: 'en'}, true)], // TODO:(martin) language should comes from user profile
         employees: ['EmployeeResource', EmployeeResource => EmployeeResource.getList()],
         languages: ['LanguageResource', LanguageResource => LanguageResource.getList(null, true)],
-        positions: ['PositionResource', PositionResource => PositionResource.getList({lang: 'en'})], // TODO:(martin) language should comes from user profile
-        roles: ['RoleResource', RoleResource => RoleResource.getList({lang: 'en'}, true)] // TODO:(martin) language should comes from user profile
+        positions: ['PositionResource', PositionResource => PositionResource.getList({lang: 'en'})] // TODO:(martin) language should comes from user profile
     }
 })
-@Inject('employees', 'languages', 'positions', 'roles', 'EmployeeResource', 'filterFilter')
+@Inject('roles', 'employees', 'languages', 'positions', 'EmployeeResource', 'FormService')
 //end-non-standard
 class Employees {
-    constructor(employees, languages, positions, roles, EmployeeResource, filterFilter) {
+    constructor(roles, employees, languages, positions, EmployeeResource, FormService) {
         this.EmployeeResource = EmployeeResource;
+        this.roles = roles;
         this.employees = employees;
-        this.filteredEmployees = Object.assign(employees);
         this.languages = languages;
         this.positions = positions;
-        this.roles = roles;
-        this.filterField = '';
-        this.filterFilter = filterFilter;
-        // pagination
-        this.currentPage = 1;
-        this.employeesPerPage = 10;
         this.listViewTable = true;
-    }
-
-    filterEmployees() {
-        this.filteredEmployees = this.filterFilter(this.employees, {firstName: this.filterField});
+        this.FormService = FormService;
     }
 
     toggleListView() {
@@ -52,13 +43,9 @@ class Employees {
     deleteEmployee(employee) {
         this.EmployeeResource.delete(employee.id).then(() => {
             this.employees.splice(this.employees.indexOf(employee), 1);
-            this.filteredEmployees.splice(this.filteredEmployees.indexOf(employee), 1);
+            this.FormService.success(this);
         },(response) => {
-            if(response.status === 409) {
-                //toaster.pop('warning', 'Warning:', 'Another user has updated this location while you were editing');
-            } else {
-                //toaster.pop('error', 'Error:', 'Location could not be updated. Please try again!');
-            }
+            this.FormService.failure(this, response);
         });
     }
 }

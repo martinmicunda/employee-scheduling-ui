@@ -33,7 +33,7 @@ class SettingLocations {
             this.hasError = true;
             this.errorMessage = `The default location can't be deleted.`;
         } else {
-            this.LocationResource.remove(location.id).then(() => {
+            this.LocationResource.delete(location.id).then(() => {
                 this.locations.splice(this.locations.indexOf(location), 1);
                 this.FormService.success(this);
             }, (response) => {

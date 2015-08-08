@@ -35,6 +35,7 @@ System.config({
     "lodash": "npm:lodash@3.9.3",
     "ng-bs-animated-button": "github:jeremypeters/ng-bs-animated-button@2.0.3",
     "restangular": "npm:restangular@1.5.1",
+    "si-table": "github:simplicitylabs/si-table@0.2.3",
     "text": "github:systemjs/plugin-text@0.0.2",
     "github:angular-ui/bootstrap-bower@0.12.1": {
       "angular": "github:angular/bower-angular@1.2.28"

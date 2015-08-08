@@ -31,6 +31,7 @@ class Files {
     deleteFile(document) {
         this.DocumentResource.delete(document.id).then(() => {
             this.documents.splice(this.documents.indexOf(document), 1);
+            this.FormService.success(this);
         },(response) => {
             this.FormService.failure(this, response);
         });

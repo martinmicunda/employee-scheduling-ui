@@ -5,8 +5,6 @@
  */
 'use strict';
 
-//http://stackoverflow.com/questions/25046191/is-it-good-practice-to-combine-create-and-edit-controllers-in-angularjs
-
 class AbstractResource {
     constructor(restangular, route) {
         this.restangular = restangular;

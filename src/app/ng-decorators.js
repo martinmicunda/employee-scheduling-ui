@@ -19,7 +19,8 @@ const app = angular.module('ngDecorator', [
     'ui.bootstrap',
     'LocalStorageModule',
     'colorpicker.module',
-    'jp.ng-bs-animated-button'
+    'jp.ng-bs-animated-button',
+    'siTable'
 ]);
 
 function Run() {

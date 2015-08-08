@@ -78,5 +78,35 @@
         "color": "#cccccc",
         "status": "active",
         "note": ""
+    },
+    {
+        "id": "9",
+        "name": "Hotel 7",
+        "contactPerson": "Martin Micunda",
+        "email": "martinmicunda@test.com",
+        "phoneNumber": "+353767889",
+        "color": "#cccccc",
+        "status": "active",
+        "note": ""
+    },
+    {
+        "id": "10",
+        "name": "Hotel 8",
+        "contactPerson": "Martin Micunda",
+        "email": "martinmicunda@test.com",
+        "phoneNumber": "+353767889",
+        "color": "#cccccc",
+        "status": "active",
+        "note": ""
+    },
+    {
+        "id": "11",
+        "name": "Hotel 9",
+        "contactPerson": "Martin Micunda",
+        "email": "martinmicunda@test.com",
+        "phoneNumber": "+353767889",
+        "color": "#cccccc",
+        "status": "active",
+        "note": ""
     }
 ]
