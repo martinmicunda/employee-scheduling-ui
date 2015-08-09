@@ -5,4 +5,4 @@
  */
 'use strict';
 
-export const ROLE = Object.freeze({ADMIN: 'admin', MANAGER: 'manager'});
+export const USER_ROLES = Object.freeze({ADMIN: 'admin', MANAGER: 'manager'});

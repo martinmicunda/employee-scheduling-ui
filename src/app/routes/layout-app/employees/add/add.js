@@ -8,6 +8,7 @@
 import './account-details/account-details';
 import './account-settings/account-settings';
 import template from './add.html!text';
+import {USER_ROLES} from '../../../../core/constants/constants';
 import {RouteConfig, Inject} from '../../../../ng-decorators'; // jshint unused: false
 
 //start-non-standard
@@ -19,7 +20,6 @@ import {RouteConfig, Inject} from '../../../../ng-decorators'; // jshint unused:
             resolve: {
                 languages: ['LanguageResource', LanguageResource => LanguageResource.getList(null, true)],
                 positions: ['PositionResource', PositionResource => PositionResource.getList({lang: 'en'})], // TODO:(martin) language should comes from user profile
-                roles: ['RoleResource', RoleResource => RoleResource.getList({lang: 'en'}, true)] // TODO:(martin) language should comes from user profile
             },
             controller: EmployeeAdd,
             controllerAs: 'vm',
@@ -29,16 +29,16 @@ import {RouteConfig, Inject} from '../../../../ng-decorators'; // jshint unused:
             });
     }]
 })
-@Inject('languages', 'positions', 'roles', 'EmployeeService', '$state', '$modalInstance')
+@Inject('languages', 'positions', 'EmployeeService', '$state', '$modalInstance')
 //end-non-standard
 class EmployeeAdd {
-    constructor(languages, positions, roles, EmployeeService, $state, $modalInstance) {
+    constructor(languages, positions, EmployeeService, $state, $modalInstance) {
         this.$modalInstance = $modalInstance;
         this.EmployeeResource = EmployeeService;
         this.employee = {};
         this.languages = languages;
         this.positions = positions;
-        this.roles = roles;
+        this.roles = USER_ROLES;
         this.profileComplete = EmployeeService.calculateProfileCompleteness({});
         this.router = $state;
     }

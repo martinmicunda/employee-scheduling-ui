@@ -5,16 +5,17 @@
  */
 'use strict';
 
-import StorageService from './storage';
+import AbstractModel from './abstract-model';
 import {Service, Inject} from '../../ng-decorators'; // jshint unused: false
 
 //start-non-standard
 @Service({
-    serviceName: 'PositionService'
+    serviceName: 'SettingModel'
 })
+@Inject('SettingResource')
 //end-non-standard
-class PositionService extends StorageService {
-    constructor() {
-        super([]);
+class SettingModel extends AbstractModel {
+    constructor(SettingResource) {
+        super(SettingResource);
     }
 }

@@ -7,19 +7,20 @@
 // config
 import './config/config';
 
-// helpers
-
-// interceptors
-
 // models
+import './models/document';
+import './models/location';
+import './models/modal';
 import './models/partner';
+import './models/position';
+import './models/setting';
+import './models/employee';
 
 // resources
 import './resources/employee/employee';
 import './resources/language/language';
 import './resources/location/location';
 import './resources/partner/partner';
-import './resources/role/role';
 import './resources/setting/setting';
 import './resources/position/position';
 import './resources/document/document';
@@ -27,9 +28,7 @@ import './resources/document/document';
 // also add code to abstract resource where I initilize version of endpoint as I can have different version for each endpoint e.g. microservices styles. The default should be v1 and extends class should have option overwrite version number e.g. v2
 
 // services
+import './services/document';
 import './services/employee';
 import './services/form';
-import './services/location';
-import './services/partner';
-import './services/position';
-import './services/document';
+import './services/modal';

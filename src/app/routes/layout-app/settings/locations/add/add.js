@@ -5,54 +5,27 @@
  */
 'use strict';
 
-import template from './add.html!text';
 import {RouteConfig, Inject} from '../../../../../ng-decorators'; // jshint unused: false
 
 //start-non-standard
 @RouteConfig('app.settings.locations.add', {
     url: '/add',
-    onEnter: ['$state', '$modal', ($state, $modal) => {
+    onEnter: ['$modal', 'ModalService', ($modal, ModalService) => {
         $modal.open({
-            template: template,
+            template: '<modal-location></modal-location>',
             controller: LocationAdd,
             controllerAs: 'vm',
-            size: 'md'
-        }).result.finally(() => $state.go('app.settings.locations'));
+            size: 'md',
+            resolve: {
+                init: ['LocationModel', (LocationModel) => LocationModel.initItem()]
+            }
+        }).result.finally(ModalService.onFinal('app.settings.locations'));
     }]
 })
-@Inject('$modalInstance', 'LocationResource', 'FormService', 'LocationService')
+@Inject('$modalInstance', 'ModalModel')
 //end-non-standard
 class LocationAdd {
-    constructor($modalInstance, LocationResource, FormService, LocationService) {
-        this.$modalInstance = $modalInstance;
-        this.LocationResource = LocationResource;
-        this.LocationService = LocationService;
-        this.FormService = FormService;
-        this.location = {};
-        this.isSubmitting = null;
-        this.result = null;
-        this.saveButtonOptions = FormService.getModalSaveButtonOptions();
-    }
-
-    cancel() {
-        this.$modalInstance.dismiss('cancel');
-    }
-
-    save(form) {
-        if(!form.$valid) {return;}
-        this.isSubmitting = true;
-        this.location.status = 'active';
-        if(this.LocationService.getList().length === 0) {
-            this.location.default = true;
-        }
-        this.LocationResource.create(this.location).then((location) => {
-            this.location.id = location.id;
-            this.LocationService.add(this.location);
-            this.FormService.success(this);
-        }, (response) => {
-            this.FormService.failure(this, response);
-        }).finally(() => {
-            form.$setPristine();
-        });
+    constructor($modalInstance, ModalModel) {
+        ModalModel.setItem($modalInstance);
     }
 }

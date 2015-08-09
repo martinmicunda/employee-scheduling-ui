@@ -1,18 +1,17 @@
-<form class="form-horizontal form-validation" name="documentEditForm" role="form" novalidate>
+<form class="form-horizontal form-validation" name="documentForm" role="form" novalidate>
     <div class="modal-header">
         <button type="button" class="close" ng-click="vm.cancel()">×</button>
-        <h4 class="modal-title">Edit Folder</h4>
+        <h4 class="modal-title">
+            <span ng-if="!vm.document.id">Add</span><span ng-if="vm.document.id">Edit</span> Folder
+        </h4>
     </div>
     <div class="modal-body form-wizard">
-        <div ng-if="vm.hasError" class="alert alert-danger animated fadeIn">
-            <strong>Error!</strong>
-            {{vm.errorMessage}}
-        </div>
+        <alert-danger has-error="vm.hasError" error-message="vm.errorMessage"></alert-danger>
         <div class="form-group required">
             <label class="control-label col-sm-4">Name</label>
             <div class="col-sm-5">
                 <input name="name" type="text" ng-model="vm.document.name" class="form-control" required>
-                <div ng-if="documentEditForm.$submitted" ng-messages="documentEditForm.name.$error">
+                <div ng-if="documentForm.$submitted" ng-messages="documentForm.name.$error">
                     <div ng-message="required" class="error">This field is required.</div>
                 </div>
             </div>
@@ -41,6 +40,6 @@
     </div>
     <div class="modal-footer">
         <button type="button" ng-click="vm.cancel()" class="btn btn-sm btn-white">Close</button>
-        <jp-ng-bs-animated-button class="btn btn-sm btn-success" ng-click="vm.save(documentEditForm)" is-submitting="vm.isSubmitting" result="vm.result" options="vm.saveButtonOptions"></jp-ng-bs-animated-button>
+        <jp-ng-bs-animated-button class="btn btn-sm btn-success" ng-click="vm.save(documentForm)" is-submitting="vm.isSubmitting" result="vm.result" options="vm.saveButtonOptions"></jp-ng-bs-animated-button>
     </div>
 </form>

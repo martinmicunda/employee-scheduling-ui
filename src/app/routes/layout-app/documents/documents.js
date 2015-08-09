@@ -15,24 +15,19 @@ import {RouteConfig, Inject} from '../../../ng-decorators'; // jshint unused: fa
     url: '/documents',
     template: template,
     resolve: {
-        documents: ['DocumentResource', DocumentResource => DocumentResource.getList()]
+        init: ['DocumentModel', DocumentModel => DocumentModel.initCollection()]
     }
 })
-@Inject('documents', 'FormService', 'DocumentResource', 'DocumentService')
+@Inject('FormService', 'DocumentModel')
 //end-non-standard
-class Documents {
-    constructor(documents, FormService, DocumentResource, DocumentService) {
-        DocumentService.setList(documents);
-        this.documents = DocumentService.getList();
+class Partners {
+    constructor(FormService, DocumentModel) {
+        this.documents = DocumentModel.getCollection();
         this.FormService = FormService;
-        this.DocumentResource = DocumentResource;
+        this.DocumentModel = DocumentModel;
     }
 
     deleteDocument(document) {
-        this.DocumentResource.delete(document.id).then(() => {
-            //this.documents.splice(this.documents.indexOf(document), 1);
-        },(response) => {
-            this.FormService.failure(this, response);
-        });
+        this.FormService.delete(this.DocumentModel, document, this);
     }
 }

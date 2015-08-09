@@ -14,26 +14,20 @@ import {RouteConfig, Inject} from '../../../ng-decorators'; // jshint unused: fa
     url: '/documents/:id/files',
     template: template,
     resolve: {
-        document: ['$stateParams', 'DocumentResource', ($stateParams, DocumentResource) => DocumentResource.getDocumentFiles($stateParams.id)]
+        init: ['$stateParams', 'DocumentModel', ($stateParams, DocumentModel) => DocumentModel.initFilesCollection($stateParams.id)]
     }
 })
-@Inject('document', 'FormService', 'DocumentResource', 'DocumentService')
+@Inject('FormService', 'DocumentModel', 'DocumentService')
 //end-non-standard
 class Files {
-    constructor(document, FormService, DocumentResource, DocumentService) {
-        DocumentService.setFiles(document.files);
-        this.folderName = DocumentService.get(document.documentId);
-        this.files = DocumentService.getFiles();
+    constructor(FormService, DocumentModel) {
+        this.folderName = DocumentModel.getById(DocumentModel.getFilesCollection().documentId);
+        this.files = DocumentModel.getFilesCollection().files;
         this.FormService = FormService;
-        this.DocumentResource = DocumentResource;
+        this.DocumentModel = DocumentModel;
     }
 
     deleteFile(document) {
-        this.DocumentResource.delete(document.id).then(() => {
-            this.documents.splice(this.documents.indexOf(document), 1);
-            this.FormService.success(this);
-        },(response) => {
-            this.FormService.failure(this, response);
-        });
+        this.FormService.delete(this.DocumentModel, document, this);
     }
 }

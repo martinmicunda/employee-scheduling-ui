@@ -5,12 +5,12 @@
             {
                 "name": "File 1",
                 "url": "",
-                "create": ""
+                "dateCreated": "2015-09-12T12:21:48.680Z"
             },
             {
                 "name": "File 2",
                 "url": "",
-                "create": ""
+                "dateCreated": "2015-08-12T12:21:48.680Z"
             }
         ]
     },
@@ -20,17 +20,17 @@
             {
                 "name": "File 1",
                 "url": "",
-                "create": ""
+                "dateCreated": "2015-09-12T12:21:48.680Z"
             },
             {
                 "name": "File 2",
                 "url": "",
-                "create": ""
+                "dateCreated": "2015-10-12T12:21:48.680Z"
             },
             {
                 "name": "File 3",
                 "url": "",
-                "create": ""
+                "dateCreated": "2015-07-12T12:21:48.680Z"
             }
         ]
     },

@@ -11,6 +11,7 @@ import './bank-details/bank-details';
 import './contact-details/contact-details';
 import './hourly-rates/hourly-rates';
 import template from './edit.html!text';
+import {USER_ROLES} from '../../../../core/constants/constants';
 import {RouteConfig, Inject} from '../../../../ng-decorators'; // jshint unused: false
 
 //start-non-standard
@@ -25,7 +26,6 @@ import {RouteConfig, Inject} from '../../../../ng-decorators'; // jshint unused:
                 employee: ['$stateParams', 'EmployeeResource', ($stateParams, EmployeeResource) => EmployeeResource.get(id)],
                 languages: ['LanguageResource', LanguageResource => LanguageResource.getList(null, true)],
                 positions: ['PositionResource', PositionResource => PositionResource.getList({lang: 'en'})], // TODO:(martin) language should comes from user profile
-                roles: ['RoleResource', RoleResource => RoleResource.getList({lang: 'en'}, true)] // TODO:(martin) language should comes from user profile
             },
             controller: EmployeeEdit,
             controllerAs: 'vm',
@@ -47,16 +47,16 @@ import {RouteConfig, Inject} from '../../../../ng-decorators'; // jshint unused:
             }).finally(() => $state.go('app.employees'));
     }]
 })
-@Inject('employee', 'languages', 'positions', 'roles', 'EmployeeService', '$modalInstance')
+@Inject('employee', 'languages', 'positions', 'EmployeeService', '$modalInstance')
 //end-non-standard
 class EmployeeEdit {
-    constructor(employee, languages, positions, roles, EmployeeService, $modalInstance) {
+    constructor(employee, languages, positions, EmployeeService, $modalInstance) {
         this.$modalInstance = $modalInstance;
         this.EmployeeService = EmployeeService;
         this.employee = employee;
         this.languages = languages;
         this.positions = positions;
-        this.roles = roles;
+        this.roles = USER_ROLES;
         this.profileComplete = EmployeeService.calculateProfileCompleteness(employee);
         this.isSubmitting = null;
         this.result = null;

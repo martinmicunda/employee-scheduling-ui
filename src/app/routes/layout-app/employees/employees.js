@@ -17,23 +17,17 @@ import {RouteConfig, Inject} from '../../../ng-decorators'; // jshint unused: fa
     url: '/employees',
     template: template,
     resolve: {
-        roles: ['RoleResource', RoleResource => RoleResource.getList({lang: 'en'}, true)], // TODO:(martin) language should comes from user profile
-        employees: ['EmployeeResource', EmployeeResource => EmployeeResource.getList()],
-        languages: ['LanguageResource', LanguageResource => LanguageResource.getList(null, true)],
-        positions: ['PositionResource', PositionResource => PositionResource.getList({lang: 'en'})] // TODO:(martin) language should comes from user profile
+        init: ['EmployeeModel', EmployeeModel => EmployeeModel.initCollection()]
     }
 })
-@Inject('roles', 'employees', 'languages', 'positions', 'EmployeeResource', 'FormService')
+@Inject('EmployeeModel', 'FormService')
 //end-non-standard
 class Employees {
-    constructor(roles, employees, languages, positions, EmployeeResource, FormService) {
-        this.EmployeeResource = EmployeeResource;
-        this.roles = roles;
-        this.employees = employees;
-        this.languages = languages;
-        this.positions = positions;
-        this.listViewTable = true;
+    constructor(EmployeeModel, FormService) {
+        this.employees = EmployeeModel.getCollection();
         this.FormService = FormService;
+        this.EmployeeModel = EmployeeModel;
+        this.listViewTable = true;
     }
 
     toggleListView() {
@@ -41,11 +35,6 @@ class Employees {
     }
 
     deleteEmployee(employee) {
-        this.EmployeeResource.delete(employee.id).then(() => {
-            this.employees.splice(this.employees.indexOf(employee), 1);
-            this.FormService.success(this);
-        },(response) => {
-            this.FormService.failure(this, response);
-        });
+        this.FormService.delete(this.EmployeeModel, employee, this);
     }
 }

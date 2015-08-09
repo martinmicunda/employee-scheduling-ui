@@ -1,18 +1,17 @@
-<form class="form-horizontal form-validation" name="partnerAddForm" role="form" novalidate>
+<form class="form-horizontal form-validation" name="partnerForm" role="form" novalidate>
     <div class="modal-header">
         <button type="button" class="close" ng-click="vm.cancel()">×</button>
-        <h4 class="modal-title">Add Partner</h4>
+        <h4 class="modal-title">
+            <span ng-if="!vm.partner.id">Add</span><span ng-if="vm.partner.id">Edit</span> Partner
+        </h4>
     </div>
     <div class="modal-body form-wizard">
-        <div ng-if="vm.hasError" class="alert alert-danger animated fadeIn">
-            <strong>Error!</strong>
-            {{vm.errorMessage}}
-        </div>
+        <alert-danger has-error="vm.hasError" error-message="vm.errorMessage"></alert-danger>
         <div class="form-group required">
             <label class="control-label col-sm-4">Name</label>
             <div class="col-sm-5">
                 <input name="name" type="text" ng-model="vm.partner.name" class="form-control" required>
-                <div ng-if="partnerAddForm.$submitted" ng-messages="partnerAddForm.name.$error">
+                <div ng-if="partnerForm.$submitted" ng-messages="partnerForm.name.$error">
                     <div ng-message="required" class="error">This field is required.</div>
                 </div>
             </div>
@@ -27,7 +26,7 @@
             <label class="control-label col-sm-4">Email</label>
             <div class="col-sm-5">
                 <input name="email" type="email" ng-model="vm.partner.email" class="form-control">
-                <div ng-if="partnerAddForm.$submitted" ng-messages="partnerAddForm.email.$error">
+                <div ng-if="partnerForm.$submitted" ng-messages="partnerForm.email.$error">
                     <div ng-message="email" class="error">Invalid email.</div>
                 </div>
             </div>
@@ -45,9 +44,15 @@
                 <span class="color-picker-swatch color-picker-swatch-left">
                     <span class="color-picker-swatch-color" ng-style="{'background-color': vm.partner.color}"></span>
                 </span>
-                <div ng-if="partnerAddForm.$submitted" ng-messages="partnerAddForm.color.$error">
+                <div ng-if="partnerForm.$submitted" ng-messages="partnerForm.color.$error">
                     <div ng-message="required" class="error">This field is required.</div>
                 </div>
+            </div>
+        </div>
+        <div class="form-group" ng-show="vm.partner.id">
+            <label class="control-label col-sm-4">Status</label>
+            <div class="col-sm-5">
+                <select ng-model="vm.partner.status" ng-init="vm.partner.status = vm.partner.status || vm.statusTypes[0]" ng-options="statusType as statusType for statusType in vm.statusTypes" class="form-control"></select>
             </div>
         </div>
         <div class="form-group mb0">
@@ -59,6 +64,6 @@
     </div>
     <div class="modal-footer">
         <button type="button" ng-click="vm.cancel()" class="btn btn-sm btn-white">Close</button>
-        <jp-ng-bs-animated-button class="btn btn-sm btn-success" ng-click="vm.save(partnerAddForm)" is-submitting="vm.isSubmitting" result="vm.result" options="vm.saveButtonOptions"></jp-ng-bs-animated-button>
+        <jp-ng-bs-animated-button class="btn btn-sm btn-success" ng-click="vm.save(partnerForm)" is-submitting="vm.isSubmitting" result="vm.result" options="vm.saveButtonOptions"></jp-ng-bs-animated-button>
     </div>
 </form>

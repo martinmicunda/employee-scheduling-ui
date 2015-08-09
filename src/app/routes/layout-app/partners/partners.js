@@ -18,22 +18,16 @@ import {RouteConfig, Inject} from '../../../ng-decorators'; // jshint unused: fa
         init: ['PartnerModel', PartnerModel => PartnerModel.initCollection()]
     }
 })
-@Inject('FormService', 'PartnerResource', 'PartnerModel')
+@Inject('FormService', 'PartnerModel')
 //end-non-standard
 class Partners {
-    constructor(FormService, PartnerResource, PartnerModel) {
+    constructor(FormService, PartnerModel) {
         this.partners = PartnerModel.getCollection();
         this.FormService = FormService;
-        this.PartnerResource = PartnerResource;
+        this.PartnerModel = PartnerModel;
     }
 
     deletePartner(partner) {
-        this.PartnerResource.delete(partner.id).then(() => {
-            this.partners.splice(this.partners.indexOf(partner), 1);
-            this.FormService.success(this);
-        },(response) => {
-            this.FormService.failure(this, response);
-        });
+        this.FormService.delete(this.PartnerModel, partner, this);
     }
 }
-//http://stackoverflow.com/questions/25046191/is-it-good-practice-to-combine-create-and-edit-controllers-in-angularjs

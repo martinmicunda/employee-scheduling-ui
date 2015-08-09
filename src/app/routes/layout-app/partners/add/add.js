@@ -5,51 +5,27 @@
  */
 'use strict';
 
-import template from './add.html!text';
 import {RouteConfig, Inject} from '../../../../ng-decorators'; // jshint unused: false
 
 //start-non-standard
 @RouteConfig('app.partners.add', {
     url: '/add',
-    onEnter: ['$state', '$modal', ($state, $modal) => {
+    onEnter: ['$modal', 'ModalService', ($modal, ModalService) => {
         $modal.open({
-            template: template,
+            template: '<modal-partner></modal-partner>',
             controller: PartnerAdd,
             controllerAs: 'vm',
-            size: 'md'
-        }).result.finally(() => $state.go('app.partners'));
+            size: 'md',
+            resolve: {
+                init: ['PartnerModel', (PartnerModel) => PartnerModel.initItem()]
+            }
+        }).result.finally(ModalService.onFinal('app.partners'));
     }]
 })
-@Inject('$modalInstance', 'PartnerResource', 'FormService', 'PartnerService')
+@Inject('$modalInstance', 'ModalModel')
 //end-non-standard
 class PartnerAdd {
-    constructor($modalInstance, PartnerResource, FormService, PartnerService) {
-        this.$modalInstance = $modalInstance;
-        this.PartnerResource = PartnerResource;
-        this.PartnerService = PartnerService;
-        this.FormService = FormService;
-        this.partner = {};
-        this.isSubmitting = null;
-        this.result = null;
-        this.saveButtonOptions = FormService.getModalSaveButtonOptions();
-    }
-
-    cancel() {
-        this.$modalInstance.dismiss('cancel');
-    }
-
-    save(form) {
-        if(!form.$valid) {return;}
-        this.isSubmitting = true;
-        this.partner.status = 'active';
-        this.PartnerResource.create(this.partner).then((partner) => {
-            this.partner.id = partner.id;
-            this.PartnerService.add(this.partner);
-            this.FormService.success(this);
-        }, (response) => {
-            this.FormService.failure(this, response);
-        }).finally(() => {
-            form.$setPristine();
-        });
+    constructor($modalInstance, ModalModel) {
+        ModalModel.setItem($modalInstance);
     }
 }

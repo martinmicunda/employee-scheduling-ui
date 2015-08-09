@@ -17,13 +17,14 @@ import {RouteConfig, Inject} from '../../../../ng-decorators'; // jshint unused:
         setting: ['SettingResource', SettingResource => SettingResource.get('app')]
     }
 })
-@Inject('languages', 'setting', 'FormService')
+@Inject('languages', 'setting', 'FormService', 'SettingModel')
 //end-non-standard
 class SettingLanguage {
-    constructor(languages, setting, FormService) {
+    constructor(languages, setting, FormService, SettingModel) {
         this.languages = languages;
         this.setting = setting;
         this.FormService = FormService;
+        this.SettingModel = SettingModel;
         this.isSubmitting = null;
         this.result = null;
         this.saveButtonOptions = FormService.getSaveButtonOptions();
@@ -32,13 +33,7 @@ class SettingLanguage {
     save(form) {
         if(!form.$valid) {return;}
         this.isSubmitting = true;
-        this.setting.put().then(() => {
-            this.FormService.success(this);
-        }, (response) => {
-            this.FormService.failure(this, response);
-        }).finally(() => {
-            form.$setPristine();
-        });
+        this.FormService.save(this.SettingModel, this.setting, this, form);
     }
 }
 

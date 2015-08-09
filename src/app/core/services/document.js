@@ -5,7 +5,6 @@
  */
 'use strict';
 
-import StorageService from './storage';
 import {Service, Inject} from '../../ng-decorators'; // jshint unused: false
 
 //start-non-standard
@@ -13,20 +12,7 @@ import {Service, Inject} from '../../ng-decorators'; // jshint unused: false
     serviceName: 'DocumentService'
 })
 //end-non-standard
-class DocumentService extends StorageService {
-    constructor() {
-        super([]);
-        this.files = [];
-    }
-
-    getFiles() {
-        return this.files;
-    }
-
-    setFiles(files) {
-        this.files = files;
-    }
-
+class DocumentService {
     grantAccess(selectedEmployees, employeesWithoutAccess, employeesWithAccess) {
         if(selectedEmployees.length > 0) {
             const selectedEmployeesTemp = employeesWithoutAccess

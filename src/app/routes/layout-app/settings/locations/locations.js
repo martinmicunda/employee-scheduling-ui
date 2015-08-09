@@ -15,17 +15,16 @@ import {RouteConfig, Inject} from '../../../../ng-decorators'; // jshint unused:
     url: '/locations',
     template: template,
     resolve: {
-        locations: ['LocationResource', LocationResource => LocationResource.getList()]
+        init: ['LocationModel', LocationModel => LocationModel.initCollection()]
     }
 })
-@Inject('locations', 'LocationResource', 'LocationService', 'FormService')
+@Inject('FormService', 'LocationModel')
 //end-non-standard
 class SettingLocations {
-    constructor(locations, LocationResource, LocationService, FormService) {
-        LocationService.setList(locations);
-        this.locations = LocationService.getList();
+    constructor(FormService, LocationModel) {
+        this.locations = LocationModel.getCollection();
         this.FormService = FormService;
-        this.LocationResource = LocationResource;
+        this.LocationModel = LocationModel;
     }
 
     deleteLocation(location) {
@@ -33,12 +32,7 @@ class SettingLocations {
             this.hasError = true;
             this.errorMessage = `The default location can't be deleted.`;
         } else {
-            this.LocationResource.delete(location.id).then(() => {
-                this.locations.splice(this.locations.indexOf(location), 1);
-                this.FormService.success(this);
-            }, (response) => {
-                this.FormService.failure(this, response);
-            });
+            this.FormService.delete(this.LocationModel, location, this);
         }
     }
 }

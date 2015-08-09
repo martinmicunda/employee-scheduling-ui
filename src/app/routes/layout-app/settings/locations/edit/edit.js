@@ -5,87 +5,28 @@
  */
 'use strict';
 
-import template from './edit.html!text';
 import {RouteConfig, Inject} from '../../../../../ng-decorators'; // jshint unused: false
 
 //start-non-standard
 @RouteConfig('app.settings.locations.edit', {
     url: '/:id/edit',
-    onEnter: ['$stateParams', '$state', '$modal', ($stateParams, $state, $modal) => {
+    onEnter: ['$stateParams', '$modal', 'ModalService', ($stateParams, $modal, ModalService) => {
         const id = $stateParams.id;
         $modal.open({
-            template: template,
+            template: '<modal-location></modal-location>',
             controller: LocationEdit,
             controllerAs: 'vm',
             size: 'md',
             resolve: {
-                location: ['LocationResource', (LocationResource) => LocationResource.get(id)]
+                init: ['LocationModel', (LocationModel) => LocationModel.initItem(id)]
             }
-        }).result.then(() => {
-            }, (error) => {
-                if(error.status) {
-                    $modal.open({
-                        template: '<mm-error-modal cancel="vm.cancel()" error="vm.error"></mm-error-modal>',
-                        controller: ['$modalInstance', function ($modalInstance) {
-                            var vm = this;
-                            vm.error = error;
-                            vm.cancel = () => $modalInstance.dismiss('cancel');
-                        }],
-                        controllerAs: 'vm',
-                        size: 'md'
-                    }).result.finally(() => $state.go('app.settings.locations'));
-                }
-            }).finally(() => $state.go('app.settings.locations'));
+        }).result.then(ModalService.onSuccess(), ModalService.onError($modal, 'app.settings.locations')).finally(ModalService.onFinal('app.settings.locations'));
     }]
 })
-@Inject('location', '$modalInstance', 'FormService', 'LocationService')
+@Inject('$modalInstance', 'ModalModel')
 //end-non-standard
 class LocationEdit {
-    constructor(location, $modalInstance, FormService, LocationService) {
-        this.location = location;
-        this.statusTypes = ['active', 'inactive'];
-        this.isDefaultLocation = location.default;
-        this.$modalInstance = $modalInstance;
-        this.LocationService = LocationService;
-        this.FormService = FormService;
-        this.isSubmitting = null;
-        this.result = null;
-        this.saveButtonOptions = FormService.getModalSaveButtonOptions();
-    }
-
-    cancel() {
-        this.$modalInstance.dismiss('cancel');
-    }
-
-    save(form) {
-        if(!form.$valid) {return;}
-        this.isSubmitting = true;
-        if(this.location.default && !this.isDefaultLocation) {
-            let defaultLocation = this.LocationService.getDefaultLocation();
-            defaultLocation.default = false;
-            // TODO: (martin) should I try to do bulk update?
-            this.location.put().then(() => {
-                defaultLocation.put().then(() => {
-                    this.LocationService.update(this.location);
-                    this.LocationService.update(defaultLocation);
-                    this.FormService.success(this);
-                }, (response) => {
-                    this.FormService.failure(this, response);
-                }).finally(() => {
-                    form.$setPristine();
-                });
-            }, (response) => {
-                this.FormService.failure(this, response);
-            });
-        } else {
-            this.location.put().then(() => {
-                this.LocationService.update(this.location);
-                this.FormService.success(this);
-            }, (response) => {
-                this.FormService.failure(this, response);
-            }).finally(() => {
-                form.$setPristine();
-            });
-        }
+    constructor($modalInstance, ModalModel) {
+        ModalModel.setItem($modalInstance);
     }
 }

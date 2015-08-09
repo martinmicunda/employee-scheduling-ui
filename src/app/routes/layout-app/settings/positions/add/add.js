@@ -5,50 +5,27 @@
  */
 'use strict';
 
-import template from './add.html!text';
 import {RouteConfig, Inject} from '../../../../../ng-decorators'; // jshint unused: false
 
 //start-non-standard
 @RouteConfig('app.settings.positions.add', {
     url: '/add',
-    onEnter: ['$state', '$modal', ($state, $modal) => {
+    onEnter: ['$modal', 'ModalService', ($modal, ModalService) => {
         $modal.open({
-            template: template,
+            template: '<modal-position></modal-position>',
             controller: PositionAdd,
             controllerAs: 'vm',
-            size: 'md'
-        }).result.finally(() => $state.go('app.settings.positions'));
+            size: 'md',
+            resolve: {
+                init: ['PositionModel', (PositionModel) => PositionModel.initItem()]
+            }
+        }).result.finally(ModalService.onFinal('app.settings.positions'));
     }]
 })
-@Inject('$modalInstance', 'PositionResource', 'FormService', 'PositionService')
+@Inject('$modalInstance', 'ModalModel')
 //end-non-standard
 class PositionAdd {
-    constructor($modalInstance, PositionResource, FormService, PositionService) {
-        this.$modalInstance = $modalInstance;
-        this.PositionResource = PositionResource;
-        this.PositionService = PositionService;
-        this.FormService = FormService;
-        this.position= {};
-        this.isSubmitting = null;
-        this.result = null;
-        this.saveButtonOptions = FormService.getModalSaveButtonOptions();
-    }
-
-    cancel() {
-        this.$modalInstance.dismiss('cancel');
-    }
-
-    save(form) {
-        if(!form.$valid) {return;}
-        this.isSubmitting = true;
-        this.PositionResource.create(this.position).then((position) => {
-            this.position.id = position.id;
-            this.PositionService.add(this.position);
-            this.FormService.success(this);
-        }, (response) => {
-            this.FormService.failure(this, response);
-        }).finally(() => {
-            form.$setPristine();
-        });
+    constructor($modalInstance, ModalModel) {
+        ModalModel.setItem($modalInstance);
     }
 }

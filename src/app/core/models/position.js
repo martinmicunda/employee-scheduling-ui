@@ -5,20 +5,17 @@
  */
 'use strict';
 
-import StorageService from './storage';
+import AbstractModel from './abstract-model';
 import {Service, Inject} from '../../ng-decorators'; // jshint unused: false
 
 //start-non-standard
 @Service({
-    serviceName: 'LocationService'
+    serviceName: 'PositionModel'
 })
+@Inject('PositionResource')
 //end-non-standard
-class LocationService extends StorageService {
-    constructor() {
-        super([]);
-    }
-
-    getDefaultLocation() {
-        return super.getList().find(location => location.default);
+class PositionModel extends AbstractModel {
+    constructor(PositionResource) {
+        super(PositionResource);
     }
 }

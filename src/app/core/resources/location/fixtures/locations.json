@@ -8,26 +8,31 @@
     {
         "id": "2",
         "name": "Location 2",
-        "status": "inactive"
+        "status": "inactive",
+        "default": false
     },
     {
         "id": "3",
         "name": "Location 3",
-        "status": "active"
+        "status": "active",
+        "default": false
     },
     {
         "id": "4",
         "name": "Location 4",
-        "status": "active"
+        "status": "active",
+        "default": false
     },
     {
         "id": "404",
         "name": "404",
-        "status": "active"
+        "status": "active",
+        "default": false
     },
     {
         "id": "500",
         "name": "500",
-        "status": "active"
+        "status": "active",
+        "default": false
     }
 ]

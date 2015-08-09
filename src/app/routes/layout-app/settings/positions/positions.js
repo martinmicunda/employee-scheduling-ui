@@ -15,25 +15,19 @@ import {RouteConfig, Inject} from '../../../../ng-decorators'; // jshint unused:
     url: '/positions',
     template: template,
     resolve: {
-        positions: ['PositionResource', PositionResource => PositionResource.getList()]
+        init: ['PositionModel', PositionModel => PositionModel.initCollection()]
     }
 })
-@Inject('positions', 'PositionResource', 'PositionService', 'FormService')
+@Inject('FormService', 'PositionModel')
 //end-non-standard
 class SettingPositions {
-    constructor(positions, PositionResource, PositionService, FormService) {
-        PositionService.setList(positions);
-        this.positions = PositionService.getList();
+    constructor(FormService, PositionModel) {
+        this.positions = PositionModel.getCollection();
         this.FormService = FormService;
-        this.PositionResource = PositionResource;
+        this.PositionModel = PositionModel;
     }
 
     deletePosition(position) {
-        this.PositionResource.delete(position.id).then(() => {
-            this.positions.splice(this.positions.indexOf(position), 1);
-            this.FormService.success(this);
-        },(response) => {
-            this.FormService.failure(this, response);
-        });
+        this.FormService.delete(this.PositionModel, position, this);
     }
 }

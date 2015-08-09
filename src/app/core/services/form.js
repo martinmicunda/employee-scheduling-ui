@@ -34,7 +34,7 @@ class FormService {
         return this.saveButtonOptions;
     }
 
-    success(self) {
+    onSuccess(self) {
         self.hasError = false;
         self.result = 'success';
         if(typeof self.cancel === 'function') {
@@ -42,7 +42,7 @@ class FormService {
         }
     }
 
-    failure(self, response) {
+    onFailure(self, response) {
         self.result = 'error';
         self.hasError = true;
         if(response.status === 404) {
@@ -66,5 +66,23 @@ class FormService {
             }
             self.errorMessage = `This record could not be ${action}. Please try again.`;
         }
+    }
+
+    save(model, item, self, form) {
+        model.save(item).then(() => {
+            this.onSuccess(self);
+        }, (response) => {
+            this.onFailure(self, response);
+        }).finally(() => {
+            form.$setPristine();
+        });
+    }
+
+    delete(model, item, self) {
+        model.delete(item).then(() => {
+            this.onSuccess(self);
+        },(response) => {
+            this.onFailure(self, response);
+        });
     }
 }

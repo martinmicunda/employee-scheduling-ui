@@ -13,29 +13,16 @@ import {RouteConfig, Inject} from '../../ng-decorators'; // jshint unused: false
 //start-non-standard
 @RouteConfig('404', {
     url: '/404',
-    template: templateNotFound,
-    resolve: {
-        error: () => {}
-    }
+    template: templateNotFound
 })
 @RouteConfig('403', {
     url: '/403',
-    template: templateUnauthorized,
-    resolve: {
-        error: () => {}
-    }
+    template: templateUnauthorized
 })
 @RouteConfig('500', {
     url: '/500',
-    template: templateError,
-    resolve: {
-        error: function() {return this.self.error} // Don't use arrow function here as for some reason 'this.self' doesn't work properly in ui-router with arrow function
-    }
+    template: templateError
 })
 @Inject('error')
 //end-non-standard
-class Error {
-    constructor(error) {
-        this.error = error;
-    }
-}
+class Error {}
