@@ -16,5 +16,5 @@ import {RouteConfig} from '../../ng-decorators'; // jshint unused: false
     template: template
 })
 //end-non-standard
-class LayoutAuthState {}
+class LayoutAuth {}
 

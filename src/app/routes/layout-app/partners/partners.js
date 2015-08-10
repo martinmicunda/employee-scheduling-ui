@@ -8,15 +8,21 @@
 import './add/add';
 import './edit/edit';
 import template from './partners.html!text';
-import {RouteConfig, Inject} from '../../../ng-decorators'; // jshint unused: false
+import {RouteConfig, Component, View, Inject} from '../../../ng-decorators'; // jshint unused: false
 
 //start-non-standard
 @RouteConfig('app.partners', {
     url: '/partners',
-    template: template,
+    template: '<partners></partners>',
     resolve: {
         init: ['PartnerModel', PartnerModel => PartnerModel.initCollection()]
     }
+})
+@Component({
+    selector: 'partners'
+})
+@View({
+    template: template
 })
 @Inject('FormService', 'PartnerModel')
 //end-non-standard

@@ -7,15 +7,21 @@
 
 //import './add/add';
 import template from './documents-files.html!text';
-import {RouteConfig, Inject} from '../../../ng-decorators'; // jshint unused: false
+import {RouteConfig, Component, View, Inject} from '../../../ng-decorators'; // jshint unused: false
 
 //start-non-standard
 @RouteConfig('app.documents-files', {
     url: '/documents/:id/files',
-    template: template,
+    template: '<documents-files></documents-files>',
     resolve: {
         init: ['$stateParams', 'DocumentModel', ($stateParams, DocumentModel) => DocumentModel.initFilesCollection($stateParams.id)]
     }
+})
+@Component({
+    selector: 'documents-files'
+})
+@View({
+    template: template
 })
 @Inject('FormService', 'DocumentModel', 'DocumentService')
 //end-non-standard

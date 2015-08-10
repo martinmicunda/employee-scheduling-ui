@@ -15,6 +15,7 @@ import './models/partner';
 import './models/position';
 import './models/setting';
 import './models/employee';
+import './models/language';
 
 // resources
 import './resources/employee/employee';

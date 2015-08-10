@@ -6,23 +6,28 @@
 'use strict';
 
 import template from './language.html!text';
-import {RouteConfig, Inject} from '../../../../ng-decorators'; // jshint unused: false
+import {RouteConfig, Component, View, Inject} from '../../../../ng-decorators'; // jshint unused: false
 
 //start-non-standard
 @RouteConfig('app.settings.language', {
     url: '/language',
-    template: template,
+    template: '<language></language>',
     resolve: {
-        languages: ['LanguageResource', LanguageResource => LanguageResource.getList(null, true)],
-        setting: ['SettingResource', SettingResource => SettingResource.get('app')]
+        init: ['$q', 'SettingModel', 'LanguageModel', ($q, SettingModel, LanguageModel) => $q.all([SettingModel.initItem('app'),  LanguageModel.initCollection(null, true)])]
     }
 })
-@Inject('languages', 'setting', 'FormService', 'SettingModel')
+@Component({
+    selector: 'language'
+})
+@View({
+    template: template
+})
+@Inject('SettingModel', 'LanguageModel', 'FormService')
 //end-non-standard
 class SettingLanguage {
-    constructor(languages, setting, FormService, SettingModel) {
-        this.languages = languages;
-        this.setting = setting;
+    constructor(SettingModel, LanguageModel, FormService) {
+        this.setting = SettingModel.getItem();
+        this.languages = LanguageModel.getCollection();
         this.FormService = FormService;
         this.SettingModel = SettingModel;
         this.isSubmitting = null;

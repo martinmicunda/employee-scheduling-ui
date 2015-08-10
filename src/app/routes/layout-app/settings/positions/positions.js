@@ -8,15 +8,21 @@
 import './add/add';
 import './edit/edit';
 import template from './positions.html!text';
-import {RouteConfig, Inject} from '../../../../ng-decorators'; // jshint unused: false
+import {RouteConfig, Component, View, Inject} from '../../../../ng-decorators'; // jshint unused: false
 
 //start-non-standard
 @RouteConfig('app.settings.positions', {
     url: '/positions',
-    template: template,
+    template: '<positions></positions>',
     resolve: {
         init: ['PositionModel', PositionModel => PositionModel.initCollection()]
     }
+})
+@Component({
+    selector: 'positions'
+})
+@View({
+    template: template
 })
 @Inject('FormService', 'PositionModel')
 //end-non-standard

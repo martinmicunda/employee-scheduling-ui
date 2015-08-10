@@ -24,8 +24,4 @@ import {RouteConfig} from '../../ng-decorators';  // jshint unused: false
     template: template
 })
 //end-non-standard
-class LayoutApp {
-    constructor() {
-        this.copyrightDate = new Date();
-    }
-}
+class LayoutApp {}
