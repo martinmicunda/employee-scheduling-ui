@@ -9,50 +9,30 @@ import './account-details/account-details';
 import './contact-details/contact-details';
 import './password/password';
 import template from './account.html!text';
-import {RouteConfig, Inject} from '../../../ng-decorators'; // jshint unused: false
+import {RouteConfig, Component, View, Inject} from '../../../ng-decorators'; // jshint unused: false
 
 //start-non-standard
 @RouteConfig('app.account', {
     url: '/account',
     abstract: true,
-    template: template,
+    template: '<account></account>',
     resolve: {
-        employee: ['EmployeeResource', EmployeeResource => EmployeeResource.get('1')]
+        init: ['EmployeeModel', EmployeeModel => EmployeeModel.initItem('1')]
     }
 })
-@Inject('employee', 'EmployeeService')
+@Component({
+    selector: 'account'
+})
+@View({
+    template: template
+})
+@Inject('EmployeeModel', 'EmployeeService')
 //end-non-standard
 class Account {
-    constructor(employee, EmployeeService) {
+    constructor(EmployeeModel, EmployeeService) {
+        this.employee = EmployeeModel.getItem();
+        this.EmployeeModel = EmployeeModel;
+        this.profileComplete = EmployeeModel.calculateProfileCompleteness(this.employee);
         this.EmployeeService = EmployeeService;
-        this.employee = employee;
-        this.profileComplete = EmployeeService.calculateProfileCompleteness(employee);
-        this.isSubmitting = null;
-        this.result = null;
-        this.saveButtonOptions = {
-            iconsPosition: 'right',
-            buttonDefaultText: 'Save',
-            buttonSubmittingText: 'Saving',
-            buttonSuccessText: 'Saved',
-            animationCompleteTime: '1200'
-        };
-    }
-
-    save(form) {
-        if(!form.$valid) {return;}
-        this.isSubmitting = true;
-        this.profileComplete = this.EmployeeService.calculateProfileCompleteness(this.employee);
-        this.employee.put().then((employee) => {
-            this.employee = employee;
-            this.result = 'success';
-            form.$setPristine();
-        }, (response) => {
-            this.result = 'error';
-            if(response.status === 409) {
-                //toaster.pop('warning', 'Warning:', 'Another user has updated this location while you were editing');
-            } else {
-                //toaster.pop('error', 'Error:', 'Location could not be updated. Please try again!');
-            }
-        });
     }
 }

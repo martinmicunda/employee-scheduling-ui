@@ -5,34 +5,44 @@
  */
 'use strict';
 
-import template from './modal-error.html!text';
-import {Directive, Inject} from '../../ng-decorators'; // jshint unused: false
+import {Component, View} from '../../ng-decorators'; // jshint unused: false
 
 //start-non-standard
-@Directive({
-    selector: 'mm-error-modal'
+@Component({
+    selector: 'error-modal'
+})
+@View({
+    template: `
+        <div class="modal-header">
+            <button type="button" class="close" ng-click="vm.cancel()">×</button>
+            <h4 class="modal-title">Error</h4>
+        </div>
+        <div class="modal-body form-wizard">
+            <div class="alert alert-danger mb0">
+                <strong>Error!</strong>
+                {{vm.errorMessage}}
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" ng-click="vm.cancel()" class="btn btn-sm btn-success">OK</button>
+        </div>
+    `,
+    scope: {
+        cancel: '&',
+        error: '='
+    },
+    bindToController: {
+        cancel: '&',
+        error: '='
+    }
 })
 //end-non-standard
-class MmErrorModal {
+class ErrorModal {
     constructor() {
-        this.template = template;
-        this.restrict = 'EA';
-        this.scope = {
-            cancel: '&',
-            error: '='
-        };
-    }
-
-    link(scope) {
-        if(scope.error.status === 404) {
-            scope.errorMessage = 'The requested record could not be found.';
+        if(this.error.status === 404) {
+            this.errorMessage = 'The requested record could not be found.';
         } else {
-            scope.errorMessage = 'An error occurred while processing your request. Please try again.';
+            this.errorMessage = 'An error occurred while processing your request. Please try again.';
         }
-    }
-
-    static directiveFactory(){
-        MmErrorModal.instance = new MmErrorModal();
-        return MmErrorModal.instance;
     }
 }

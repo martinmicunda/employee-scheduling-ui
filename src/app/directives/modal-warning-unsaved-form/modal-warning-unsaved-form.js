@@ -5,6 +5,7 @@
  */
 'use strict';
 
+import template from './modal-warning-unsaved-form.html!text';
 import {Service, Inject, Directive} from '../../ng-decorators'; // jshint unused: false
 
 //start-non-standard
@@ -50,15 +51,15 @@ const SERVICE = new WeakMap();
 
 //start-non-standard
 @Directive({
-    selector: 'mm-unsaved-form-warning-modal'
+    selector: 'mm-modal-warning-unsaved-form'
 })
 //end-non-standard
-class MmUnsavedFormWarningModal {
+class MmModalWarningUnsavedForm {
     constructor($modal, $state, UnsavedFormsService) {
         this.require = '^form';
         this.restrict = 'A';
         this.scope = {
-            resetForm: '&mmUnsavedFormWarningModal'
+            resetForm: '&mmModalWarningUnsavedForm'
         };
         MODAL.set(this, $modal);
         STATE.set(this, $state);
@@ -66,13 +67,13 @@ class MmUnsavedFormWarningModal {
     }
 
     link(scope, element, attrs, formCtrl) { // jshint unused: false
-        SERVICE.get(MmUnsavedFormWarningModal.instance).add(formCtrl);
+        SERVICE.get(MmModalWarningUnsavedForm.instance).add(formCtrl);
 
         // alerts the user when he tries to change the state with unsaved changes
         const onRouteChangeOff = scope.$on('$stateChangeStart', function(event, toState) { // jshint unused: false
-            if (!SERVICE.get(MmUnsavedFormWarningModal.instance).areFormsClean()) {
-                MODAL.get(MmUnsavedFormWarningModal.instance).open({
-                    templateUrl: 'unsavedWarningModal.html',
+            if (!SERVICE.get(MmModalWarningUnsavedForm.instance).areFormsClean()) {
+                MODAL.get(MmModalWarningUnsavedForm.instance).open({
+                    template: template,
                     controller: ['$modalInstance', '$state', function($modalInstance, $state) {
                         var vm = this;
 
@@ -80,7 +81,7 @@ class MmUnsavedFormWarningModal {
                             $modalInstance.close();
                             onRouteChangeOff(); // stop listening for location changes
                             $state.go(toState.name);
-                            SERVICE.get(MmUnsavedFormWarningModal.instance).remove(formCtrl);
+                            SERVICE.get(MmModalWarningUnsavedForm.instance).remove(formCtrl);
                             scope.resetForm(); // reset form scope
                         };
 
@@ -100,7 +101,7 @@ class MmUnsavedFormWarningModal {
     @Inject('$modal', '$state', 'UnsavedFormsService')
     //end-non-standard
     static directiveFactory($modal, $state, UnsavedFormsService){
-        MmUnsavedFormWarningModal.instance = new MmUnsavedFormWarningModal($modal, $state, UnsavedFormsService);
-        return MmUnsavedFormWarningModal.instance;
+        MmModalWarningUnsavedForm.instance = new MmModalWarningUnsavedForm($modal, $state, UnsavedFormsService);
+        return MmModalWarningUnsavedForm.instance;
     }
 }

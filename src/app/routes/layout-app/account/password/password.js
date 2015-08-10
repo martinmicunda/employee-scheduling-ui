@@ -6,12 +6,23 @@
 'use strict';
 
 import template from './password.html!text';
-import {RouteConfig} from '../../../../ng-decorators'; // jshint unused: false
+import {RouteConfig, Component, View, Inject} from '../../../../ng-decorators'; // jshint unused: false
 
 //start-non-standard
 @RouteConfig('app.account.password', {
     url: '/password',
+    template: '<password-details></password-details>'
+})
+@Component({
+    selector: 'password-details'
+})
+@View({
     template: template
 })
+@Inject('EmployeeModel')
 //end-non-standard
-class ProfilePassword {}
+class Password {
+    constructor(EmployeeModel) {
+        this.employee = EmployeeModel.getItem();
+    }
+}

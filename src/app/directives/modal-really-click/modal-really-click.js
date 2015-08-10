@@ -15,7 +15,7 @@ const MODAL = new WeakMap();
 //end-non-standard
 class MmReallyClick {
     constructor($modal) {
-        this.restrict = 'EA';
+        this.restrict = 'A';
         this.scope = {
             mmReallyClick: '&'
         };

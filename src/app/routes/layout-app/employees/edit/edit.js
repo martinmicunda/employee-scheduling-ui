@@ -34,7 +34,7 @@ import {RouteConfig, Inject} from '../../../../ng-decorators'; // jshint unused:
             }, (error) => {
                 if(error.status) {
                     $modal.open({
-                        template: '<mm-error-modal cancel="vm.cancel()" error="vm.error"></mm-error-modal>',
+                        template: '<error-modal cancel="vm.cancel()" error="vm.error"></error-modal>',
                         controller: ['$modalInstance', function ($modalInstance) {
                             var vm = this;
                             vm.error = error;

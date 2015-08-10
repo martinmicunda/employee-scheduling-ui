@@ -6,12 +6,23 @@
 'use strict';
 
 import template from './contact-details.html!text';
-import {RouteConfig} from '../../../../ng-decorators'; // jshint unused: false
+import {RouteConfig, Component, View, Inject} from '../../../../ng-decorators'; // jshint unused: false
 
 //start-non-standard
 @RouteConfig('app.account.contact-details', {
     url: '/contact-details',
+    template: '<contact-details></contact-details>'
+})
+@Component({
+    selector: 'contact-details'
+})
+@View({
     template: template
 })
+@Inject('EmployeeModel')
 //end-non-standard
-class ProfileContactDetails {}
+class ContactDetails {
+    constructor(EmployeeModel) {
+        this.employee = EmployeeModel.getItem();
+    }
+}

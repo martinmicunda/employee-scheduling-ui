@@ -25,8 +25,9 @@ import 'si-table';
 //import 'github:fyockm/bootstrap-css-only/css/bootstrap.css!';
 
 // js app files
-import './components/components';
 import './core/core';
+import './directives/directives';
+import './components/components';
 import './routes/routes';
 import mainModule from './ng-decorators';
 
