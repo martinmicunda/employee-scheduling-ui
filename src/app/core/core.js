@@ -4,8 +4,12 @@
  * @license   GPL-3.0
  */
 'use strict';
+
 // config
 import './config/config';
+
+// interceptors
+import './interceptors/url-http';
 
 // models
 import './models/document';
@@ -30,6 +34,5 @@ import './resources/document/document';
 
 // services
 import './services/document';
-import './services/employee';
 import './services/form';
 import './services/modal';

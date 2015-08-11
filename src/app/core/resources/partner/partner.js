@@ -13,10 +13,10 @@ import {Service, Inject} from '../../../ng-decorators'; // jshint unused: false
 @Service({
     serviceName: 'PartnerResource'
 })
-@Inject('Restangular')
+@Inject('$http')
 //end-non-standard
 class PartnerResource extends AbstractResource {
-    constructor(Restangular) {
-        super(Restangular, 'partners');
+    constructor($http) {
+        super($http, 'partners');
     }
 }

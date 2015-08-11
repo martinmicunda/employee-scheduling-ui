@@ -14,7 +14,6 @@ const app = angular.module('ngDecorator', [
     'ngMessages',
 
     // 3rd party modules
-    'restangular',
     'ui.router',
     'ui.bootstrap',
     'LocalStorageModule',

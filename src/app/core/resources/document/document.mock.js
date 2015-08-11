@@ -10,6 +10,7 @@ import files1 from './fixtures/files_1.json!json';
 import document from './fixtures/document_1.json!json';
 import documents from './fixtures/documents.json!json';
 import AbstractResourceMock from '../abstract-resource-mock';
+import {HEADER_API_VERSION} from '../../constants/constants';
 import {Run, Inject} from '../../../ng-decorators'; // jshint unused: false
 
 class DocumentResourceMock extends AbstractResourceMock {
@@ -27,8 +28,9 @@ class DocumentResourceMock extends AbstractResourceMock {
         });
 
         $httpBackend.whenGET(patternBase)
-            .respond( (method, url) => {
+            .respond( (method, url, data, headers) => {
                 console.log('GET',url);
+                headers['Content-Type'] = HEADER_API_VERSION;
                 const id = url.match(patternId)[1];
                 const dataLocal = localStorageService.get(`file_${id}`);
 

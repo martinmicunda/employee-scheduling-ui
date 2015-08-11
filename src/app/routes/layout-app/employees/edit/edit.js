@@ -47,17 +47,17 @@ import {RouteConfig, Inject} from '../../../../ng-decorators'; // jshint unused:
             }).finally(() => $state.go('app.employees'));
     }]
 })
-@Inject('employee', 'languages', 'positions', 'EmployeeService', '$modalInstance')
+@Inject('employee', 'languages', 'positions', 'EmployeeModel', '$modalInstance')
 //end-non-standard
 class EmployeeEdit {
-    constructor(employee, languages, positions, EmployeeService, $modalInstance) {
+    constructor(employee, languages, positions, EmployeeModel, $modalInstance) {
         this.$modalInstance = $modalInstance;
-        this.EmployeeService = EmployeeService;
+        this.EmployeeModel = EmployeeModel;
         this.employee = employee;
         this.languages = languages;
         this.positions = positions;
         this.roles = USER_ROLES;
-        this.profileComplete = EmployeeService.calculateProfileCompleteness(employee);
+        this.profileComplete = EmployeeModel.calculateProfileCompleteness();
         this.isSubmitting = null;
         this.result = null;
         this.saveButtonOptions = {
@@ -77,7 +77,7 @@ class EmployeeEdit {
         if(!form.$valid) {return;}
         this.isSubmitting = true;
         this.employee.put().then((employee) => {
-            this.profileComplete = this.EmployeeService.calculateProfileCompleteness(this.employee);
+            this.profileComplete = this.EmployeeModel.calculateProfileCompleteness();
             this.employee = employee;
             this.result = 'success';
             form.$setPristine();

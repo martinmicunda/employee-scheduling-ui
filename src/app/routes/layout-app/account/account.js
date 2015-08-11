@@ -26,13 +26,12 @@ import {RouteConfig, Component, View, Inject} from '../../../ng-decorators'; // 
 @View({
     template: template
 })
-@Inject('EmployeeModel', 'EmployeeService')
+@Inject('EmployeeModel')
 //end-non-standard
 class Account {
-    constructor(EmployeeModel, EmployeeService) {
+    constructor(EmployeeModel) {
         this.employee = EmployeeModel.getItem();
         this.EmployeeModel = EmployeeModel;
-        this.profileComplete = EmployeeModel.calculateProfileCompleteness(this.employee);
-        this.EmployeeService = EmployeeService;
+        this.profileComplete = EmployeeModel.calculateProfileCompleteness();
     }
 }

@@ -13,16 +13,16 @@ import {Service, Inject} from '../../../ng-decorators'; // jshint unused: false
 @Service({
     serviceName: 'DocumentResource'
 })
-@Inject('Restangular')
+@Inject('$http')
 //end-non-standard
 class DocumentResource extends AbstractResource {
-    constructor(Restangular) {
-        super(Restangular, 'documents');
+    constructor($http) {
+        super($http, 'documents');
+        this.http = $http;
+        this.route = 'documents';
     }
 
     getDocumentFiles(id) {
-        return this.restangular
-            .one(this.route, id)
-            .customGET('files');
+        return this.http.get(`${this.route}/${id}/files`); //FIXME: why super.http doesn't work here?
     }
 }

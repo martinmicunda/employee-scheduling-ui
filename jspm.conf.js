@@ -20,7 +20,7 @@ System.config({
     "angular": "github:angular/bower-angular@1.4.1",
     "angular-animate": "npm:angular-animate@1.4.1",
     "angular-bootstrap-colorpicker": "github:buberdds/angular-bootstrap-colorpicker@3.0.18",
-    "angular-local-storage": "github:grevory/angular-local-storage@0.0.5",
+    "angular-local-storage": "npm:angular-local-storage@0.2.2",
     "angular-messages": "npm:angular-messages@1.4.1",
     "angular-mocks": "npm:angular-mocks@1.4.1",
     "angular-ui": "github:angular-ui/bootstrap-bower@0.12.1",
@@ -32,9 +32,7 @@ System.config({
     "css": "github:systemjs/plugin-css@0.1.12",
     "font-awesome": "npm:font-awesome@4.3.0",
     "json": "github:systemjs/plugin-json@0.1.0",
-    "lodash": "npm:lodash@3.9.3",
     "ng-bs-animated-button": "github:jeremypeters/ng-bs-animated-button@2.0.3",
-    "restangular": "npm:restangular@1.5.1",
     "si-table": "github:simplicitylabs/si-table@0.2.3",
     "text": "github:systemjs/plugin-text@0.0.2",
     "github:angular-ui/bootstrap-bower@0.12.1": {
@@ -47,7 +45,7 @@ System.config({
       "assert": "npm:assert@1.3.0"
     },
     "github:jspm/nodelibs-buffer@0.1.0": {
-      "buffer": "npm:buffer@3.3.1"
+      "buffer": "npm:buffer@3.4.1"
     },
     "github:jspm/nodelibs-events@0.1.1": {
       "events": "npm:events@1.0.2"
@@ -98,7 +96,7 @@ System.config({
     "npm:babel-runtime@5.6.15": {
       "process": "github:jspm/nodelibs-process@0.1.1"
     },
-    "npm:buffer@3.3.1": {
+    "npm:buffer@3.4.1": {
       "base64-js": "npm:base64-js@0.0.8",
       "ieee754": "npm:ieee754@1.1.6",
       "is-array": "npm:is-array@1.0.1"
@@ -139,9 +137,6 @@ System.config({
     "npm:inherits@2.0.1": {
       "util": "github:jspm/nodelibs-util@0.1.0"
     },
-    "npm:lodash@3.9.3": {
-      "process": "github:jspm/nodelibs-process@0.1.1"
-    },
     "npm:os-browserify@0.1.2": {
       "os": "github:jspm/nodelibs-os@0.1.0"
     },
@@ -160,10 +155,6 @@ System.config({
       "process": "github:jspm/nodelibs-process@0.1.1",
       "stream-browserify": "npm:stream-browserify@1.0.0",
       "string_decoder": "npm:string_decoder@0.10.31"
-    },
-    "npm:restangular@1.5.1": {
-      "lodash": "npm:lodash@3.9.3",
-      "process": "github:jspm/nodelibs-process@0.1.1"
     },
     "npm:source-map@0.1.43": {
       "amdefine": "npm:amdefine@1.0.0",

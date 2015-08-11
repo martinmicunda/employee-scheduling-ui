@@ -11,9 +11,9 @@ import {Config, Run, Inject} from '../../ng-decorators'; // jshint unused: false
 class Configuration {
     //start-non-standard
     @Config()
-    @Inject('$locationProvider', '$provide', '$urlRouterProvider', 'RestangularProvider')
+    @Inject('$locationProvider', '$provide', '$urlRouterProvider', '$httpProvider')
     //end-non-standard
-    static configFactory($locationProvider, $provide, $urlRouterProvider, RestangularProvider){
+    static configFactory($locationProvider, $provide, $urlRouterProvider, $httpProvider){
         // overwrite the default behaviour for $uiViewScroll service (scroll to top of the page)
         $provide.decorator('$uiViewScroll', ['$delegate', '$window', function ($delegate, $window) {
             return function () {
@@ -44,7 +44,7 @@ class Configuration {
          * Route provider configuration based on these config constant values
          *********************************************************************/
         // set restful base API Route
-        RestangularProvider.setBaseUrl('/api');
+        $httpProvider.interceptors.push('ApiUrlHttpInterceptor');
 
         // use the HTML5 History API
         $locationProvider.html5Mode(true);

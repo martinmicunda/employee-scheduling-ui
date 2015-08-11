@@ -6,3 +6,4 @@
 'use strict';
 
 export const USER_ROLES = Object.freeze({ADMIN: 'admin', MANAGER: 'manager'});
+export const HEADER_API_VERSION = 'application/vnd.employee-scheduling.v1+json';

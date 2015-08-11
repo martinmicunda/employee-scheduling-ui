@@ -12,16 +12,11 @@ import {Service, Inject} from '../../ng-decorators'; // jshint unused: false
 @Service({
     serviceName: 'EmployeeModel'
 })
-@Inject('EmployeeResource', 'Restangular')
+@Inject('EmployeeResource')
 //end-non-standard
 class EmployeeModel extends AbstractModel {
-    constructor(EmployeeResource, Restangular) {
+    constructor(EmployeeResource) {
         super(EmployeeResource);
-        this.Restangular = Restangular;
-    }
-
-    objectKeys(object) {
-        return Object.keys(this.Restangular.stripRestangular(object));
     }
 
     emptyObjectPropertiesCounter(object) {
@@ -38,12 +33,12 @@ class EmployeeModel extends AbstractModel {
         return i;
     }
 
-    calculateProfileCompleteness(employee) {
-        employee = this.Restangular.stripRestangular(employee);
+    calculateProfileCompleteness() {
+        const employee = super.getItem();
         // -3 because (employee (-employee.contactDetails - employee.bankDetails - employee.hourlyRates) - passwords)
         // employee contains 3 nested objects and we also don't count passwords fields as they are always empty
-        let totalObjectProperties = (this.objectKeys(employee).length + this.objectKeys(employee.contactDetails).length + this.objectKeys(employee.bankDetails).length + this.objectKeys(employee.hourlyRates).length) - 3;
-        let totalEmptyObjectProperties = this.emptyObjectPropertiesCounter(this.Restangular.stripRestangular(employee));
+        const totalObjectProperties = (Object.keys(employee).length + Object.keys(employee.contactDetails).length + Object.keys(employee.bankDetails).length + Object.keys(employee.hourlyRates).length) - 3;
+        const totalEmptyObjectProperties = this.emptyObjectPropertiesCounter(employee);
 
         return (((totalObjectProperties - totalEmptyObjectProperties) * 100)/ totalObjectProperties).toFixed(0);
     }

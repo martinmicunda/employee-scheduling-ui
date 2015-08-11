@@ -6,38 +6,29 @@
 'use strict';
 
 class AbstractResource {
-    constructor(restangular, route) {
-        this.restangular = restangular;
+    constructor(http, route) {
+        this.http = http;
         this.route = route;
     }
 
     get(id) {
-        return this.restangular
-            .one(this.route, id)
-            .get();
+        return this.http.get(`/${this.route}/${id}`);
     }
 
     getList(params, cache) {
-        return this.restangular
-            .all(this.route)
-            .withHttpConfig({cache: cache ? true : false})
-            .getList(params);
+        return this.http.get(`/${this.route}`, {params: params, cache: cache ? true : false});
     }
 
     create(newResource) {
-        return this.restangular
-            .all(this.route)
-            .post(newResource);
+        return this.http.post(`/${this.route}`, newResource);
     }
 
     update(updatedResource) {
-        return updatedResource.put();
+        return this.http.put(`/${this.route}/${updatedResource.id}`, updatedResource);
     }
 
     delete(id) {
-        return this.restangular
-            .one(this.route, id)
-            .remove();
+        return this.http.delete(`/${this.route}/${id}`);
     }
 }
 

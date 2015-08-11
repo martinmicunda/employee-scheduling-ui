@@ -5,6 +5,8 @@
  */
 'use strict';
 
+import {HEADER_API_VERSION} from '../constants/constants';
+
 class AbstractResourceMock {
     init($httpBackend, localStorageService, route, mockData, mockListData, errorField){
         const patternBase = new RegExp(`\/${route}`);
@@ -18,8 +20,9 @@ class AbstractResourceMock {
         });
 
         $httpBackend.whenGET(patternGet)
-            .respond( (method, url) => {
+            .respond( (method, url, data, headers) => {
                 console.log('GET',url);
+                headers['Content-Type'] = HEADER_API_VERSION;
                 const id = url.match(patternId)[1];
                 const dataLocal = localStorageService.get(`${key}_${id}`);
 
@@ -33,16 +36,18 @@ class AbstractResourceMock {
             });
 
         $httpBackend.whenGET(patternBase)
-            .respond( (method, url) => {
+            .respond( (method, url, data, headers) => {
                 console.log('GET',url);
+                headers['Content-Type'] = HEADER_API_VERSION;
                 const dataListLocal = localStorageService.findLocalStorageItems(patternLocalStorage);
 
                 return [200, dataListLocal.length > 0 ? dataListLocal : mockListData];
             });
 
         $httpBackend.whenPOST(patternBase)
-            .respond( (method, url, data) => {
+            .respond( (method, url, data, headers) => {
                 console.log('POST',url);
+                headers['Content-Type'] = HEADER_API_VERSION;
                 data = JSON.parse(data);
 
                 if(data[errorField] === '500') {
@@ -58,8 +63,9 @@ class AbstractResourceMock {
             });
 
         $httpBackend.whenPUT(patternBase)
-            .respond( (method, url, data) => {
+            .respond( (method, url, data, headers) => {
                 console.log('PUT',url);
+                headers['Content-Type'] = HEADER_API_VERSION;
                 data = JSON.parse(data);
 
                 if(data[errorField] === '404') {
@@ -76,8 +82,9 @@ class AbstractResourceMock {
             });
 
         $httpBackend.whenDELETE(patternBase)
-            .respond( (method, url) => {
+            .respond( (method, url, headers) => {
                 console.log('DELETE',url);
+                headers['Content-Type'] = HEADER_API_VERSION;
                 const id = url.match(patternId)[1];
 
                 if(id === '404') {

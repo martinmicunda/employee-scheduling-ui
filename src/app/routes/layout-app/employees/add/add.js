@@ -29,17 +29,16 @@ import {RouteConfig, Inject} from '../../../../ng-decorators'; // jshint unused:
             });
     }]
 })
-@Inject('languages', 'positions', 'EmployeeService', '$state', '$modalInstance')
+@Inject('languages', 'positions', 'EmployeeModel', '$state', '$modalInstance')
 //end-non-standard
 class EmployeeAdd {
-    constructor(languages, positions, EmployeeService, $state, $modalInstance) {
+    constructor(languages, positions, EmployeeModel, $state, $modalInstance) {
         this.$modalInstance = $modalInstance;
-        this.EmployeeResource = EmployeeService;
         this.employee = {};
         this.languages = languages;
         this.positions = positions;
         this.roles = USER_ROLES;
-        this.profileComplete = EmployeeService.calculateProfileCompleteness({});
+        this.profileComplete = EmployeeModel.calculateProfileCompleteness();
         this.router = $state;
     }
 
