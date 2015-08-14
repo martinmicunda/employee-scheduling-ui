@@ -14,3 +14,4 @@ import './modal-document/modal-document';
 import './modal-position/modal-position';
 import './modal-location/modal-location';
 import './employee-save-button/employee-save-button';
+import './profile-completeness-bar/profile-completeness-bar';

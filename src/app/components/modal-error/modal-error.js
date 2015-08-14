@@ -27,10 +27,6 @@ import {Component, View} from '../../ng-decorators'; // jshint unused: false
             <button type="button" ng-click="vm.cancel()" class="btn btn-sm btn-success">OK</button>
         </div>
     `,
-    scope: {
-        cancel: '&',
-        error: '='
-    },
     bindToController: {
         cancel: '&',
         error: '='

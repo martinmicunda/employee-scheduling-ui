@@ -15,6 +15,6 @@ import {Service} from '../../ng-decorators'; // jshint unused: false
 //end-non-standard
 class ModalModel extends AbstractModel {
     constructor() {
-        super(null); // we only use modal with get/set item to store $modalInstance
+        super(); // we only use modal with get/set item to store $modalInstance
     }
 }

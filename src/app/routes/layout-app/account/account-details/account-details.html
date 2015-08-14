@@ -9,14 +9,14 @@
                     <label class="col-sm-4 control-label">Photo</label>
                     <div class="col-sm-5">
                         <div class="btn-group mr5">
-                            <img class="img-circle img-bordered-dark" src="images/me.jpg" alt="" width="34px">
+                            <img class="img-circle img-bordered-dark" ng-src="images/{{vm.employee.avatar}}" alt="" width="34px">
                         </div>
 
                         <div class="btn-group" dropdown>
                             <button type="button" class="btn btn-sm btn-default dropdown-toggle" dropdown-toggle>Change photo <span class="caret"></span></button>
                             <ul class="dropdown-menu" role="menu">
                                 <li><a href="#">Upload photo</a></li>
-                                <li><a href="#">Remove</a></li>
+                                <li><a ng-click="vm.removeAvatar()">Remove</a></li>
                             </ul>
                         </div>
                     </div>
@@ -43,8 +43,9 @@
                     <label class="control-label col-sm-4">Email</label>
                     <div class="col-sm-5">
                         <input name="email" type="email" ng-model="vm.employee.email" class="form-control" required>
-                        <div ng-if="accountSettingsForm.$submitted" ng-messages="accountSettingsForm.email.$error">
+                        <div ng-if="accountDetailsForm.$submitted" ng-messages="accountDetailsForm.email.$error">
                             <div ng-message="email" class="error">Invalid email.</div>
+                            <div ng-message="required" class="error">This field is required.</div>
                         </div>
                     </div>
                 </div>

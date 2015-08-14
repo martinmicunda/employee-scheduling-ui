@@ -1,24 +1,31 @@
 <fieldset class="animated fadeIn">
     <legend class="pull-left width-full">Account Settings</legend>
-    <div class="form-group">
-        <label class="control-label col-sm-4">Language</label>
-        <div class="col-sm-5">
-            <select name="language" ng-model="vm.employee.language" class="form-control" ng-options="language.code as language.name for language in vm.languages"></select>
-        </div>
-    </div>
-    <div class="form-group required">
-        <label class="control-label col-sm-4">Email</label>
-        <div class="col-sm-5">
-            <input name="email" type="email" ng-model="vm.employee.email" class="form-control" required>
-            <div ng-if="accountSettingsForm.$submitted" ng-messages="accountSettingsForm.email.$error">
-                <div ng-message="email" class="error">Invalid email.</div>
+    <form class="form-horizontal form-validation" name="accountSettingsForm" role="form" novalidate mm-modal-warning-unsaved-form>
+        <div class="form-group">
+            <label class="control-label col-sm-4">Language</label>
+            <div class="col-sm-5">
+                <select name="language" ng-model="vm.employee.language" class="form-control" ng-options="language.code as language.name for language in vm.languages"></select>
             </div>
         </div>
-    </div>
-    <div class="form-group">
-        <label class="control-label col-sm-4">Password</label>
-        <div class="col-sm-5">
-            <p class="form-control-static"><a href="#">Reset password?</a></p>
+        <div class="form-group required">
+            <label class="control-label col-sm-4">Email</label>
+            <div class="col-sm-5">
+                <input name="email" type="email" ng-model="vm.employee.email" class="form-control" required>
+                <div ng-if="accountSettingsForm.$submitted" ng-messages="accountSettingsForm.email.$error">
+                    <div ng-message="email" class="error">Invalid email.</div>
+                </div>
+            </div>
         </div>
-    </div>
+        <div class="form-group">
+            <label class="control-label col-sm-4">Password</label>
+            <div class="col-sm-5">
+                <p class="form-control-static"><a href="#">Reset password?</a></p>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-5 col-sm-offset-4">
+                <employee-save-button form="accountSettingsForm"></employee-save-button>
+            </div>
+        </div>
+    </form>
 </fieldset>

@@ -15,11 +15,9 @@ import {View, Component, Inject} from '../../ng-decorators'; // jshint unused: f
     template: `
         <jp-ng-bs-animated-button class="btn btn-sm btn-success" ng-click="vm.save()" is-submitting="vm.isSubmitting" result="vm.result" options="vm.saveButtonOptions"></jp-ng-bs-animated-button>
     `,
-    scope: {
-        form: '='
-    },
     bindToController: {
-        form: '='
+        form: '=',
+        calculateProfileType: '='
     }
 })
 @Inject('EmployeeModel', 'FormService')
@@ -36,7 +34,8 @@ class EmployeeSaveButton {
     save() {
         if(!this.form.$valid) {return;}
         this.isSubmitting = true;
-        //this.profileComplete = this.EmployeeModel.calculateProfileCompleteness(this.employee);
-        this.FormService.save(this.EmployeeModel, this.EmployeeModel.getItem(), this, this.form);
+        this.FormService.save(this.EmployeeModel, this.EmployeeModel.getItem(), this, this.form).then(() => {
+            this.EmployeeModel.calculateProfileCompleteness(this.calculateProfileType);
+        });
     }
 }

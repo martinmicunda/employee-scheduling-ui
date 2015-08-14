@@ -10,21 +10,16 @@
         "position": "ceo",
         "role": "admin",
         "status": "active",
-        "contactDetails": {
-            "phoneNumber": "+353767889",
-            "address": "12 Smithfield",
-            "city": "Dublin",
-            "zipCode": "7"
-        },
-        "bankDetails": {
-            "bankName": "AIB",
-            "accountNumber": "123456890YU",
-            "accountName": "Martin Micunda"
-        },
-        "hourlyRates": {
-            "rate": 8,
-            "currencyCode": "EUR"
-        }
+        "phoneNumber": "+353767889",
+        "address": "12 Smithfield",
+        "city": "Dublin",
+        "zipCode": "7",
+        "bankName": "AIB",
+        "bankAccountName": "Martin Micunda",
+        "bankAccountNumber": "123456890YU",
+        "hourlyRate": 8,
+        "currencyCode": "EUR",
+        "currencySymbol": "€"
     },
     {
         "id": "500",
@@ -37,21 +32,16 @@
         "position": "sales",
         "role": "employee",
         "status": "active",
-        "contactDetails": {
-            "phoneNumber": "+353767889",
-            "address": "12 Smithfield",
-            "city": "Dublin",
-            "zipCode": "7"
-        },
-        "bankDetails": {
-            "bankName": "AIB",
-            "accountNumber": "123456890YU",
-            "accountName": "Edmund Wong"
-        },
-        "hourlyRates": {
-            "rate": 8,
-            "currencyCode": "EUR"
-        }
+        "phoneNumber": "+353767889",
+        "address": "12 Smithfield",
+        "city": "Dublin",
+        "zipCode": "7",
+        "bankName": "AIB",
+        "bankAccountName": "Edmund Wong",
+        "bankAccountNumber": "123456890YU",
+        "hourlyRate": 8,
+        "currencyCode": "EUR",
+        "currencySymbol": "€"
     },
     {
         "id": "1",
@@ -64,21 +54,16 @@
         "position": "ceo",
         "role": "admin",
         "status": "active",
-        "contactDetails": {
-            "phoneNumber": "+353767889",
-            "address": "12 Smithfield",
-            "city": "Dublin",
-            "zipCode": "7"
-        },
-        "bankDetails": {
-            "bankName": "AIB",
-            "accountNumber": "123456890YU",
-            "accountName": "Martin Micunda"
-        },
-        "hourlyRates": {
-            "rate": 8,
-            "currencyCode": "EUR"
-        }
+        "phoneNumber": "+353767889",
+        "address": "12 Smithfield",
+        "city": "Dublin",
+        "zipCode": "7",
+        "bankName": "AIB",
+        "bankAccountName": "Martin Micunda",
+        "bankAccountNumber": "123456890YU",
+        "hourlyRate": 8,
+        "currencyCode": "EUR",
+        "currencySymbol": "€"
     },
     {
         "id": "2",
@@ -91,21 +76,16 @@
         "position": "sales",
         "role": "employee",
         "status": "active",
-        "contactDetails": {
-            "phoneNumber": "+353767889",
-            "address": "12 Smithfield",
-            "city": "Dublin",
-            "zipCode": "7"
-        },
-        "bankDetails": {
-            "bankName": "AIB",
-            "accountNumber": "123456890YU",
-            "accountName": "Edmund Wong"
-        },
-        "hourlyRates": {
-            "rate": 8,
-            "currencyCode": "EUR"
-        }
+        "phoneNumber": "+353767889",
+        "address": "12 Smithfield",
+        "city": "Dublin",
+        "zipCode": "7",
+        "bankName": "AIB",
+        "bankAccountName": "Edmund Wong",
+        "bankAccountNumber": "123456890YU",
+        "hourlyRate": 8,
+        "currencyCode": "EUR",
+        "currencySymbol": "€"
     },
     {
         "id": "3",
@@ -118,21 +98,16 @@
         "position": "animator",
         "role": "employee",
         "status": "pending",
-        "contactDetails": {
-            "phoneNumber": "+353767889",
-            "address": "12 Smithfield",
-            "city": "Dublin",
-            "zipCode": "7"
-        },
-        "bankDetails": {
-            "bankName": "AIB",
-            "accountNumber": "123456890YU",
-            "accountName": "Harvinder Singh"
-        },
-        "hourlyRates": {
-            "rate": 8,
-            "currencyCode": "EUR"
-        }
+        "phoneNumber": "+353767889",
+        "address": "12 Smithfield",
+        "city": "Dublin",
+        "zipCode": "7",
+        "bankName": "AIB",
+        "bankAccountName": "Harvinder Singh",
+        "bankAccountNumber": "123456890YU",
+        "hourlyRate": 8,
+        "currencyCode": "EUR",
+        "currencySymbol": "€"
     },
     {
         "id": "4",
@@ -145,21 +120,16 @@
         "position": "animator",
         "role": "manager",
         "status": "inactive",
-        "contactDetails": {
-            "phoneNumber": "+353767889",
-            "address": "12 Smithfield",
-            "city": "Dublin",
-            "zipCode": "7"
-        },
-        "bankDetails": {
-            "bankName": "AIB",
-            "accountNumber": "123456890YU",
-            "accountName": "Terry Khoo"
-        },
-        "hourlyRates": {
-            "rate": 8,
-            "currencyCode": "EUR"
-        }
+        "phoneNumber": "+353767889",
+        "address": "12 Smithfield",
+        "city": "Dublin",
+        "zipCode": "7",
+        "bankName": "AIB",
+        "bankAccountName": "Terry Khoo",
+        "bankAccountNumber": "123456890YU",
+        "hourlyRate": 8,
+        "currencyCode": "EUR",
+        "currencySymbol": "€"
     },
     {
         "id": "5",
@@ -172,21 +142,16 @@
         "position": "ceo",
         "role": "admin",
         "status": "active",
-        "contactDetails": {
-            "phoneNumber": "+353767889",
-            "address": "12 Smithfield",
-            "city": "Dublin",
-            "zipCode": "7"
-        },
-        "bankDetails": {
-            "bankName": "AIB",
-            "accountNumber": "123456890YU",
-            "accountName": "Martin Micunda"
-        },
-        "hourlyRates": {
-            "rate": 8,
-            "currencyCode": "EUR"
-        }
+        "phoneNumber": "+353767889",
+        "address": "12 Smithfield",
+        "city": "Dublin",
+        "zipCode": "7",
+        "bankName": "AIB",
+        "bankAccountName": "Martin Micunda",
+        "bankAccountNumber": "123456890YU",
+        "hourlyRate": 8,
+        "currencyCode": "EUR",
+        "currencySymbol": "€"
     },
     {
         "id": "6",
@@ -199,21 +164,16 @@
         "position": "sales",
         "role": "employee",
         "status": "active",
-        "contactDetails": {
-            "phoneNumber": "+353767889",
-            "address": "12 Smithfield",
-            "city": "Dublin",
-            "zipCode": "7"
-        },
-        "bankDetails": {
-            "bankName": "AIB",
-            "accountNumber": "123456890YU",
-            "accountName": "Edmund Wong"
-        },
-        "hourlyRates": {
-            "rate": 8,
-            "currencyCode": "EUR"
-        }
+        "phoneNumber": "+353767889",
+        "address": "12 Smithfield",
+        "city": "Dublin",
+        "zipCode": "7",
+        "bankName": "AIB",
+        "bankAccountName": "Edmund Wong",
+        "bankAccountNumber": "123456890YU",
+        "hourlyRate": 8,
+        "currencyCode": "EUR",
+        "currencySymbol": "€"
     },
     {
         "id": "7",
@@ -226,21 +186,16 @@
         "position": "animator",
         "role": "employee",
         "status": "pending",
-        "contactDetails": {
-            "phoneNumber": "+353767889",
-            "address": "12 Smithfield",
-            "city": "Dublin",
-            "zipCode": "7"
-        },
-        "bankDetails": {
-            "bankName": "AIB",
-            "accountNumber": "123456890YU",
-            "accountName": "Harvinder Singh"
-        },
-        "hourlyRates": {
-            "rate": 8,
-            "currencyCode": "EUR"
-        }
+        "phoneNumber": "+353767889",
+        "address": "12 Smithfield",
+        "city": "Dublin",
+        "zipCode": "7",
+        "bankName": "AIB",
+        "bankAccountName": "Harvinder Singh",
+        "bankAccountNumber": "123456890YU",
+        "hourlyRate": 8,
+        "currencyCode": "EUR",
+        "currencySymbol": "€"
     },
     {
         "id": "8",
@@ -253,21 +208,16 @@
         "position": "animator",
         "role": "manager",
         "status": "inactive",
-        "contactDetails": {
-            "phoneNumber": "+353767889",
-            "address": "12 Smithfield",
-            "city": "Dublin",
-            "zipCode": "7"
-        },
-        "bankDetails": {
-            "bankName": "AIB",
-            "accountNumber": "123456890YU",
-            "accountName": "Terry Khoo"
-        },
-        "hourlyRates": {
-            "rate": 8,
-            "currencyCode": "EUR"
-        }
+        "phoneNumber": "+353767889",
+        "address": "12 Smithfield",
+        "city": "Dublin",
+        "zipCode": "7",
+        "bankName": "AIB",
+        "bankAccountName": "Terry Khoo",
+        "bankAccountNumber": "123456890YU",
+        "hourlyRate": 8,
+        "currencyCode": "EUR",
+        "currencySymbol": "€"
     },
     {
         "id": "9",
@@ -280,21 +230,16 @@
         "position": "animator",
         "role": "employee",
         "status": "pending",
-        "contactDetails": {
-            "phoneNumber": "+353767889",
-            "address": "12 Smithfield",
-            "city": "Dublin",
-            "zipCode": "7"
-        },
-        "bankDetails": {
-            "bankName": "AIB",
-            "accountNumber": "123456890YU",
-            "accountName": "Harvinder Singh"
-        },
-        "hourlyRates": {
-            "rate": 8,
-            "currencyCode": "EUR"
-        }
+        "phoneNumber": "+353767889",
+        "address": "12 Smithfield",
+        "city": "Dublin",
+        "zipCode": "7",
+        "bankName": "AIB",
+        "bankAccountName": "Terry Khoo",
+        "bankAccountNumber": "123456890YU",
+        "hourlyRate": 8,
+        "currencyCode": "EUR",
+        "currencySymbol": "€"
     },
     {
         "id": "10",
@@ -307,21 +252,16 @@
         "position": "animator",
         "role": "manager",
         "status": "inactive",
-        "contactDetails": {
-            "phoneNumber": "+353767889",
-            "address": "12 Smithfield",
-            "city": "Dublin",
-            "zipCode": "7"
-        },
-        "bankDetails": {
-            "bankName": "AIB",
-            "accountNumber": "123456890YU",
-            "accountName": "Terry Khoo"
-        },
-        "hourlyRates": {
-            "rate": 8,
-            "currencyCode": "EUR"
-        }
+        "phoneNumber": "+353767889",
+        "address": "12 Smithfield",
+        "city": "Dublin",
+        "zipCode": "7",
+        "bankName": "AIB",
+        "bankAccountName": "Terry Khoo",
+        "bankAccountNumber": "123456890YU",
+        "hourlyRate": 8,
+        "currencyCode": "EUR",
+        "currencySymbol": "€"
     },
     {
         "id": "11",
@@ -334,21 +274,16 @@
         "position": "animator",
         "role": "employee",
         "status": "pending",
-        "contactDetails": {
-            "phoneNumber": "+353767889",
-            "address": "12 Smithfield",
-            "city": "Dublin",
-            "zipCode": "7"
-        },
-        "bankDetails": {
-            "bankName": "AIB",
-            "accountNumber": "123456890YU",
-            "accountName": "Harvinder Singh"
-        },
-        "hourlyRates": {
-            "rate": 8,
-            "currencyCode": "EUR"
-        }
+        "phoneNumber": "+353767889",
+        "address": "12 Smithfield",
+        "city": "Dublin",
+        "zipCode": "7",
+        "bankName": "AIB",
+        "bankAccountName": "Harvinder Singha",
+        "bankAccountNumber": "123456890YU",
+        "hourlyRate": 8,
+        "currencyCode": "EUR",
+        "currencySymbol": "€"
     },
     {
         "id": "12",
@@ -361,20 +296,15 @@
         "position": "animator",
         "role": "manager",
         "status": "inactive",
-        "contactDetails": {
-            "phoneNumber": "+353767889",
-            "address": "12 Smithfield",
-            "city": "Dublin",
-            "zipCode": "7"
-        },
-        "bankDetails": {
-            "bankName": "AIB",
-            "accountNumber": "123456890YU",
-            "accountName": "Terry Khoo"
-        },
-        "hourlyRates": {
-            "rate": 8,
-            "currencyCode": "EUR"
-        }
+        "phoneNumber": "+353767889",
+        "address": "12 Smithfield",
+        "city": "Dublin",
+        "zipCode": "7",
+        "bankName": "AIB",
+        "bankAccountName": "Terry Khoo",
+        "bankAccountNumber": "123456890YU",
+        "hourlyRate": 8,
+        "currencyCode": "EUR",
+        "currencySymbol": "€"
     }
 ]

@@ -1,30 +1,37 @@
 <fieldset class="animated fadeIn">
     <legend class="pull-left width-full">Bank Details</legend>
-    <div class="form-group required">
-        <label class="control-label col-sm-4">Bank Name</label>
-        <div class="col-sm-5">
-            <input name="bankName" type="text" ng-model="vm.employee.bankDetails.bankName" class="form-control" required>
-            <div ng-if="bankDetailsForm.$submitted" ng-messages="bankDetailsForm.bankName.$error">
-                <div ng-message="required" class="error">This field is required.</div>
+    <form class="form-horizontal form-validation" name="bankDetailsForm" role="form" novalidate mm-modal-warning-unsaved-form>
+        <div class="form-group required">
+            <label class="control-label col-sm-4">Bank Name</label>
+            <div class="col-sm-5">
+                <input name="bankName" type="text" ng-model="vm.employee.bankName" class="form-control" required>
+                <div ng-if="bankDetailsForm.$submitted" ng-messages="bankDetailsForm.bankName.$error">
+                    <div ng-message="required" class="error">This field is required.</div>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="form-group required">
-        <label class="control-label col-sm-4">Account Number</label>
-        <div class="col-sm-5">
-            <input name="accountNumber" type="text" ng-model="vm.employee.bankDetails.accountNumber" class="form-control" required>
-            <div ng-if="bankDetailsForm.$submitted" ng-messages="bankDetailsForm.accountNumber.$error">
-                <div ng-message="required" class="error">This field is required.</div>
+        <div class="form-group required">
+            <label class="control-label col-sm-4">Account Number</label>
+            <div class="col-sm-5">
+                <input name="bankAccountNumber" type="text" ng-model="vm.employee.bankAccountNumber" class="form-control" required>
+                <div ng-if="bankDetailsForm.$submitted" ng-messages="bankDetailsForm.bankAccountNumber.$error">
+                    <div ng-message="required" class="error">This field is required.</div>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="form-group required">
-        <label class="control-label col-sm-4">Account Name</label>
-        <div class="col-sm-5">
-            <input name="accountName" type="text" ng-model="vm.employee.bankDetails.accountName" class="form-control" required>
-            <div ng-if="bankDetailsForm.$submitted" ng-messages="bankDetailsForm.accountName.$error">
-                <div ng-message="required" class="error">This field is required.</div>
+        <div class="form-group required">
+            <label class="control-label col-sm-4">Account Name</label>
+            <div class="col-sm-5">
+                <input name="bankAccountName" type="text" ng-model="vm.employee.bankAccountName" class="form-control" required>
+                <div ng-if="bankDetailsForm.$submitted" ng-messages="bankDetailsForm.bankAccountName.$error">
+                    <div ng-message="required" class="error">This field is required.</div>
+                </div>
             </div>
         </div>
-    </div>
+        <div class="form-group">
+            <div class="col-sm-5 col-sm-offset-4">
+                <employee-save-button form="bankDetailsForm"></employee-save-button>
+            </div>
+        </div>
+    </form>
 </fieldset>

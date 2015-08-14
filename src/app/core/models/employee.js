@@ -6,6 +6,7 @@
 'use strict';
 
 import AbstractModel from './abstract-model';
+import {PROFILE_COMPLETNESS_TYPES} from '../../core/constants/constants';
 import {Service, Inject} from '../../ng-decorators'; // jshint unused: false
 
 //start-non-standard
@@ -17,29 +18,35 @@ import {Service, Inject} from '../../ng-decorators'; // jshint unused: false
 class EmployeeModel extends AbstractModel {
     constructor(EmployeeResource) {
         super(EmployeeResource);
+        this.profileCompleteness = {}; // use two-way scope binding
+        this.calculateProfileCompleteness();
     }
 
-    emptyObjectPropertiesCounter(object) {
+    getProfileCompleteness() {
+        return this.profileCompleteness;
+    }
+
+    emptyObjectPropertiesCounter(object, completenessFields) {
         let i = 0;
-        for(let key in object) {
+        for(let key of completenessFields) {
             if(object.hasOwnProperty(key) && !object[key]) {
                 i++;
-            }
-            if(typeof object[key] === 'object') {
-                i = this.emptyObjectPropertiesCounter(object[key]) + i;
             }
         }
 
         return i;
     }
 
-    calculateProfileCompleteness() {
+    // there are three places in app where profile completeness can be calculated 'account profile page', 'edit employee', 'add employee'
+    calculateProfileCompleteness(type = PROFILE_COMPLETNESS_TYPES.ACCOUNT) {
         const employee = super.getItem();
-        // -3 because (employee (-employee.contactDetails - employee.bankDetails - employee.hourlyRates) - passwords)
-        // employee contains 3 nested objects and we also don't count passwords fields as they are always empty
-        const totalObjectProperties = (Object.keys(employee).length + Object.keys(employee.contactDetails).length + Object.keys(employee.bankDetails).length + Object.keys(employee.hourlyRates).length) - 3;
-        const totalEmptyObjectProperties = this.emptyObjectPropertiesCounter(employee);
 
-        return (((totalObjectProperties - totalEmptyObjectProperties) * 100)/ totalObjectProperties).toFixed(0);
+        // Profile Account page has only 4 fields that are needs for calculation completeness (only contacts fields in this case)
+        const completenessFields = type === PROFILE_COMPLETNESS_TYPES.ACCOUNT ? ['phoneNumber', 'address', 'city', 'zipCode'] : [];
+        const totalObjectProperties = type === PROFILE_COMPLETNESS_TYPES.ACCOUNT ? 8 : 0;
+        const totalEmptyObjectProperties = this.emptyObjectPropertiesCounter(employee, completenessFields);
+
+        this.profileCompleteness.percentage = (((totalObjectProperties - totalEmptyObjectProperties) * 100)/ totalObjectProperties).toFixed(0);
+        return this.profileCompleteness;
     }
 }

@@ -1,14 +1,21 @@
 <fieldset class="animated fadeIn">
     <legend class="pull-left width-full">Hourly Rates</legend>
-    <div class="form-group required">
-        <label class="control-label col-sm-4">Hourly Rate</label>
-        <div class="col-sm-5">
-            <input name="hourlyRate" type="number" ng-model="vm.employee.hourlyRates.rate" class="form-control" required>
-            <div ng-if="hourlyRatesForm.$submitted" ng-messages="hourlyRatesForm.hourlyRate.$error">
-                <div ng-message="required" class="error">This field is required.</div>
-                <div ng-message="number" class="error">Invalid number.</div>
+    <form class="form-horizontal form-validation" name="hourlyRatesForm" role="form" novalidate mm-modal-warning-unsaved-form>
+        <div class="form-group required">
+            <label class="control-label col-sm-4">Hourly Rate</label>
+            <div class="col-sm-5">
+                <input name="hourlyRate" type="number" ng-model="vm.employee.hourlyRate" class="form-control" required>
+                <div ng-if="hourlyRatesForm.$submitted" ng-messages="hourlyRatesForm.hourlyRate.$error">
+                    <div ng-message="required" class="error">This field is required.</div>
+                    <div ng-message="number" class="error">Invalid number.</div>
+                </div>
+            </div>
+            <div class="currencyCode">{{vm.employee.currencyCode}}</div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-5 col-sm-offset-4">
+                <employee-save-button form="hourlyRatesForm"></employee-save-button>
             </div>
         </div>
-        <div class="currencyCode">{{vm.employee.hourlyRates.currencyCode}}</div>
-    </div>
+    </form>
 </fieldset>

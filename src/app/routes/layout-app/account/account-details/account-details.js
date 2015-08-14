@@ -25,4 +25,8 @@ class AccountDetails {
     constructor(EmployeeModel) {
         this.employee = EmployeeModel.getItem();
     }
+
+    removeAvatar() {
+        this.employee.avatar = 'avatar.png';
+    }
 }

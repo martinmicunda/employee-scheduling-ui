@@ -9,7 +9,7 @@
 import './config/config';
 
 // interceptors
-import './interceptors/url-http';
+import './interceptors/url-http'; // FIXME: why I can't call this file api-url-http?
 
 // models
 import './models/document';

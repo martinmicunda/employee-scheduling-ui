@@ -1,27 +1,34 @@
 <fieldset class="animated fadeIn">
     <legend class="pull-left width-full">Contact Details</legend>
-    <div class="form-group">
-        <label class="control-label col-sm-4">Phone Number</label>
-        <div class="col-sm-5">
-            <input name="phoneNumber" type="text" ng-model="vm.employee.contactDetails.phoneNumber" class="form-control">
+    <form class="form-horizontal form-validation" name="contactDetailsForm" role="form" novalidate mm-modal-warning-unsaved-form>
+        <div class="form-group">
+            <label class="control-label col-sm-4">Phone Number</label>
+            <div class="col-sm-5">
+                <input name="phoneNumber" type="text" ng-model="vm.employee.phoneNumber" class="form-control">
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        <label class="control-label col-sm-4">Address</label>
-        <div class="col-sm-5">
-            <input name="address" type="text" ng-model="vm.employee.contactDetails.address" class="form-control">
+        <div class="form-group">
+            <label class="control-label col-sm-4">Address</label>
+            <div class="col-sm-5">
+                <input name="address" type="text" ng-model="vm.employee.address" class="form-control">
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        <label class="control-label col-sm-4">City</label>
-        <div class="col-sm-5">
-            <input name="city" type="text" ng-model="vm.employee.contactDetails.city" class="form-control">
+        <div class="form-group">
+            <label class="control-label col-sm-4">City</label>
+            <div class="col-sm-5">
+                <input name="city" type="text" ng-model="vm.employee.city" class="form-control">
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        <label class="control-label col-sm-4">Zip Code</label>
-        <div class="col-sm-5">
-            <input name="zipCode" type="text" ng-model="vm.employee.contactDetails.zipCode" class="form-control">
+        <div class="form-group">
+            <label class="control-label col-sm-4">Zip Code</label>
+            <div class="col-sm-5">
+                <input name="zipCode" type="text" ng-model="vm.employee.zipCode" class="form-control">
+            </div>
         </div>
-    </div>
+        <div class="form-group">
+            <div class="col-sm-5 col-sm-offset-4">
+                <employee-save-button form="contactDetailsForm"></employee-save-button>
+            </div>
+        </div>
+    </form>
 </fieldset>

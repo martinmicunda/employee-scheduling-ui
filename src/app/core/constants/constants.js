@@ -6,4 +6,6 @@
 'use strict';
 
 export const USER_ROLES = Object.freeze({ADMIN: 'admin', MANAGER: 'manager'});
-export const HEADER_API_VERSION = 'application/vnd.employee-scheduling.v1+json';
+// http://labs.qandidate.com/blog/2014/10/16/using-the-accept-header-to-version-your-api/
+export const HEADER_API_VERSION = 'application/vnd.employee-scheduling.api+json;version=1'; // application/vnd.employee-scheduling.v1+json
+export const PROFILE_COMPLETNESS_TYPES = Object.freeze({ACCOUNT: 'account', EDIT_EMPLOYEE: 'edit-employee', ADD_EMPLOYEE: 'add-employee'});

@@ -1,5 +1,6 @@
 <fieldset class="animated fadeIn">
     <legend class="pull-left width-full">Account Details</legend>
+    <form class="form-horizontal form-validation" name="accountDetailsForm" role="form" novalidate mm-modal-warning-unsaved-form>
         <div class="form-group">
             <label class="col-sm-4 control-label">Photo</label>
             <div class="col-sm-5">
@@ -51,4 +52,10 @@
                 <select name="role" class="form-control" ng-model="vm.employee.role" ng-options="role.code as role.name for role in vm.roles"></select>
             </div>
         </div>
+        <div class="form-group">
+            <div class="col-sm-5 col-sm-offset-4">
+                <employee-save-button form="accountDetailsForm"></employee-save-button>
+            </div>
+        </div>
+    </form>
 </fieldset>

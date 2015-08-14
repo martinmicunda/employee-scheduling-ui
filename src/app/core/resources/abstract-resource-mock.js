@@ -82,7 +82,7 @@ class AbstractResourceMock {
             });
 
         $httpBackend.whenDELETE(patternBase)
-            .respond( (method, url, headers) => {
+            .respond( (method, url, data, headers) => {
                 console.log('DELETE',url);
                 headers['Content-Type'] = HEADER_API_VERSION;
                 const id = url.match(patternId)[1];

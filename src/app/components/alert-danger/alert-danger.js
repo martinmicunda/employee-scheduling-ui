@@ -23,10 +23,6 @@ import {View, Component} from '../../ng-decorators'; // jshint unused: false
             </div>
         </div>
     `,
-    scope: {
-        hasError: '=',
-        errorMessage: '='
-    },
     bindToController: {
         hasError: '=',
         errorMessage: '='

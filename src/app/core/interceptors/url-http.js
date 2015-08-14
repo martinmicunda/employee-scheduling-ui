@@ -40,12 +40,13 @@ class ApiUrlHttpInterceptor {
         // Filter out requests for .html templates, etc
         if (self.apiUrl && self.shouldPrependApiUrl(reqConfig)) {
             reqConfig.url = self.apiUrl + reqConfig.url;
+
+            // add api version to header
+            /*jshint -W069 */
+            reqConfig.headers['Accept'] = HEADER_API_VERSION;
+            reqConfig.headers['Content-Type'] = HEADER_API_VERSION;
         }
 
-        // add api version to header
-        /*jshint -W069 */
-        reqConfig.headers['Accept'] = HEADER_API_VERSION;
-        reqConfig.headers['Content-Type'] = HEADER_API_VERSION;
         return reqConfig;
     }
 }

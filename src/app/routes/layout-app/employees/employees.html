@@ -28,7 +28,7 @@
                             <th>Photo</th>
                             <th sort-by="firstName" sort-init="asc">Name</th>
                             <th sort-by="email">Email</th>
-                            <th sort-by="contactDetails.phoneNumber">Phone Number</th>
+                            <th sort-by="phoneNumber">Phone Number</th>
                             <th sort-by="position">Position</th>
                             <th sort-by="role">Role</th>
                             <th sort-by="status">Status</th>
@@ -41,7 +41,7 @@
                             <td><img ng-src="./images/{{::employee.avatar}}" alt="" class="img-circle" title="{{::employee.firstName}} {{::employee.lastName}}"></td>
                             <td>{{::employee.firstName}} {{::employee.lastName}}</td>
                             <td>{{::employee.email}}</td>
-                            <td>{{::employee.contactDetails.phoneNumber}}</td>
+                            <td>{{::employee.phoneNumber}}</td>
                             <td>{{::employee.position}}</td>
                             <td>{{::employee.role}}</td>
                             <td><span class="label"
@@ -77,7 +77,7 @@
                             <div class="caption text-center">
                                 <h6 class="mb0 mt0 font-weight-heavy">{{::employee.firstName}} {{::employee.lastName}}</h6>
                                 {{::employee.position}} <br />
-                                <p>{{::employee.contactDetails.phoneNumber}}</p>
+                                <p>{{::employee.phoneNumber}}</p>
                                 <div>
                                     <a ui-sref=".message({id: employee.id})" tooltip-placement="top" tooltip="send message"><i class="fa fa-comment-o fa-fw"></i></a>
                                     <a ui-sref=".schedule({id: employee.id})" tooltip-placement="top" tooltip="see schedule"><i class="fa fa-calendar fa-fw"></i></a>

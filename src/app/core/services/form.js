@@ -69,7 +69,7 @@ class FormService {
     }
 
     save(model, item, self, form) {
-        model.save(item).then(() => {
+        return model.save(item).then(() => {
             this.onSuccess(self);
         }, (response) => {
             this.onFailure(self, response);
@@ -79,7 +79,7 @@ class FormService {
     }
 
     delete(model, item, self) {
-        model.delete(item).then(() => {
+        return model.delete(item).then(() => {
             this.onSuccess(self);
         },(response) => {
             this.onFailure(self, response);

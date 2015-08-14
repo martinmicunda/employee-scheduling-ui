@@ -32,6 +32,5 @@ class Account {
     constructor(EmployeeModel) {
         this.employee = EmployeeModel.getItem();
         this.EmployeeModel = EmployeeModel;
-        this.profileComplete = EmployeeModel.calculateProfileCompleteness();
     }
 }
