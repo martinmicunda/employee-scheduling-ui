@@ -34,6 +34,8 @@ module.exports = function (config) {
             suite: 'unit'
         },
 
+        //https://github.com/gunnarlium/babel-jspm-karma-jasmine-istanbul
+        //http://www.aptoma.com/es6-code-coverage-babel-jspm-karma-jasmine-istanbul/
         preprocessors: {
             // source files, that you wanna generate coverage for - do not include tests or libraries
             // (these files will be instrumented by Istanbul)

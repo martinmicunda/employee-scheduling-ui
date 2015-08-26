@@ -36,6 +36,7 @@ function Config() {
 
 function Service(options) {
     return function decorator(target) {
+        options = options ? options : {};
         if (!options.serviceName) {
             throw new Error('@Service() must contains serviceName property!');
         }
@@ -45,6 +46,7 @@ function Service(options) {
 
 function Filter(filter) {
     return function decorator(target, key, descriptor) {
+        filter = filter ? filter : {};
         if (!filter.filterName) {
             throw new Error('@Filter() must contains filterName property!');
         }
@@ -66,8 +68,9 @@ function Inject(...dependencies) {
 
 function Component(component) {
     return function decorator(target) {
-        if (typeof component !== 'object') {
-            throw new Error('@Component() must be defined!');
+        component = component ? component : {};
+        if (!component.selector) {
+            throw new Error('@Component() must contains selector property!');
         }
 
         if (target.$initView) {
@@ -79,9 +82,9 @@ function Component(component) {
 }
 
 function View(view) {
-    let options = view;
+    let options = view ? view : {};
     const defaults = {
-        template: view.template,
+        template: options.template,
         restrict: 'E',
         scope: {},
         bindToController: true,
@@ -93,15 +96,9 @@ function View(view) {
         }
 
         target.$initView = function(directiveName) {
-            if (typeof directiveName === 'object') {
-                options = directiveName;
-                directiveName = pascalCaseToCamelCase(target.name);
-            } else {
-                directiveName = pascalCaseToCamelCase(directiveName);
-            }
+            directiveName = pascalCaseToCamelCase(directiveName);
             directiveName = dashCaseToCamelCase(directiveName);
 
-            options = options || (options = {});
             options.bindToController = options.bindToController || options.bind || {};
 
             app.directive(directiveName, function () {
