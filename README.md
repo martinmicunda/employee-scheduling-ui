@@ -23,6 +23,7 @@ This demo is running from [gh-pages](https://github.com/martinmicunda/employee-s
   * Use ES6 with Angular 1.x
   * Use ES6 Modules via [SystemJS](https://github.com/systemjs/systemjs) and [ES6 Module Loader Polyfill](https://github.com/ModuleLoader/es6-module-loader)
   * Use [ES7 decorators](https://github.com/wycats/javascript-decorators) to avoid Angular 1.x boilerplate code
+  * Unit test with ES6, Babel, JSPM, Karma, Jasmine and Istanbul
   * Manage development and production workflow with [JSPM](http://jspm.io/), [SystemJS builder](https://github.com/systemjs/builder) and [Gulp](http://gulpjs.com/)
   * Mocked Backend Workflow - help with mocking backend-less development
   * Achieve some of the Angular 2.0 goals while still running on Angular 1.x
@@ -111,7 +112,25 @@ $ npm start -- --env=PROD
 
 
 ## How to Test
-TODO
+### Unit 
+Every time the unit tests are executed, a coverage report is created in the `test-reports/coverage` sub-directory and coverage `thresholds` can be set in `COVERAGE` constant in [`gulp/const.js`](gulp/const.js) file. The `npm run test-unit` task has optional arguments `--browsers=(PhantomJS|Chrome|Firefox|Safari)`  and `--watch`.  Make sure that the browsers you want to run test against are installed on your local machine. The `PhantomJS` should be already installed after you run `npm install`.
+
+To run test start with:
+
+```bash
+$ npm test
+```
+> **NOTE:** The `npm test` task is alias for `npm run test-unit -- --browsers=PhantomJS`.
+
+To run test against specific browser e.g. `Chrome` start with:
+```bash
+$ npm test -- --browsers=Chrome
+```
+
+To watch for file changes and re-run tests on each change start with:
+```bash
+$ npm test -- --watch --nocoverage
+```
 
 ##<a name="build"> How to Build
 The build task get app ready for production. The build task include transpilation from ES6 to ES5, concatenation, minification, compression, asset revision, template cache, cdn etc. If there have been no errors when executing the build command, the build should be located in `build/dist` directory and this build is ready for uploading to the server! To initiate a full build, you simply run the follow task:
