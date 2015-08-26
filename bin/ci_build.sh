@@ -55,7 +55,8 @@ function run {
     npm install
 
     echo "-- Running unit tests "
-#    gulp test:unit
+    npm test
+
     echo "-- Running e2e tests "
 #    gulp test:e2e --browsers=Firefox
 

@@ -6,7 +6,7 @@
 'use strict';
 
 import AbstractModel from './abstract-model';
-import {PROFILE_COMPLETNESS_TYPES} from '../../core/constants/constants';
+import {PROFILE_COMPLETENESS_TYPES} from '../../core/constants/constants';
 import {Service, Inject} from '../../ng-decorators'; // jshint unused: false
 
 //start-non-standard
@@ -38,12 +38,12 @@ class EmployeeModel extends AbstractModel {
     }
 
     // there are three places in app where profile completeness can be calculated 'account profile page', 'edit employee', 'add employee'
-    calculateProfileCompleteness(type = PROFILE_COMPLETNESS_TYPES.ACCOUNT) {
+    calculateProfileCompleteness(type = PROFILE_COMPLETENESS_TYPES.ACCOUNT) {
         const employee = super.getItem();
 
         // Profile Account page has only 4 fields that are needs for calculation completeness (only contacts fields in this case)
-        const completenessFields = type === PROFILE_COMPLETNESS_TYPES.ACCOUNT ? ['phoneNumber', 'address', 'city', 'zipCode'] : [];
-        const totalObjectProperties = type === PROFILE_COMPLETNESS_TYPES.ACCOUNT ? 8 : 0;
+        const completenessFields = type === PROFILE_COMPLETENESS_TYPES.ACCOUNT ? ['phoneNumber', 'address', 'city', 'zipCode'] : [];
+        const totalObjectProperties = type === PROFILE_COMPLETENESS_TYPES.ACCOUNT ? 8 : 0;
         const totalEmptyObjectProperties = this.emptyObjectPropertiesCounter(employee, completenessFields);
 
         this.profileCompleteness.percentage = (((totalObjectProperties - totalEmptyObjectProperties) * 100)/ totalObjectProperties).toFixed(0);

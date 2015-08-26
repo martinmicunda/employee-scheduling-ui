@@ -1,14 +1,10 @@
-/**
- * @author    Martin Micunda {@link http://martinmicunda.com}
- * @copyright Copyright (c) 2015, Martin Micunda
- * @license   GPL-3.0
- */
 'use strict';
 
 import del from 'del';
 import gulp from 'gulp';
 import util from 'gulp-util';
-import {server as karma} from 'karma';
+import gulpif from 'gulp-if';
+import {Server} from 'karma';
 import istanbulEnforcer from 'gulp-istanbul-enforcer';
 import path from '../paths';
 import {COVERAGE} from '../const';
@@ -42,7 +38,7 @@ gulp.task('karma', (cb) => {
     // remove 'coverage' directory before each test
     del.sync(path.test.testReports.coverage);
     // run the karma test
-    karma.start({
+    const server = new Server({
         configFile: path.test.config.karma,
         browsers: [BROWSERS],
         singleRun: !argv.watch,
@@ -55,6 +51,7 @@ gulp.task('karma', (cb) => {
         }
         cb();
     });
+    server.start();
 });
 
 /**
@@ -63,13 +60,14 @@ gulp.task('karma', (cb) => {
  * @return {Stream}
  */
 gulp.task('test:unit', ['karma'], () => {
-    var options = {
+    const noCoverage = !!argv.nocoverage;
+    const options = {
         thresholds : COVERAGE,
         coverageDirectory: path.test.testReports.coverage,
         rootDirectory : path.test.testReports.basePath // keep root `test-reports/` so enforce plugin is not searching in other directories
     };
     return gulp.src('.')
-        .pipe(istanbulEnforcer(options))
+        .pipe(gulpif(!noCoverage, istanbulEnforcer(options)))
         .on('error', function(error) {
             LOG(error.toString());
             return process.exit(1);

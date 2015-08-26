@@ -56,7 +56,7 @@ class ApiUrlHttpInterceptor {
 
     request(reqConfig) {
         // Filter out requests for .html templates, etc
-        if (self.apiUrl && self.shouldPrependApiUrl(reqConfig)) {
+        if (self.shouldPrependApiUrl(reqConfig)) {
             reqConfig.url = self.apiUrl + reqConfig.url;
 
             // add api version to header
@@ -68,3 +68,5 @@ class ApiUrlHttpInterceptor {
         return reqConfig;
     }
 }
+
+export default ApiUrlHttpInterceptor;

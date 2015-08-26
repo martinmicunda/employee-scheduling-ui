@@ -8,7 +8,7 @@
 import './config.test'; // TODO: (martin) use systemJs conditional imports
 import {Config, Run, Inject} from '../../ng-decorators'; // jshint unused: false
 
-class Configuration {
+class OnConfig {
     //start-non-standard
     @Config()
     @Inject('$locationProvider', '$provide', '$urlRouterProvider', '$httpProvider')
@@ -19,25 +19,6 @@ class Configuration {
             return function () {
                 $window.scrollTo(0,0);
             };
-        }]);
-
-        // TODO: https://github.com/willmendesneto/keepr/blob/master/dist%2Fkeepr.js and http://willmendesneto.github.io/2014/10/28/creating-a-crud-in-a-single-angular-controller/ for crypto locale storage
-        // enhance localStorageService
-        $provide.decorator('localStorageService', ['$delegate', '$window', function($delegate, $window) {
-            $delegate.findLocalStorageItems = function (query) {
-                let i, results = [];
-                for (i in $window.localStorage) {
-                    if ($window.localStorage.hasOwnProperty(i)) {
-                        if (i.match(query) || (!query && typeof i === 'string')) {
-                            const value = JSON.parse($window.localStorage.getItem(i));
-                            results.push(value);
-                        }
-                    }
-                }
-                return results;
-            };
-
-            return $delegate;
         }]);
 
         /*********************************************************************
@@ -66,8 +47,9 @@ class OnRun {
         $rootScope.$on('$stateChangeError', function (event, toState, toParams, fromState, fromParams, error) {
             event.preventDefault();
             $log.error(error.stack);
-            $state.get('error').error = error;
             $state.go('500');
         });
     }
 }
+
+export {OnConfig, OnRun};

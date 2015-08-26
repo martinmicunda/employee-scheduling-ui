@@ -63,7 +63,7 @@ const paths = {
         platoReports:   `${root}/test/plato`,
         mock:           `${root}/src/app/**/*.mock.js`,
         unit:           `${root}/src/app/**/*.spec.js`,
-        e2e:            `${root}/test/e2e/**/*.e2e.js`
+        e2e:            `[${root}/test/e2e/**/*.e2e.js, ${root}/src/app/**/*.e2e.js]`
     },
     /**
      * The 'tmp' folder is where our html templates are compiled to JavaScript during
