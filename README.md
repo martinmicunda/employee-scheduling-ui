@@ -6,6 +6,7 @@ Employee Scheduling UI
 [![Build status](https://ci.appveyor.com/api/projects/status/iskj8sml9luhkm21?svg=true)](https://ci.appveyor.com/project/martinmicunda/employee-scheduling-ui) 
 [![devDependency Status](https://david-dm.org/martinmicunda/employee-scheduling-ui/dev-status.svg)](https://david-dm.org/martinmicunda/employee-scheduling-ui#info=devDependencies) 
 [![Coverage Status](https://coveralls.io/repos/martinmicunda/employee-scheduling-ui/badge.svg?branch=master&service=github)](https://coveralls.io/github/martinmicunda/employee-scheduling-ui?branch=master)
+[![Code Climate](https://codeclimate.com/github/martinmicunda/employee-scheduling-ui/badges/gpa.svg)](https://codeclimate.com/github/martinmicunda/employee-scheduling-ui)
 
 **Note: :warning: This project is under development.**
 
