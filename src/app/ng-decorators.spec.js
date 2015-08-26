@@ -1,3 +1,8 @@
+/**
+ * @author    Martin Micunda {@link http://martinmicunda.com}
+ * @copyright Copyright (c) 2015, Martin Micunda
+ * @license   GPL-3.0
+ */
 'use strict';
 
 import mainModule, {Service, Directive, Component, RouteConfig, Run, Filter, Config, Inject, View} from './ng-decorators.js'; // jshint unused: false
