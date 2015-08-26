@@ -21,7 +21,8 @@
     "trailing": true,
     "smarttabs": true,
     "esnext": true,
-    "jquery": false,
+    "jasmine": true,
+    "jquery": true,
     "globals": {
         "ApplicationConfiguration": false,
         "angular": false,
@@ -35,6 +36,8 @@
         "inject": false,
         "it": false,
         "spyOn": false,
-        "protractor": false
+        "protractor": false,
+        "element": false,
+        "by": false
     }
 }

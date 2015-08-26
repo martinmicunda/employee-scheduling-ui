@@ -5,6 +5,7 @@ Employee Scheduling UI
 [![Build Status](https://travis-ci.org/martinmicunda/employee-scheduling-ui.svg?branch=master)](http://travis-ci.org/martinmicunda/employee-scheduling-ui)
 [![Build status](https://ci.appveyor.com/api/projects/status/iskj8sml9luhkm21?svg=true)](https://ci.appveyor.com/project/martinmicunda/employee-scheduling-ui) 
 [![devDependency Status](https://david-dm.org/martinmicunda/employee-scheduling-ui/dev-status.svg)](https://david-dm.org/martinmicunda/employee-scheduling-ui#info=devDependencies) 
+[![Coverage Status](https://coveralls.io/repos/martinmicunda/employee-scheduling-ui/badge.png?branch=master)](https://coveralls.io/r/martinmicunda/employee-scheduling-ui?branch=master)
 
 **Note: :warning: This project is under development.**
 
