@@ -23,3 +23,5 @@ class LocationModel extends AbstractModel {
         return super.getCollection().find(location => location.default);
     }
 }
+
+export default LocationModel;

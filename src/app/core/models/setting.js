@@ -19,3 +19,5 @@ class SettingModel extends AbstractModel {
         super(SettingResource);
     }
 }
+
+export default SettingModel;

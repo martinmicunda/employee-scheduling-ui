@@ -18,7 +18,6 @@ class DocumentModel extends AbstractModel {
     constructor(DocumentResource) {
         super(DocumentResource);
         this.files = [];
-        this.DocumentResource = DocumentResource;
     }
 
     getFilesCollection() {
@@ -26,6 +25,8 @@ class DocumentModel extends AbstractModel {
     }
 
     initFilesCollection(id) {
-        return this.DocumentResource.getDocumentFiles(id).then(files => this.files = files);
+        return this.resource.getDocumentFiles(id).then(files => this.files = files);
     }
 }
+
+export default DocumentModel;

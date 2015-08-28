@@ -18,3 +18,5 @@ class ModalModel extends AbstractModel {
         super(); // we only use modal with get/set item to store $modalInstance
     }
 }
+
+export default ModalModel;

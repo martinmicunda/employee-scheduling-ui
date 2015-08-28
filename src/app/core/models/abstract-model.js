@@ -22,16 +22,16 @@ class AbstractModel {
              consistent API of method so that we can always
              use .then() method when calling initItem
              */
-            // TODO: add resolve promise
-            //return PromiseService.resolve();
-            //return new Promise(function (resolve, reject) {
-            //    setTimeout(resolve, ms); // (A)
-            //});
+            return Promise.resolve();
         }
     }
 
     initCollection(params, cache) {
         return this.resource.getList(params, cache).then(collection => this.collection = collection);
+    }
+
+    getItemById(id) {
+        return this.collection.find(item => item.id === id);
     }
 
     getItem() {
@@ -46,10 +46,6 @@ class AbstractModel {
         return this.collection;
     }
 
-    getById(id) {
-        return this.collection.find(item => item.id === id);
-    }
-
     setCollection(collection) {
         this.collection = collection;
     }
@@ -58,7 +54,6 @@ class AbstractModel {
         // update existing item if model contains id
         if (item.id) {
             return this.resource.update(item).then(itemRespond => {
-                //this.updateCollectionItem(itemRespond);
                 for (let i = 0; i < this.collection.length; i++) {
                     if(this.collection[i].id === itemRespond.id) {
                         this.collection[i] = itemRespond;

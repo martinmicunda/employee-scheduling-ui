@@ -47,6 +47,9 @@ class EmployeeModel extends AbstractModel {
         const totalEmptyObjectProperties = this.emptyObjectPropertiesCounter(employee, completenessFields);
 
         this.profileCompleteness.percentage = (((totalObjectProperties - totalEmptyObjectProperties) * 100)/ totalObjectProperties).toFixed(0);
+
         return this.profileCompleteness;
     }
 }
+
+export default EmployeeModel;

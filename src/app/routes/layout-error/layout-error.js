@@ -8,7 +8,7 @@
 import templateError from './500.html!text';
 import templateNotFound from './404.html!text';
 import templateUnauthorized from './403.html!text';
-import {RouteConfig, Inject} from '../../ng-decorators'; // jshint unused: false
+import {RouteConfig} from '../../ng-decorators'; // jshint unused: false
 
 //start-non-standard
 @RouteConfig('404', {
@@ -23,6 +23,5 @@ import {RouteConfig, Inject} from '../../ng-decorators'; // jshint unused: false
     url: '/500',
     template: templateError
 })
-@Inject('error')
 //end-non-standard
 class Error {}

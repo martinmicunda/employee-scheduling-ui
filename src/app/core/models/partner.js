@@ -19,3 +19,5 @@ class PartnerModel extends AbstractModel {
         super(PartnerResource);
     }
 }
+
+export default PartnerModel;

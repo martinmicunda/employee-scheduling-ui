@@ -18,11 +18,9 @@ import {Service, Inject} from '../../../ng-decorators'; // jshint unused: false
 class DocumentResource extends AbstractResource {
     constructor($http) {
         super($http, 'documents');
-        this.http = $http;
-        this.route = 'documents';
     }
 
     getDocumentFiles(id) {
-        return this.http.get(`${this.route}/${id}/files`); //FIXME: why super.http doesn't work here?
+        return this.http.get(`${this.route}/${id}/files`);
     }
 }

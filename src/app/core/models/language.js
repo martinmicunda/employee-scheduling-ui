@@ -19,3 +19,5 @@ class LanguageModel extends AbstractModel {
         super(LanguageResource);
     }
 }
+
+export default LanguageModel;

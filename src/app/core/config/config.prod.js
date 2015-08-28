@@ -7,7 +7,7 @@
 
 import {Config, Inject} from '../../ng-decorators'; // jshint unused: false
 
-class ConfigurationProd {
+class OnConfigProd {
     //start-non-standard
     @Config()
     @Inject('$compileProvider', '$httpProvider', 'localStorageServiceProvider')
@@ -23,3 +23,5 @@ class ConfigurationProd {
         $httpProvider.useApplyAsync(true);
     }
 }
+
+export {OnConfigProd};

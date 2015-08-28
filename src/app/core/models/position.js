@@ -19,3 +19,5 @@ class PositionModel extends AbstractModel {
         super(PositionResource);
     }
 }
+
+export default PositionModel;

@@ -27,7 +27,7 @@ import {RouteConfig, Component, View, Inject} from '../../../ng-decorators'; // 
 //end-non-standard
 class Files {
     constructor(FormService, DocumentModel) {
-        this.folderName = DocumentModel.getById(DocumentModel.getFilesCollection().documentId);
+        this.folderName = DocumentModel.getItemById(DocumentModel.getFilesCollection().documentId);
         this.files = DocumentModel.getFilesCollection().files;
         this.FormService = FormService;
         this.DocumentModel = DocumentModel;
