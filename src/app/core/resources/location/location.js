@@ -20,3 +20,5 @@ class LocationResource extends AbstractResource {
         super($http, 'locations');
     }
 }
+
+export default LocationResource;

@@ -20,3 +20,5 @@ class SettingResource extends AbstractResource {
         super($http, 'settings');
     }
 }
+
+export default SettingResource;

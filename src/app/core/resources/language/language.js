@@ -21,4 +21,4 @@ class LanguageResource extends AbstractResource {
     }
 }
 
-
+export default LanguageResource;

@@ -20,3 +20,5 @@ class PartnerResource extends AbstractResource {
         super($http, 'partners');
     }
 }
+
+export default PartnerResource;

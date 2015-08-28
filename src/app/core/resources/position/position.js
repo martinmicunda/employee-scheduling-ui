@@ -20,3 +20,5 @@ class PositionResource extends AbstractResource {
         super($http, 'positions');
     }
 }
+
+export default PositionResource;

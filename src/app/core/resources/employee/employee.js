@@ -20,3 +20,5 @@ class EmployeeResource extends AbstractResource {
         super($http, 'employees');
     }
 }
+
+export default EmployeeResource;

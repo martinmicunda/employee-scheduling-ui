@@ -24,3 +24,5 @@ class DocumentResource extends AbstractResource {
         return this.http.get(`${this.route}/${id}/files`);
     }
 }
+
+export default DocumentResource;
