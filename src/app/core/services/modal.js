@@ -43,3 +43,5 @@ class ModalService {
         return () => this.route.go(state);
     }
 }
+
+export default ModalService;

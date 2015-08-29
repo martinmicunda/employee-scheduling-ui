@@ -25,18 +25,20 @@ class FormService {
     getModalSaveButtonOptions() {
         this.saveButtonOptions.animationCompleteTime = '0';
         this.saveButtonOptions.buttonErrorClass = 'btn-success';
+
         return this.saveButtonOptions;
     }
 
     getSaveButtonOptions() {
         this.saveButtonOptions.animationCompleteTime = '1200';
         this.saveButtonOptions.buttonErrorClass = 'btn-danger';
+
         return this.saveButtonOptions;
     }
 
     onSuccess(self) {
-        self.hasError = false;
         self.result = 'success';
+        self.hasError = false;
         if(typeof self.cancel === 'function') {
             self.cancel();
         }
@@ -86,3 +88,5 @@ class FormService {
         });
     }
 }
+
+export default FormService;

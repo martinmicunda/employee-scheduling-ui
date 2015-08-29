@@ -29,3 +29,4 @@ class DocumentService {
     }
 }
 
+export default DocumentService;
