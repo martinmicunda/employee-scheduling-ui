@@ -26,3 +26,4 @@ class Login {
     // https://stormpath.com/blog/password-security-right-way/
 }
 
+export default Login;

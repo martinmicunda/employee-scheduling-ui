@@ -8,14 +8,12 @@
 import './layout-error.js';
 
 describe('ErrorRoute', () => {
-    let $q, $state, $injector;
+    let $state;
 
     beforeEach(angular.mock.module('ngDecorator'));
 
-    beforeEach(inject((_$q_, _$state_, _$injector_) => {
-        $q = _$q_;
+    beforeEach(inject((_$state_) => {
         $state = _$state_;
-        $injector = _$injector_;
     }));
 
     describe('403', () => {
