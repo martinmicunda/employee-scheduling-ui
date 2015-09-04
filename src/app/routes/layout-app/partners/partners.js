@@ -37,3 +37,5 @@ class Partners {
         this.FormService.delete(this.PartnerModel, partner, this);
     }
 }
+
+export default Partners;

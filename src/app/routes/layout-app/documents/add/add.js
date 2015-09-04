@@ -29,3 +29,5 @@ class DocumentAdd {
         ModalModel.setItem($modalInstance);
     }
 }
+
+export default DocumentAdd;

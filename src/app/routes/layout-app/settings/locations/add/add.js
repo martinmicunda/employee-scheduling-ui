@@ -29,3 +29,5 @@ class LocationAdd {
         ModalModel.setItem($modalInstance);
     }
 }
+
+export default LocationAdd;

@@ -29,3 +29,5 @@ class PositionAdd {
         ModalModel.setItem($modalInstance);
     }
 }
+
+export default PositionAdd;

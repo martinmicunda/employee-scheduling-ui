@@ -26,7 +26,7 @@ import {RouteConfig, Component, View, Inject} from '../../../ng-decorators'; // 
 })
 @Inject('FormService', 'DocumentModel')
 //end-non-standard
-class Partners {
+class Documents {
     constructor(FormService, DocumentModel) {
         this.documents = DocumentModel.getCollection();
         this.FormService = FormService;
@@ -37,3 +37,5 @@ class Partners {
         this.FormService.delete(this.DocumentModel, document, this);
     }
 }
+
+export default Documents;

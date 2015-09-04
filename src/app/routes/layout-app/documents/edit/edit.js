@@ -30,3 +30,5 @@ class DocumentEdit {
         ModalModel.setItem($modalInstance);
     }
 }
+
+export default DocumentEdit;

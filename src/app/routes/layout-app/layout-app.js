@@ -13,7 +13,7 @@ import './employees/employees';
 import './partners/partners';
 import './reports/reports';
 import './schedule/schedule';
-import './settings/settings';
+import './settings/settings.js';
 import template from './layout-app.html!text';
 import {RouteConfig} from '../../ng-decorators';  // jshint unused: false
 

@@ -30,3 +30,5 @@ class PartnerEdit {
         ModalModel.setItem($modalInstance);
     }
 }
+
+export default PartnerEdit;

@@ -5,12 +5,12 @@
  */
 'use strict';
 
-import Login from './login.js';
+import './layout-app.js';
 
-describe('LoginRoute', () => {
+describe('AppRoute', () => {
     let $state,
-        url = '/login',
-        state = 'auth.login',
+        url = '',
+        state = 'app',
         currentState;
 
     beforeEach(angular.mock.module('ngDecorator'));
@@ -25,16 +25,11 @@ describe('LoginRoute', () => {
         expect($state.href(state)).toEqual(url);
     });
 
-    it('should have template to be defined', () => {
-        expect(currentState.template).toBeDefined();
+    it('should have $state abstract set to `true`', () => {
+        expect(currentState.abstract).toEqual(true);
     });
 
-    it('should redirect to app.employees state after successful login', () => {
-        spyOn($state, 'go');
-        let login = new Login($state);
-
-        login.login();
-
-        expect($state.go).toHaveBeenCalledWith('app.employees');
+    it('should have template to be defined', () => {
+        expect(currentState.template).toBeDefined();
     });
 });

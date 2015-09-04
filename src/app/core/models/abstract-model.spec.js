@@ -68,6 +68,20 @@ describe('AbstractModel', () => {
         expect(abstractModel.resource.get).toHaveBeenCalledWith(id);
     });
 
+    it('should init empty item with GET request', () => {
+        spyOn(abstractModel.resource, 'get').and.returnValue($q.when(item));
+
+        expect(abstractModel.getItem()).toEqual({});
+
+        abstractModel.initItem(id).then(() => {
+            expect(abstractModel.getItem()).toEqual(item);
+        });
+
+        $rootScope.$digest(); // resolve the promise (hacky way how to resolve promise in angular)
+
+        expect(abstractModel.resource.get).toHaveBeenCalledWith(id);
+    });
+
     it('should init item without GET request', () => {
         spyOn(abstractModel.resource, 'get');
 
@@ -81,20 +95,6 @@ describe('AbstractModel', () => {
         $rootScope.$digest(); // resolve the promise (hacky way how to resolve promise in angular)
 
         expect(abstractModel.resource.get).not.toHaveBeenCalled();
-    });
-
-    it('should init empty item with GET request', () => {
-        spyOn(abstractModel.resource, 'get').and.returnValue($q.when(item));
-
-        expect(abstractModel.getItem()).toEqual({});
-
-        abstractModel.initItem(id).then(() => {
-            expect(abstractModel.getItem()).toEqual(item);
-        });
-
-        $rootScope.$digest(); // resolve the promise (hacky way how to resolve promise in angular)
-
-        expect(abstractModel.resource.get).toHaveBeenCalledWith(id);
     });
 
     it('should init collection with GET LIST request', () => {

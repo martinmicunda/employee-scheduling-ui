@@ -31,6 +31,5 @@ import {RouteConfig, Component, View, Inject} from '../../../ng-decorators'; // 
 class Account {
     constructor(EmployeeModel) {
         this.employee = EmployeeModel.getItem();
-        this.EmployeeModel = EmployeeModel;
     }
 }

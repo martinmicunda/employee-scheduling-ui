@@ -5,10 +5,10 @@
  */
 'use strict';
 
-import './add/add';
-import './edit/edit';
+import './add/add.js';
+import './edit/edit.js';
 import template from './positions.html!text';
-import {RouteConfig, Component, View, Inject} from '../../../../ng-decorators'; // jshint unused: false
+import {RouteConfig, Component, View, Inject} from '../../../../ng-decorators.js'; // jshint unused: false
 
 //start-non-standard
 @RouteConfig('app.settings.positions', {
@@ -26,7 +26,7 @@ import {RouteConfig, Component, View, Inject} from '../../../../ng-decorators'; 
 })
 @Inject('FormService', 'PositionModel')
 //end-non-standard
-class SettingPositions {
+class Positions {
     constructor(FormService, PositionModel) {
         this.positions = PositionModel.getCollection();
         this.FormService = FormService;
@@ -37,3 +37,5 @@ class SettingPositions {
         this.FormService.delete(this.PositionModel, position, this);
     }
 }
+
+export default Positions;

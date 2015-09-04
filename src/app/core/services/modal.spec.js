@@ -5,6 +5,7 @@
  */
 'use strict';
 
+import {fakeModal} from '../../../../test/helpers/modal.js';
 import ModalService from './modal.js';
 
 describe('ModalService', () => {
@@ -31,36 +32,6 @@ describe('ModalService', () => {
     });
 
     describe('onError', () => {
-        let fakeModal = {
-            result: {
-                then: function (confirmCallback, cancelCallback) {
-                    this.confirmCallBack = confirmCallback;
-                    this.cancelCallback = cancelCallback;
-                    return this;
-                },
-                catch: function (cancelCallback) {
-                    this.cancelCallback = cancelCallback;
-                    return this;
-                },
-                finally: function (finallyCallback) {
-                    this.finallyCallback = finallyCallback;
-                    return this;
-                }
-            },
-            open: function() {
-                return this.result;
-            },
-            close: function (item) {
-                this.result.confirmCallBack(item);
-            },
-            dismiss: function (item) {
-                this.result.cancelCallback(item);
-            },
-            finally: function () {
-                this.result.finallyCallback();
-            }
-        };
-
         it(`should not open modal if there is no status error`, () => {
             let error = {};
             spyOn(fakeModal, 'open').and.returnValue(fakeModal);

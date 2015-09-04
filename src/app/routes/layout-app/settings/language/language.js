@@ -24,7 +24,7 @@ import {RouteConfig, Component, View, Inject} from '../../../../ng-decorators'; 
 })
 @Inject('SettingModel', 'LanguageModel', 'FormService')
 //end-non-standard
-class SettingLanguage {
+class Language {
     constructor(SettingModel, LanguageModel, FormService) {
         this.setting = SettingModel.getItem();
         this.languages = LanguageModel.getCollection();
@@ -41,4 +41,6 @@ class SettingLanguage {
         this.FormService.save(this.SettingModel, this.setting, this, form);
     }
 }
+
+export default Language;
 

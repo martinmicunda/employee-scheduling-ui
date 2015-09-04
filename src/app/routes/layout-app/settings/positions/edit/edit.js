@@ -30,3 +30,5 @@ class PositionEdit {
         ModalModel.setItem($modalInstance);
     }
 }
+
+export default PositionEdit;

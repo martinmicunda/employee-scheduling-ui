@@ -29,3 +29,5 @@ class PartnerAdd {
         ModalModel.setItem($modalInstance);
     }
 }
+
+export default PartnerAdd;

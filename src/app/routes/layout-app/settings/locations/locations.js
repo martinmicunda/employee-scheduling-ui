@@ -26,7 +26,7 @@ import {RouteConfig, Component, View, Inject} from '../../../../ng-decorators'; 
 })
 @Inject('FormService', 'LocationModel')
 //end-non-standard
-class SettingLocations {
+class Locations {
     constructor(FormService, LocationModel) {
         this.locations = LocationModel.getCollection();
         this.FormService = FormService;
@@ -42,3 +42,5 @@ class SettingLocations {
         }
     }
 }
+
+export default Locations;

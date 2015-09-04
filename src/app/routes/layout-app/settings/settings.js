@@ -5,11 +5,11 @@
  */
 'use strict';
 
-import './language/language';
-import './locations/locations';
-import './positions/positions';
+//import './language/language.js';
+//import './locations/locations.js';
+//import './positions/positions.js';
 import template from './settings.html!text';
-import {RouteConfig, Component, View} from '../../../ng-decorators'; // jshint unused: false
+import {RouteConfig, Component, View} from '../../../ng-decorators.js'; // jshint unused: false
 
 //start-non-standard
 @RouteConfig('app.settings', {
@@ -25,5 +25,4 @@ import {RouteConfig, Component, View} from '../../../ng-decorators'; // jshint u
 })
 //end-non-standard
 class Settings {}
-
 

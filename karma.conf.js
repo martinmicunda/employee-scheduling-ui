@@ -23,7 +23,7 @@ module.exports = function (config) {
         jspm: {
             config: 'jspm.conf.js',
             loadFiles: ['test/test.global.js', 'src/app/**/*.spec.js'], //'src/app/**/!(*.e2e|*.po).js'
-            serveFiles: ['src/app/**/*.+(js|html|css|json)'] // *.{a,b,c} to *.+(a|b|c) https://github.com/karma-runner/karma/issues/1532
+            serveFiles: ['test/helpers/**/*.js','src/app/**/*.+(js|html|css|json)'] // *.{a,b,c} to *.+(a|b|c) https://github.com/karma-runner/karma/issues/1532
         },
 
         //reporters: process.argv.slice(2).find((argv) => argv.includes('--nocoverage') || argv.includes('--no-coverage')) ? ['dots', 'junit'] : ['dots', 'junit', 'coverage'],
