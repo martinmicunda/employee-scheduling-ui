@@ -22,10 +22,10 @@ export const GH_PAGES_USERNAME = process.env.USERNAME;
 export const GH_PAGES_PROJECT_NAME = process.env.PROJECT_NAME;
 export const GH_PAGES_BASE_URL = `/${GH_PAGES_PROJECT_NAME}/dist/`;
 export const COVERAGE = {
-    statements : 95,
-    branches : 90,
-    lines : 95,
-    functions : 95
+    statements : 70,
+    branches : 60,
+    lines : 70,
+    functions : 70
 };
 
 /**

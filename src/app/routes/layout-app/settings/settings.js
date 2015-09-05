@@ -5,9 +5,9 @@
  */
 'use strict';
 
-//import './language/language.js';
-//import './locations/locations.js';
-//import './positions/positions.js';
+import './language/language.js';
+import './locations/locations.js';
+import './positions/positions.js';
 import template from './settings.html!text';
 import {RouteConfig, Component, View} from '../../../ng-decorators.js'; // jshint unused: false
 

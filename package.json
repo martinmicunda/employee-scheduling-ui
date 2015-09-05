@@ -13,7 +13,7 @@
     "build": "gulp build",
     "jshint": "gulp jshint",
     "htmlhint": "gulp htmlhint",
-    "test": "gulp test:unit --nocoverage",
+    "test": "gulp test:unit",
     "test-unit": "npm test",
     "test-e2e": "gulp test:e2e",
     "outdated": "npm outdated --depth 0",
