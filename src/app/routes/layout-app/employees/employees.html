@@ -38,11 +38,11 @@
                     <tbody>
                         <!-- TODO: delete icon should not be displayed for current user (user that is looking at the list)-->
                         <tr si-sortable="single" ng-repeat="employee in vm.employees | filter:searchFilter">
-                            <td><img ng-src="./images/{{::employee.avatar}}" alt="" class="img-circle" title="{{::employee.firstName}} {{::employee.lastName}}"></td>
+                            <td><img ng-src="{{::employee.avatar}}" alt="" class="img-circle" title="{{::employee.firstName}} {{::employee.lastName}}"></td>
                             <td>{{::employee.firstName}} {{::employee.lastName}}</td>
                             <td>{{::employee.email}}</td>
                             <td>{{::employee.phoneNumber}}</td>
-                            <td>{{::employee.position}}</td>
+                            <td>{{::employee.position | positionLabel:vm.positions}}</td>
                             <td>{{::employee.role}}</td>
                             <td><span class="label"
                                       ng-class="{'label-success': employee.status === 'active', 'label-warning': employee.status === 'pending', 'label-default': employee.status === 'inactive'}">{{::employee.status}}</span></td>
@@ -68,7 +68,7 @@
                     <div class="col-lg-2 col-md-3 col-sm-3" ng-repeat="employee in vm.employees | filter:searchFilter">
                         <div class="thumbnail">
                             <div class="text-center" style="padding-top: 9px;">
-                                <img ng-src="./images/{{::employee.avatar}}" alt=""
+                                <img ng-src="{{::employee.avatar}}" alt=""
                                      ng-class="{'img-bordered-success': employee.status === 'active', 'img-bordered-warning': employee.status === 'pending', 'img-bordered-dark': employee.status === 'inactive'}"
                                      class="img-circle"
                                      title="{{::employee.firstName}} {{::employee.lastName}}"
@@ -76,7 +76,7 @@
                             </div>
                             <div class="caption text-center">
                                 <h6 class="mb0 mt0 font-weight-heavy">{{::employee.firstName}} {{::employee.lastName}}</h6>
-                                {{::employee.position}} <br />
+                                {{::employee.position | positionLabel:vm.positions}} <br />
                                 <p>{{::employee.phoneNumber}}</p>
                                 <div>
                                     <a ui-sref=".message({id: employee.id})" tooltip-placement="top" tooltip="send message"><i class="fa fa-comment-o fa-fw"></i></a>

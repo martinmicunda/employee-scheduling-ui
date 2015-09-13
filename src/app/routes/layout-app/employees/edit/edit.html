@@ -3,27 +3,36 @@
     <h4 class="modal-title">Edit Employee</h4>
 </div>
 <div class="modal-body form-wizard">
-    <aside class="col-sm-12 col-md-3 pl-0">
-        <ul class="list-table mb10">
-            <li style="width:50px;">
-                <img class="img-circle img-bordered-dark" src="images/me.jpg" alt="" width="45px">
-            </li>
-            <li class="text-left">
-                <h5 class="font-weight-heavy ellipsis">Martin Micunda</h5>
-                <profile-completeness-bar></profile-completeness-bar>
-            </li>
-        </ul>
-        <ul class="nav nav-tabs nav-stacked">
-            <li ui-sref-active="active"><a ui-sref="app.employees.edit.account-details"><i class="fa fa-user fa-fw "></i>&nbsp;Account Details</a></li>
-            <li ui-sref-active="active"><a ui-sref="app.employees.edit.account-settings"><i class="fa fa-cogs fa-fw "></i>&nbsp;Account Settings</a></li>
-            <li ui-sref-active="active"><a ui-sref="app.employees.edit.contact-details"><i class="fa fa-pencil-square-o fa-fw"></i>&nbsp;Contact Details</a></li>
-            <li ui-sref-active="active"><a ui-sref="app.employees.edit.bank-details"><i class="fa fa-bank fa-fw"></i>&nbsp;Bank Details</a></li>
-            <li ui-sref-active="active"><a ui-sref="app.employees.edit.hourly-rates"><i class="fa fa-dollar fa-fw"></i>&nbsp;Hourly Rates</a></li>
-        </ul>
-    </aside>
+    <form class="form-horizontal form-validation" name="employeeForm" role="form" novalidate mm-modal-warning-unsaved-form>
+        <aside class="col-sm-12 col-md-3 pl0">
+            <ul class="list-table mb10">
+                <li style="width:70px;">
+                    <img class="img-circle img-bordered-light" ng-src="{{vm.avatar}}" alt="avatar" width="65px">
+                </li>
+                <li class="text-left">
+                    <h5 class="font-weight-heavy ellipsis">{{vm.name}}</h5>
+                    <profile-completeness-bar type="vm.profileCompletenessType"></profile-completeness-bar>
+                </li>
+            </ul>
+            <ul class="nav nav-tabs nav-stacked">
+                <li ng-class="{active: vm.router.includes('app.employees.edit.account-details')}"><button type="submit" class="text-left" ng-click="vm.goToNextSection(employeeForm.$valid, employeeForm, 'app.employees.edit.account-details')"><i class="fa fa-user fa-fw "></i>&nbsp;Account Details</button></li>
+                <li ng-class="{active: vm.router.includes('app.employees.edit.contact-details')}"><button type="submit" class="text-left" ng-click="vm.goToNextSection(employeeForm.$valid, employeeForm, 'app.employees.edit.contact-details')"><i class="fa fa-pencil-square-o fa-fw"></i>&nbsp;Contact Details</button></li>
+                <li ng-class="{active: vm.router.includes('app.employees.edit.bank-details')}"><button type="submit" class="text-left" ng-click="vm.goToNextSection(employeeForm.$valid, employeeForm, 'app.employees.edit.bank-details')"><i class="fa fa-bank fa-fw"></i>&nbsp;Bank Details</button></li>
+                <li ng-class="{active: vm.router.includes('app.employees.edit.hourly-rate')}"><button type="submit" class="text-left" ng-click="vm.goToNextSection(employeeForm.$valid, employeeForm, 'app.employees.edit.hourly-rate')"><i class="fa fa-dollar fa-fw"></i>&nbsp;Hourly Rate</button></li>
+                <li ng-class="{active: vm.router.includes('app.employees.edit.authorizations')}"><button type="submit" class="text-left" ng-click="vm.goToNextSection(employeeForm.$valid, employeeForm, 'app.employees.edit.authorizations')"><i class="fa fa-lock fa-fw"></i>&nbsp;Authorizations</button></li>
+                <li ng-class="{active: vm.router.includes('app.employees.edit.password')}"><button type="submit" class="text-left" ng-click="vm.goToNextSection(employeeForm.$valid, employeeForm, 'app.employees.edit.password')"><i class="fa fa-key fa-fw"></i>&nbsp;Password</button></li>
+            </ul>
+        </aside>
 
-    <section class="well col-sm-12 col-md-9 clearfix">
-        <div ui-view="modal"></div>
-    </section>
-    <div class="clearfix"></div>
+        <section class="well col-sm-12 col-md-9">
+            <alert-danger has-error="vm.hasError" error-message="vm.errorMessage"></alert-danger>
+            <div ui-view="modal"></div>
+            <div class="form-group mb0" ng-hide="vm.router.includes('app.employees.edit.password')">
+                <div class="col-sm-5 col-sm-offset-4">
+                    <jp-ng-bs-animated-button class="btn btn-sm btn-success" ng-click="vm.save(employeeForm)" is-submitting="vm.isSubmitting" result="vm.result" options="vm.saveButtonOptions"></jp-ng-bs-animated-button>
+                </div>
+            </div>
+        </section>
+        <div class="clearfix"></div>
+    </form>
 </div>

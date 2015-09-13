@@ -33,6 +33,7 @@ System.config({
     "font-awesome": "npm:font-awesome@4.3.0",
     "json": "github:systemjs/plugin-json@0.1.0",
     "ng-bs-animated-button": "github:jeremypeters/ng-bs-animated-button@2.0.3",
+    "ng-file-upload": "npm:ng-file-upload@7.2.0",
     "si-table": "github:simplicitylabs/si-table@0.2.3",
     "text": "github:systemjs/plugin-text@0.0.2",
     "github:angular-ui/bootstrap-bower@0.12.1": {
@@ -136,6 +137,9 @@ System.config({
     },
     "npm:inherits@2.0.1": {
       "util": "github:jspm/nodelibs-util@0.1.0"
+    },
+    "npm:ng-file-upload@7.2.0": {
+      "process": "github:jspm/nodelibs-process@0.1.1"
     },
     "npm:os-browserify@0.1.2": {
       "os": "github:jspm/nodelibs-os@0.1.0"

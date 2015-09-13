@@ -1,0 +1,84 @@
+<fieldset class="animated fadeIn" ng-form="employeeAccountDetailsForm">
+    <legend class="pull-left width-full">Account Details</legend>
+    <div class="form-group">
+        <label class="col-sm-4 control-label">Photo</label>
+        <div class="col-sm-5">
+            <div class="btn-group mr5">
+                <img class="img-circle img-bordered-dark" ng-src="{{vm.employee.avatar}}" alt="avatar" width="34px">
+            </div>
+
+            <div class="btn-group" dropdown>
+                <button type="button" class="btn btn-sm btn-default dropdown-toggle" dropdown-toggle>Change photo <span class="caret"></span></button>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a type="file" ngf-select="vm.addAvatar($file)" ngf-pattern="'image/*" accept="image/*" ngf-max-size="2MB">Upload photo</a></li>
+                    <li><a ng-click="vm.removeAvatar()">Remove</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="form-group required">
+        <label class="control-label col-sm-4">First Name</label>
+        <div class="col-sm-5">
+            <input name="firstName" type="text" ng-model="vm.employee.firstName" class="form-control" required>
+            <div ng-if="employeeAccountDetailsForm.$submitted" ng-messages="employeeAccountDetailsForm.firstName.$error">
+                <div ng-message="required" class="error">This field is required.</div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group required">
+        <label class="control-label col-sm-4">Last Name</label>
+        <div class="col-sm-5">
+            <input name="lastName" type="text" ng-model="vm.employee.lastName" class="form-control" required>
+            <div ng-if="employeeAccountDetailsForm.$submitted" ng-messages="employeeAccountDetailsForm.lastName.$error">
+                <div ng-message="required" class="error">This field is required.</div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group required">
+        <label class="control-label col-sm-4">Email</label>
+        <div class="col-sm-5">
+            <input name="email" type="email" ng-model="vm.employee.email" ng-model-options="{ debounce: 500 }" class="form-control" required mm-unique-email-validator>
+            <div ng-if="employeeAccountDetailsForm.$submitted" ng-messages="employeeAccountDetailsForm.email.$error">
+                <div ng-message="unique" class="error">Email has already been taken.</div>
+                <div ng-message="email" class="error">Invalid email.</div>
+                <div ng-message="required" class="error">This field is required.</div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group required">
+        <label class="control-label col-sm-4">Position</label>
+        <div class="col-sm-5">
+            <select name="position" class="form-control" ng-model="vm.employee.position" ng-options="position.id as position.name for position in vm.positions | orderBy:'name'" required></select>
+            <div ng-if="employeeAccountDetailsForm.$submitted" ng-messages="employeeAccountDetailsForm.position.$error">
+                <div ng-message="required" class="error">This field is required.</div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group required" ng-if="vm.employee.id && vm.employee.status !== vm.statusPending">
+        <label class="control-label col-sm-4">Status</label>
+        <div class="col-sm-5">
+            <select name="status" class="form-control" ng-model="vm.employee.status" ng-options="status as status for status in vm.statuses" required></select>
+            <div ng-if="employeeAccountDetailsForm.$submitted" ng-messages="employeeAccountDetailsForm.status.$error">
+                <div ng-message="required" class="error">This field is required.</div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-4">Personal No.</label>
+        <div class="col-sm-5">
+            <input name="personalNo" type="text" ng-model="vm.employee.personalNo" class="form-control">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-4">ID Card No.</label>
+        <div class="col-sm-5">
+            <input name="identityNo" type="text" ng-model="vm.employee.identityNo" class="form-control">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-4">Note</label>
+        <div class="col-sm-5">
+            <textarea name="note" ng-model="vm.employee.note" class="form-control"></textarea>
+        </div>
+    </div>
+</fieldset>

@@ -5,18 +5,16 @@
  */
 'use strict';
 
-import template from './hourly-rates.html!text';
 import {RouteConfig} from '../../../../../ng-decorators'; // jshint unused: false
 
 //start-non-standard
-@RouteConfig('app.employees.edit.hourly-rates', {
-    url: '/hourly-rates',
+@RouteConfig('app.employees.add.authorizations', {
+    url: '/authorizations',
     views: {
         'modal@': {
-            template: template
+            template: '<employee-authorizations></employee-authorizations>'
         }
     }
 })
 //end-non-standard
-
-class EmployeEditHourlyRates {}
+class EmployeeAddAuthorizations {}

@@ -42,8 +42,8 @@ class EmployeeModel extends AbstractModel {
         const employee = super.getItem();
 
         // Profile Account page has only 4 fields that are needs for calculation completeness (only contacts fields in this case)
-        const completenessFields = type === PROFILE_COMPLETENESS_TYPES.ACCOUNT ? ['phoneNumber', 'address', 'city', 'zipCode'] : [];
-        const totalObjectProperties = type === PROFILE_COMPLETENESS_TYPES.ACCOUNT ? 8 : 0;
+        const completenessFields = type === PROFILE_COMPLETENESS_TYPES.ACCOUNT ? ['phoneNumber', 'address', 'city', 'zipCode'] : ['personalNo', 'identityNo', 'bankName', 'accountNumber', 'accountName', 'phoneNumber', 'address', 'city', 'zipCode'];
+        const totalObjectProperties = type === PROFILE_COMPLETENESS_TYPES.ACCOUNT ? 8 : 14;
         const totalEmptyObjectProperties = this.emptyObjectPropertiesCounter(employee, completenessFields);
 
         this.profileCompleteness.percentage = (((totalObjectProperties - totalEmptyObjectProperties) * 100)/ totalObjectProperties).toFixed(0);

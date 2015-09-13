@@ -16,6 +16,7 @@ import 'angular-local-storage';
 import 'ng-bs-animated-button';
 import 'angular-bootstrap-colorpicker';
 import 'si-table';
+import 'ng-file-upload';
 
 // css vendor files
 //import 'font-awesome/css/font-awesome.css!';

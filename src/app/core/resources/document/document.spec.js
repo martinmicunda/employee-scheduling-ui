@@ -25,7 +25,7 @@ describe('DocumentResource', () => {
     });
 
     it('should call GET role resource', inject(($httpBackend) => {
-        $httpBackend.whenGET(`${route}/${id}/files`).respond(() => [200, 'files']);
+        $httpBackend.whenGET(`/${route}/${id}/files`).respond(() => [200, 'files']);
 
         documentResource.getDocumentFiles(id).then((respond) => {
             expect(respond.data).toEqual('files');

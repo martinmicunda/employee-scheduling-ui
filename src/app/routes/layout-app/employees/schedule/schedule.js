@@ -11,7 +11,7 @@ import {RouteConfig, Inject} from '../../../../ng-decorators'; // jshint unused:
 //start-non-standard
 @RouteConfig('app.employees.schedule', {
     url: '/:id/schedule',
-    onEnter: ['$stateParams', '$state', '$modal', function($stateParams, $state, $modal) {
+    onEnter: ['$stateParams', '$modal', 'ModalService', function($stateParams, $modal, ModalService) {
         //var id = $stateParams.id;
         $modal.open({
             template: template,
@@ -23,20 +23,18 @@ import {RouteConfig, Inject} from '../../../../ng-decorators'; // jshint unused:
             controller: EmployeeSchedule,
             controllerAs: 'vm',
             size: 'md'
-        }).result.finally(function() {
-                $state.go('app.employees');
-            });
+        }).result.finally(ModalService.onFinal('app.employees'));
     }]
 })
 @Inject('$modalInstance')
 //end-non-standard
 class EmployeeSchedule {
     constructor($modalInstance) {
-        this.$modalInstance = $modalInstance;
+        this.modal = $modalInstance;
     }
 
     cancel() {
-        this.$modalInstance.dismiss('cancel');
+        this.modal.dismiss('cancel');
     }
 }
 

@@ -87,6 +87,80 @@ class FormService {
             this.onFailure(self, response);
         });
     }
+
+    // write test for below functions
+    submitChildForm(currentState, form, formSteps) {
+        switch(currentState) {
+            case formSteps[0].route:
+                form[formSteps[0].formName].$submitted = true;
+                formSteps[0].valid = form[formSteps[0].formName].$valid;
+                break;
+            case formSteps[3].route:
+                form[formSteps[3].formName].$submitted = true;
+                formSteps[3].valid = form[formSteps[3].formName].$valid;
+                break;
+        }
+    }
+
+    previousState(currentState, formSteps) {
+        let previousState = null;
+        switch(currentState) {
+            case formSteps[5].route:
+                previousState = formSteps[4].route;
+                break;
+            case formSteps[4].route:
+                previousState = formSteps[3].route;
+                break;
+            case formSteps[3].route:
+                previousState = formSteps[2].route;
+                break;
+            case formSteps[2].route:
+                previousState = formSteps[1].route;
+                break;
+            case formSteps[1].route:
+                previousState = formSteps[0].route;
+                break;
+        }
+
+        return previousState;
+    }
+
+    nextState(currentState, formSteps) {
+        let nextState = null;
+        switch(currentState) {
+            case formSteps[0].route:
+                nextState = formSteps[1].route;
+                break;
+            case formSteps[1].route:
+                nextState = formSteps[2].route;
+                break;
+            case formSteps[2].route:
+                nextState = formSteps[3].route;
+                break;
+            case formSteps[3].route:
+                nextState = formSteps[4].route;
+                break;
+            case formSteps[4].route:
+                nextState = formSteps[5].route;
+                break;
+        }
+
+        return nextState;
+    }
+
+    /**
+     * we are using ui-router for add wizard form so there might be possibility that user can jump to 'complete' state through URL
+     * so we need to make sure that child form exist
+     *
+     */
+    hasInvalidChildForms(router, formSteps) {
+        const invalidForm = formSteps.find((form) => !form.valid);
+        if(invalidForm) {
+            router.go(invalidForm.route);
+        }
+
+        return invalidForm;
+    }
 }
 
 export default FormService;

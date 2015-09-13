@@ -14,7 +14,14 @@ describe('FormService', () => {
         buttonDefaultText: 'Save',
         buttonSubmittingText: 'Saving',
         buttonSuccessText: 'Saved'
-    };
+    }, formSteps = [
+        {route: 'route0', formName: 'form0', valid: false},
+        {route: 'route1', formName: 'form1', valid: true},
+        {route: 'route2', formName: 'form2', valid: true},
+        {route: 'route3', formName: 'form3', valid: false},
+        {route: 'route4', formName: 'form4', valid: true},
+        {route: 'route5', formName: 'form5', valid: true}
+    ];
 
     beforeEach(() => {
         formService = new FormService();
@@ -211,6 +218,130 @@ describe('FormService', () => {
                 expect(self.result).toEqual('error');
                 expect(model.delete).toHaveBeenCalledWith(item);
             });
+        });
+    });
+
+    describe('submitChildForm', () => {
+        it(`should submit child form for step one`, () => {
+            let currentState = formSteps[0].route, form = {form0: {$valid: true}};
+
+            expect(formSteps[0].valid).toEqual(false);
+
+            formService.submitChildForm(currentState, form, formSteps);
+
+            expect(form.form0.$submitted).toEqual(true);
+            expect(formSteps[0].valid).toEqual(true);
+        });
+
+        it(`should submit child form for step four`, () => {
+            let currentState = formSteps[3].route, form = {form0: {$valid: true}, form3: {$valid: true}};
+
+            expect(formSteps[3].valid).toEqual(false);
+
+            formService.submitChildForm(currentState, form, formSteps);
+
+            expect(form.form3.$submitted).toEqual(true);
+            expect(formSteps[3].valid).toEqual(true);
+        });
+    });
+
+    describe('previousState', () => {
+        it(`should go to previous state ${formSteps[4].route}`, () => {
+            let currentState = formSteps[5].route;
+            let previousState = formService.previousState(currentState, formSteps);
+
+            expect(previousState).toEqual(formSteps[4].route);
+        });
+
+        it(`should go to previous state ${formSteps[3].route}`, () => {
+            let currentState = formSteps[4].route;
+            let previousState = formService.previousState(currentState, formSteps);
+
+            expect(previousState).toEqual(formSteps[3].route);
+        });
+
+        it(`should go to previous state ${formSteps[2].route}`, () => {
+            let currentState = formSteps[3].route;
+            let previousState = formService.previousState(currentState, formSteps);
+
+            expect(previousState).toEqual(formSteps[2].route);
+        });
+
+        it(`should go to previous state ${formSteps[1].route}`, () => {
+            let currentState = formSteps[2].route;
+            let previousState = formService.previousState(currentState, formSteps);
+
+            expect(previousState).toEqual(formSteps[1].route);
+        });
+
+        it(`should go to previous state ${formSteps[0].route}`, () => {
+            let currentState = formSteps[1].route;
+            let previousState = formService.previousState(currentState, formSteps);
+
+            expect(previousState).toEqual(formSteps[0].route);
+        });
+    });
+
+    describe('nextState', () => {
+        it(`should go to next state ${formSteps[1].route}`, () => {
+            let currentState = formSteps[0].route;
+            let previousState = formService.nextState(currentState, formSteps);
+
+            expect(previousState).toEqual(formSteps[1].route);
+        });
+
+        it(`should go to next state ${formSteps[2].route}`, () => {
+            let currentState = formSteps[1].route;
+            let previousState = formService.nextState(currentState, formSteps);
+
+            expect(previousState).toEqual(formSteps[2].route);
+        });
+
+        it(`should go to next state ${formSteps[3].route}`, () => {
+            let currentState = formSteps[2].route;
+            let previousState = formService.nextState(currentState, formSteps);
+
+            expect(previousState).toEqual(formSteps[3].route);
+        });
+
+        it(`should go to next state ${formSteps[4].route}`, () => {
+            let currentState = formSteps[3].route;
+            let previousState = formService.nextState(currentState, formSteps);
+
+            expect(previousState).toEqual(formSteps[4].route);
+        });
+
+        it(`should go to next state ${formSteps[5].route}`, () => {
+            let currentState = formSteps[4].route;
+            let previousState = formService.nextState(currentState, formSteps);
+
+            expect(previousState).toEqual(formSteps[5].route);
+        });
+    });
+
+    describe('hasInvalidChildForms', () => {
+        it(`should go to invalid child form`, () => {
+            formSteps[0].valid = false;
+            let router = {
+                go: function() {}
+            };
+            spyOn(router, 'go');
+            let invalidForm = formService.hasInvalidChildForms(router, formSteps);
+
+            expect(invalidForm).toBeDefined();
+            expect(router.go).toHaveBeenCalledWith(formSteps[0].route);
+        });
+
+        it(`should not go to invalid child form if form is valid`, () => {
+            formSteps[0].valid = true;
+            let router = {
+                go: function() {}
+            };
+            spyOn(router, 'go');
+            let invalidForm = formService.hasInvalidChildForms(router, formSteps);
+
+            expect(invalidForm).not.toBeDefined();
+            expect(router.go).not.toHaveBeenCalled();
         });
     });
 });

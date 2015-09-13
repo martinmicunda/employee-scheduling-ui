@@ -5,7 +5,6 @@
  */
 'use strict';
 
-import template from './bank-details.html!text';
 import {RouteConfig} from '../../../../../ng-decorators'; // jshint unused: false
 
 //start-non-standard
@@ -13,7 +12,7 @@ import {RouteConfig} from '../../../../../ng-decorators'; // jshint unused: fals
     url: '/bank-details',
     views: {
         'modal@': {
-            template: template
+            template:  '<employee-bank-details></employee-bank-details>'
         }
     }
 })

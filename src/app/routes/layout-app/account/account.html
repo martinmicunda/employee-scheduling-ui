@@ -3,10 +3,10 @@
         <aside class="col-sm-12 col-md-3 animated fadeInLeft">
             <ul class="list-table mb10">
                 <li style="width:70px;">
-                    <img class="img-circle img-bordered-light" ng-src="images/{{vm.employee.avatar}}" alt="" width="65px">
+                    <img class="img-circle img-bordered-light" ng-src="{{vm.employee.avatar}}" alt="avatar" width="65px">
                 </li>
                 <li class="text-left">
-                    <h5 class="font-weight-heavy ellipsis">{{::vm.employee.firstName}} {{::vm.employee.lastName}}</h5>
+                    <h5 class="font-weight-heavy ellipsis">{{vm.employee.firstName}} {{vm.employee.lastName}}</h5>
                     <profile-completeness-bar></profile-completeness-bar>
                 </li>
             </ul>

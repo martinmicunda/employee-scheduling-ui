@@ -5,9 +5,23 @@
  */
 'use strict';
 
-import {USER_ROLES, HEADER_API_VERSION, PROFILE_COMPLETENESS_TYPES} from './constants';
+import {EMPLOYEE_PROFILE_STATUSES, USER_ROLES, HEADER_API_VERSION, PROFILE_COMPLETENESS_TYPES} from './constants';
 
 describe('constants', () => {
+    describe('EMPLOYEE_PROFILE_STATUSES', () => {
+        it('should contain active employee profile status', () => {
+            expect(EMPLOYEE_PROFILE_STATUSES.ACTIVE).toEqual('active');
+        });
+
+        it('should contain inactive employee profile status', () => {
+            expect(EMPLOYEE_PROFILE_STATUSES.INACTIVE).toEqual('inactive');
+        });
+
+        it('should contain pending employee profile status', () => {
+            expect(EMPLOYEE_PROFILE_STATUSES.PENDING).toEqual('pending');
+        });
+    });
+
     describe('USER_ROLES', () => {
         it('should contain admin role', () => {
             expect(USER_ROLES.ADMIN).toEqual('admin');

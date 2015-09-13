@@ -17,7 +17,7 @@ import {RouteConfig, Component, View, Inject} from '../../../ng-decorators'; // 
     url: '/employees',
     template: '<employees></employees>',
     resolve: {
-        init: ['EmployeeModel', EmployeeModel => EmployeeModel.initCollection()]
+        init: ['$q', 'EmployeeModel', 'PositionModel', ($q, EmployeeModel, PositionModel) => $q.all([EmployeeModel.initCollection(), PositionModel.initCollection(null, true)])]
     }
 })
 @Component({
@@ -26,10 +26,11 @@ import {RouteConfig, Component, View, Inject} from '../../../ng-decorators'; // 
 @View({
     template: template
 })
-@Inject('EmployeeModel', 'FormService')
+@Inject('EmployeeModel', 'PositionModel', 'FormService')
 //end-non-standard
 class Employees {
-    constructor(EmployeeModel, FormService) {
+    constructor(EmployeeModel, PositionModel, FormService) {
+        this.positions = PositionModel.getCollection();
         this.employees = EmployeeModel.getCollection();
         this.FormService = FormService;
         this.EmployeeModel = EmployeeModel;

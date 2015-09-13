@@ -1,7 +1,21 @@
 .pagination {
     margin: 0;
 }
+.pager li > button {
+    display: inline-block;
+    padding: 5px 14px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 15px;
+}
+.pager .next > button {
+    float: right;
+}
+.pager .previous > button {
+    float: left;
+}
 .pager li > a,
+.pager li > button,
 .pager li > span,
 .pagination > li > a {
     border-color: #e2e7eb;
@@ -18,11 +32,23 @@
 .pagination > .disabled > a,
 .pagination > .disabled > a:hover,
 .pagination > .disabled > a:focus,
-.pager > .disabled > span,
-.pager > .disabled > a {
+.pager .disabled > span,
+.pager .disabled > a,
+.pager .disabled > button {
     opacity: 0.6;
     filter: alpha(opacity=60);
     border-color: #ddd;
+}
+.pager .disabled > a,
+.pager .disabled > a:focus,
+.pager .disabled > a:hover,
+.pager .disabled > button,
+.pager .disabled > button:focus,
+.pager .disabled > button:hover,
+.pager .disabled > span {
+    color: #777;
+    cursor: not-allowed;
+    background-color: #fff;
 }
 .pagination > li > a {
     color: #242a30;
@@ -46,6 +72,8 @@
 }
 .pager li > a:hover,
 .pager li > a:focus,
+.pager li > button:hover,
+.pager li > button:focus,
 .pager li > span:hover,
 .pager li > span:focus,
 .pagination > li > a:hover,

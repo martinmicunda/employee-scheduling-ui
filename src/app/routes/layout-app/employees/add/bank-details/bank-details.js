@@ -5,17 +5,16 @@
  */
 'use strict';
 
-import template from './account-settings.html!text';
 import {RouteConfig} from '../../../../../ng-decorators'; // jshint unused: false
 
 //start-non-standard
-@RouteConfig('app.employees.edit.account-settings', {
-    url: '/account-settings',
+@RouteConfig('app.employees.add.bank-details', {
+    url: '/bank-details',
     views: {
         'modal@': {
-            template: template
+            template: '<employee-bank-details></employee-bank-details>'
         }
     }
 })
 //end-non-standard
-class EmployeeEditAcountSettings {}
+class EmployeeAddBankDetails {}

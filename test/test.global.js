@@ -10,3 +10,4 @@ import 'angular-local-storage';
 import 'ng-bs-animated-button';
 import 'angular-bootstrap-colorpicker';
 import 'si-table';
+import 'ng-file-upload';

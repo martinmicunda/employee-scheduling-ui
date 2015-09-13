@@ -119,7 +119,7 @@ describe('ApiUrlHttpInterceptor', () => {
             expect(respondConfig.headers['Content-Type']).toBeUndefined();
         });
 
-        it(`should prepend api url for API request and set Accept and Content-Type headers`, () => {
+        it(`should prepend api url for API request`, () => {
             let config = {
                 url: '/test',
                 headers: {}
@@ -127,8 +127,42 @@ describe('ApiUrlHttpInterceptor', () => {
 
             let respondConfig = apiUrlHttpInterceptor.request(Object.assign({}, config));
             expect(respondConfig.url).toEqual(apiUrlHttpInterceptor.apiUrl + config.url);
+        });
+
+        it(`should set Accept and Content-Type headers for POST request`, () => {
+            let config = {
+                url: '/test',
+                method: 'POST',
+                headers: {}
+            };
+
+            let respondConfig = apiUrlHttpInterceptor.request(Object.assign({}, config));
             expect(respondConfig.headers['Accept']).toEqual(HEADER_API_VERSION);
             expect(respondConfig.headers['Content-Type']).toEqual(HEADER_API_VERSION);
+        });
+
+        it(`should set Accept and Content-Type headers for PUT request`, () => {
+            let config = {
+                url: '/test',
+                method: 'PUT',
+                headers: {}
+            };
+
+            let respondConfig = apiUrlHttpInterceptor.request(Object.assign({}, config));
+            expect(respondConfig.headers['Accept']).toEqual(HEADER_API_VERSION);
+            expect(respondConfig.headers['Content-Type']).toEqual(HEADER_API_VERSION);
+        });
+
+        it(`should not set Content-Type headers for GET request`, () => {
+            let config = {
+                url: '/test',
+                method: 'GET',
+                headers: {}
+            };
+
+            let respondConfig = apiUrlHttpInterceptor.request(Object.assign({}, config));
+            expect(respondConfig.headers['Accept']).toEqual(HEADER_API_VERSION);
+            expect(respondConfig.headers['Content-Type']).toBeUndefined();
         });
 
         it(`should prepend api url for API request if apiUrl is undefined`, () => {

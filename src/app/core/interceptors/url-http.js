@@ -54,18 +54,20 @@ class ApiUrlHttpInterceptor {
         return !(/[\s\S]*.html/.test(reqConfig.url) || (reqConfig.url && reqConfig.url.includes(self.apiUrl)));
     }
 
-    request(reqConfig) {
+    request(config) {
         // Filter out requests for .html templates, etc
-        if (self.shouldPrependApiUrl(reqConfig)) {
-            reqConfig.url = self.apiUrl + reqConfig.url;
+        if (self.shouldPrependApiUrl(config)) {
+            config.url = self.apiUrl + config.url;
 
             // add api version to header
             /*jshint -W069 */
-            reqConfig.headers['Accept'] = HEADER_API_VERSION;
-            reqConfig.headers['Content-Type'] = HEADER_API_VERSION;
+            config.headers['Accept'] = HEADER_API_VERSION;
+            if(config.method === 'POST' || config.method === 'PUT') {
+                config.headers['Content-Type'] = HEADER_API_VERSION;
+            }
         }
 
-        return reqConfig;
+        return config;
     }
 }
 

@@ -4,18 +4,19 @@
             <h4 class="panel-title">Account Details</h4>
         </div>
         <div class="panel-body">
+            <alert-danger has-error="vm.hasError" error-message="vm.errorMessage"></alert-danger>
             <form class="form-horizontal form-validation" name="accountDetailsForm" role="form" novalidate mm-modal-warning-unsaved-form>
                 <div class="form-group">
                     <label class="col-sm-4 control-label">Photo</label>
                     <div class="col-sm-5">
                         <div class="btn-group mr5">
-                            <img class="img-circle img-bordered-dark" ng-src="images/{{vm.employee.avatar}}" alt="" width="34px">
+                            <img class="img-circle img-bordered-dark" ng-src="{{vm.employee.avatar}}" alt="avatar" width="34px">
                         </div>
 
                         <div class="btn-group" dropdown>
                             <button type="button" class="btn btn-sm btn-default dropdown-toggle" dropdown-toggle>Change photo <span class="caret"></span></button>
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="#">Upload photo</a></li>
+                                <li><a type="file" ngf-select="vm.addAvatar($file)" ngf-pattern="'image/*" accept="image/*" ngf-max-size="2MB">Upload photo</a></li>
                                 <li><a ng-click="vm.removeAvatar()">Remove</a></li>
                             </ul>
                         </div>
@@ -42,8 +43,9 @@
                 <div class="form-group required">
                     <label class="control-label col-sm-4">Email</label>
                     <div class="col-sm-5">
-                        <input name="email" type="email" ng-model="vm.employee.email" class="form-control" required>
+                        <input name="email" type="email" ng-model="vm.employee.email" ng-model-options="{ debounce: 500 }" class="form-control" required mm-unique-email-validator>
                         <div ng-if="accountDetailsForm.$submitted" ng-messages="accountDetailsForm.email.$error">
+                            <div ng-message="unique" class="error">Email has already been taken.</div>
                             <div ng-message="email" class="error">Invalid email.</div>
                             <div ng-message="required" class="error">This field is required.</div>
                         </div>
@@ -55,9 +57,9 @@
                         <textarea name="note" ng-model="vm.employee.note" class="form-control"></textarea>
                     </div>
                 </div>
-                <div class="form-group">
+                <div class="form-group mb0">
                     <div class="col-sm-5 col-sm-offset-4">
-                        <employee-save-button form="accountDetailsForm"></employee-save-button>
+                        <jp-ng-bs-animated-button class="btn btn-sm btn-success" ng-click="vm.save(accountDetailsForm)" is-submitting="vm.isSubmitting" result="vm.result" options="vm.saveButtonOptions"></jp-ng-bs-animated-button>
                     </div>
                 </div>
             </form>

@@ -1,0 +1,22 @@
+[
+    {
+        "code": "EUR",
+        "symbol": "€"
+    },
+    {
+        "code": "USD",
+        "symbol": "$"
+    },
+    {
+        "code": "404",
+        "symbol": "404"
+    },
+    {
+        "code": "409",
+        "symbol": "409"
+    },
+    {
+        "code": "500",
+        "symbol": "500"
+    }
+]

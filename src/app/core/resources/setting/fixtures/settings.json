@@ -1,6 +1,9 @@
 [
     {
         "id": "app",
-        "language": "en"
+        "language": "en",
+        "avatar": "https://raw.githubusercontent.com/martinmicunda/employee-scheduling-ui/master/src/images/avatar.png",
+        "currencyCode": "EUR",
+        "currencySymbol": "€"
     }
 ]

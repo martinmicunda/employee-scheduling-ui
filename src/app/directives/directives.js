@@ -7,4 +7,5 @@
 
 import './scroll-up/scroll-up';
 import './modal-really-click/modal-really-click';
+import './unique-email-validator/unique-email-validator';
 import './modal-warning-unsaved-form/modal-warning-unsaved-form';

@@ -17,7 +17,8 @@ import {RouteConfig, Component, View, Inject} from '../../../ng-decorators'; // 
     abstract: true,
     template: '<account></account>',
     resolve: {
-        init: ['EmployeeModel', EmployeeModel => EmployeeModel.initItem('1')]
+        // FIXME: add profile employee ID
+        init: ['$q', 'EmployeeModel', 'SettingModel', ($q, EmployeeModel, SettingModel) => $q.all([EmployeeModel.initItem('1'), SettingModel.initItem('app')])]
     }
 })
 @Component({

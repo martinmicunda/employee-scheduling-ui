@@ -45,7 +45,7 @@ describe('Language', () => {
 
             expect($q.all).toHaveBeenCalled();
             expect(SettingModel.initItem).toHaveBeenCalledWith('app');
-            expect(LanguageModel.initCollection).toHaveBeenCalledWith(null, true);
+            expect(LanguageModel.initCollection).toHaveBeenCalled();
         });
     });
 
@@ -130,7 +130,7 @@ describe('Language', () => {
             expect(FormService.save).not.toHaveBeenCalled();
         });
 
-        it('should save if form is invalid', () => {
+        it('should save if form is valid', () => {
             let form = {$valid: true};
             spyOn(SettingModel, 'getItem').and.returnValue(collectionMock);
             spyOn(FormService, 'save');

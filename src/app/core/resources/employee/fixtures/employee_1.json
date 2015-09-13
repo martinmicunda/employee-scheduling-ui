@@ -1,12 +1,12 @@
 {
     "id": "1",
     "version": 2,
-    "avatar": "me.jpg",
+    "avatar": "https://raw.githubusercontent.com/martinmicunda/employee-scheduling-ui/master/src/images/me.jpg",
     "firstName": "Martin",
     "lastName": "Micunda",
     "email": "martinmicunda@hotmail.com",
     "language": "en",
-    "position": "ceo",
+    "position": "5",
     "role": "admin",
     "status": "active",
     "phoneNumber": "+353767889",
@@ -18,5 +18,7 @@
     "bankAccountNumber": "123456890YU",
     "hourlyRate": 8,
     "currencyCode": "EUR",
-    "currencySymbol": "€"
+    "currencySymbol": "€",
+    "locations": ["1", "5"],
+    "supervisorLocations": []
 }

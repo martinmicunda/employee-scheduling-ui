@@ -10,6 +10,9 @@
 .mr5 {
     margin-right: 5px!important;
 }
+.mt5 {
+    margin-top: 5px!important;
+}
 .mb5 {
     margin-bottom: 5px!important;
 }
@@ -31,7 +34,13 @@
 .pt5 {
     padding-top: 5px;
 }
-.pl-0 {
+.pb5 {
+    padding-bottom: 5px;
+}
+.pr0 {
+    padding-right: 0;
+}
+.pl0 {
     padding-left: 0;
 }
 .well {
@@ -39,4 +48,7 @@
     background: #fff;
     box-shadow: none;
     -webkit-box-shadow: none;
+}
+.text-left {
+    text-align: left!important;
 }

@@ -19,6 +19,10 @@ class EmployeeResource extends AbstractResource {
     constructor($http) {
         super($http, 'employees');
     }
+
+    getEmployeeByEmail(email) {
+        return this.http.get(`/${this.route}`, {params: {email: email}});
+    }
 }
 
 export default EmployeeResource;

@@ -19,10 +19,24 @@ import {RouteConfig, Component, View, Inject} from '../../../../ng-decorators'; 
 @View({
     template: template
 })
-@Inject('EmployeeModel')
+@Inject('EmployeeModel', 'FormService')
 //end-non-standard
 class Password {
-    constructor(EmployeeModel) {
+    constructor(EmployeeModel, FormService) {
         this.employee = EmployeeModel.getItem();
+        this.result = null;
+        this.isSubmitting = null;
+        this.FormService = FormService;
+        this.EmployeeModel = EmployeeModel;
+        this.saveButtonOptions = FormService.getSaveButtonOptions();
+    }
+
+    save(form) {
+        if(!form.$valid) {return;}
+
+        this.isSubmitting = true;
+        this.FormService.save(this.EmployeeModel, this.employee, this, form).then(() => {
+            this.EmployeeModel.calculateProfileCompleteness();
+        });
     }
 }

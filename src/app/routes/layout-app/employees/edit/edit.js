@@ -6,89 +6,84 @@
 'use strict';
 
 import './account-details/account-details';
-import './account-settings/account-settings';
+import './authorizations/authorizations';
 import './bank-details/bank-details';
 import './contact-details/contact-details';
-import './hourly-rates/hourly-rates';
+import './hourly-rate/hourly-rate';
+import './password/password';
 import template from './edit.html!text';
-import {USER_ROLES} from '../../../../core/constants/constants';
+import {PROFILE_COMPLETENESS_TYPES, USER_ROLES} from '../../../../core/constants/constants';
 import {RouteConfig, Inject} from '../../../../ng-decorators'; // jshint unused: false
 
 //start-non-standard
-//http://blog.chorip.am/articles/angularsjs-ui-router-and-in-modal-nested-states/
 @RouteConfig('app.employees.edit', {
     url: '/:id/edit',
-    onEnter: ['$stateParams', '$state', '$modal', ($stateParams, $state, $modal) => {
+    onEnter: ['$stateParams', '$modal', 'ModalService', ($stateParams, $modal, ModalService) => {
         const id = $stateParams.id;
         $modal.open({
             template: template,
             resolve: {
-                employee: ['$stateParams', 'EmployeeResource', ($stateParams, EmployeeResource) => EmployeeResource.get(id)],
-                languages: ['LanguageResource', LanguageResource => LanguageResource.getList(null, true)],
-                positions: ['PositionResource', PositionResource => PositionResource.getList({lang: 'en'})], // TODO:(martin) language should comes from user profile
+                init: ['$q', 'PositionModel', 'EmployeeModel', 'SettingModel', 'LocationModel',
+                    ($q, PositionModel, EmployeeModel, SettingModel, LocationModel) => $q.all([PositionModel.initCollection(), EmployeeModel.initItem(id), SettingModel.initItem('app'), LocationModel.initCollection()])]
             },
             controller: EmployeeEdit,
             controllerAs: 'vm',
             size: 'lg'
-        }).result.then(() => {
-            }, (error) => {
-                if(error.status) {
-                    $modal.open({
-                        template: '<error-modal cancel="vm.cancel()" error="vm.error"></error-modal>',
-                        controller: ['$modalInstance', function ($modalInstance) {
-                            var vm = this;
-                            vm.error = error;
-                            vm.cancel = () => $modalInstance.dismiss('cancel');
-                        }],
-                        controllerAs: 'vm',
-                        size: 'md'
-                    }).result.finally(() => $state.go('app.employees'));
-                }
-            }).finally(() => $state.go('app.employees'));
+        }).result.then(ModalService.onSuccess(), ModalService.onError($modal, 'app.employees')).finally(ModalService.onFinal('app.employees'));
     }]
 })
-@Inject('employee', 'languages', 'positions', 'EmployeeModel', '$modalInstance')
+@Inject('$state', '$modalInstance', 'EmployeeModel', 'FormService')
 //end-non-standard
 class EmployeeEdit {
-    constructor(employee, languages, positions, EmployeeModel, $modalInstance) {
-        this.$modalInstance = $modalInstance;
-        this.EmployeeModel = EmployeeModel;
-        this.employee = employee;
-        this.languages = languages;
-        this.positions = positions;
-        this.roles = USER_ROLES;
-        this.profileComplete = EmployeeModel.calculateProfileCompleteness();
-        this.isSubmitting = null;
+    constructor($state, $modalInstance, EmployeeModel, FormService) {
+        this.name = `${EmployeeModel.getItem().firstName} ${EmployeeModel.getItem().lastName}`;
+        this.modal = $modalInstance;
+        this.avatar = EmployeeModel.getItem().avatar;
+        this.router = $state;
         this.result = null;
-        this.saveButtonOptions = {
-            iconsPosition: 'right',
-            buttonDefaultText: 'Save',
-            buttonSubmittingText: 'Saving',
-            buttonSuccessText: 'Saved',
-            animationCompleteTime: '1200'
-        };
+        this.employee = EmployeeModel.getItem();
+        this.FormService = FormService;
+        this.isSubmitting = null;
+        this.EmployeeModel = EmployeeModel;
+        this.profileCompletenessType = PROFILE_COMPLETENESS_TYPES.EMPLOYEE;
+        this.saveButtonOptions = FormService.getSaveButtonOptions();
+        // only employeeAccountDetailsForm and employeeHourlyRateForm forms has required fields
+        this.formSteps = [
+            {route: 'app.employees.edit.account-details', formName: 'employeeAccountDetailsForm', valid: false},
+            {route: 'app.employees.edit.contact-details', formName: 'employeeContactDetailsForm', valid: true},
+            {route: 'app.employees.edit.bank-details', formName: 'employeeBankDetailsForm', valid: true},
+            {route: 'app.employees.edit.hourly-rate', formName: 'employeeHourlyRateForm', valid: false},
+            {route: 'app.employees.edit.authorizations', formName: 'employeeAuthorizationsForm', valid: true},
+            {route: 'app.employees.edit.password', formName: 'employeePasswordForm', valid: true}
+        ];
     }
 
     cancel() {
-        this.$modalInstance.dismiss('cancel');
+        this.modal.dismiss('cancel');
+    }
+
+    goToNextSection(isFormValid, form, route) {
+        this.hasError = false;
+        this.FormService.submitChildForm(this.router.current.name, form, this.formSteps);
+        if(isFormValid) {
+            this.router.go(route);
+        }
     }
 
     save(form) {
         if(!form.$valid) {return;}
+
+        // delete cancel function from this object so we don't close modal once the data are saved successfully
+        const self = Object.getPrototypeOf(this);
+        delete self.cancel;
+
         this.isSubmitting = true;
-        this.employee.put().then((employee) => {
-            this.profileComplete = this.EmployeeModel.calculateProfileCompleteness();
-            this.employee = employee;
-            this.result = 'success';
-            form.$setPristine();
-        }, (response) => {
-            this.result = 'error';
-            if(response.status === 409) {
-                //toaster.pop('warning', 'Warning:', 'Another user has updated this location while you were editing');
-            } else {
-                //toaster.pop('error', 'Error:', 'Location could not be updated. Please try again!');
-            }
+        this.FormService.save(this.EmployeeModel, this.employee, this, form).then(() => {
+            this.name = `${this.EmployeeModel.getItem().firstName} ${this.EmployeeModel.getItem().lastName}`;
+            this.avatar = this.EmployeeModel.getItem().avatar;
+            this.EmployeeModel.calculateProfileCompleteness(PROFILE_COMPLETENESS_TYPES.EMPLOYEE);
+        }).finally(() => {
+            self.cancel = function cancel() {this.modal.dismiss('cancel');}; // do not use arrow function as this function needs to have a name
         });
     }
 }
-// http://www.sitepoint.com/creating-stateful-modals-angularjs-angular-ui-router/

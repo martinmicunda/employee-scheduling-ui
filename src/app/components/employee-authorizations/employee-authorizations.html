@@ -1,0 +1,53 @@
+<fieldset class="animated fadeIn" ng-form="employeeAuthorizationsForm">
+    <legend class="pull-left width-full">Authorizations</legend>
+    <div class="form-group">
+        <label class="control-label col-sm-4">
+            Role&nbsp;
+            <a href="#" popover-placement="top" popover-append-to-body="true" popover="Employee: An employee has basic viewing access to the schedule. They can facilitate requests on their own shifts, respond to available shifts. ">
+                <i class="fa fa-question-circle"></i>
+            </a>
+        </label>
+        <div class="col-sm-5">
+            <select name="role" class="form-control"
+                    ng-init="vm.employee.role = vm.employee.role || vm.roles[0]"
+                    ng-model="vm.employee.role"
+                    ng-change="vm.deleteSupervisorLocations()"
+                    ng-options="role as role for role in vm.roles"></select>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-offset-2 col-sm-8 pb5 text-left">Where can this employee work?</label>
+        <div class="col-sm-offset-2 col-sm-8">
+            <div>
+                <input type="checkbox" ng-model="vm.selectedAllLocations" ng-click="vm.selectAll(vm.selectedAllLocations, 'locations')"/>
+                <i>select/unselect all</i>
+            </div>
+            <hr class="mt5 mb5"/>
+            <ul class="pl0 mb0">
+                <li ng-repeat="location in vm.locations track by location.id">
+                    <input type="checkbox"
+                           ng-checked="vm.employee.locations.indexOf(location.id) > -1"
+                           ng-click="vm.toggleSelection(location.id, vm.selectedAllLocations, 'locations')" /> {{location.name}}
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="form-group" ng-show="vm.employee.role === vm.USER_ROLES.SUPERVISOR">
+        <label class="control-label col-sm-offset-2 col-sm-8 pb5 text-left">Which locations can this supervisor manage?</label>
+        <div class="col-sm-offset-2 col-sm-8">
+            <div>
+                <input type="checkbox" ng-model="vm.selectedAllSupervisorLocations" ng-click="vm.selectAll(vm.selectedAllSupervisorLocations, 'supervisorLocations')"/>
+                <i>select/unselect all</i>
+            </div>
+            <hr class="mt5 mb5"/>
+            <ul class="pl0 mb0">
+                <li ng-repeat="location in vm.locations track by location.id">
+                    <input type="checkbox"
+                           ng-checked="vm.employee.supervisorLocations.indexOf(location.id) > -1"
+                           ng-click="vm.toggleSelection(location.id, vm.selectedAllSupervisorLocations, 'supervisorLocations')" /> {{location.name}}
+                </li>
+            </ul>
+        </div>
+    </div>
+</fieldset>

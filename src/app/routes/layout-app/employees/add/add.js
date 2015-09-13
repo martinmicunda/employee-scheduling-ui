@@ -5,51 +5,88 @@
  */
 'use strict';
 
+import './complete/complete';
+import './hourly-rate/hourly-rate';
+import './bank-details/bank-details';
+import './authorizations/authorizations';
 import './account-details/account-details';
-import './account-settings/account-settings';
+import './contact-details/contact-details';
 import template from './add.html!text';
-import {USER_ROLES} from '../../../../core/constants/constants';
+import {PROFILE_COMPLETENESS_TYPES} from '../../../../core/constants/constants';
 import {RouteConfig, Inject} from '../../../../ng-decorators'; // jshint unused: false
 
 //start-non-standard
 @RouteConfig('app.employees.add', {
     url: '/add',
-    onEnter: ['$stateParams', '$state', '$modal', ($stateParams, $state, $modal) => {
+    onEnter: ['$modal', 'ModalService', ($modal, ModalService) => {
         $modal.open({
             template: template,
             resolve: {
-                languages: ['LanguageResource', LanguageResource => LanguageResource.getList(null, true)],
-                positions: ['PositionResource', PositionResource => PositionResource.getList({lang: 'en'})], // TODO:(martin) language should comes from user profile
+                init: ['$q', 'PositionModel', 'EmployeeModel', 'SettingModel', 'LocationModel',
+                    ($q, PositionModel, EmployeeModel, SettingModel, LocationModel) => $q.all([PositionModel.initCollection(), EmployeeModel.initItem(), SettingModel.initItem('app'), LocationModel.initCollection()])]
             },
             controller: EmployeeAdd,
             controllerAs: 'vm',
             size: 'lg'
-        }).result.finally(function() {
-                $state.go('app.employees');
-            });
+        }).result.finally(ModalService.onFinal('app.employees'));
     }]
 })
-@Inject('languages', 'positions', 'EmployeeModel', '$state', '$modalInstance')
+@Inject('$state', 'EmployeeModel', 'FormService', '$modalInstance')
 //end-non-standard
 class EmployeeAdd {
-    constructor(languages, positions, EmployeeModel, $state, $modalInstance) {
-        this.$modalInstance = $modalInstance;
-        this.employee = {};
-        this.languages = languages;
-        this.positions = positions;
-        this.roles = USER_ROLES;
-        this.profileComplete = EmployeeModel.calculateProfileCompleteness();
+    constructor($state, EmployeeModel, FormService, $modalInstance) {
+        this.modal = $modalInstance;
         this.router = $state;
+        this.result = null;
+        this.employee = EmployeeModel.getItem();
+        this.FormService = FormService;
+        this.isSubmitting = null;
+        this.EmployeeModel = EmployeeModel;
+        this.profileCompletenessType = PROFILE_COMPLETENESS_TYPES.EMPLOYEE;
+        this.saveButtonOptions = Object.assign({}, FormService.getModalSaveButtonOptions()); // clone the modal save button options so we don't overwrite default one
+        this.saveButtonOptions.buttonDefaultText = 'Create an Employee';
+        this.saveButtonOptions.buttonSuccessText = 'Created an Employee';
+        this.saveButtonOptions.buttonSubmittingText = 'Creating an Employee';
+        // only employeeAccountDetailsForm and employeeHourlyRateForm forms has required fields
+        this.formSteps = [
+            {route: 'app.employees.add.account-details', formName: 'employeeAccountDetailsForm', valid: false},
+            {route: 'app.employees.add.contact-details', formName: 'employeeContactDetailsForm', valid: true},
+            {route: 'app.employees.add.bank-details', formName: 'employeeBankDetailsForm', valid: true},
+            {route: 'app.employees.add.hourly-rate', formName: 'employeeHourlyRateForm', valid: false},
+            {route: 'app.employees.add.authorizations', formName: 'employeeAuthorizationsForm', valid: true},
+            {route: 'app.employees.add.complete', formName: 'employeeCompleteForm', valid: true}
+        ];
+        EmployeeModel.calculateProfileCompleteness(PROFILE_COMPLETENESS_TYPES.EMPLOYEE);
     }
 
     cancel() {
-        this.$modalInstance.dismiss('cancel');
+        this.modal.dismiss('cancel');
     }
 
-    //goToNextSection (isFormValid) {
-    //    // If form is valid go to next section
-    //    //if(isFormValid) {
-    //    //    this.$state.go(nextState(this.$state.current.name));
-    //    //}
-    //}
+
+    goToNextSection(isFormValid, form, route) {
+        this.hasError = false;
+        this.FormService.submitChildForm(this.router.current.name, form, this.formSteps);
+        if(isFormValid) {
+            this.EmployeeModel.calculateProfileCompleteness(PROFILE_COMPLETENESS_TYPES.EMPLOYEE);
+            if(route) {
+                this.router.go(route);
+            } else {
+                form.$setPristine();
+                this.router.go(this.FormService.nextState(this.router.current.name, this.formSteps));
+            }
+        }
+    }
+
+    goToPreviousSection() {
+        this.EmployeeModel.calculateProfileCompleteness(PROFILE_COMPLETENESS_TYPES.EMPLOYEE);
+        this.router.go(this.FormService.previousState(this.router.current.name, this.formSteps));
+    }
+
+    save(form) {
+        if(this.FormService.hasInvalidChildForms(this.router, this.formSteps)) {return;}
+
+        this.isSubmitting = true;
+        this.FormService.save(this.EmployeeModel, this.employee, this, form);
+    }
 }
