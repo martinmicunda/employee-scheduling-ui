@@ -5,6 +5,8 @@ import './footer.js';
 describe('Footer', () => {
     let component = '<footer></footer>';
 
+    beforeEach(angular.mock.module('ngDecorator'));
+
     describe('Component', () => {
         let $compile, $rootScope, scope, render, element;
 
