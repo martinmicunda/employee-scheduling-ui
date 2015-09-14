@@ -17,4 +17,4 @@ import {RouteConfig} from '../../../../../ng-decorators'; // jshint unused: fals
     }
 })
 //end-non-standard
-class EmployeeAddAcountDetails {}
+class EmployeeAddAccountDetails {}

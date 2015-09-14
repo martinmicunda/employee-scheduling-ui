@@ -30,3 +30,5 @@ class EmployeeEditPassword {
         this.employee = EmployeeModel.getItem();
     }
 }
+
+export default EmployeeEditPassword;

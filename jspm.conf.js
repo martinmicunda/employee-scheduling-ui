@@ -21,7 +21,7 @@ System.config({
     "angular-local-storage": "npm:angular-local-storage@0.2.2",
     "angular-messages": "npm:angular-messages@1.4.5",
     "angular-mocks": "npm:angular-mocks@1.4.5",
-    "angular-ui": "github:angular-ui/bootstrap-bower@0.12.1",
+    "angular-ui": "github:angular-ui/bootstrap-bower@0.13.4",
     "angular-ui-router": "github:angular-ui/ui-router@0.2.15",
     "babel": "npm:babel-core@5.8.24",
     "babel-runtime": "npm:babel-runtime@5.8.24",
@@ -34,9 +34,6 @@ System.config({
     "ng-file-upload": "npm:ng-file-upload@7.2.0",
     "si-table": "github:simplicitylabs/si-table@0.2.3",
     "text": "github:systemjs/plugin-text@0.0.2",
-    "github:angular-ui/bootstrap-bower@0.12.1": {
-      "angular": "github:angular/bower-angular@1.2.28"
-    },
     "github:angular-ui/ui-router@0.2.15": {
       "angular": "github:angular/bower-angular@1.4.5"
     },
