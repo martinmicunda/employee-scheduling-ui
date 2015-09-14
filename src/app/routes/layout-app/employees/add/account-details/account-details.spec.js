@@ -5,6 +5,7 @@
  */
 'use strict';
 
+import 'angular-mocks';
 import './account-details.js';
 
 describe('EmployeeAddAccountDetails', () => {

@@ -5,6 +5,7 @@
  */
 'use strict';
 
+import 'angular-mocks';
 import './position-label.js';
 
 describe('Helpers: positionLabel', () => {

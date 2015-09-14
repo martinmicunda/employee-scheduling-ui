@@ -5,6 +5,7 @@
  */
 'use strict';
 
+import 'angular-mocks';
 import './contact-details.js';
 
 describe('EmployeeEditContactDetails', () => {

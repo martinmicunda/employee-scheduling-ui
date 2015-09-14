@@ -5,6 +5,7 @@
  */
 'use strict';
 
+import 'angular-mocks';
 import './hourly-rate.js';
 
 describe('EmployeeEditHourlyRate', () => {

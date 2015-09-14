@@ -5,6 +5,7 @@
  */
 'use strict';
 
+import 'angular-mocks';
 import {fakeModal} from '../../../../../../../test/helpers/modal.js';
 import PositionEdit from './edit.js';
 

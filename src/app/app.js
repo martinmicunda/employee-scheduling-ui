@@ -6,7 +6,6 @@
 'use strict';
 
 // js vendor files
-import 'babel/polyfill';
 import angular from 'angular';
 import 'angular-animate';
 import 'angular-messages';

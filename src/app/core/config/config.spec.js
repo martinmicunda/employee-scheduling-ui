@@ -31,7 +31,7 @@ describe('Config', () => {
     });
 
     it('should use the HTML5 History API (set to true)', () => {
-        expect($locationProvider.html5Mode).toHaveBeenCalledWith(true);
+        expect($locationProvider.html5Mode).toHaveBeenCalledWith({ enabled: true, requireBase: false });
     });
 
     it('should redirect to `/404` for any unmatched url route', () => {

@@ -5,6 +5,7 @@
  */
 'use strict';
 
+import 'angular-mocks';
 import './authorizations.js';
 
 describe('EmployeeAddAuthorizations', () => {

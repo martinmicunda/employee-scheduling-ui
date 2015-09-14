@@ -28,7 +28,10 @@ class OnConfig {
         $httpProvider.interceptors.push('ApiUrlHttpInterceptor');
 
         // use the HTML5 History API
-        $locationProvider.html5Mode(true);
+        $locationProvider.html5Mode({
+            enabled: true,
+            requireBase: false
+        });
 
         // for any unmatched url, send to 404 page (Not page found)
         $urlRouterProvider.otherwise('/404');
