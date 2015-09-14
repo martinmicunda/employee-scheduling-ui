@@ -6,6 +6,7 @@
 'use strict';
 
 import employee from '../resources/employee/fixtures/employee_1.json!json';
+import {PROFILE_COMPLETENESS_TYPES} from '../../core/constants/constants';
 import EmployeeModel from './employee.js';
 
 describe('EmployeeModel', () => {
@@ -20,11 +21,12 @@ describe('EmployeeModel', () => {
         expect(employeeModel.resource).toEqual(mockObject);
     });
 
-    it(`should have 'profileCompleteness' property set to 100%`, () => {
-        expect(employeeModel.profileCompleteness).toEqual(profileCompleteness);
+    it(`should have 'profileCompleteness' property set to empty object`, () => {
+        expect(employeeModel.profileCompleteness).toEqual({});
     });
 
     it(`should get 'profileCompleteness'`, () => {
+        employeeModel.profileCompleteness = profileCompleteness;
         expect(employeeModel.getProfileCompleteness()).toEqual(profileCompleteness);
     });
 
@@ -44,5 +46,33 @@ describe('EmployeeModel', () => {
         employeeModel.setItem(employeeClone);
 
         expect(employeeModel.calculateProfileCompleteness()).toEqual({ percentage: '50' });
+    });
+
+    it(`should calculate profileCompleteness for ACCOUNT type with all required fields fill in`, () => {
+        let employeeClone = Object.assign({}, employee);
+
+        employeeModel.setItem(employeeClone);
+
+        expect(employeeModel.calculateProfileCompleteness()).toEqual({ percentage: '100' });
+    });
+
+    it(`should calculate profileCompleteness for EMPLOYEE type with all required fields not fill in`, () => {
+        let employeeClone = Object.assign({}, {});
+        employeeClone.city = '';
+        employeeClone.address = '';
+        employeeClone.zipCode = '';
+        employeeClone.phoneNumber = '';
+
+        employeeModel.setItem(employeeClone);
+
+        expect(employeeModel.calculateProfileCompleteness(PROFILE_COMPLETENESS_TYPES.EMPLOYEE)).toEqual({ percentage: '0' });
+    });
+
+    it(`should calculate profileCompleteness for EMPLOYEE type with all required fields fill in`, () => {
+        let employeeClone = Object.assign({}, employee);
+
+        employeeModel.setItem(employeeClone);
+
+        expect(employeeModel.calculateProfileCompleteness(PROFILE_COMPLETENESS_TYPES.EMPLOYEE)).toEqual({ percentage: '71' });
     });
 });

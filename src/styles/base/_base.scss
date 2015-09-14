@@ -50,5 +50,5 @@ a:hover {
     outline: none;
     color: $darkGreen;
 }
-button:focus {outline:0;}
+button:focus, a:focus {outline:0;}
 ul {list-style-type: none;}

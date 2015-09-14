@@ -32,6 +32,7 @@ class AccountDetails {
         this.saveButtonOptions = FormService.getSaveButtonOptions();
         this.result = null;
         this.isSubmitting = null;
+        this.EmployeeModel.calculateProfileCompleteness();
     }
 
     removeAvatar() {

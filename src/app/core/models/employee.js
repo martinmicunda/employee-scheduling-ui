@@ -19,7 +19,6 @@ class EmployeeModel extends AbstractModel {
     constructor(EmployeeResource) {
         super(EmployeeResource);
         this.profileCompleteness = {}; // use two-way scope binding
-        this.calculateProfileCompleteness();
     }
 
     getProfileCompleteness() {
@@ -29,7 +28,7 @@ class EmployeeModel extends AbstractModel {
     emptyObjectPropertiesCounter(object, completenessFields) {
         let i = 0;
         for(let key of completenessFields) {
-            if(object.hasOwnProperty(key) && !object[key]) {
+            if(!object.hasOwnProperty(key) || (object.hasOwnProperty(key) && !object[key])) {
                 i++;
             }
         }
@@ -42,7 +41,7 @@ class EmployeeModel extends AbstractModel {
         const employee = super.getItem();
 
         // Profile Account page has only 4 fields that are needs for calculation completeness (only contacts fields in this case)
-        const completenessFields = type === PROFILE_COMPLETENESS_TYPES.ACCOUNT ? ['phoneNumber', 'address', 'city', 'zipCode'] : ['personalNo', 'identityNo', 'bankName', 'accountNumber', 'accountName', 'phoneNumber', 'address', 'city', 'zipCode'];
+        const completenessFields = type === PROFILE_COMPLETENESS_TYPES.ACCOUNT ? ['phoneNumber', 'address', 'city', 'zipCode'] : ['firstName', 'lastName', 'email', 'position', 'hourlyRate', 'personalNo', 'identityNo', 'bankName', 'accountNumber', 'accountName', 'phoneNumber', 'address', 'city', 'zipCode'];
         const totalObjectProperties = type === PROFILE_COMPLETENESS_TYPES.ACCOUNT ? 8 : 14;
         const totalEmptyObjectProperties = this.emptyObjectPropertiesCounter(employee, completenessFields);
 

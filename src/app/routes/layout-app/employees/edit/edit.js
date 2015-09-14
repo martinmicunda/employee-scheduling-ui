@@ -56,6 +56,7 @@ class EmployeeEdit {
             {route: 'app.employees.edit.authorizations', formName: 'employeeAuthorizationsForm', valid: true},
             {route: 'app.employees.edit.password', formName: 'employeePasswordForm', valid: true}
         ];
+        EmployeeModel.calculateProfileCompleteness(PROFILE_COMPLETENESS_TYPES.EMPLOYEE);
     }
 
     cancel() {

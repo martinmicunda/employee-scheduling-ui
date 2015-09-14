@@ -41,12 +41,8 @@ describe('constants', () => {
             expect(PROFILE_COMPLETENESS_TYPES.ACCOUNT).toEqual('account');
         });
 
-        it('should contain edit-employee completeness type', () => {
-            expect(PROFILE_COMPLETENESS_TYPES.EDIT_EMPLOYEE).toEqual('edit-employee');
-        });
-
-        it('should contain add-employee completeness type', () => {
-            expect(PROFILE_COMPLETENESS_TYPES.ADD_EMPLOYEE).toEqual('add-employee');
+        it('should contain employee completeness type', () => {
+            expect(PROFILE_COMPLETENESS_TYPES.EMPLOYEE).toEqual('employee');
         });
     });
 

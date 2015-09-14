@@ -111,6 +111,13 @@ describe('AccountDetails', () => {
             expect(FormService.getSaveButtonOptions).toHaveBeenCalled();
         });
 
+        it('should calculate profile completeness when controller is loaded', () => {
+            spyOn(EmployeeModel, 'calculateProfileCompleteness');
+            accountDetails = new AccountDetails(EmployeeModel, SettingModel, Upload, FormService);
+
+            expect(EmployeeModel.calculateProfileCompleteness).toHaveBeenCalled();
+        });
+
         it('should set default avatar image', () => {
             spyOn(EmployeeModel, 'getItem').and.returnValue(itemMock);
             spyOn(SettingModel, 'getItem').and.returnValue({avatar: 'avatar-default'});
