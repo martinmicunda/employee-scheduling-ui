@@ -38,3 +38,4 @@ class EmployeeSchedule {
     }
 }
 
+export default EmployeeSchedule;

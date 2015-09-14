@@ -57,3 +57,5 @@ class EmployeeMessage {
         //});
     }
 }
+
+export default EmployeeMessage;
