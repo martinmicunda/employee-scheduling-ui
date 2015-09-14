@@ -1,0 +1,4 @@
+languages:
+   JavaScript: true
+exclude_paths:
+- "src/**/!(*.spec|*.mock|*-mock|*.e2e|*.po).js"
