@@ -45,3 +45,5 @@ class Employees {
         this.FormService.delete(this.EmployeeModel, employee, this);
     }
 }
+
+export default Employees;
