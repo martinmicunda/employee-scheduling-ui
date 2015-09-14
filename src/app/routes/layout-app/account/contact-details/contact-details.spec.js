@@ -7,7 +7,7 @@
 
 import ContactDetails from './contact-details.js';
 
-fdescribe('ContactDetails', () => {
+describe('ContactDetails', () => {
     let component = '<contact-details></contact-details>';
 
     beforeEach(angular.mock.module('ngDecorator'));

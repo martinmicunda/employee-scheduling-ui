@@ -7,7 +7,7 @@
 
 import Password from './password.js';
 
-fdescribe('Password', () => {
+describe('Password', () => {
     let component = '<password-details></password-details>';
 
     beforeEach(angular.mock.module('ngDecorator'));
