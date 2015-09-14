@@ -51,7 +51,11 @@ class AccountDetails {
             this.employeeCloned.avatar = this.employee.avatar;
             this.employeeCloned.firstName = this.employee.firstName;
             this.employeeCloned.lastName = this.employee.lastName;
+            this.employeeCloned.email = this.employee.email;
+            this.employeeCloned.note = this.employee.note;
             this.EmployeeModel.calculateProfileCompleteness();
         });
     }
 }
+
+export default AccountDetails;

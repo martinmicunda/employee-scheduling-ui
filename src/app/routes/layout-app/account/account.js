@@ -34,3 +34,5 @@ class Account {
         this.employee = EmployeeModel.getItem();
     }
 }
+
+export default Account;

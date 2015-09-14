@@ -40,3 +40,5 @@ class ContactDetails {
         });
     }
 }
+
+export default ContactDetails;
