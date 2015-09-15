@@ -35,7 +35,7 @@ class Password {
         if(!form.$valid) {return;}
 
         this.isSubmitting = true;
-        this.FormService.save(this.EmployeeModel, this.employee, this, form).then(() => {
+        return this.FormService.save(this.EmployeeModel, this.employee, this, form).then(() => {
             this.EmployeeModel.calculateProfileCompleteness();
         });
     }

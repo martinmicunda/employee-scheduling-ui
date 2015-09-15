@@ -16,10 +16,9 @@ describe('Password', () => {
         let url = '/account/password',
             state = 'app.account.password',
             currentState,
-            $q, $state, $injector;
+            $state, $injector;
 
-        beforeEach(inject((_$q_, _$state_, _$injector_) => {
-            $q = _$q_;
+        beforeEach(inject(( _$state_, _$injector_) => {
             $state = _$state_;
             $injector = _$injector_;
 
@@ -61,12 +60,10 @@ describe('Password', () => {
     });
 
     describe('Controller', () => {
-        let $q, $rootScope, password, FormService, EmployeeModel,
+        let password, FormService, EmployeeModel,
             itemMock = 'itemMock';
 
-        beforeEach(inject((_$q_, _$rootScope_, _FormService_, _EmployeeModel_) => {
-            $q = _$q_;
-            $rootScope = _$rootScope_;
+        beforeEach(inject((_FormService_, _EmployeeModel_) => {
             FormService = _FormService_;
             EmployeeModel = _EmployeeModel_;
         }));
@@ -110,19 +107,18 @@ describe('Password', () => {
             expect(FormService.save).not.toHaveBeenCalled();
         });
 
-        it('should save if form is valid', () => {
+        itAsync('should save if form is valid', () => {
             let form = {$valid: true};
-            spyOn(FormService, 'save').and.returnValue($q.when());
+            spyOn(FormService, 'save').and.returnValue(Promise.resolve());
             spyOn(EmployeeModel, 'getItem').and.returnValue(itemMock);
             spyOn(EmployeeModel, 'calculateProfileCompleteness');
             password = new Password(EmployeeModel, FormService);
 
-            password.save(form);
-            $rootScope.$digest(); // resolve the promise (hacky way how to resolve promise in angular)
-
-            expect(password.isSubmitting).toEqual(true);
-            expect(FormService.save).toHaveBeenCalledWith(EmployeeModel, password.employee, password, form);
-            expect(EmployeeModel.calculateProfileCompleteness).toHaveBeenCalled();
+            return password.save(form).then(() => {
+                expect(password.isSubmitting).toEqual(true);
+                expect(FormService.save).toHaveBeenCalledWith(EmployeeModel, password.employee, password, form);
+                expect(EmployeeModel.calculateProfileCompleteness).toHaveBeenCalled();
+            });
         });
     });
 });

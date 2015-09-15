@@ -128,7 +128,8 @@
     "devDependencies": {
       "babel": "npm:babel-core@5.8.24",
       "babel-runtime": "npm:babel-runtime@5.8.24",
-      "core-js": "npm:core-js@1.1.4"
+      "core-js": "npm:core-js@1.1.4",
+      "jasmine-async-sugar": "github:tomastrajan/jasmine-async-sugar@1.0.0"
     }
   },
   "license": "GPL-3.0",

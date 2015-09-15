@@ -143,80 +143,65 @@ describe('FormService', () => {
     });
 
     describe('', () => {
-        let $q, $rootScope, model, form, self = {}, item = 'item', response = {status: 404};
-
-        beforeEach(inject((_$q_, _$rootScope_) => {
-            $q = _$q_;
-            $rootScope = _$rootScope_;
-
-            model = {
-                save: function () {},
-                delete: function() {}
-            };
-
-            form = {
-                $setPristine: function () {}
-            };
-
-            spyOn(form, '$setPristine');
-        }));
+        let self = {}, item = 'item', response = {status: 404},
+        model = { save: () => {}, delete: () => {} }, form = { $setPristine: () => {} };
 
         describe('save', () => {
-            it(`should save data successfully`, () => {
-                spyOn(model, 'save').and.returnValue($q.when());
+            // Promise.finally is missing in the ES6 spec so we have to add our own version
+            Promise.prototype.finally = function (callback) {
+                let p = this.constructor;
+                return this.then(
+                        value  => p.resolve(callback()).then(() => value),
+                        reason => p.resolve(callback()).then(() => { throw reason; })
+                );
+            };
 
-                formService.save(model, item, self, form);
+            itAsync(`should save data successfully`, () => {
+                spyOn(model, 'save').and.returnValue(Promise.resolve());
 
-                $rootScope.$digest(); // resolve the promise (hacky way how to resolve promise in angular)
-
-                expect(self.result).toEqual('success');
-                expect(model.save).toHaveBeenCalledWith(item);
+                return formService.save(model, item, self, form).then(() => {
+                    expect(self.result).toEqual('success');
+                    expect(model.save).toHaveBeenCalledWith(item);
+                });
             });
 
-            it(`should save data with failure`, () => {
-                spyOn(model, 'save').and.returnValue($q.reject(response));
+            itAsync(`should save data with failure`, () => {
+                spyOn(model, 'save').and.returnValue(Promise.reject(response));
 
-                formService.save(model, item, self, form);
-
-                $rootScope.$digest(); // resolve the promise (hacky way how to resolve promise in angular)
-
-                expect(self.result).toEqual('error');
-                expect(model.save).toHaveBeenCalledWith(item);
+                return formService.save(model, item, self, form).then(() => {
+                    expect(self.result).toEqual('error');
+                    expect(model.save).toHaveBeenCalledWith(item);
+                });
             });
 
-            it(`should call form $setPristine function`, () => {
-                spyOn(model, 'save').and.returnValue($q.reject(response));
+            itAsync(`should call form $setPristine function`, () => {
+                spyOn(form, '$setPristine');
+                spyOn(model, 'save').and.returnValue(Promise.reject(response));
 
-                formService.save(model, item, self, form);
-
-                $rootScope.$digest(); // resolve the promise (hacky way how to resolve promise in angular)
-
-                expect(self.result).toEqual('error');
-                expect(form.$setPristine).toHaveBeenCalled();
+                return formService.save(model, item, self, form).then(() => {
+                    expect(self.result).toEqual('error');
+                    expect(form.$setPristine).toHaveBeenCalled();
+                });
             });
         });
 
         describe('delete', () => {
-            it(`should delete data successfully`, () => {
-                spyOn(model, 'delete').and.returnValue($q.when());
+            itAsync(`should delete data successfully`, () => {
+                spyOn(model, 'delete').and.returnValue(Promise.resolve());
 
-                formService.delete(model, item, self);
-
-                $rootScope.$digest(); // resolve the promise (hacky way how to resolve promise in angular)
-
-                expect(self.result).toEqual('success');
-                expect(model.delete).toHaveBeenCalledWith(item);
+                return formService.delete(model, item, self).then(() => {
+                    expect(self.result).toEqual('success');
+                    expect(model.delete).toHaveBeenCalledWith(item);
+                });
             });
 
-            it(`should delete data with failure`, () => {
-                spyOn(model, 'delete').and.returnValue($q.reject(response));
+            itAsync(`should delete data with failure`, () => {
+                spyOn(model, 'delete').and.returnValue(Promise.reject(response));
 
-                formService.delete(model, item, self);
-
-                $rootScope.$digest(); // resolve the promise (hacky way how to resolve promise in angular)
-
-                expect(self.result).toEqual('error');
-                expect(model.delete).toHaveBeenCalledWith(item);
+                return formService.delete(model, item, self).then(() => {
+                    expect(self.result).toEqual('error');
+                    expect(model.delete).toHaveBeenCalledWith(item);
+                });
             });
         });
     });

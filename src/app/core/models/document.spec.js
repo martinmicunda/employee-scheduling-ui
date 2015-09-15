@@ -5,8 +5,6 @@
  */
 'use strict';
 
-import 'angular';
-import 'angular-mocks';
 import DocumentModel from './document.js';
 
 describe('DocumentModel', () => {
@@ -30,19 +28,14 @@ describe('DocumentModel', () => {
         expect(documentModel.getFilesCollection()).toEqual(mockCollection);
     });
 
-    it(`should init files collection`, inject(($q, $rootScope) => {
-        let mockResource = {
-            getDocumentFiles: function() {}
-        };
-        spyOn(mockResource, 'getDocumentFiles').and.returnValue($q.when(mockCollection));
+    itAsync(`should init files collection`, () => {
+        let mockResource = {getDocumentFiles: () => {}};
+        spyOn(mockResource, 'getDocumentFiles').and.returnValue(Promise.resolve(mockCollection));
         documentModel = new DocumentModel(mockResource);
 
-        documentModel.initFilesCollection(id).then(() => {
+        return documentModel.initFilesCollection(id).then(() => {
             expect(documentModel.files).toEqual(mockCollection);
+            expect(mockResource.getDocumentFiles).toHaveBeenCalledWith(id);
         });
-
-        $rootScope.$digest(); // resolve the promise (hacky way how to resolve promise in angular)
-
-        expect(mockResource.getDocumentFiles).toHaveBeenCalledWith(id);
-    }));
+    });
 });

@@ -13,13 +13,12 @@ let self;
 @Service({
     serviceName: 'ApiUrlHttpInterceptor'
 })
-@Inject('$q', '$injector')
+@Inject('$injector')
 //end-non-standard
 class ApiUrlHttpInterceptor {
-    constructor($q, $injector) {
+    constructor($injector) {
         self = this; // http://stackoverflow.com/questions/28638600/angularjs-http-interceptor-class-es6-loses-binding-to-this
         this.apiUrl = '/api';
-        this.$q = $q;
         this.$injector = $injector;
     }
 
@@ -35,7 +34,7 @@ class ApiUrlHttpInterceptor {
     responseError(rejection) {
         //http://jcrowther.io/2015/05/19/angular-js-http-interceptors/
         // retry request for 503 failure
-        if (rejection.status !== 503) {return self.$q.reject(rejection);}
+        if (rejection.status !== 503) {return Promise.reject(rejection);}
         if (rejection.config.retry) {
             rejection.config.retry++;
         } else {
@@ -45,7 +44,7 @@ class ApiUrlHttpInterceptor {
         if (rejection.config.retry < 5) {
             return self.$injector.get('$http')(rejection.config);
         } else {
-            return self.$q.reject(rejection);
+            return Promise.reject(rejection);
         }
     }
 

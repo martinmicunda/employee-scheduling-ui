@@ -35,6 +35,7 @@
         "expect": false,
         "inject": false,
         "it": false,
+        "itAsync": false,
         "spyOn": false,
         "protractor": false,
         "element": false,

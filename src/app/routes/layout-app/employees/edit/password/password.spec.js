@@ -17,10 +17,9 @@ describe('EmployeeEditPassword', () => {
             url = `/employees/${id}/edit/password`,
             state = 'app.employees.edit.password',
             currentState,
-            $q, $state, $injector;
+            $state, $injector;
 
-        beforeEach(inject((_$q_, _$state_, _$injector_) => {
-            $q = _$q_;
+        beforeEach(inject((_$state_, _$injector_) => {
             $state = _$state_;
             $injector = _$injector_;
 

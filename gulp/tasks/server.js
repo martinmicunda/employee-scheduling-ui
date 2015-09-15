@@ -53,7 +53,7 @@ if(!ENV.match(new RegExp(/prod|dev|test|DEV|TEST|PROD/))) {
 
 // This configuration allow you to configure browser sync to proxy your backend
 const proxyTarget = API_URL; // The location of your backend API
-const proxyApiPrefix = 'api'; // The element in the URL which differentiate between API request and static file request
+const proxyApiPrefix = 'api/'; // The element in the URL which differentiate between API request and static file request
 
 let proxy = httpProxy.createProxyServer({
     target: proxyTarget

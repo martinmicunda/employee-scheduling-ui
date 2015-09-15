@@ -16,10 +16,9 @@ describe('AccountDetails', () => {
         let url = '/account/account-details',
             state = 'app.account.account-details',
             currentState,
-            $q, $state, $injector;
+            $state, $injector;
 
-        beforeEach(inject((_$q_, _$state_, _$injector_) => {
-            $q = _$q_;
+        beforeEach(inject((_$state_, _$injector_) => {
             $state = _$state_;
             $injector = _$injector_;
 
@@ -61,13 +60,11 @@ describe('AccountDetails', () => {
     });
 
     describe('Controller', () => {
-        let $q, $rootScope, accountDetails, FormService, EmployeeModel, SettingModel, Upload,
+        let accountDetails, FormService, EmployeeModel, SettingModel, Upload,
             itemMock = {avatar: 'avatar', firstName: 'firstName', lastName: 'lastName', email: 'email', note: 'note'};
 
-        beforeEach(inject((_$q_, _$rootScope_, _FormService_, _EmployeeModel_, _SettingModel_, _Upload_) => {
-            $q = _$q_;
+        beforeEach(inject((_FormService_, _EmployeeModel_, _SettingModel_, _Upload_) => {
             Upload = _Upload_;
-            $rootScope = _$rootScope_;
             FormService = _FormService_;
             SettingModel = _SettingModel_;
             EmployeeModel = _EmployeeModel_;
@@ -131,18 +128,17 @@ describe('AccountDetails', () => {
             expect(SettingModel.getItem).toHaveBeenCalled();
         });
 
-        it('should add new avatar image', () => {
-            spyOn(Upload, 'dataUrl').and.returnValue($q.when('avatar-new'));
+        itAsync('should add new avatar image', () => {
+            spyOn(Upload, 'dataUrl').and.returnValue(Promise.resolve('avatar-new'));
             spyOn(EmployeeModel, 'getItem').and.returnValue(itemMock);
             accountDetails = new AccountDetails(EmployeeModel, SettingModel, Upload, FormService);
 
             expect(accountDetails.employee.avatar).toEqual(itemMock.avatar);
 
-            accountDetails.addAvatar('file');
-            $rootScope.$digest(); // resolve the promise (hacky way how to resolve promise in angular)
-
-            expect(accountDetails.employee.avatar).toEqual('avatar-new');
-            expect(Upload.dataUrl).toHaveBeenCalledWith('file', true);
+            return accountDetails.addAvatar('file').then(() => {
+                expect(accountDetails.employee.avatar).toEqual('avatar-new');
+                expect(Upload.dataUrl).toHaveBeenCalledWith('file', true);
+            });
         });
 
         it('should not save if form is invalid', () => {
@@ -156,9 +152,9 @@ describe('AccountDetails', () => {
             expect(FormService.save).not.toHaveBeenCalled();
         });
 
-        it('should save if form is valid', () => {
+        itAsync('should save if form is valid', () => {
             let form = {$valid: true};
-            spyOn(FormService, 'save').and.returnValue($q.when());
+            spyOn(FormService, 'save').and.returnValue(Promise.resolve());
             spyOn(EmployeeModel, 'getItem').and.returnValue(itemMock);
             spyOn(EmployeeModel, 'calculateProfileCompleteness');
             accountDetails = new AccountDetails(EmployeeModel, SettingModel, Upload, FormService);
@@ -174,18 +170,17 @@ describe('AccountDetails', () => {
             expect(accountDetails.employeeCloned.email).toEqual(itemMock.email);
             expect(accountDetails.employeeCloned.note).toEqual(itemMock.note);
 
-            accountDetails.save(form);
-            $rootScope.$digest(); // resolve the promise (hacky way how to resolve promise in angular)
+            return accountDetails.save(form).then(() => {
+                expect(accountDetails.isSubmitting).toEqual(true);
+                expect(FormService.save).toHaveBeenCalledWith(EmployeeModel, accountDetails.employee, accountDetails, form);
+                expect(EmployeeModel.calculateProfileCompleteness).toHaveBeenCalled();
 
-            expect(accountDetails.isSubmitting).toEqual(true);
-            expect(FormService.save).toHaveBeenCalledWith(EmployeeModel, accountDetails.employee, accountDetails, form);
-            expect(EmployeeModel.calculateProfileCompleteness).toHaveBeenCalled();
-
-            expect(accountDetails.employeeCloned.avatar).toEqual(accountDetails.employee.avatar);
-            expect(accountDetails.employeeCloned.firstName).toEqual(accountDetails.employee.firstName);
-            expect(accountDetails.employeeCloned.lastName).toEqual(accountDetails.employee.lastName);
-            expect(accountDetails.employeeCloned.email).toEqual(accountDetails.employee.email);
-            expect(accountDetails.employeeCloned.note).toEqual(accountDetails.employee.note);
+                expect(accountDetails.employeeCloned.avatar).toEqual(accountDetails.employee.avatar);
+                expect(accountDetails.employeeCloned.firstName).toEqual(accountDetails.employee.firstName);
+                expect(accountDetails.employeeCloned.lastName).toEqual(accountDetails.employee.lastName);
+                expect(accountDetails.employeeCloned.email).toEqual(accountDetails.employee.email);
+                expect(accountDetails.employeeCloned.note).toEqual(accountDetails.employee.note);
+            });
         });
     });
 });

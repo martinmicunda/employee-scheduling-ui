@@ -12,7 +12,7 @@ import './config/config';
 import './helpers/position-label';
 
 // interceptors
-import './interceptors/url-http'; // FIXME: why I can't call this file api-url-http?
+import './interceptors/api-url-http';
 
 // models
 import './models/document';

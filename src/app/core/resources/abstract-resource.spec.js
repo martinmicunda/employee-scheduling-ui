@@ -24,25 +24,31 @@ describe('AbstractResource', () => {
     }));
 
     it('should call GET resource with `id`', () => {
-        $httpBackend.whenGET(`/${route}/${id}`).respond();
+        $httpBackend.whenGET(`/${route}/${id}`).respond(() => [200, item]);
 
-        abstractResource.get(`${id}`);
+        abstractResource.get(`${id}`).then((respond) => {
+            expect(respond.data).toEqual(item);
+        });
 
         $httpBackend.flush();
     });
 
     it('should call GET LIST resource with `params`', () => {
-        $httpBackend.whenGET(`/${route}?param=test1`).respond();
+        $httpBackend.whenGET(`/${route}?param=test1`).respond(() => [200, item]);
 
-        abstractResource.getList({param: 'test1'}, true);
+        abstractResource.getList({param: 'test1'}, true).then((respond) => {
+            expect(respond.data).toEqual(item);
+        });
 
         $httpBackend.flush();
     });
 
     it('should call GET LIST resource without `params`', () => {
-        $httpBackend.whenGET(`/${route}`).respond();
+        $httpBackend.whenGET(`/${route}`).respond(() => [200, item]);
 
-        abstractResource.getList();
+        abstractResource.getList().then((respond) => {
+            expect(respond.data).toEqual(item);
+        });
 
         $httpBackend.flush();
     });
@@ -68,9 +74,11 @@ describe('AbstractResource', () => {
     });
 
     it('should call DELETE resource', () => {
-        $httpBackend.whenDELETE(`/${route}/${id}`).respond();
+        $httpBackend.whenDELETE(`/${route}/${id}`).respond(() => [200, item]);
 
-        abstractResource.delete(id);
+        abstractResource.delete(id).then((respond) => {
+            expect(respond.data).toEqual(item);
+        });
 
         $httpBackend.flush();
     });

@@ -17,6 +17,7 @@ module.exports = function (config) {
         // list of files / patterns to load in the browser
         files: [
             'node_modules/karma-babel-preprocessor/node_modules/babel-core/browser-polyfill.js',
+            'jspm_packages/github/tomastrajan/jasmine-async-sugar@1.0.0/jasmine-async-sugar.js',
             'test/test.env.js'
         ],
 
@@ -30,7 +31,7 @@ module.exports = function (config) {
 
         // use dots reporter, as Travis terminal does not support escaping sequences;
         // when using Travis publish coverage to coveralls
-        reporters: process.env.TRAVIS ? ['dots', 'junit', 'coverage', 'coveralls'] : nocoverage ? ['dots', 'junit'] : ['dots', 'junit', 'coverage'],
+        reporters: process.env.TRAVIS ? ['dots', 'junit', 'coverage', 'coveralls'] : nocoverage ? ['dots'] : ['dots', 'junit', 'coverage'],
 
         junitReporter: {
             outputDir: 'test-reports/unit-test-report/',

@@ -16,10 +16,9 @@ describe('ContactDetails', () => {
         let url = '/account/contact-details',
             state = 'app.account.contact-details',
             currentState,
-            $q, $state, $injector;
+            $state, $injector;
 
-        beforeEach(inject((_$q_, _$state_, _$injector_) => {
-            $q = _$q_;
+        beforeEach(inject(( _$state_, _$injector_) => {
             $state = _$state_;
             $injector = _$injector_;
 
@@ -61,12 +60,9 @@ describe('ContactDetails', () => {
     });
 
     describe('Controller', () => {
-        let $q, $rootScope, contactDetails, FormService, EmployeeModel,
-            itemMock = 'itemMock';
+        let contactDetails, FormService, EmployeeModel, itemMock = 'itemMock';
 
-        beforeEach(inject((_$q_, _$rootScope_, _FormService_, _EmployeeModel_) => {
-            $q = _$q_;
-            $rootScope = _$rootScope_;
+        beforeEach(inject((_FormService_, _EmployeeModel_) => {
             FormService = _FormService_;
             EmployeeModel = _EmployeeModel_;
         }));
@@ -110,19 +106,18 @@ describe('ContactDetails', () => {
             expect(FormService.save).not.toHaveBeenCalled();
         });
 
-        it('should save if form is valid', () => {
+        itAsync('should save if form is valid', () => {
             let form = {$valid: true};
-            spyOn(FormService, 'save').and.returnValue($q.when());
+            spyOn(FormService, 'save').and.returnValue(Promise.resolve());
             spyOn(EmployeeModel, 'getItem').and.returnValue(itemMock);
             spyOn(EmployeeModel, 'calculateProfileCompleteness');
             contactDetails = new ContactDetails(EmployeeModel, FormService);
 
-            contactDetails.save(form);
-            $rootScope.$digest(); // resolve the promise (hacky way how to resolve promise in angular)
-
-            expect(contactDetails.isSubmitting).toEqual(true);
-            expect(FormService.save).toHaveBeenCalledWith(EmployeeModel, contactDetails.employee, contactDetails, form);
-            expect(EmployeeModel.calculateProfileCompleteness).toHaveBeenCalled();
+            return contactDetails.save(form).then(() => {
+                expect(contactDetails.isSubmitting).toEqual(true);
+                expect(FormService.save).toHaveBeenCalledWith(EmployeeModel, contactDetails.employee, contactDetails, form);
+                expect(EmployeeModel.calculateProfileCompleteness).toHaveBeenCalled();
+            });
         });
     });
 });

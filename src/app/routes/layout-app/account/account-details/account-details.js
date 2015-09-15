@@ -41,14 +41,14 @@ class AccountDetails {
 
     addAvatar(file) {
         const disallowObjectUrl = true;
-        this.Upload.dataUrl(file, disallowObjectUrl).then(url => this.employee.avatar = url);
+        return this.Upload.dataUrl(file, disallowObjectUrl).then(url => this.employee.avatar = url);
     }
 
     save(form) {
         if(!form.$valid) {return;}
 
         this.isSubmitting = true;
-        this.FormService.save(this.EmployeeModel, this.employee, this, form).then(() => {
+        return this.FormService.save(this.EmployeeModel, this.employee, this, form).then(() => {
             this.employeeCloned.avatar = this.employee.avatar;
             this.employeeCloned.firstName = this.employee.firstName;
             this.employeeCloned.lastName = this.employee.lastName;

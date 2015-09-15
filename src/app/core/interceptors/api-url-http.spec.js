@@ -7,22 +7,17 @@
 'use strict';
 
 import {HEADER_API_VERSION} from '../constants/constants';
-import ApiUrlHttpInterceptor from './url-http.js';
+import ApiUrlHttpInterceptor from './api-url-http.js';
 
 describe('ApiUrlHttpInterceptor', () => {
 
-    let $q, $injector, apiUrlHttpInterceptor;
+    let $injector, apiUrlHttpInterceptor;
 
-    beforeEach(inject((_$q_, _$injector_) => {
-        $q = _$q_;
+    beforeEach(inject((_$injector_) => {
         $injector = _$injector_;
 
-        apiUrlHttpInterceptor = new ApiUrlHttpInterceptor($q, $injector);
+        apiUrlHttpInterceptor = new ApiUrlHttpInterceptor($injector);
     }));
-
-    it(`should have '$q' property`, () => {
-        expect(apiUrlHttpInterceptor.$q).toEqual($q);
-    });
 
     it(`should have '/api' prefix url`, () => {
         expect(apiUrlHttpInterceptor.apiUrl).toEqual('/api');
@@ -60,12 +55,10 @@ describe('ApiUrlHttpInterceptor', () => {
     describe('responseError()', () => {
         let rejection = {status: 400, config: {}};
 
-        it(`should return rejected object if status is not equal to 503`, () => {
-            spyOn($q, 'reject').and.returnValue(rejection);
-
-            expect(apiUrlHttpInterceptor.responseError(rejection)).toEqual(rejection);
-
-            expect($q.reject).toHaveBeenCalledWith(rejection);
+        itAsync(`should return rejected object if status is not equal to 503`, () => {
+            return apiUrlHttpInterceptor.responseError(rejection).catch((error) => {
+                expect(error).toEqual(rejection);
+            });
         });
 
         it(`should set rejection.config.retry to 1 and return rejected object`, () => {
@@ -91,18 +84,18 @@ describe('ApiUrlHttpInterceptor', () => {
             expect($injector.get).toHaveBeenCalledWith('$http');
         });
 
-        it(`should return reject object if rejection.config.retry is more or equal than 5`, () => {
+        itAsync(`should return reject object if rejection.config.retry is more or equal than 5`, () => {
             rejection.status = 503;
             rejection.config.retry = 4;
             spyOn($injector, 'get').and.callThrough() ;
-            spyOn($q, 'reject').and.returnValue(rejection);
 
             expect(rejection.config.retry).toEqual(4);
-            expect(apiUrlHttpInterceptor.responseError(rejection)).toEqual(rejection);
-            expect(rejection.config.retry).toEqual(5);
 
-            expect($injector.get).not.toHaveBeenCalledWith('$http');
-            expect($q.reject).toHaveBeenCalledWith(rejection);
+            return apiUrlHttpInterceptor.responseError(rejection).catch((error) => {
+                expect(error).toEqual(rejection);
+                expect(rejection.config.retry).toEqual(5);
+                expect($injector.get).not.toHaveBeenCalledWith('$http');
+            });
         });
     });
 
