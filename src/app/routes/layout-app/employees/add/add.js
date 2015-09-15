@@ -63,7 +63,6 @@ class EmployeeAdd {
         this.modal.dismiss('cancel');
     }
 
-
     goToNextSection(isFormValid, form, route) {
         this.hasError = false;
         this.FormService.submitChildForm(this.router.current.name, form, this.formSteps);

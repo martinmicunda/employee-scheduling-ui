@@ -12,7 +12,7 @@ import './contact-details/contact-details';
 import './hourly-rate/hourly-rate';
 import './password/password';
 import template from './edit.html!text';
-import {PROFILE_COMPLETENESS_TYPES, USER_ROLES} from '../../../../core/constants/constants';
+import {PROFILE_COMPLETENESS_TYPES} from '../../../../core/constants/constants';
 import {RouteConfig, Inject} from '../../../../ng-decorators'; // jshint unused: false
 
 //start-non-standard
@@ -79,7 +79,7 @@ class EmployeeEdit {
         delete self.cancel;
 
         this.isSubmitting = true;
-        this.FormService.save(this.EmployeeModel, this.employee, this, form).then(() => {
+        return this.FormService.save(this.EmployeeModel, this.employee, this, form).then(() => {
             this.name = `${this.EmployeeModel.getItem().firstName} ${this.EmployeeModel.getItem().lastName}`;
             this.avatar = this.EmployeeModel.getItem().avatar;
             this.EmployeeModel.calculateProfileCompleteness(PROFILE_COMPLETENESS_TYPES.EMPLOYEE);
@@ -88,3 +88,5 @@ class EmployeeEdit {
         });
     }
 }
+
+export default EmployeeEdit;
