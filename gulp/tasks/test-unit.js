@@ -18,8 +18,8 @@ const BROWSERS = !!argv.browsers ? argv.browsers : 'PhantomJS';
 //         COMMAND LINE ERROR HANDLING
 //=============================================
 
-if(!BROWSERS.match(new RegExp(/PhantomJS|Chrome|Firefox|Safari/))) {
-    LOG(COLORS.red(`Error: The argument 'browsers' has incorrect value ${BROWSERS}! Usage: --browsers=(PhantomJS|Chrome|Firefox|Safari)`));
+if(!BROWSERS.match(new RegExp(/IE|PhantomJS|Chrome|Firefox|Safari/))) {
+    LOG(COLORS.red(`Error: The argument 'browsers' has incorrect value ${BROWSERS}! Usage: --browsers=(IE|PhantomJS|Chrome|Firefox|Safari)`));
     process.exit(1);
 }
 

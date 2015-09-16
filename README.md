@@ -113,7 +113,7 @@ $ npm start -- --env=PROD
 
 ## How to Test
 ### Unit 
-Every time the unit tests are executed, a coverage report is created in the `test-reports/coverage` sub-directory and coverage `thresholds` can be set in `COVERAGE` constant in [`gulp/const.js`](gulp/const.js) file. The `npm test` task has optional arguments `--browsers=(PhantomJS|Chrome|Firefox|Safari)`, `--watch` and `--nocoverage`.  Make sure that the browsers you want to run test against are installed on your local machine. The `PhantomJS` should be already installed after you run `npm install`.
+Every time the unit tests are executed, a coverage report is created in the `test-reports/coverage` sub-directory and coverage `thresholds` can be set in `COVERAGE` constant in [`gulp/const.js`](gulp/const.js) file. The `npm test` task has optional arguments `--browsers=(IE|PhantomJS|Chrome|Firefox|Safari)`, `--watch` and `--nocoverage`.  Make sure that the browsers you want to run test against are installed on your local machine. The `PhantomJS` should be already installed after you run `npm install`.
 
 To run test start with:
 
@@ -129,7 +129,7 @@ $ npm test -- --browsers=Chrome
 
 To run test against multiple browsers at the same time start with:
 ```bash
-$ npm test -- --browsers=Chrome,Firefox,Safari 
+$ npm test -- --browsers=IE,Chrome,Firefox,Safari 
 ```
    
 To watch for file changes and re-run tests on each change start with:
