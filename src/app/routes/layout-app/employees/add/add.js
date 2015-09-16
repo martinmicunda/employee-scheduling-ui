@@ -89,3 +89,5 @@ class EmployeeAdd {
         this.FormService.save(this.EmployeeModel, this.employee, this, form);
     }
 }
+
+export default EmployeeAdd;

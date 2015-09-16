@@ -23681,21 +23681,14 @@
       }
     },
     "karma-junit-reporter": {
-      "version": "0.3.4",
-      "from": "karma-junit-reporter@0.3.4",
-      "resolved": "http://registry.npmjs.org/karma-junit-reporter/-/karma-junit-reporter-0.3.4.tgz",
+      "version": "0.3.3",
+      "from": "karma-junit-reporter@0.3.3",
+      "resolved": "http://registry.npmjs.org/karma-junit-reporter/-/karma-junit-reporter-0.3.3.tgz",
       "dependencies": {
         "xmlbuilder": {
-          "version": "2.6.4",
-          "from": "xmlbuilder@2.6.4",
-          "resolved": "http://registry.npmjs.org/xmlbuilder/-/xmlbuilder-2.6.4.tgz",
-          "dependencies": {
-            "lodash": {
-              "version": "3.10.1",
-              "from": "lodash@>=3.5.0 <4.0.0",
-              "resolved": "http://registry.npmjs.org/lodash/-/lodash-3.10.1.tgz"
-            }
-          }
+          "version": "0.4.2",
+          "from": "xmlbuilder@0.4.2",
+          "resolved": "http://registry.npmjs.org/xmlbuilder/-/xmlbuilder-0.4.2.tgz"
         }
       }
     },
