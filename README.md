@@ -127,6 +127,11 @@ To run test against specific browser e.g. `Chrome` start with:
 $ npm test -- --browsers=Chrome
 ```
 
+To run test against multiple browsers at the same time start with:
+```bash
+$ npm test -- --browsers=Chrome,Firefox,Safari 
+```
+   
 To watch for file changes and re-run tests on each change start with:
 ```bash
 $ npm test -- --watch

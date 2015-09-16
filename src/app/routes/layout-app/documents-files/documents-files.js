@@ -5,7 +5,6 @@
  */
 'use strict';
 
-//import './add/add';
 import template from './documents-files.html!text';
 import {RouteConfig, Component, View, Inject} from '../../../ng-decorators'; // jshint unused: false
 
@@ -27,8 +26,8 @@ import {RouteConfig, Component, View, Inject} from '../../../ng-decorators'; // 
 //end-non-standard
 class Files {
     constructor(FormService, DocumentModel) {
-        this.folderName = DocumentModel.getItemById(DocumentModel.getFilesCollection().documentId);
         this.files = DocumentModel.getFilesCollection().files;
+        this.folderName = DocumentModel.getItemById(DocumentModel.getFilesCollection().documentId);
         this.FormService = FormService;
         this.DocumentModel = DocumentModel;
     }
@@ -37,3 +36,5 @@ class Files {
         this.FormService.delete(this.DocumentModel, document, this);
     }
 }
+
+export default Files;

@@ -33,14 +33,13 @@ if(!BROWSERS.match(new RegExp(/PhantomJS|Chrome|Firefox|Safari/))) {
  *
  * @param {Function} done - callback when complete
  */
-//TODO: (martin) should I merge this with `gulp test:unit` task and then just pass argument --coverage (it will run unit test with coverage e.g. gulp test:unit --coverage)
 gulp.task('karma', (cb) => {
     // remove 'coverage' directory before each test
     del.sync(path.test.testReports.coverage);
     // run the karma test
     const server = new Server({
         configFile: path.test.config.karma,
-        browsers: [BROWSERS],
+        browsers: BROWSERS.split(','),
         singleRun: !argv.watch,
         autoWatch: !!argv.watch
     }, function(code) {
