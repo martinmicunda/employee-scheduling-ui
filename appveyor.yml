@@ -6,29 +6,35 @@ branches:
   # whitelist
   only:
     - master
+  except:
+    - gh-pages
 
 # build version format
-version: "{build}"
+version: "1.0.{build}"
 
 # what combinations to test
 environment:
   matrix:
     - nodejs_version: 0.12
+  JSPM_GITHUB_AUTH_TOKEN:
+    secure: IHRybG5uoTsBHtfhRikizzI/mBxelmXVKXbnTp1f/XmzDimp5WDpKkZJwyfe1P1qaOwL8sZbIs8zb5Z5xy2J9Q==
 
 # Get the stable version of node
 install:
   - ps: Install-Product node $env:nodejs_version
-  #- npm install
-  - npm install jspm -g
+  - npm install -g jspm
+  - jspm config registries.github.auth $env:JSPM_GITHUB_TOKEN
+  - npm install
 
 test_script:
   # Output useful info for debugging.
   - node --version
   - npm --version
   # run tests
-  #- npm test
+  - npm test
 
 build: off
 
 cache:
   - node_modules -> package.json
+  - jspm_packages -> package.json
