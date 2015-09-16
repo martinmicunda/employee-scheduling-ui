@@ -29,7 +29,6 @@ System.config({
     "core-js": "npm:core-js@1.1.4",
     "css": "github:systemjs/plugin-css@0.1.16",
     "font-awesome": "npm:font-awesome@4.4.0",
-    "jasmine-async-sugar": "github:tomastrajan/jasmine-async-sugar@1.0.0",
     "json": "github:systemjs/plugin-json@0.1.0",
     "ng-bs-animated-button": "github:jeremypeters/ng-bs-animated-button@2.0.3",
     "ng-file-upload": "npm:ng-file-upload@7.2.0",

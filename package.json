@@ -89,6 +89,7 @@
     "gulp-istanbul-enforcer": "1.0.3",
     "protractor": "2.2.0",
     "jasmine-reporters": "2.0.7",
+    "jasmine-async-sugar": "1.1.1",
     "protractor-html-screenshot-reporter": "0.0.21",
     "karma": "0.13.9",
     "karma-jspm": "2.0.1",
@@ -128,8 +129,7 @@
     "devDependencies": {
       "babel": "npm:babel-core@5.8.24",
       "babel-runtime": "npm:babel-runtime@5.8.24",
-      "core-js": "npm:core-js@1.1.4",
-      "jasmine-async-sugar": "github:tomastrajan/jasmine-async-sugar@1.0.0"
+      "core-js": "npm:core-js@1.1.4"
     }
   },
   "license": "GPL-3.0",
