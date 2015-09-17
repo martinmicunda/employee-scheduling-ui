@@ -19,18 +19,17 @@ import {View, Component, Inject} from '../../ng-decorators'; // jshint unused: f
                  ng-style="{'width': vm.profileCompleteness.percentage + '%'}"></div>
         </div>
         <p class="text-muted clearfix">
-            <span class="pull-left">Profile completeness</span>
-            <span class="pull-right">{{vm.profileCompleteness.percentage}}%</span>
+            <span class="pull-left" id="profileCompletenessLabel">Profile completeness</span>
+            <span class="pull-right" id="profileCompleteness">{{vm.profileCompleteness.percentage}}%</span>
         </p>
-    `,
-    bindToController: {
-        type: '@'
-    }
+    `
 })
 @Inject('EmployeeModel')
 //end-non-standard
 class ProfileCompletenessBar {
     constructor(EmployeeModel) {
-        this.profileCompleteness = EmployeeModel.getProfileCompleteness(this.type);
+        this.profileCompleteness = EmployeeModel.getProfileCompleteness();
     }
 }
+
+export default ProfileCompletenessBar;
