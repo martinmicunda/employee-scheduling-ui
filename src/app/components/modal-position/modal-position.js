@@ -38,3 +38,5 @@ class PositionModal {
         this.FormService.save(this.PositionModel, this.position, this, form);
     }
 }
+
+export default PositionModal;

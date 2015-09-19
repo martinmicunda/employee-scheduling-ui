@@ -79,21 +79,21 @@ describe('ProfileCompletenessBar', () => {
         it('should render the profile completeness percentage', () => {
             spyOn(EmployeeModel, 'getProfileCompleteness').and.returnValue({percentage: 100});
             element = render();
-            const profileCompleteness = angular.element(element[0].querySelector('#profileCompleteness'));
+            const profileCompleteness = angular.element(element[0].querySelector('p.text-muted .pull-right'));
 
             expect(profileCompleteness.text()).toEqual('100%');
         });
 
-        it('should have `Profile completeness` label defined', function () {
+        it('should have `Profile completeness` label defined', () => {
             element = render();
-            const profileCompletenessLabel = angular.element(element[0].querySelector('#profileCompletenessLabel'));
+            const profileCompletenessLabel = angular.element(element[0].querySelector('p.text-muted .pull-left'));
 
             expect(profileCompletenessLabel.text()).toEqual('Profile completeness');
         });
     });
 
     describe('Controller', () => {
-        let profileCompletenessBar, EmployeeModel, itemMock = 'itemMock';
+        let profileCompletenessBar, EmployeeModel, itemMock = 'profileCompleteness';
 
         beforeEach(inject((_EmployeeModel_) => {
             EmployeeModel = _EmployeeModel_;

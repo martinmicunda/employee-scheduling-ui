@@ -20,7 +20,7 @@ import {Component, View} from '../../ng-decorators'; // jshint unused: false
         <div class="modal-body form-wizard">
             <div class="alert alert-danger mb0">
                 <strong>Error!</strong>
-                {{vm.errorMessage}}
+                <span>{{vm.errorMessage}}</span>
             </div>
         </div>
         <div class="modal-footer">

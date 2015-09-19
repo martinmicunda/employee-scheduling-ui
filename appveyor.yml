@@ -21,8 +21,6 @@ environment:
 
 # Get the stable version of node
 install:
-  - choco install firefox
-  - choco install googlechrome
   - ps: Install-Product node $env:nodejs_version
   - npm install -g jspm
   - jspm config registries.github.auth $env:JSPM_GITHUB_TOKEN

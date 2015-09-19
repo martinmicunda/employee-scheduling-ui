@@ -10,9 +10,10 @@
         <div class="form-group required mb0">
             <label class="control-label col-sm-4">Name</label>
             <div class="col-sm-5">
-                <input name="name" type="text" ng-model="vm.position.name" class="form-control" required>
+                <input name="name" type="text" ng-model="vm.position.name" class="form-control" ng-maxlength="60" required>
                 <div ng-if="positionForm.$submitted" ng-messages="positionForm.name.$error">
                     <div ng-message="required" class="error">This field is required.</div>
+                    <div ng-message="maxlength" class="error">This field text is too long (max 60 characters).</div>
                 </div>
             </div>
         </div>

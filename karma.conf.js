@@ -31,7 +31,7 @@ module.exports = function (config) {
 
         // use dots reporter, as Travis terminal does not support escaping sequences;
         // when using Travis publish coverage to coveralls
-        reporters: process.env.TRAVIS ? ['dots', 'coverage', 'coveralls'] : nocoverage ? ['dots'] : ['dots', 'junit', 'coverage'],
+        reporters: process.env.TRAVIS ? ['dots', 'junit', 'coverage', 'coveralls'] : nocoverage ? ['dots'] : ['dots', 'junit', 'coverage'],
 
         junitReporter: {
             outputDir: 'test-reports/unit-test-report/',

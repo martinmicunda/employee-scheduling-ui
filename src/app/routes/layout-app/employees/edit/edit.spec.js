@@ -5,7 +5,7 @@
  */
 'use strict';
 
-import {PROFILE_COMPLETENESS_TYPES, USER_ROLES} from '../../../../core/constants/constants';
+import {PROFILE_COMPLETENESS_TYPES} from '../../../../core/constants/constants';
 import {fakeModal} from '../../../../../../test/helpers/modal.js';
 import EmployeeEdit from './edit.js';
 
