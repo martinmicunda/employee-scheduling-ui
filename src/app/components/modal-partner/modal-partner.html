@@ -10,55 +10,67 @@
         <div class="form-group required">
             <label class="control-label col-sm-4">Name</label>
             <div class="col-sm-5">
-                <input name="name" type="text" ng-model="vm.partner.name" class="form-control" required>
+                <input name="name" type="text" ng-model="vm.partner.name" class="form-control" ng-maxlength="60" required>
                 <div ng-if="partnerForm.$submitted" ng-messages="partnerForm.name.$error">
                     <div ng-message="required" class="error">This field is required.</div>
+                    <div ng-message="maxlength" class="error">This field text is too long (max 60 characters).</div>
                 </div>
             </div>
         </div>
         <div class="form-group">
             <label class="control-label col-sm-4">Contact Person</label>
             <div class="col-sm-5">
-                <input name="contactPerson" type="text" ng-model="vm.partner.contactPerson" class="form-control">
+                <input name="contactPerson" type="text" ng-model="vm.partner.contactPerson" class="form-control" ng-maxlength="60">
+                <div ng-if="partnerForm.$submitted" ng-messages="partnerForm.contactPerson.$error">
+                    <div ng-message="maxlength" class="error">This field text is too long (max 60 characters).</div>
+                </div>
             </div>
         </div>
         <div class="form-group">
             <label class="control-label col-sm-4">Email</label>
             <div class="col-sm-5">
-                <input name="email" type="email" ng-model="vm.partner.email" class="form-control">
+                <input name="email" type="email" ng-model="vm.partner.email" class="form-control" ng-maxlength="60">
                 <div ng-if="partnerForm.$submitted" ng-messages="partnerForm.email.$error">
                     <div ng-message="email" class="error">Invalid email.</div>
+                    <div ng-message="maxlength" class="error">This field text is too long (max 60 characters).</div>
                 </div>
             </div>
         </div>
         <div class="form-group">
             <label class="control-label col-sm-4">Phone Number</label>
             <div class="col-sm-5">
-                <input name="phoneNumber" type="text" ng-model="vm.partner.phoneNumber" class="form-control">
+                <input name="phoneNumber" type="text" ng-model="vm.partner.phoneNumber" class="form-control" ng-maxlength="60">
+                <div ng-if="partnerForm.$submitted" ng-messages="partnerForm.phoneNumber.$error">
+                    <div ng-message="maxlength" class="error">This field text is too long (max 60 characters).</div>
+                </div>
             </div>
         </div>
         <div class="form-group required">
             <label class="control-label col-sm-4">Color</label>
             <div class="col-sm-5 color-picker-wrapper">
-                <input colorpicker name="color" type="text" ng-model="vm.partner.color" class="form-control" required>
+                <input colorpicker name="color" type="text" ng-model="vm.partner.color" class="form-control" mm-color-hex-validator required>
                 <span class="color-picker-swatch color-picker-swatch-left">
                     <span class="color-picker-swatch-color" ng-style="{'background-color': vm.partner.color}"></span>
                 </span>
                 <div ng-if="partnerForm.$submitted" ng-messages="partnerForm.color.$error">
                     <div ng-message="required" class="error">This field is required.</div>
+                    <div ng-message="hexcode" class="error">Invalid HEX color code.</div>
                 </div>
             </div>
         </div>
         <div class="form-group" ng-show="vm.partner.id">
             <label class="control-label col-sm-4">Status</label>
             <div class="col-sm-5">
-                <select ng-model="vm.partner.status" ng-init="vm.partner.status = vm.partner.status || vm.statusTypes[0]" ng-options="statusType as statusType for statusType in vm.statusTypes" class="form-control"></select>
+                <select name="status" ng-model="vm.partner.status" ng-options="statusType as statusType for statusType in vm.statusTypes" class="form-control"></select>
             </div>
         </div>
         <div class="form-group mb0">
             <label class="control-label col-sm-4">Note</label>
             <div class="col-sm-5">
-                <textarea rows="5" name="note" ng-model="vm.partner.note" class="form-control"></textarea>
+                <textarea rows="5" name="note" ng-model="vm.partner.note" class="form-control" ng-maxlength="255"></textarea>
+                <div ng-if="partnerForm.$submitted" ng-messages="partnerForm.note.$error">
+                    <div ng-message="maxlength" class="error">This field text is too long (max 255 characters).</div>
+                </div>
             </div>
         </div>
     </div>

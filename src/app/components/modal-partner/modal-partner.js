@@ -5,6 +5,7 @@
  */
 'use strict';
 
+import {EMPLOYEE_PROFILE_STATUSES} from '../../core/constants/constants';
 import template from './modal-partner.html!text';
 import {View, Component, Inject} from '../../ng-decorators'; // jshint unused: false
 
@@ -21,7 +22,8 @@ class PartnerModal {
     constructor(ModalModel, PartnerModel, FormService) {
         this.modal = ModalModel.getItem();
         this.partner = PartnerModel.getItem();
-        this.statusTypes = ['active', 'inactive'];
+        this.statusTypes = [EMPLOYEE_PROFILE_STATUSES.ACTIVE, EMPLOYEE_PROFILE_STATUSES.INACTIVE];
+        this.partner.status = this.partner.status || this.statusTypes[0];
         this.result = null;
         this.isSubmitting = null;
         this.FormService = FormService;
@@ -39,3 +41,5 @@ class PartnerModal {
         this.FormService.save(this.PartnerModel, this.partner, this, form);
     }
 }
+
+export default PartnerModal;

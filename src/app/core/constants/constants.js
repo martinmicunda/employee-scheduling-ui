@@ -6,6 +6,7 @@
 'use strict';
 
 export const EMPLOYEE_PROFILE_STATUSES = Object.freeze({ACTIVE: 'active', INACTIVE: 'inactive', PENDING: 'pending'});
+//export const EMPLOYEE_PROFILE_STATUSES = new Map([['ACTIVE', {key: 'active', label: 'active'}]]);
 // use MAP to make order of USER_ROLES will be guarantee for authorizations
 export const USER_ROLES = Object.freeze({EMPLOYEE: 'employee', SUPERVISOR: 'supervisor', MANAGER: 'manager', ADMIN: 'admin'});
 // http://labs.qandidate.com/blog/2014/10/16/using-the-accept-header-to-version-your-api/

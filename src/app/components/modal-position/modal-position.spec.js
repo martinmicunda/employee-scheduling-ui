@@ -6,6 +6,7 @@
 'use strict';
 
 import {fakeModal} from '../../../../test/helpers/modal.js';
+import position from '../../core/resources/position/fixtures/position_1.json!json';
 import PositionModal from './modal-position.js';
 
 describe('ModalPosition', () => {
@@ -14,10 +15,7 @@ describe('ModalPosition', () => {
 
     describe('Component', () => {
         let $compile, $rootScope, scope, render, element, ModalModel, PositionModel,
-            component = '<modal-position></modal-position>',
-            position = {
-                id: '1'
-            };
+            component = '<modal-position></modal-position>';
 
         beforeEach(inject((_$compile_, _$rootScope_, _ModalModel_, _PositionModel_) => {
             $compile = _$compile_;
@@ -107,15 +105,16 @@ describe('ModalPosition', () => {
                 element = render();
                 spyOn(element.isolateScope().vm, 'save');
 
-                const nameInputField = angular.element(element[0].querySelector('input[name="name"]'));
-                nameInputField.val('test');
+                const nameInputField = angular.element(element[0].querySelector('input[name="name"][type="text"]'));
+                nameInputField.val(position.name);
                 nameInputField.triggerHandler('input');
 
                 angular.element(element[0].querySelector('button.btn-success')).triggerHandler('click');
 
                 expect(element.isolateScope().positionForm).toBeDefined();
                 expect(element.isolateScope().vm.save).toHaveBeenCalledWith(element.isolateScope().positionForm);
-                expect(element.isolateScope().vm.position.name).toEqual('test');
+                expect(element.isolateScope().vm.position.name).toEqual(position.name);
+                expect(element.isolateScope().positionForm.$valid).toEqual(true);
             });
 
             it('should have `jp-ng-bs-animated-button` component defined with attributes `is-submitting`, `result` and `options`', () => {
@@ -133,7 +132,7 @@ describe('ModalPosition', () => {
             describe('Name', () => {
                 it('should have `Name` label defined', () => {
                     element = render();
-                    const parentElement = angular.element(element[0].querySelector('input[name="name"]')).parent().parent();
+                    const parentElement = angular.element(element[0].querySelector('input[name="name"][type="text"]')).parent().parent();
 
                     expect(parentElement.find('label').text()).toEqual('Name');
                 });
@@ -144,7 +143,7 @@ describe('ModalPosition', () => {
                     element.isolateScope().positionForm.$submitted = true; // FIXME: why $submitted is not set by triggerHandler?
                     scope.$digest();
 
-                    const nameRequiredErrorMessage = angular.element(element[0].querySelector('input[name="name"] ~ div > div[ng-message="required"]'));
+                    const nameRequiredErrorMessage = angular.element(element[0].querySelector('input[name="name"][type="text"] ~ div > div[ng-message="required"]'));
 
                     expect(nameRequiredErrorMessage.text()).toEqual('This field is required.');
                 });
@@ -158,7 +157,7 @@ describe('ModalPosition', () => {
                     element.isolateScope().positionForm.$submitted = true; // FIXME: why $submitted is not set by triggerHandler?
                     scope.$digest();
 
-                    const nameRequiredErrorMessage = angular.element(element[0].querySelector('input[name="name"] ~ div > div[ng-message="maxlength"]'));
+                    const nameRequiredErrorMessage = angular.element(element[0].querySelector('input[name="name"][type="text"] ~ div > div[ng-message="maxlength"]'));
 
                     expect(nameRequiredErrorMessage.text()).toEqual('This field text is too long (max 60 characters).');
                 });
