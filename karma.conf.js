@@ -75,6 +75,8 @@ module.exports = function (config) {
 
         browsers: [process.env.TRAVIS ? 'Firefox' : 'Chrome'],
 
+        browserNoActivityTimeout: 50000,
+
         plugins: [
             'karma-jasmine',
             'karma-jspm',
