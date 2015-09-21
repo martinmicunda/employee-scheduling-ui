@@ -22,3 +22,5 @@ class EmployeeBankDetails {
         this.employee = EmployeeModel.getItem();
     }
 }
+
+export default EmployeeBankDetails;

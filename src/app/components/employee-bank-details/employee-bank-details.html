@@ -1,21 +1,30 @@
-<fieldset class="animated fadeIn">
+<fieldset class="animated fadeIn" ng-form="employeeContactBankForm">
     <legend class="pull-left width-full">Bank Details</legend>
     <div class="form-group">
         <label class="control-label col-sm-4">Bank Name</label>
         <div class="col-sm-5">
-            <input name="bankName" type="text" ng-model="vm.employee.bankName" class="form-control">
+            <input name="bankName" type="text" ng-model="vm.employee.bankName" ng-maxlength="60" class="form-control">
+            <div ng-if="employeeContactBankForm.$submitted" ng-messages="employeeContactBankForm.bankName.$error">
+                <div ng-message="maxlength" class="error">This field text is too long (max 60 characters).</div>
+            </div>
         </div>
     </div>
     <div class="form-group">
         <label class="control-label col-sm-4">Account Number</label>
         <div class="col-sm-5">
-            <input name="accountNumber" type="text" ng-model="vm.employee.accountNumber" class="form-control">
+            <input name="bankAccountName" type="text" ng-model="vm.employee.bankAccountName" ng-maxlength="60" class="form-control">
+            <div ng-if="employeeContactBankForm.$submitted" ng-messages="employeeContactBankForm.bankAccountName.$error">
+                <div ng-message="maxlength" class="error">This field text is too long (max 60 characters).</div>
+            </div>
         </div>
     </div>
     <div class="form-group">
         <label class="control-label col-sm-4">Account Name</label>
         <div class="col-sm-5">
-            <input name="accountName" type="text" ng-model="vm.employee.accountName" class="form-control">
+            <input name="bankAccountNumber" type="text" ng-model="vm.employee.bankAccountNumber" ng-maxlength="60" class="form-control">
+            <div ng-if="employeeContactBankForm.$submitted" ng-messages="employeeContactBankForm.bankAccountNumber.$error">
+                <div ng-message="maxlength" class="error">This field text is too long (max 60 characters).</div>
+            </div>
         </div>
     </div>
 </fieldset>
