@@ -93,7 +93,7 @@ describe('EmployeeHourlyRate', () => {
             });
         });
 
-        it('should submit is clicked', function () {
+        it('should submit the form', function () {
             element = render();
 
             const hourlyRateInputField = angular.element(element[0].querySelector('input[name="hourlyRate"][type="number"]'));

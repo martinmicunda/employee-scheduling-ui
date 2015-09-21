@@ -22,3 +22,5 @@ class EmployeeContactDetails {
         this.employee = EmployeeModel.getItem();
     }
 }
+
+export default EmployeeContactDetails;
