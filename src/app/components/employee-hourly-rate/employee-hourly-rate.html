@@ -3,10 +3,11 @@
         <div class="form-group required">
             <label class="control-label col-sm-4">Hourly Rate</label>
             <div class="col-sm-5">
-                <input name="hourlyRate" type="number" ng-model="vm.employee.hourlyRate" class="form-control" required>
+                <input name="hourlyRate" type="number" ng-model="vm.employee.hourlyRate" class="form-control" min="0" required>
                 <div ng-if="employeeHourlyRateForm.$submitted" ng-messages="employeeHourlyRateForm.hourlyRate.$error">
                     <div ng-message="required" class="error">This field is required.</div>
                     <div ng-message="number" class="error">Invalid number.</div>
+                    <div ng-message="min" class="error">Invalid number</div>
                 </div>
             </div>
             <div class="currencyCode">{{vm.employee.currencyCode}}</div>

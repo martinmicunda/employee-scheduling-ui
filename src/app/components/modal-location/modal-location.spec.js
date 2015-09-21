@@ -275,7 +275,7 @@ describe('ModalLocation', () => {
             expect(LocationModel.getItem).toHaveBeenCalled();
         });
 
-        it(`should have location.status set to ${EMPLOYEE_PROFILE_STATUSES.ACTIVE} if location.status is null`, () => {
+        it(`should have location.status set to ${EMPLOYEE_PROFILE_STATUSES.ACTIVE} if location.status is undefined`, () => {
             let clonedObject = Object.assign({}, itemMock);
             spyOn(LocationModel, 'getItem').and.returnValue(clonedObject);
             locationModal = new LocationModal(ModalModel, LocationModel, FormService);
@@ -283,7 +283,7 @@ describe('ModalLocation', () => {
             expect(locationModal.location.status).toEqual(EMPLOYEE_PROFILE_STATUSES.ACTIVE);
         });
 
-        it(`should have location.default set to false if location.default is null`, () => {
+        it(`should have location.default set to false if location.default is undefined`, () => {
             let clonedObject = Object.assign({}, itemMock);
             spyOn(LocationModel, 'getItem').and.returnValue(clonedObject);
             locationModal = new LocationModal(ModalModel, LocationModel, FormService);

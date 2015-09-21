@@ -24,3 +24,5 @@ class EmployeeHourlyRate {
         this.employee.currencySymbol = this.employee.currencySymbol || SettingModel.getItem().currencySymbol;
     }
 }
+
+export default EmployeeHourlyRate;
