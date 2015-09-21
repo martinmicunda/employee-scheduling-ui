@@ -5,6 +5,7 @@
  */
 'use strict';
 
+import {EMPLOYEE_PROFILE_STATUSES} from '../../core/constants/constants';
 import template from './modal-location.html!text';
 import {View, Component, Inject} from '../../ng-decorators'; // jshint unused: false
 
@@ -21,8 +22,11 @@ class LocationModal {
     constructor(ModalModel, LocationModel, FormService) {
         this.modal = ModalModel.getItem();
         this.location = LocationModel.getItem();
-        this.statusTypes = ['active', 'inactive'];
-        this.isDefaultLocation = this.location.id && !(this.location.default && this.location.id);
+        this.statusTypes = [EMPLOYEE_PROFILE_STATUSES.ACTIVE, EMPLOYEE_PROFILE_STATUSES.INACTIVE];
+        this.location.status = this.location.status || this.statusTypes[0];
+        this.location.default = this.location.default || false;
+        // it should only display default options when location.id exist and location.default is set to true
+        this.displayDefaultOptions = this.location.id && !this.location.default;
         this.result = null;
         this.isSubmitting = null;
         this.FormService = FormService;
@@ -38,21 +42,23 @@ class LocationModal {
         if(!form.$valid) {return;}
         this.isSubmitting = true;
 
-        if(this.location.id && this.location.default && this.isDefaultLocation) {
+        if(this.displayDefaultOptions) {
             let defaultLocation = this.LocationModel.getDefaultLocation();
             defaultLocation.default = false;
-            this.location.status = 'active';
+            this.location.status = EMPLOYEE_PROFILE_STATUSES.ACTIVE;
             // TODO: (martin) should I try to do a bulk update?
-            this.LocationModel.save(this.location).then(() => {
+            return this.LocationModel.save(this.location).then(() => {
                 this.FormService.save(this.LocationModel, defaultLocation, this, form);
             }, (response) => {
-                this.FormService.failure(this, response);
+                this.FormService.onFailure(this, response);
             });
         } else {
             if(this.LocationModel.getCollection().length === 0) {
                 this.location.default = true;
             }
-            this.FormService.save(this.LocationModel, this.location, this, form);
+            return this.FormService.save(this.LocationModel, this.location, this, form);
         }
     }
 }
+
+export default LocationModal;
