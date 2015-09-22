@@ -91,7 +91,7 @@ describe('ModalLocation', () => {
                 expect(angular.element(element[0].querySelector('button.btn-white')).text()).toEqual('Close');
             });
 
-            it('should close the Partner modal when `Close` button is clicked', () => {
+            it('should close the Location modal when `Close` button is clicked', () => {
                 element = render();
                 spyOn(element.isolateScope().vm, 'cancel');
 

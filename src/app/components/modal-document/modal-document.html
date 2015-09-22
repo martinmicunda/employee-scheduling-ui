@@ -10,16 +10,17 @@
         <div class="form-group required">
             <label class="control-label col-sm-4">Name</label>
             <div class="col-sm-5">
-                <input name="name" type="text" ng-model="vm.document.name" class="form-control" required>
+                <input name="name" type="text" ng-model="vm.document.name" class="form-control" ng-maxlength="60" required>
                 <div ng-if="documentForm.$submitted" ng-messages="documentForm.name.$error">
                     <div ng-message="required" class="error">This field is required.</div>
+                    <div ng-message="maxlength" class="error">This field text is too long (max 60 characters).</div>
                 </div>
             </div>
         </div>
         <div class="form-group">
             <label class="control-label col-sm-4">Lock the folder?</label>
             <div class="col-sm-5">
-                <span class="checkbox"><input type="checkbox" ng-model="vm.document.isLocked" class="ml0"></span>
+                <span class="checkbox"><input name="isLocked" type="checkbox" ng-model="vm.document.isLocked" class="ml0"></span>
             </div>
         </div>
 

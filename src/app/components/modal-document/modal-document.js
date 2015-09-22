@@ -6,7 +6,6 @@
 'use strict';
 
 import template from './modal-document.html!text';
-import {USER_ROLES} from '../../core/constants/constants';
 import {View, Component, Inject} from '../../ng-decorators'; // jshint unused: false
 
 //start-non-standard
@@ -18,11 +17,11 @@ import {View, Component, Inject} from '../../ng-decorators'; // jshint unused: f
 })
 @Inject('ModalModel', 'DocumentModel', 'EmployeeModel', 'DocumentService', 'FormService')
 //end-non-standard
-class PartnerModal {
+class DocumentModal {
     constructor(ModalModel, DocumentModel, EmployeeModel, DocumentService, FormService) {
         this.modal = ModalModel.getItem();
         this.document = DocumentModel.getItem();
-        this.employees = EmployeeModel.getCollection();
+        this.employees = EmployeeModel.getCollection(); // TODO: (this needs to be done in edit/add route) pass the filter query for user role and only active user so only active non MANAGER and ADMIN roles are returned as both have already full access to documents
         this.selectedEmployeeWithAccess = [];
         this.selectedEmployeeWithoutAccess = [];
         this.result = null;
@@ -33,11 +32,19 @@ class PartnerModal {
         this.saveButtonOptions = FormService.getModalSaveButtonOptions();
         if(this.document.id) {
             this.employeesWithAccess = this.employees.filter((employee) => this.document.employees.filter((emp) => emp === employee.id).length > 0);
-            this.employeesWithoutAccess = this.employees.filter((employee) => employee.USER_ROLES !== USER_ROLES.MANAGER && employee.USER_ROLES !== USER_ROLES.ADMIN && this.document.employees.filter((emp) => emp === employee.id).length === 0);
+            this.employeesWithoutAccess = this.employees.filter((employee) => this.document.employees.filter((emp) => emp === employee.id).length === 0);
         } else {
             this.employeesWithAccess = [];
-            this.employeesWithoutAccess = this.employees.filter((employee) => employee.USER_ROLES !== USER_ROLES.MANAGER && employee.USER_ROLES !== USER_ROLES.ADMIN); // TODO: (martin) this should not be required and instead value should be filtered on back end
+            this.employeesWithoutAccess = this.employees;
         }
+        // TODO: the below code is just for reference and it should be removed once the correct implementation on the back end is done
+        //if(this.document.id) {
+        //    this.employeesWithAccess = this.employees.filter((employee) => this.document.employees.filter((emp) => emp === employee.id).length > 0);
+        //    this.employeesWithoutAccess = this.employees.filter((employee) => employee.USER_ROLES !== USER_ROLES.MANAGER && employee.USER_ROLES !== USER_ROLES.ADMIN && this.document.employees.filter((emp) => emp === employee.id).length === 0);
+        //} else {
+        //    this.employeesWithAccess = [];
+        //    this.employeesWithoutAccess = this.employees.filter((employee) => employee.USER_ROLES !== USER_ROLES.MANAGER && employee.USER_ROLES !== USER_ROLES.ADMIN); // TODO: (martin) this should not be required and instead value should be filtered on back end
+        //}
     }
 
     cancel() {
@@ -64,3 +71,5 @@ class PartnerModal {
         if(employeesWithoutAccess) {this.employeesWithoutAccess = employeesWithoutAccess;}
     }
 }
+
+export default DocumentModal;

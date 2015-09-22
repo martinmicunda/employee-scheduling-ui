@@ -28,7 +28,7 @@ import {RouteConfig, Component, View, Inject} from '../../../ng-decorators'; // 
 //end-non-standard
 class Documents {
     constructor(FormService, DocumentModel) {
-        this.documents = DocumentModel.getCollection();
+        this.documents = DocumentModel.getCollection(); // TODO: this needs to change as we need to pass queries in url so back can filter documents depend on the permission and user role
         this.FormService = FormService;
         this.DocumentModel = DocumentModel;
     }
