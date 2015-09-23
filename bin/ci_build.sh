@@ -65,10 +65,10 @@ function run {
         exit 0
     fi
 
-    mkdir -p .tmp
-    git show $COMMIT~1:package.json > .tmp/package.old.json
-    OLD_VERSION=$(readJsonProp ".tmp/package.old.json" "version")
-    VERSION=$(readJsonProp "package.json" "version")
+    mkdir -p ../.tmp
+    git show $COMMIT~1:../package.json > ../.tmp/package.old.json
+    OLD_VERSION=$(readJsonProp "../.tmp/package.old.json" "version")
+    VERSION=$(readJsonProp "../package.json" "version")
 
     if [[ "$OLD_VERSION" != "$VERSION" ]]; then
         echo "#########################"
@@ -96,13 +96,13 @@ function run {
         echo "# Pushing out a new prerelease build #"
         echo "######################################"
 
-        NEW_VERSION="$VERSION-build.$BUILD_NUMBER"
+        NEW_VERSION="$VERSION-build.$COMMIT"
 
-        replaceJsonProp "package.json" "version" "$NEW_VERSION"
+        replaceJsonProp "../package.json" "version" "$NEW_VERSION"
         echo "-- Build version is $NEW_VERSION"
 
         # Load version to make sure package.json was updated correctly
-        VERSION=$(readJsonProp "package.json" "version")
+        VERSION=$(readJsonProp "../package.json" "version")
 
         if [[ "$NEW_VERSION" != "$VERSION" ]]; then
             echo "-- The package.json was not updated correctly. The package.json version should be $NEW_VERSION but is $VERSION! Aborting build."
