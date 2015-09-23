@@ -16,10 +16,9 @@ describe('Language', () => {
         let url = '/settings/language',
             state = 'app.settings.language',
             currentState,
-            $q, $state, $injector, SettingModel, LanguageModel;
+            $state, $injector, SettingModel, LanguageModel;
 
-        beforeEach(inject((_$q_, _$state_, _$injector_, _SettingModel_, _LanguageModel_) => {
-            $q = _$q_;
+        beforeEach(inject((_$state_, _$injector_, _SettingModel_, _LanguageModel_) => {
             $state = _$state_;
             $injector = _$injector_;
             SettingModel = _SettingModel_;
@@ -36,16 +35,14 @@ describe('Language', () => {
             expect($state.href(state)).toEqual(url);
         });
 
-        it(`should resolve 'init' for '${url}' state`, () => {
-            spyOn($q, 'all');
+        itAsync(`should resolve 'init' for '${url}' state`, () => {
             spyOn(SettingModel, 'initItem');
             spyOn(LanguageModel, 'initCollection');
 
-            $injector.invoke(currentState.resolve.init);
-
-            expect($q.all).toHaveBeenCalled();
-            expect(SettingModel.initItem).toHaveBeenCalledWith('app');
-            expect(LanguageModel.initCollection).toHaveBeenCalled();
+            return $injector.invoke(currentState.resolve.init).then(() => {
+                expect(SettingModel.initItem).toHaveBeenCalledWith('app');
+                expect(LanguageModel.initCollection).toHaveBeenCalled();
+            });
         });
     });
 

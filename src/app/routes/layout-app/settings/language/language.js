@@ -13,7 +13,7 @@ import {RouteConfig, Component, View, Inject} from '../../../../ng-decorators'; 
     url: '/language',
     template: '<language></language>',
     resolve: {
-        init: ['$q', 'SettingModel', 'LanguageModel', ($q, SettingModel, LanguageModel) => $q.all([SettingModel.initItem('app'),  LanguageModel.initCollection()])]
+        init: ['SettingModel', 'LanguageModel', (SettingModel, LanguageModel) => Promise.all([SettingModel.initItem('app'),  LanguageModel.initCollection()])]
     }
 })
 @Component({

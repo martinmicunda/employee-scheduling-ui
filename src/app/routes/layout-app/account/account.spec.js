@@ -16,10 +16,9 @@ describe('Account', () => {
         let url = '/account',
             state = 'app.account',
             currentState,
-            $q, $state, $injector, EmployeeModel, SettingModel;
+            $state, $injector, EmployeeModel, SettingModel;
 
-        beforeEach(inject((_$q_, _$state_, _$injector_, _SettingModel_, _EmployeeModel_) => {
-            $q = _$q_;
+        beforeEach(inject((_$state_, _$injector_, _SettingModel_, _EmployeeModel_) => {
             $state = _$state_;
             $injector = _$injector_;
             SettingModel = _SettingModel_;
@@ -40,17 +39,15 @@ describe('Account', () => {
             expect($state.href(state)).toEqual(url);
         });
 
-        it(`should resolve 'init' for '${url}' state`, () => {
+        itAsync(`should resolve 'init' for '${url}' state`, () => {
             const id = '1';
-            spyOn($q, 'all');
             spyOn(SettingModel, 'initItem');
             spyOn(EmployeeModel, 'initItem');
 
-            $injector.invoke(currentState.resolve.init);
-
-            expect($q.all).toHaveBeenCalled();
-            expect(EmployeeModel.initItem).toHaveBeenCalledWith(id);
-            expect(SettingModel.initItem).toHaveBeenCalledWith('app');
+            return $injector.invoke(currentState.resolve.init).then(() => {
+                expect(EmployeeModel.initItem).toHaveBeenCalledWith(id);
+                expect(SettingModel.initItem).toHaveBeenCalledWith('app');
+            });
         });
     });
 

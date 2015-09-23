@@ -23,8 +23,8 @@ import {RouteConfig, Inject} from '../../../../ng-decorators'; // jshint unused:
         $modal.open({
             template: template,
             resolve: {
-                init: ['$q', 'PositionModel', 'EmployeeModel', 'SettingModel', 'LocationModel',
-                    ($q, PositionModel, EmployeeModel, SettingModel, LocationModel) => $q.all([PositionModel.initCollection(), EmployeeModel.initItem(id), SettingModel.initItem('app'), LocationModel.initCollection()])]
+                init: ['PositionModel', 'EmployeeModel', 'SettingModel', 'LocationModel',
+                    (PositionModel, EmployeeModel, SettingModel, LocationModel) => Promise.all([PositionModel.initCollection(), EmployeeModel.initItem(id), SettingModel.initItem('app'), LocationModel.initCollection()])]
             },
             controller: EmployeeEdit,
             controllerAs: 'vm',

@@ -17,10 +17,9 @@ describe('DocumentAdd', () => {
         let url = '/documents/add',
             state = 'app.documents.add',
             currentState, modalOptions,
-            $q, $state, $injector, $modal, $rootScope, DocumentModel, ModalService, EmployeeModel;
+            $state, $injector, $modal, $rootScope, DocumentModel, ModalService, EmployeeModel;
 
-        beforeEach(inject((_$q_, _$state_, _$modal_, _$rootScope_, _$injector_, _DocumentModel_, _ModalService_, _EmployeeModel_) => {
-            $q = _$q_;
+        beforeEach(inject((_$state_, _$modal_, _$rootScope_, _$injector_, _DocumentModel_, _ModalService_, _EmployeeModel_) => {
             $state = _$state_;
             $modal = _$modal_;
             $injector = _$injector_;
@@ -37,7 +36,6 @@ describe('DocumentAdd', () => {
             spyOn(DocumentModel, 'initItem');
             spyOn(EmployeeModel, 'initCollection');
             spyOn($state, 'go');
-            spyOn($q, 'all');
 
             currentState = $state.get(state);
         }));
@@ -46,19 +44,18 @@ describe('DocumentAdd', () => {
             expect($state.href(state)).toEqual(url);
         });
 
-        it('should correctly show the document add modal', function () {
+        itAsync('should correctly show the document add modal', function () {
             $injector.invoke(currentState.onEnter);
-            modalOptions.resolve.init[3]($q, DocumentModel, EmployeeModel);
+            return modalOptions.resolve.init[2](DocumentModel, EmployeeModel).then(() => {
+                expect($modal.open).toHaveBeenCalled();
+                expect(DocumentModel.initItem).toHaveBeenCalled();
+                expect(EmployeeModel.initCollection).toHaveBeenCalled();
 
-            expect($modal.open).toHaveBeenCalled();
-            expect(DocumentModel.initItem).toHaveBeenCalled();
-            expect(EmployeeModel.initCollection).toHaveBeenCalled();
-            expect($q.all).toHaveBeenCalled();
-
-            expect(modalOptions.size).toEqual('md');
-            expect(modalOptions.template).toEqual('<modal-document></modal-document>');
-            expect(modalOptions.controllerAs).toEqual('vm');
-            expect(modalOptions.controller.name).toEqual('DocumentAdd');
+                expect(modalOptions.size).toEqual('md');
+                expect(modalOptions.template).toEqual('<modal-document></modal-document>');
+                expect(modalOptions.controllerAs).toEqual('vm');
+                expect(modalOptions.controller.name).toEqual('DocumentAdd');
+            });
         });
 
         it('should redirect to app.documents route when finally block is executed', () => {

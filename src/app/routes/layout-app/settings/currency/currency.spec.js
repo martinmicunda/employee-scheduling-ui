@@ -16,10 +16,9 @@ describe('Currency', () => {
         let url = '/settings/currency',
             state = 'app.settings.currency',
             currentState,
-            $q, $state, $injector, SettingModel, CurrencyModel;
+            $state, $injector, SettingModel, CurrencyModel;
 
-        beforeEach(inject((_$q_, _$state_, _$injector_, _SettingModel_, _CurrencyModel_) => {
-            $q = _$q_;
+        beforeEach(inject((_$state_, _$injector_, _SettingModel_, _CurrencyModel_) => {
             $state = _$state_;
             $injector = _$injector_;
             SettingModel = _SettingModel_;
@@ -36,16 +35,14 @@ describe('Currency', () => {
             expect($state.href(state)).toEqual(url);
         });
 
-        it(`should resolve 'init' for '${url}' state`, () => {
-            spyOn($q, 'all');
+        itAsync(`should resolve 'init' for '${url}' state`, () => {
             spyOn(SettingModel, 'initItem');
             spyOn(CurrencyModel, 'initCollection');
 
-            $injector.invoke(currentState.resolve.init);
-
-            expect($q.all).toHaveBeenCalled();
-            expect(SettingModel.initItem).toHaveBeenCalledWith('app');
-            expect(CurrencyModel.initCollection).toHaveBeenCalled();
+            return $injector.invoke(currentState.resolve.init).then(() => {
+                expect(SettingModel.initItem).toHaveBeenCalledWith('app');
+                expect(CurrencyModel.initCollection).toHaveBeenCalled();
+            });
         });
     });
 

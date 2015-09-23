@@ -17,7 +17,7 @@ import {RouteConfig, Component, View, Inject} from '../../../ng-decorators'; // 
     url: '/employees',
     template: '<employees></employees>',
     resolve: {
-        init: ['$q', 'EmployeeModel', 'PositionModel', ($q, EmployeeModel, PositionModel) => $q.all([EmployeeModel.initCollection(), PositionModel.initCollection(null, true)])]
+        init: ['EmployeeModel', 'PositionModel', (EmployeeModel, PositionModel) => Promise.all([EmployeeModel.initCollection(), PositionModel.initCollection(null, true)])]
     }
 })
 @Component({

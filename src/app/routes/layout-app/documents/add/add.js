@@ -17,7 +17,7 @@ import {RouteConfig, Inject} from '../../../../ng-decorators'; // jshint unused:
             controllerAs: 'vm',
             size: 'md',
             resolve: {
-                init: ['$q', 'DocumentModel', 'EmployeeModel', ($q, DocumentModel, EmployeeModel) => $q.all([DocumentModel.initItem(), EmployeeModel.initCollection()])]
+                init: ['DocumentModel', 'EmployeeModel', (DocumentModel, EmployeeModel) => Promise.all([DocumentModel.initItem(), EmployeeModel.initCollection()])]
             }
         }).result.finally(ModalService.onFinal('app.documents'));
     }]

@@ -17,10 +17,9 @@ describe('EmployeeAdd', () => {
         let url = '/employees/add',
             state = 'app.employees.add',
             currentState, modalOptions,
-            $q, $state, $modal, $injector, $rootScope, EmployeeModel, ModalService, SettingModel, LocationModel, PositionModel;
+            $state, $modal, $injector, $rootScope, EmployeeModel, ModalService, SettingModel, LocationModel, PositionModel;
 
-        beforeEach(inject((_$q_, _$state_, _$modal_, _$injector_, _$rootScope_, _EmployeeModel_, _PositionModel_, _SettingModel_, _LocationModel_, _ModalService_) => {
-            $q = _$q_;
+        beforeEach(inject((_$state_, _$modal_, _$injector_, _$rootScope_, _EmployeeModel_, _PositionModel_, _SettingModel_, _LocationModel_, _ModalService_) => {
             $state = _$state_;
             $modal = _$modal_;
             $injector = _$injector_;
@@ -41,7 +40,6 @@ describe('EmployeeAdd', () => {
             spyOn(EmployeeModel, 'initItem');
             spyOn(SettingModel, 'initItem');
             spyOn($state, 'go');
-            spyOn($q, 'all');
 
             $state.go(state);
             currentState = $state.get(state);
@@ -51,21 +49,20 @@ describe('EmployeeAdd', () => {
             expect($state.href(state)).toEqual(url);
         });
 
-        it('should correctly show the employee add modal', function () {
+        itAsync('should correctly show the employee add modal', function () {
             $injector.invoke(currentState.onEnter, this);
-            modalOptions.resolve.init[5]($q, PositionModel, EmployeeModel, SettingModel, LocationModel);
+            return modalOptions.resolve.init[4](PositionModel, EmployeeModel, SettingModel, LocationModel).then(() => {
+                expect($modal.open).toHaveBeenCalled();
+                expect(PositionModel.initCollection).toHaveBeenCalled();
+                expect(LocationModel.initCollection).toHaveBeenCalled();
+                expect(EmployeeModel.initItem).toHaveBeenCalled();
+                expect(SettingModel.initItem).toHaveBeenCalledWith('app');
 
-            expect($modal.open).toHaveBeenCalled();
-            expect(PositionModel.initCollection).toHaveBeenCalled();
-            expect(LocationModel.initCollection).toHaveBeenCalled();
-            expect(EmployeeModel.initItem).toHaveBeenCalled();
-            expect(SettingModel.initItem).toHaveBeenCalledWith('app');
-            expect($q.all).toHaveBeenCalled();
-
-            expect(modalOptions.size).toEqual('lg');
-            expect(modalOptions.template).toBeDefined();
-            expect(modalOptions.controllerAs).toEqual('vm');
-            expect(modalOptions.controller.name).toEqual('EmployeeAdd');
+                expect(modalOptions.size).toEqual('lg');
+                expect(modalOptions.template).toBeDefined();
+                expect(modalOptions.controllerAs).toEqual('vm');
+                expect(modalOptions.controller.name).toEqual('EmployeeAdd');
+            });
         });
 
         it('should redirect to `app.employees` route when finally block is executed', () => {

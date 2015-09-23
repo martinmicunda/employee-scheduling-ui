@@ -16,10 +16,9 @@ describe('Employees', () => {
         let url = '/employees',
             state = 'app.employees',
             currentState,
-            $q, $state, $injector, PositionModel, EmployeeModel;
+            $state, $injector, PositionModel, EmployeeModel;
 
-        beforeEach(inject((_$q_, _$state_, _$injector_, _PositionModel_, _EmployeeModel_) => {
-            $q = _$q_;
+        beforeEach(inject((_$state_, _$injector_, _PositionModel_, _EmployeeModel_) => {
             $state = _$state_;
             $injector = _$injector_;
             PositionModel = _PositionModel_;
@@ -36,16 +35,14 @@ describe('Employees', () => {
             expect($state.href(state)).toEqual(url);
         });
 
-        it(`should resolve 'init' for '${url}' state`, () => {
-            spyOn($q, 'all');
+        itAsync(`should resolve 'init' for '${url}' state`, () => {
             spyOn(PositionModel, 'initCollection');
             spyOn(EmployeeModel, 'initCollection');
 
-            $injector.invoke(currentState.resolve.init);
-
-            expect($q.all).toHaveBeenCalled();
-            expect(PositionModel.initCollection).toHaveBeenCalledWith(null, true);
-            expect(EmployeeModel.initCollection).toHaveBeenCalled();
+            return $injector.invoke(currentState.resolve.init).then(() => {
+                expect(PositionModel.initCollection).toHaveBeenCalledWith(null, true);
+                expect(EmployeeModel.initCollection).toHaveBeenCalled();
+            });
         });
     });
 

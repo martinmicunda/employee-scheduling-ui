@@ -18,10 +18,9 @@ describe('DocumentEdit', () => {
             url = `/documents/${id}/edit`,
             state = 'app.documents.edit',
             currentState, modalOptions,
-            $q, $state, $modal, $injector, $rootScope, $stateParams, DocumentModel, ModalService, EmployeeModel;
+            $state, $modal, $injector, $rootScope, $stateParams, DocumentModel, ModalService, EmployeeModel;
 
-        beforeEach(inject((_$q_, _$state_, _$modal_, _$injector_, _$rootScope_, _$stateParams_, _DocumentModel_, _ModalService_, _EmployeeModel_) => {
-            $q = _$q_;
+        beforeEach(inject((_$state_, _$modal_, _$injector_, _$rootScope_, _$stateParams_, _DocumentModel_, _ModalService_, _EmployeeModel_) => {
             $state = _$state_;
             $modal = _$modal_;
             $injector = _$injector_;
@@ -41,7 +40,6 @@ describe('DocumentEdit', () => {
             spyOn(ModalService, 'onSuccess');
             spyOn(ModalService, 'onError');
             spyOn($state, 'go');
-            spyOn($q, 'all');
 
             $state.go(state, {id: id});
             currentState = $state.get(state);
@@ -51,19 +49,18 @@ describe('DocumentEdit', () => {
             expect($state.href(state, {id: id})).toEqual(url);
         });
 
-        it('should correctly show the document add modal', function () {
+        itAsync('should correctly show the document add modal', function () {
             $injector.invoke(currentState.onEnter, this, {$stateParams: $stateParams});
-            modalOptions.resolve.init[3]($q, DocumentModel, EmployeeModel);
+            return modalOptions.resolve.init[2](DocumentModel, EmployeeModel).then(() => {
+                expect($modal.open).toHaveBeenCalled();
+                expect(DocumentModel.initItem).toHaveBeenCalledWith(id);
+                expect(EmployeeModel.initCollection).toHaveBeenCalled();
 
-            expect($modal.open).toHaveBeenCalled();
-            expect(DocumentModel.initItem).toHaveBeenCalledWith(id);
-            expect(EmployeeModel.initCollection).toHaveBeenCalled();
-            expect($q.all).toHaveBeenCalled();
-
-            expect(modalOptions.size).toEqual('md');
-            expect(modalOptions.template).toEqual('<modal-document></modal-document>');
-            expect(modalOptions.controllerAs).toEqual('vm');
-            expect(modalOptions.controller.name).toEqual('DocumentEdit');
+                expect(modalOptions.size).toEqual('md');
+                expect(modalOptions.template).toEqual('<modal-document></modal-document>');
+                expect(modalOptions.controllerAs).toEqual('vm');
+                expect(modalOptions.controller.name).toEqual('DocumentEdit');
+            });
         });
 
         it('should execute modal `then` block with success and failure functions', () => {

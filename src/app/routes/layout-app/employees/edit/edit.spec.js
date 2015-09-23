@@ -18,10 +18,9 @@ describe('EmployeeEdit', () => {
             url = `/employees/${id}/edit`,
             state = 'app.employees.edit',
             currentState, modalOptions,
-            $q, $state, $modal, $injector, $rootScope, $stateParams, EmployeeModel, ModalService, SettingModel, LocationModel, PositionModel;
+            $state, $modal, $injector, $rootScope, $stateParams, EmployeeModel, ModalService, SettingModel, LocationModel, PositionModel;
 
-        beforeEach(inject((_$q_, _$state_, _$modal_, _$injector_, _$rootScope_, _EmployeeModel_, _PositionModel_, _SettingModel_, _LocationModel_, _ModalService_) => {
-            $q = _$q_;
+        beforeEach(inject((_$state_, _$modal_, _$injector_, _$rootScope_, _EmployeeModel_, _PositionModel_, _SettingModel_, _LocationModel_, _ModalService_) => {
             $state = _$state_;
             $modal = _$modal_;
             $injector = _$injector_;
@@ -45,7 +44,6 @@ describe('EmployeeEdit', () => {
             spyOn(ModalService, 'onSuccess');
             spyOn(ModalService, 'onError');
             spyOn($state, 'go');
-            spyOn($q, 'all');
 
             $state.go(state, {id: id});
             currentState = $state.get(state);
@@ -55,21 +53,20 @@ describe('EmployeeEdit', () => {
             expect($state.href(state, {id: id})).toEqual(url);
         });
 
-        it('should correctly show the employee edit modal', function () {
+        itAsync('should correctly show the employee edit modal', function () {
             $injector.invoke(currentState.onEnter, this, {$stateParams: $stateParams});
-            modalOptions.resolve.init[5]($q, PositionModel, EmployeeModel, SettingModel, LocationModel);
+            return modalOptions.resolve.init[4](PositionModel, EmployeeModel, SettingModel, LocationModel).then(() => {
+                expect($modal.open).toHaveBeenCalled();
+                expect(PositionModel.initCollection).toHaveBeenCalled();
+                expect(LocationModel.initCollection).toHaveBeenCalled();
+                expect(EmployeeModel.initItem).toHaveBeenCalledWith(id);
+                expect(SettingModel.initItem).toHaveBeenCalledWith('app');
 
-            expect($modal.open).toHaveBeenCalled();
-            expect(PositionModel.initCollection).toHaveBeenCalled();
-            expect(LocationModel.initCollection).toHaveBeenCalled();
-            expect(EmployeeModel.initItem).toHaveBeenCalledWith(id);
-            expect(SettingModel.initItem).toHaveBeenCalledWith('app');
-            expect($q.all).toHaveBeenCalled();
-
-            expect(modalOptions.size).toEqual('lg');
-            expect(modalOptions.template).toBeDefined();
-            expect(modalOptions.controllerAs).toEqual('vm');
-            expect(modalOptions.controller.name).toEqual('EmployeeEdit');
+                expect(modalOptions.size).toEqual('lg');
+                expect(modalOptions.template).toBeDefined();
+                expect(modalOptions.controllerAs).toEqual('vm');
+                expect(modalOptions.controller.name).toEqual('EmployeeEdit');
+            });
         });
 
         it('should execute modal `then` block with success and failure functions', () => {

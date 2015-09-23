@@ -13,7 +13,7 @@ import {RouteConfig, Component, View, Inject} from '../../../../ng-decorators'; 
     url: '/currency',
     template: '<currency></currency>',
     resolve: {
-        init: ['$q', 'SettingModel', 'CurrencyModel', ($q, SettingModel, CurrencyModel) => $q.all([SettingModel.initItem('app'),  CurrencyModel.initCollection()])]
+        init: ['SettingModel', 'CurrencyModel', (SettingModel, CurrencyModel) => Promise.all([SettingModel.initItem('app'), CurrencyModel.initCollection()])]
     }
 })
 @Component({
