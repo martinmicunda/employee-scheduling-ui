@@ -38,6 +38,8 @@ class EmployeeAccountDetails {
 
     addAvatar(file) {
         const disallowObjectUrl = true;
-        this.Upload.dataUrl(file, disallowObjectUrl).then(url => this.employee.avatar = url);
+        return this.Upload.dataUrl(file, disallowObjectUrl).then(url => this.employee.avatar = url);
     }
 }
+
+export default EmployeeAccountDetails;
