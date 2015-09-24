@@ -1,6 +1,6 @@
 /**
  * An UI component for Employee Scheduling application.
- * @version v0.0.0-build.d99a671ef445b1085bae9bb7053fab689086c2bf - 23/09/2015
+ * @version v0.0.0-build.5b01f5361892054b288b69fdd30f8d06003593a8 - 24/09/2015
  * @author Martin Micunda
  * @copyright 2015(c) Martin Micunda
  * @license GPL-3.0
