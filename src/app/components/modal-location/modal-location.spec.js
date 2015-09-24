@@ -115,9 +115,7 @@ describe('ModalLocation', () => {
                 statusSelectField.val(location.status);
                 statusSelectField.triggerHandler('select');
 
-                const defaultCheckboxField = angular.element(element[0].querySelector('input[name="default"][type="checkbox"]'));
-                statusSelectField.val(location.default);
-                defaultCheckboxField.triggerHandler('click');
+                element.isolateScope().locationForm.default.$setViewValue(location.default);
 
                 angular.element(element[0].querySelector('button.btn-success')).triggerHandler('click');
 
@@ -125,7 +123,7 @@ describe('ModalLocation', () => {
                 expect(element.isolateScope().vm.save).toHaveBeenCalledWith(element.isolateScope().locationForm);
                 expect(element.isolateScope().vm.location.name).toEqual(location.name);
                 expect(element.isolateScope().vm.location.status).toEqual(location.status);
-                //expect(element.isolateScope().vm.location.default).toEqual(location.default); FIXME: why click doesn't trigger checkbox?
+                expect(element.isolateScope().vm.location.default).toEqual(location.default);
                 expect(element.isolateScope().locationForm.$valid).toEqual(true);
             });
 

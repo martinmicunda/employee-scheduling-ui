@@ -24,9 +24,7 @@ class MmUniqueEmailValidator {
 
     link(scope, element, attrs, ngModel) {
         const currentEmail = EMPLOYEE_MODEL.get(MmUniqueEmailValidator.instance).getItem().email;
-        ngModel.$asyncValidators.unique = (modelValue, viewValue) => {
-            let email = modelValue || viewValue;
-
+        ngModel.$asyncValidators.unique = (email) => {
             return new Promise((resolve, reject) => {
                 if(currentEmail !== email) {
                     EMPLOYEE_RESOURCE.get(MmUniqueEmailValidator.instance).getEmployeeByEmail(email).then(() => {

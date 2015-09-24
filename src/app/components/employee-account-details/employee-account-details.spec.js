@@ -14,17 +14,23 @@ describe('EmployeeAccountDetails', () => {
     beforeEach(angular.mock.module('ngDecorator'));
 
     describe('Component', () => {
-        let $compile, $rootScope, scope, render, element, EmployeeModel,
+        let $timeout, $compile, $rootScope, scope, render, element, EmployeeModel, EmployeeResource, PositionResource,
             component = '<employee-account-details></employee-account-details>',
             itemMock = {id: 'id', status: EMPLOYEE_PROFILE_STATUSES.ACTIVE, avatar: employee.avatar};
 
-        beforeEach(inject((_$compile_, _$rootScope_, _EmployeeModel_) => {
+        beforeEach(inject((_$compile_, _$rootScope_, _EmployeeModel_, _$timeout_, _EmployeeResource_, _PositionResource_) => {
             $compile = _$compile_;
             $rootScope = _$rootScope_;
             scope = $rootScope.$new();
+            $timeout = _$timeout_;
             EmployeeModel = _EmployeeModel_;
+            EmployeeResource = _EmployeeResource_;
+            PositionResource = _PositionResource_;
 
             spyOn(EmployeeModel, 'getItem').and.returnValue(itemMock);
+            spyOn(EmployeeModel, 'getCollection').and.returnValue([]);
+            spyOn(PositionResource, 'getList').and.returnValue([]);
+            spyOn(EmployeeResource, 'getList').and.returnValue([]);
 
             render = () => {
                 let element = angular.element(component);
@@ -33,6 +39,11 @@ describe('EmployeeAccountDetails', () => {
 
                 return compiledElement;
             };
+        }));
+
+        afterEach(inject(($httpBackend) => {
+            $httpBackend.verifyNoOutstandingExpectation();
+            $httpBackend.verifyNoOutstandingRequest();
         }));
 
         it('should have `employee-hourly-rate` component', () => {
@@ -209,47 +220,53 @@ describe('EmployeeAccountDetails', () => {
                     expect(errorMessage.text()).toEqual('This field is required.');
                 });
 
-                //it('should show `email` maxlength error message', () => {
-                //    element = render();
-                //    const inputField = angular.element(element[0].querySelector('input[name="email"][type="email"]'));
-                //    inputField.val('test@test.com' + CHARACTERS_61);
-                //    inputField.triggerHandler('input');
-                //    element.triggerHandler('submit');
-                //    element.isolateScope().employeeAccountDetailsForm.$submitted = true; // FIXME: why $submitted is not set by triggerHandler?
-                //    scope.$digest();
-                //
-                //    const errorMessage = angular.element(element[0].querySelector('input[name="email"][type="email"] ~ div > div[ng-message="maxlength"]'));
-                //
-                //    expect(errorMessage.text()).toEqual('This field text is too long (max 60 characters).');
-                //});
-                //
-                //it('should show `email` invalid error message', () => {
-                //    element = render();
-                //    const inputField = angular.element(element[0].querySelector('input[name="email"][type="email"]'));
-                //    inputField.val('invalid-email');
-                //    inputField.triggerHandler('input');
-                //    element.triggerHandler('submit');
-                //    element.isolateScope().employeeAccountDetailsForm.$submitted = true; // FIXME: why $submitted is not set by triggerHandler?
-                //    scope.$digest();
-                //
-                //    const errorMessage = angular.element(element[0].querySelector('input[name="email"][type="email"] ~ div > div[ng-message="email"]'));
-                //
-                //    expect(errorMessage.text()).toEqual('Invalid email.');
-                //});
-                //
-                //it('should show `email` unique error message', () => {
-                //    element = render();
-                //    const inputField = angular.element(element[0].querySelector('input[name="email"][type="email"]'));
-                //    inputField.val(employee.email);
-                //    inputField.triggerHandler('input');
-                //    element.triggerHandler('submit');
-                //    element.isolateScope().employeeAccountDetailsForm.$submitted = true; // FIXME: why $submitted is not set by triggerHandler?
-                //    scope.$digest();
-                //
-                //    const errorMessage = angular.element(element[0].querySelector('input[name="email"][type="email"] ~ div > div[ng-message="unique"]'));
-                //
-                //    expect(errorMessage.text()).toEqual('Email has already been taken.');
-                //});
+                it('should show `email` maxlength error message', () => {
+                    element = render();
+                    const inputField = angular.element(element[0].querySelector('input[name="email"][type="email"]'));
+                    inputField.val('test@test.com' + CHARACTERS_61);
+                    inputField.triggerHandler('input');
+                    element.triggerHandler('submit');
+                    element.isolateScope().employeeAccountDetailsForm.$submitted = true; // FIXME: why $submitted is not set by triggerHandler?
+                    scope.$digest();
+
+                    $timeout.flush(); // flush debounce
+
+                    const errorMessage = angular.element(element[0].querySelector('input[name="email"][type="email"] ~ div > div[ng-message="maxlength"]'));
+
+                    expect(errorMessage.text()).toEqual('This field text is too long (max 60 characters).');
+                });
+
+                it('should show `email` invalid error message', () => {
+                    element = render();
+                    const inputField = angular.element(element[0].querySelector('input[name="email"][type="email"]'));
+                    inputField.val('invalid-email');
+                    inputField.triggerHandler('input');
+                    element.isolateScope().employeeAccountDetailsForm.$submitted = true; // FIXME: why $submitted is not set by triggerHandler?
+                    scope.$digest();
+
+                    $timeout.flush(); // flush debounce
+
+                    const errorMessage = angular.element(element[0].querySelector('input[name="email"][type="email"] ~ div > div[ng-message="email"]'));
+
+                    expect(errorMessage.text()).toEqual('Invalid email.');
+                });
+
+                xit('should show `email` unique error message', () => {
+                    spyOn(EmployeeResource, 'getEmployeeByEmail').and.returnValue(Promise.resolve());
+                    element = render();
+                    const inputField = angular.element(element[0].querySelector('input[name="email"][type="email"]'));
+                    inputField.val(employee.email);
+                    inputField.triggerHandler('input');
+                    element.triggerHandler('submit');
+                    element.isolateScope().employeeAccountDetailsForm.$submitted = true; // FIXME: why $submitted is not set by triggerHandler?
+                    scope.$digest();
+
+                    $timeout.flush(); // flush debounce
+
+                    const errorMessage = angular.element(element[0].querySelector('input[name="email"][type="email"] ~ div > div[ng-message="unique"]'));
+
+                    expect(errorMessage.text()).toEqual('Email has already been taken.');
+                });
             });
 
             describe('position', () => {
@@ -416,41 +433,53 @@ describe('EmployeeAccountDetails', () => {
             });
         });
 
-        //fit('should submit the form', function () {
-        //    const positions =  [{id: '5', name: 'B'}];
-        //    element = render();
-        //    element.isolateScope().vm.positions = positions;
-        //    scope.$digest();
-        //
-        //    const firstNameInputField = angular.element(element[0].querySelector('input[name="firstName"][type="text"]'));
-        //    firstNameInputField.val(employee.firstName);
-        //    firstNameInputField.triggerHandler('input');
-        //
-        //    const lastNameInputField = angular.element(element[0].querySelector('input[name="lastName"][type="text"]'));
-        //    lastNameInputField.val(employee.lastName);
-        //    lastNameInputField.triggerHandler('input');
-        //
-        //    const emailInputField = angular.element(element[0].querySelector('input[name="email"][type="email"]'));
-        //    emailInputField.val(employee.email);
-        //    emailInputField.triggerHandler('input');
-        //
-        //    const positionInputField = angular.element(element[0].querySelector('select[name="position"]'));
-        //    emailInputField.val('5');
-        //    console.log(positionInputField);
-        //
-        //    positionInputField.triggerHandler('input');
-        //    scope.$digest();
-        //     //positionInputField.val('B');
-        //    //positionInputField.triggerHandler('click');
-        //
-        //    expect(element.isolateScope().employeeAccountDetailsForm).toBeDefined();
-        //    expect(element.isolateScope().vm.employee.firstName).toEqual(employee.firstName);
-        //    expect(element.isolateScope().vm.employee.lastName).toEqual(employee.lastName);
-        //    //expect(element.isolateScope().vm.employee.email).toEqual(employee.email);
-        //    expect(element.isolateScope().vm.employee.position).toEqual(employee.position);
-        //
-        //    expect(element.isolateScope().employeeAccountDetailsForm.$valid).toEqual(true);
-        //});
+        xit('should submit the form', function () {
+            spyOn(EmployeeResource, 'getEmployeeByEmail').and.returnValue(Promise.reject());
+            const positions =  [{id: '5', name: 'B'}];
+            element = render();
+            element.isolateScope().vm.positions = positions;
+            scope.$digest();
+
+            const firstNameInputField = angular.element(element[0].querySelector('input[name="firstName"][type="text"]'));
+            firstNameInputField.val(employee.firstName);
+            firstNameInputField.triggerHandler('input');
+
+            const lastNameInputField = angular.element(element[0].querySelector('input[name="lastName"][type="text"]'));
+            lastNameInputField.val(employee.lastName);
+            lastNameInputField.triggerHandler('input');
+
+            element.isolateScope().employeeAccountDetailsForm.position.$setViewValue(positions[0].id);
+            element.isolateScope().employeeAccountDetailsForm.status.$setViewValue(EMPLOYEE_PROFILE_STATUSES.INACTIVE);
+
+            const personalNoInputField = angular.element(element[0].querySelector('input[name="personalNo"][type="text"]'));
+            personalNoInputField.val(employee.personalNo);
+            personalNoInputField.triggerHandler('input');
+
+            const identityNoInputField = angular.element(element[0].querySelector('input[name="identityNo"][type="text"]'));
+            identityNoInputField.val(employee.identityNo);
+            identityNoInputField.triggerHandler('input');
+
+            const noteInputField = angular.element(element[0].querySelector('textarea[name="note"]'));
+            noteInputField.val(employee.note);
+            noteInputField.triggerHandler('input');
+
+            //const emailInputField = angular.element(element[0].querySelector('input[name="email"][type="email"]'));
+            //emailInputField.val(employee.email);
+            //emailInputField.triggerHandler('input');
+            //$timeout.flush(); // flush debounce
+
+            expect(element.isolateScope().employeeAccountDetailsForm).toBeDefined();
+            expect(element.isolateScope().vm.employee.firstName).toEqual(employee.firstName);
+            expect(element.isolateScope().vm.employee.lastName).toEqual(employee.lastName);
+            //expect(element.isolateScope().vm.employee.email).toEqual(employee.email);
+            expect(element.isolateScope().vm.employee.position).toEqual(employee.position);
+            expect(element.isolateScope().vm.employee.status).toEqual(EMPLOYEE_PROFILE_STATUSES.INACTIVE);
+            expect(element.isolateScope().vm.employee.personalNo).toEqual(employee.personalNo);
+            expect(element.isolateScope().vm.employee.identityNo).toEqual(employee.identityNo);
+            expect(element.isolateScope().vm.employee.note).toEqual(employee.note);
+
+            expect(element.isolateScope().employeeAccountDetailsForm.$valid).toEqual(true);
+        });
     });
 
     describe('Controller', () => {

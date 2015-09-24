@@ -20,5 +20,8 @@
     "currencyCode": "EUR",
     "currencySymbol": "€",
     "locations": ["1", "5"],
-    "supervisorLocations": []
+    "supervisorLocations": [],
+    "personalNo": "OP1234",
+    "identityNo": "ID12345",
+    "note": "Lorem Ipsum is simply dummy text of the printing and typesetting industry"
 }

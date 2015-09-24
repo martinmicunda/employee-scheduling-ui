@@ -73,6 +73,6 @@ describe('EmployeeModel', () => {
 
         employeeModel.setItem(employeeClone);
 
-        expect(employeeModel.calculateProfileCompleteness(PROFILE_COMPLETENESS_TYPES.EMPLOYEE)).toEqual({ percentage: '71' });
+        expect(employeeModel.calculateProfileCompleteness(PROFILE_COMPLETENESS_TYPES.EMPLOYEE)).toEqual({ percentage: '86' });
     });
 });

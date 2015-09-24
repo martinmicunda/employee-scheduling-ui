@@ -109,16 +109,14 @@ describe('DocumentModal', () => {
                 nameInputField.val(document.name);
                 nameInputField.triggerHandler('input');
 
-                const isLockedCheckboxField = angular.element(element[0].querySelector('input[name="isLocked"][type="checkbox"]'));
-                isLockedCheckboxField.val(true);
-                isLockedCheckboxField.triggerHandler('click');
+                element.isolateScope().documentForm.isLocked.$setViewValue(true);
 
                 angular.element(element[0].querySelector('button.btn-success')).triggerHandler('click');
 
                 expect(element.isolateScope().documentForm).toBeDefined();
                 expect(element.isolateScope().vm.save).toHaveBeenCalledWith(element.isolateScope().documentForm);
                 expect(element.isolateScope().vm.document.name).toEqual(document.name);
-                //expect(element.isolateScope().vm.document.isLocked).toEqual(true); //FIXME: why click doesn't trigger checkbox?
+                expect(element.isolateScope().vm.document.isLocked).toEqual(true);
                 expect(element.isolateScope().documentForm.$valid).toEqual(true);
             });
 

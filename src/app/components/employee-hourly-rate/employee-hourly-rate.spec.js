@@ -68,12 +68,9 @@ describe('EmployeeHourlyRate', () => {
                     expect(errorMessage.text()).toEqual('This field is required.');
                 });
 
-                //FIXME: why invalid message error is not trigger
-                xit('should show `hourlyRate` number error message', () => {
+                it('should show `hourlyRate` number error message', () => {
                     element = render();
-                    const inputField = angular.element(element[0].querySelector('input[name="hourlyRate"][type="number"]'));
-                    inputField.val('-1');
-                    inputField.triggerHandler('input');
+                    element.isolateScope().employeeHourlyRateForm.hourlyRate.$setViewValue('-e');
                     element.triggerHandler('submit');
                     element.isolateScope().employeeHourlyRateForm.$submitted = true; // FIXME: why $submitted is not set by triggerHandler?
                     scope.$digest();
