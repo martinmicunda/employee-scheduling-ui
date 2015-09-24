@@ -17,14 +17,14 @@ const ANCHOR_SCROLL = new WeakMap();
 //end-non-standard
 class MmScrollUp {
     constructor($location, $anchorScroll) {
-        this.restrict = 'AC';
+        this.restrict = 'A';
         LOCATION.set(this, $location);
         ANCHOR_SCROLL.set(this, $anchorScroll);
     }
 
     link(scope, element, attrs) {
         element.on('click', function() {
-            LOCATION.get(MmScrollUp.instance).hash(attrs.uiScroll);
+            LOCATION.get(MmScrollUp.instance).hash(attrs.mmScrollUp);
             ANCHOR_SCROLL.get(MmScrollUp.instance)();
         });
     }
@@ -37,3 +37,5 @@ class MmScrollUp {
         return MmScrollUp.instance;
     }
 }
+
+export default MmScrollUp;
