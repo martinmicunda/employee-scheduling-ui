@@ -21,14 +21,7 @@ class MmColorHexValidator {
 
     link(scope, element, attrs, ngModel) {
         ngModel.$validators.hexcode = function(value) {
-            if (value) {
-                const matches = value.toString().match(HEX_REGEXP);
-                return (matches !== null && matches.length > 0);
-            } else {
-                // allow blank
-                return true;
-            }
-
+            return HEX_REGEXP.test(value);
         };
     }
 
@@ -37,4 +30,5 @@ class MmColorHexValidator {
         return MmColorHexValidator.instance;
     }
 }
-// test http://www.mkyong.com/regular-expressions/how-to-validate-hex-color-code-with-regular-expression/
+
+export default MmColorHexValidator;
