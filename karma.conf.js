@@ -1,9 +1,12 @@
 'use strict';
 
-var nocoverage = false;
+var nocoverage = false, coveralls = false;
 process.argv.forEach(function (val, index) {
     if(val.indexOf('--nocoverage') !== -1 || val.indexOf('--no-coverage') !== -1) {
         nocoverage = true;
+    }
+    if(val.indexOf('--coveralls') !== -1) {
+        coveralls = true;
     }
 });
 
@@ -31,7 +34,7 @@ module.exports = function (config) {
 
         // use dots reporter, as Travis terminal does not support escaping sequences;
         // when using Travis publish coverage to coveralls
-        reporters: process.env.TRAVIS ? ['dots', 'junit', 'coverage', 'coveralls'] : nocoverage ? ['dots'] : ['dots', 'junit', 'coverage'],
+        reporters: coveralls ? ['dots', 'junit', 'coverage', 'coveralls'] : nocoverage ? ['dots'] : ['dots', 'junit', 'coverage'],
 
         junitReporter: {
             outputDir: 'test-reports/unit-test-report/',

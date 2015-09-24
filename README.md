@@ -142,6 +142,11 @@ To watch for file changes and re-run tests without coverage report start with:
 $ npm test -- --watch --nocoverage
 ```
 
+To run test and push coverage report to [Coveralls](https://coveralls.io/) start with:
+```bash
+$ npm test -- --watch --coveralls
+```
+
 ##<a name="build"> How to Build
 The build task get app ready for production. The build task include transpilation from ES6 to ES5, concatenation, minification, compression, asset revision, template cache, cdn etc. If there have been no errors when executing the build command, the build should be located in `build/dist` directory and this build is ready for uploading to the server! To initiate a full build, you simply run the follow task:
 ```bash

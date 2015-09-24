@@ -54,15 +54,21 @@ function run {
     # Install NPM ad JSPM packages
     npm install
 
-    echo "-- Running unit tests "
-    npm test -- --browsers=Firefox
-
-    echo "-- Running e2e tests "
-#    gulp test:e2e --browsers=Firefox
-
     if [[ "$PULL_REQUEST" != "false" ]]; then
+        echo "-- Running unit tests"
+        npm test -- --browsers=Firefox
+
+        #echo "-- Running e2e tests "
+        #gulp test:e2e --browsers=Firefox
+
         echo "-- This is a pull request build; will not push build out."
         exit 0
+    else
+        echo "-- Running unit tests and pushing coverage report to coveralls"
+        npm test -- --browsers=Firefox --coveralls
+
+        #echo "-- Running e2e tests "
+        #gulp test:e2e --browsers=Firefox
     fi
 
     mkdir -p ../.tmp
