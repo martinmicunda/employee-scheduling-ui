@@ -31,7 +31,7 @@ test_script:
   - node --version
   - npm --version
   # run tests
-  - npm test
+  - npm test -- --browsers=Chrome
 
 build: off
 

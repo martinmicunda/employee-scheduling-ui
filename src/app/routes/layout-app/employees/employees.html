@@ -49,7 +49,7 @@
                             <td>
                                 <a ui-sref=".message({id: employee.id})" tooltip-placement="top" tooltip="send message"><i class="fa fa-comment-o fa-fw"></i></a>
                                 <a ui-sref=".schedule({id: employee.id})" tooltip-placement="top" tooltip="see schedule"><i class="fa fa-calendar fa-fw"></i></a>
-                                <a mm-really-click="vm.deleteEmployee(employee)" mm-really-header="Delete Employee" mm-really-message="Are you sure you want delete this employee?" tooltip-placement="top" tooltip="delete"><i class="fa fa-trash fa-fw"></i></a>
+                                <a mm-modal-really-click="vm.deleteEmployee(employee)" mm-really-header="Delete Employee" mm-really-message="Are you sure you want delete this employee?" tooltip-placement="top" tooltip="delete"><i class="fa fa-trash fa-fw"></i></a>
                                 <a ui-sref=".edit.account-details({id: employee.id})" tooltip-placement="top" tooltip="edit"><i class="fa fa-pencil fa-fw"></i></a>
                             </td>
                         </tr>
@@ -81,7 +81,7 @@
                                 <div>
                                     <a ui-sref=".message({id: employee.id})" tooltip-placement="top" tooltip="send message"><i class="fa fa-comment-o fa-fw"></i></a>
                                     <a ui-sref=".schedule({id: employee.id})" tooltip-placement="top" tooltip="see schedule"><i class="fa fa-calendar fa-fw"></i></a>
-                                    <a mm-really-click="vm.deleteEmployee(employee)" mm-really-header="Delete Employee" mm-really-message="Are you sure you want delete this employee?" tooltip-placement="top" tooltip="delete"><i class="fa fa-trash fa-fw"></i></a>
+                                    <a mm-modal-really-click="vm.deleteEmployee(employee)" mm-really-header="Delete Employee" mm-really-message="Are you sure you want delete this employee?" tooltip-placement="top" tooltip="delete"><i class="fa fa-trash fa-fw"></i></a>
                                     <a ui-sref=".edit.account-details({id: employee.id})" tooltip-placement="top" tooltip="edit"><i class="fa fa-pencil fa-fw"></i></a>
                                 </div>
                             </div>

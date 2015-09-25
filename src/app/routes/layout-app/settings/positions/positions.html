@@ -29,7 +29,7 @@
                         <tr si-sortable="single" ng-repeat="position in vm.positions | filter:searchFilter">
                             <td>{{::position.name}}</td>
                             <td>
-                                <a mm-really-click="vm.deletePosition(position)" mm-really-header="Delete Position" mm-really-message="Are you sure you want delete this position?" tooltip-placement="top" tooltip="delete"><i class="fa fa-trash fa-fw"></i></a>
+                                <a mm-modal-really-click="vm.deletePosition(position)" mm-really-header="Delete Position" mm-really-message="Are you sure you want delete this position?" tooltip-placement="top" tooltip="delete"><i class="fa fa-trash fa-fw"></i></a>
                                 <a ui-sref=".edit({id: position.id})" tooltip-placement="top" tooltip="edit"><i class="fa fa-pencil fa-fw"></i></a>
                             </td>
                         </tr>

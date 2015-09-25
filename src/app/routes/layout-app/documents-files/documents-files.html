@@ -31,7 +31,7 @@
                             <td>{{::file.name}}</td>
                             <td>{{::file.dateCreated | date}}</td>
                             <td>
-                                <a mm-really-click="vm.deletePartner(partner)" mm-really-header="Delete File" mm-really-message="Are you sure you want delete this file?" tooltip-placement="top" tooltip="delete"><i class="fa fa-trash fa-fw"></i></a>
+                                <a mm-modal-really-click="vm.deletePartner(partner)" mm-really-header="Delete File" mm-really-message="Are you sure you want delete this file?" tooltip-placement="top" tooltip="delete"><i class="fa fa-trash fa-fw"></i></a>
                                 <a ui-sref=".edit({url: file.url})" tooltip-placement="top" tooltip="view"><i class="fa fa-eye fa-fw"></i></a>
                             </td>
                         </tr>

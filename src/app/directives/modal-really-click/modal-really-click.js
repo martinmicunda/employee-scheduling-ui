@@ -7,24 +7,41 @@
 
 import {Directive, Inject} from '../../ng-decorators'; // jshint unused: false
 
+//start-non-standard
+@Inject('$modalInstance')
+//end-non-standard
+class MmModalReallyClickController {
+    constructor($modalInstance) {
+        this.modal = $modalInstance;
+    }
+
+    ok() {
+        this.modal.close()
+    }
+
+    cancel() {
+        this.modal.dismiss('cancel');
+    }
+}
+
 const MODAL = new WeakMap();
 //start-non-standard
 @Directive({
-    selector: 'mm-really-click'
+    selector: 'mm-modal-really-click'
 })
 //end-non-standard
-class MmReallyClick {
+class MmModalReallyClick {
     constructor($modal) {
         this.restrict = 'A';
         this.scope = {
-            mmReallyClick: '&'
+            mmModalReallyClick: '&'
         };
         MODAL.set(this, $modal);
     }
 
     link(scope, element, attrs) {
         element.bind('click', () => {
-            const modalInstance = MODAL.get(MmReallyClick.instance).open({
+            const modalInstance = MODAL.get(MmModalReallyClick.instance).open({
                 template: `
                     <div class="modal-header">
                         <button type="button" class="close" ng-click="vm.cancel()">×</button>
@@ -38,17 +55,11 @@ class MmReallyClick {
                         <button class="btn btn-sm btn-success" ng-click="vm.ok()">OK</button>
                     </div>
                 `,
-                controller: ['$modalInstance', function($modalInstance) {  // do not use arrow function as 'this' doesn't work
-                    const vm = this;
-
-                    vm.ok = () => $modalInstance.close();
-
-                    vm.cancel = () => $modalInstance.dismiss('cancel');
-                }],
+                controller: MmModalReallyClickController,
                 controllerAs: 'vm'
             });
 
-            modalInstance.result.then( () => scope.mmReallyClick() );
+            modalInstance.result.then( () => scope.mmModalReallyClick() );
         });
     }
 
@@ -56,7 +67,9 @@ class MmReallyClick {
     @Inject('$modal')
     //end-non-standard
     static directiveFactory($modal){
-        MmReallyClick.instance = new MmReallyClick($modal);
-        return MmReallyClick.instance;
+        MmModalReallyClick.instance = new MmModalReallyClick($modal);
+        return MmModalReallyClick.instance;
     }
 }
+
+export {MmModalReallyClick, MmModalReallyClickController};
