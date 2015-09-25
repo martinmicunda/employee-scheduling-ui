@@ -42,3 +42,4 @@ class Password {
 }
 
 export default Password;
+// http://blog.xebia.com/2014/11/26/how-to-implement-validation-callbacks-in-angularjs-1-3/ password validation

@@ -47,7 +47,7 @@ class OnRun {
     @Inject('$rootScope', '$state', '$log')
     //end-non-standard
     static runFactory($rootScope, $state, $log){
-        $rootScope.$on('$stateChangeError', function (event, toState, toParams, fromState, fromParams, error) {
+        $rootScope.$on('$stateChangeError', (event, toState, toParams, fromState, fromParams, error) => {
             event.preventDefault();
             $log.error(error.stack);
             $state.go('500');

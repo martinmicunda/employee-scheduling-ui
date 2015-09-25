@@ -49,3 +49,5 @@ class MmUniqueEmailValidator {
         return MmUniqueEmailValidator.instance;
     }
 }
+
+export default MmUniqueEmailValidator;
