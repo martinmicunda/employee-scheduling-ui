@@ -5,6 +5,7 @@
  */
 'use strict';
 
+import 'angular-mocks';
 import templateError from './500.html!text';
 import templateNotFound from './404.html!text';
 import templateUnauthorized from './403.html!text';

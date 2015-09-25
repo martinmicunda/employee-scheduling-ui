@@ -16,7 +16,7 @@ class MmModalReallyClickController {
     }
 
     ok() {
-        this.modal.close()
+        this.modal.close();
     }
 
     cancel() {

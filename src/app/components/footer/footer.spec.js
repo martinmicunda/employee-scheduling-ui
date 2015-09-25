@@ -1,5 +1,6 @@
 'use strict';
 
+import 'angular-mocks';
 import './footer.js';
 
 describe('Footer', () => {
