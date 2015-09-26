@@ -21,6 +21,7 @@ System.config({
     "angular-local-storage": "npm:angular-local-storage@0.2.2",
     "angular-messages": "npm:angular-messages@1.4.5",
     "angular-mocks": "npm:angular-mocks@1.4.5",
+    "angular-sanitize": "npm:angular-sanitize@1.4.5",
     "angular-ui": "github:angular-ui/bootstrap-bower@0.13.4",
     "angular-ui-router": "github:angular-ui/ui-router@0.2.15",
     "babel": "npm:babel-core@5.8.24",

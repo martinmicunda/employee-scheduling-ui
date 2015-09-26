@@ -11,6 +11,7 @@ const app = angular.module('ngDecorator', [
     // angular modules
     'ngAnimate',
     'ngMessages',
+    'ngSanitize',
 
     // 3rd party modules
     'ui.router',

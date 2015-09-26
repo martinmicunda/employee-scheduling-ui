@@ -8,6 +8,7 @@
 // js vendor files
 import angular from 'angular';
 import 'angular-animate';
+import 'angular-sanitize';
 import 'angular-messages';
 import 'angular-ui-router';
 import 'angular-ui/ui-bootstrap-tpls';
