@@ -23,13 +23,14 @@ class EmployeeAuthorizations {
         this.roles = Object.values(USER_ROLES);
         this.employee = EmployeeModel.getItem();
         this.locations = LocationModel.getCollection().filter(location => location.status === EMPLOYEE_PROFILE_STATUSES.ACTIVE);
-        this.USER_ROLES = USER_ROLES;
+        this.employee.role = this.employee.role || USER_ROLES.EMPLOYEE;
         this.employee.locations = this.employee.locations || [this.locations.find(location => location.default).id];
         this.employee.supervisorLocations = this.employee.supervisorLocations || [];
+        this.isSupervisor = this.employee.role === USER_ROLES.SUPERVISOR;
     }
 
     deleteSupervisorLocations() {
-        if(USER_ROLES.SUPERVISOR !== this.employee.role) {
+        if(!this.isSupervisor) {
             this.employee.supervisorLocations = [];
         }
     }
@@ -55,3 +56,5 @@ class EmployeeAuthorizations {
         selectedAll = this.employee[type].length === this.locations.length;
     }
 }
+
+export default EmployeeAuthorizations;

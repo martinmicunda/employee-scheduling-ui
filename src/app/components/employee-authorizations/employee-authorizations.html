@@ -9,7 +9,6 @@
         </label>
         <div class="col-sm-5">
             <select name="role" class="form-control"
-                    ng-init="vm.employee.role = vm.employee.role || vm.roles[0]"
                     ng-model="vm.employee.role"
                     ng-change="vm.deleteSupervisorLocations()"
                     ng-options="role as role for role in vm.roles"></select>
@@ -33,7 +32,7 @@
         </div>
     </div>
 
-    <div class="form-group" ng-show="vm.employee.role === vm.USER_ROLES.SUPERVISOR">
+    <div class="form-group" ng-show="vm.isSupervisor">
         <label class="control-label col-sm-offset-2 col-sm-8 pb5 text-left">Which locations can this supervisor manage?</label>
         <div class="col-sm-offset-2 col-sm-8">
             <div>
