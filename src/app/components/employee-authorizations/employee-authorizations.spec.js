@@ -6,7 +6,7 @@
 'use strict';
 
 import {EMPLOYEE_PROFILE_STATUSES, USER_ROLES} from '../../core/constants/constants';
-import employee from '../../core/resources/employee/fixtures/employee_1.json!json';
+//import employee from '../../core/resources/employee/fixtures/employee_1.json!json';
 import EmployeeAuthorizations from './employee-authorizations.js';
 
 describe('EmployeeAuthorizations', () => {
