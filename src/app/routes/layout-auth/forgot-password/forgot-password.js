@@ -26,7 +26,7 @@ class ForgotPassword {
         this.router = $state;
         this.result = null;
         this.isSubmitting = null;
-        this.saveButtonOptions = FormService.getSaveButtonOptions();
+        this.saveButtonOptions = Object.assign({}, FormService.getSaveButtonOptions());
         this.saveButtonOptions.buttonDefaultText = 'Reset password';
         this.saveButtonOptions.buttonSubmittingText = 'Resetting password';
         this.saveButtonOptions.buttonSuccessText = 'Reset password';

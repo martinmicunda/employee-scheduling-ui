@@ -38,6 +38,25 @@ This demo is running from [gh-pages](https://github.com/martinmicunda/employee-s
   * Achieve some of the Angular 2.0 goals while still running on Angular 1.x
   * Produce optimised, production ready code for deployment and automatically deploy this code to [gh-pages](https://github.com/martinmicunda/employee-scheduling-ui/tree/gh-pages) after each commit via [Travis CI](https://travis-ci.org/martinmicunda/employee-scheduling-ui)
 
+## Directory Layout and File Structure
+
+### Folder structure
+
+#### Development
+TODO: (martin) add folder development structure
+
+#### Production
+    build/               
+      |- dist                       --> distribution source code that goes to production
+      |  |- fonts/                     --> fonts
+      |  |- images/                    --> image files
+      |  |- scripts/                   --> js files 
+      |  |  |- main.min-12345.js           --> concat, minify angular app js files and cached html templates      
+      |  |- styles/                    --> css files 
+      |     |- main.min-12345.css          --> concat & minify app css files 
+      |  |- index.html                 --> app main file
+      |- docs/                      --> app documentation   
+           
 ##<a name="installation-and-configuration"></a> Installation & Configuration
 
 ###<a name="platform-and-tools"></a> Platform & Tools
@@ -59,25 +78,6 @@ $ npm install
 ```
 > **Note:** Verify that all 3rd party dependencies from [package.json](package.json) are installed on your local machine. If you have followed the instructions and there have been no errors when executing the above commands, the dependencies should be installed.
      
-## Directory Layout and File Structure
-
-### Folder structure
-
-#### Development
-TODO: (martin) add folder development structure
-
-#### Production
-    build/               
-      |- dist                       --> distribution source code that goes to production
-      |  |- fonts/                     --> fonts
-      |  |- images/                    --> image files
-      |  |- scripts/                   --> js files 
-      |  |  |- main.min-12345.js           --> concat, minify angular app js files and cached html templates      
-      |  |- styles/                    --> css files 
-      |     |- main.min-12345.css          --> concat & minify app css files 
-      |  |- index.html                 --> app main file
-      |- docs/                      --> app documentation   
-           
 ## How to Run
 
 ### Development

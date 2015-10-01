@@ -27,7 +27,7 @@ class Login {
         this.router = $state;
         this.result = null;
         this.isSubmitting = null;
-        this.saveButtonOptions = FormService.getSaveButtonOptions();
+        this.saveButtonOptions = Object.assign({}, FormService.getSaveButtonOptions());
         this.saveButtonOptions.buttonDefaultText = 'Sign me in';
         this.saveButtonOptions.buttonSubmittingText = 'Signing me in';
         this.saveButtonOptions.buttonSuccessText = 'Signed me in';

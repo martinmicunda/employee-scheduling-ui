@@ -23,15 +23,16 @@ class UnsavedFormsService {
     }
 
     remove(form) {
-        var index = this.forms.indexOf(form);
+        const index = this.forms.indexOf(form);
 
         this.forms.splice(index, 1);
     }
 
     areFormsClean() {
         let areAllFormsClean = true;
+        let clonedArray = this.forms.slice(0);
 
-        for(let form of this.forms) {
+        for(let form of clonedArray) {
             // `true` if user has already interacted with the form
             if (form.$dirty) {
                 areAllFormsClean = false;
@@ -105,3 +106,5 @@ class MmModalWarningUnsavedForm {
         return MmModalWarningUnsavedForm.instance;
     }
 }
+
+export {UnsavedFormsService, MmModalWarningUnsavedForm};
