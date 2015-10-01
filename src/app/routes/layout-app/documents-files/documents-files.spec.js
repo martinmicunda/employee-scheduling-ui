@@ -5,6 +5,7 @@
  */
 'use strict';
 
+import {ACCESS_LEVELS} from '../../../core/constants/constants';
 import DocumentsFiles from './documents-files.js';
 
 describe('DocumentsFiles', () => {
@@ -42,6 +43,10 @@ describe('DocumentsFiles', () => {
             $injector.invoke(currentState.resolve.init);
 
             expect(DocumentModel.initFilesCollection).toHaveBeenCalledWith(id);
+        });
+
+        it(`should have access level set to '${ACCESS_LEVELS.employee}'`, () => {
+            expect(currentState.data.access).toEqual(ACCESS_LEVELS.employee);
         });
     });
 

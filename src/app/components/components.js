@@ -9,6 +9,7 @@ import './header/header';
 import './footer/footer';
 import './modal-error/modal-error';
 import './alert-danger/alert-danger';
+import './alert-success/alert-success';
 import './modal-partner/modal-partner';
 import './modal-document/modal-document';
 import './modal-position/modal-position';

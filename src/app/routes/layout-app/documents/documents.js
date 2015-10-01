@@ -8,6 +8,7 @@
 import './add/add';
 import './edit/edit';
 import template from './documents.html!text';
+import {ACCESS_LEVELS} from '../../../core/constants/constants';
 import {RouteConfig, Component, View, Inject} from '../../../ng-decorators'; // jshint unused: false
 
 //start-non-standard
@@ -16,6 +17,9 @@ import {RouteConfig, Component, View, Inject} from '../../../ng-decorators'; // 
     template: '<documents></documents>',
     resolve: {
         init: ['DocumentModel', DocumentModel => DocumentModel.initCollection()]
+    },
+    data: {
+        access: ACCESS_LEVELS.employee
     }
 })
 @Component({

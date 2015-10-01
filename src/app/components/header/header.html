@@ -35,19 +35,19 @@
                             Documents
                         </a>
                     </li>
-                    <li ui-sref-active="active">
+                    <li ui-sref-active="active" mm-access-level="$root.ACCESS_LEVELS.manager">
                         <a ui-sref="app.employees">
                             <i class="fa fa-fw fa-users"></i>
                             Employees
                         </a>
                     </li>
-                    <li ui-sref-active="active">
+                    <li ui-sref-active="active" mm-access-level="$root.ACCESS_LEVELS.manager">
                         <a ui-sref="app.partners">
                             <i class="fa fa-fw fa-cubes"></i>
                             Partners
                         </a>
                     </li>
-                    <li ui-sref-active="active">
+                    <li ui-sref-active="active" mm-access-level="$root.ACCESS_LEVELS.admin">
                         <a ui-sref="app.reports">
                             <i class="fa fa-fw fa-bar-chart"></i>
                             Reports
@@ -62,38 +62,38 @@
                     <!--<li class="dropdown">-->
                         <!--<i class="fa fa-comments-o fa-2x"></i>-->
                     <!--</li>-->
-                    <li class="dropdown" dropdown>
-                        <a href="javascript:;" dropdown-toggle class="dropdown-toggle notification">
-                            <i class="fa fa-bell-o"></i>
-                            <span class="label">5</span>
-                        </a>
-                        <ul class="dropdown-menu media-list pull-right" role="menu">
-                            <li class="dropdown-header">Notifications (5)</li>
-                            <li class="divider"></li>
-                            <li class="media">
-                                <a href="javascript:;">
-                                    <div class="pull-left media-object bg-red"><i class="fa fa-bug"></i></div>
-                                    <div class="media-body">
-                                        <h6 class="media-heading">Server Error Reports</h6>
-                                        <div class="text-muted">3 minutes ago</div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="media">
-                                <a href="javascript:;">
-                                    <div class="media-body">
-                                        <h6 class="media-heading">John Smith</h6>
-                                        <p>Quisque pulvinar tellus sit amet sem scelerisque tincidunt.</p>
-                                        <div class="text-muted">25 minutes ago</div>
-                                    </div>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
+                    <!--<li class="dropdown" dropdown>-->
+                        <!--<a href="javascript:;" dropdown-toggle class="dropdown-toggle notification">-->
+                            <!--<i class="fa fa-bell-o"></i>-->
+                            <!--<span class="label">5</span>-->
+                        <!--</a>-->
+                        <!--<ul class="dropdown-menu media-list pull-right" role="menu">-->
+                            <!--<li class="dropdown-header">Notifications (5)</li>-->
+                            <!--<li class="divider"></li>-->
+                            <!--<li class="media">-->
+                                <!--<a href="javascript:;">-->
+                                    <!--<div class="pull-left media-object bg-red"><i class="fa fa-bug"></i></div>-->
+                                    <!--<div class="media-body">-->
+                                        <!--<h6 class="media-heading">Server Error Reports</h6>-->
+                                        <!--<div class="text-muted">3 minutes ago</div>-->
+                                    <!--</div>-->
+                                <!--</a>-->
+                            <!--</li>-->
+                            <!--<li class="media">-->
+                                <!--<a href="javascript:;">-->
+                                    <!--<div class="media-body">-->
+                                        <!--<h6 class="media-heading">John Smith</h6>-->
+                                        <!--<p>Quisque pulvinar tellus sit amet sem scelerisque tincidunt.</p>-->
+                                        <!--<div class="text-muted">25 minutes ago</div>-->
+                                    <!--</div>-->
+                                <!--</a>-->
+                            <!--</li>-->
+                        <!--</ul>-->
+                    <!--</li>-->
                     <li class="dropdown" dropdown ng-class="{active:$state.includes('account')}">
                         <a href="#" class="dropdown-toggle" dropdown-toggle>
-                            <img ng-src="https://raw.githubusercontent.com/martinmicunda/employee-scheduling-ui/master/src/images/me.jpg" alt="" class="img-circle">
-                            <span class="hidden-sm">Martin Micunda</span>
+                            <img ng-src="{{::$root.currentUser.avatar}}" alt="avatar" class="img-circle">
+                            <span class="hidden-sm">{{::$root.currentUser.firstName}} {{::$root.currentUser.lastName}}</span>
                             <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu animated fadeInRight" role="menu">
@@ -102,7 +102,7 @@
                                     <i class="fa fa-fw fa-user"></i> My Account
                                 </a>
                             </li>
-                            <li ui-sref-active="active">
+                            <li ui-sref-active="active" mm-access-level="$root.ACCESS_LEVELS.admin">
                                 <a ui-sref="app.settings.positions">
                                     <i class="fa fa-fw fa-cogs"></i> App Settings
                                 </a>
@@ -119,7 +119,7 @@
                             <!--</li>-->
                             <li class="divider"></li>
                             <li ui-sref-active="active">
-                                <a ui-sref="auth.login">
+                                <a ng-click="vm.logout()">
                                     <i class="fa fa-fw fa-sign-out"></i> Log Out
                                 </a>
                             </li>

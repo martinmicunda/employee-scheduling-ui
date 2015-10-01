@@ -6,11 +6,21 @@
 'use strict';
 
 import template from './reports.html!text';
-import {RouteConfig} from '../../../ng-decorators'; // jshint unused: false
+import {ACCESS_LEVELS} from '../../../core/constants/constants';
+import {RouteConfig, Component, View} from '../../../ng-decorators'; // jshint unused: false
 
 //start-non-standard
 @RouteConfig('app.reports', {
     url: '/reports',
+    template: '<reports></reports>',
+    data: {
+        access: ACCESS_LEVELS.admin
+    }
+})
+@Component({
+    selector: 'reports'
+})
+@View({
     template: template
 })
 //end-non-standard

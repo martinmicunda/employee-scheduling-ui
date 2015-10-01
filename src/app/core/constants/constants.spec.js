@@ -5,7 +5,7 @@
  */
 'use strict';
 
-import {EMPLOYEE_PROFILE_STATUSES, USER_ROLES, HEADER_API_VERSION, PROFILE_COMPLETENESS_TYPES} from './constants';
+import {ACCESS_LEVELS, EMPLOYEE_PROFILE_STATUSES, USER_ROLES, HEADER_API_VERSION, PROFILE_COMPLETENESS_TYPES} from './constants';
 
 describe('constants', () => {
     describe('EMPLOYEE_PROFILE_STATUSES', () => {
@@ -33,6 +33,28 @@ describe('constants', () => {
 
         it('should contain buyer role', () => {
             expect(USER_ROLES.EMPLOYEE).toEqual('employee');
+        });
+    });
+
+    describe('ACCESS_LEVELS', () => {
+        it('should contain public access level', () => {
+            expect(ACCESS_LEVELS.public).toEqual(['*']);
+        });
+
+        it('should contain employee access level', () => {
+            expect(ACCESS_LEVELS.employee).toEqual([USER_ROLES.EMPLOYEE, USER_ROLES.SUPERVISOR, USER_ROLES.MANAGER, USER_ROLES.ADMIN]);
+        });
+
+        it('should contain supervisor access level', () => {
+            expect(ACCESS_LEVELS.supervisor).toEqual([USER_ROLES.SUPERVISOR, USER_ROLES.MANAGER, USER_ROLES.ADMIN]);
+        });
+
+        it('should contain manager access level', () => {
+            expect(ACCESS_LEVELS.manager).toEqual([USER_ROLES.MANAGER, USER_ROLES.ADMIN]);
+        });
+
+        it('should contain admin access level', () => {
+            expect(ACCESS_LEVELS.admin).toEqual([USER_ROLES.ADMIN]);
         });
     });
 

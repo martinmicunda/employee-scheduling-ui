@@ -5,6 +5,7 @@
  */
 'use strict';
 
+import {ACCESS_LEVELS} from '../../../core/constants/constants';
 import Account from './account.js';
 
 describe('Account', () => {
@@ -16,11 +17,12 @@ describe('Account', () => {
         let url = '/account',
             state = 'app.account',
             currentState,
-            $state, $injector, EmployeeModel, SettingModel;
+            $state, $injector, $rootScope, EmployeeModel, SettingModel;
 
-        beforeEach(inject((_$state_, _$injector_, _SettingModel_, _EmployeeModel_) => {
+        beforeEach(inject((_$state_, _$rootScope_, _$injector_, _SettingModel_, _EmployeeModel_) => {
             $state = _$state_;
             $injector = _$injector_;
+            $rootScope = _$rootScope_;
             SettingModel = _SettingModel_;
             EmployeeModel = _EmployeeModel_;
 
@@ -40,14 +42,18 @@ describe('Account', () => {
         });
 
         itAsync(`should resolve 'init' for '${url}' state`, () => {
-            const id = '1';
+            $rootScope.currentUser = {id: '1'};
             spyOn(SettingModel, 'initItem');
             spyOn(EmployeeModel, 'initItem');
 
             return $injector.invoke(currentState.resolve.init).then(() => {
-                expect(EmployeeModel.initItem).toHaveBeenCalledWith(id);
+                expect(EmployeeModel.initItem).toHaveBeenCalledWith($rootScope.currentUser.id);
                 expect(SettingModel.initItem).toHaveBeenCalledWith('app');
             });
+        });
+
+        it(`should have access level set to '${ACCESS_LEVELS.employee}'`, () => {
+            expect(currentState.data.access).toEqual(ACCESS_LEVELS.employee);
         });
     });
 

@@ -9,6 +9,7 @@ import './account-details/account-details';
 import './contact-details/contact-details';
 import './password/password';
 import template from './account.html!text';
+import {ACCESS_LEVELS} from '../../../core/constants/constants';
 import {RouteConfig, Component, View, Inject} from '../../../ng-decorators'; // jshint unused: false
 
 //start-non-standard
@@ -17,8 +18,10 @@ import {RouteConfig, Component, View, Inject} from '../../../ng-decorators'; // 
     abstract: true,
     template: '<account></account>',
     resolve: {
-        // FIXME: add profile employee ID
-        init: ['EmployeeModel', 'SettingModel', (EmployeeModel, SettingModel) => Promise.all([EmployeeModel.initItem('1'), SettingModel.initItem('app')])]
+        init: ['$rootScope', 'EmployeeModel', 'SettingModel', ($rootScope, EmployeeModel, SettingModel) => Promise.all([EmployeeModel.initItem($rootScope.currentUser.id), SettingModel.initItem('app')])]
+    },
+    data: {
+        access: ACCESS_LEVELS.employee
     }
 })
 @Component({

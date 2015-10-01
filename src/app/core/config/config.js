@@ -6,6 +6,7 @@
 'use strict';
 
 import './config.test'; // TODO: (martin) use systemJs conditional imports
+import {ACCESS_LEVELS} from '../constants/constants.js';
 import {Config, Run, Inject} from '../../ng-decorators'; // jshint unused: false
 
 class OnConfig {
@@ -24,8 +25,14 @@ class OnConfig {
         /*********************************************************************
          * Route provider configuration based on these config constant values
          *********************************************************************/
-        // set restful base API Route
-        $httpProvider.interceptors.push('ApiUrlHttpInterceptor');
+        // set restful base API route
+        $httpProvider.interceptors.push('HttpApiUrlInterceptor');
+
+        // set authentication http token check
+        $httpProvider.interceptors.push('HttpAuthenticationInterceptor');
+
+        // set retry http request if request failed
+        $httpProvider.interceptors.push('HttpRetryInterceptor');
 
         // use the HTML5 History API
         $locationProvider.html5Mode({
@@ -36,17 +43,37 @@ class OnConfig {
         // for any unmatched url, send to 404 page (Not page found)
         $urlRouterProvider.otherwise('/404');
 
-        // the `when` method says if the url is `/` redirect to `/dashboard` what is basically our `home` for this application
-        $urlRouterProvider.when('/', '/employees');
+        // the `when` method says if the url is `/home` redirect to `/schedule` what is basically our `home` for this application
+        $urlRouterProvider.when('/home', '/schedule');
     }
 }
 
 class OnRun {
     //start-non-standard
     @Run()
-    @Inject('$rootScope', '$state', '$log')
+    @Inject('$rootScope', '$state', '$log', 'AuthenticationService')
     //end-non-standard
-    static runFactory($rootScope, $state, $log){
+    static runFactory($rootScope, $state, $log, AuthenticationService){
+        $rootScope.currentUser = AuthenticationService.getCurrentUser();
+        $rootScope.ACCESS_LEVELS = ACCESS_LEVELS;
+
+        $rootScope.$on('$stateChangeStart', (event, toState) => {
+            if(!('data' in toState) || !('access' in toState.data)){
+                event.preventDefault();
+                $state.go('403');
+            } else if (!AuthenticationService.isAuthorized(toState.data.access) && toState.name !== 'auth.login') {
+                event.preventDefault();
+                if(AuthenticationService.isAuthenticated()) {
+                    $state.go('403');
+                } else {
+                    $state.go('auth.login');
+                }
+            } else if(AuthenticationService.isAuthenticated() && toState.url === '/') {
+                event.preventDefault();
+                $state.go('app.schedule');
+            }
+        });
+
         $rootScope.$on('$stateChangeError', (event, toState, toParams, fromState, fromParams, error) => {
             event.preventDefault();
             $log.error(error.stack);

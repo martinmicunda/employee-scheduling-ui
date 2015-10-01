@@ -6,6 +6,7 @@
 'use strict';
 
 import template from './documents-files.html!text';
+import {ACCESS_LEVELS} from '../../../core/constants/constants';
 import {RouteConfig, Component, View, Inject} from '../../../ng-decorators'; // jshint unused: false
 
 //start-non-standard
@@ -14,6 +15,9 @@ import {RouteConfig, Component, View, Inject} from '../../../ng-decorators'; // 
     template: '<documents-files></documents-files>',
     resolve: {
         init: ['$stateParams', 'DocumentModel', ($stateParams, DocumentModel) => DocumentModel.initFilesCollection($stateParams.id)]
+    },
+    data: {
+        access: ACCESS_LEVELS.employee
     }
 })
 @Component({

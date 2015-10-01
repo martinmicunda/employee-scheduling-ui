@@ -5,7 +5,7 @@
  */
 'use strict';
 
-import {Service, Inject} from '../../ng-decorators'; // jshint unused: false
+import {Service} from '../../ng-decorators'; // jshint unused: false
 
 //start-non-standard
 @Service({

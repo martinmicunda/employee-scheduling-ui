@@ -13,7 +13,14 @@ Employee Scheduling UI
 An UI component for [Employee Scheduling](https://github.com/martinmicunda/employee-scheduling) application. My talk from AngulaJS meetup in Dublin on "**How to start writing apps with ES6, AngularJS 1.x and JSPM**" can be found [here](http://martinmicunda.com/presentations/how-to-start-writing-apps-with-es6-angular-1x-and-jspm/how-to-start-writing-apps-with-es6-angular-1x-and-jspm.html#/).
 
 ## Demo
-This demo is running from [gh-pages](https://github.com/martinmicunda/employee-scheduling-ui/tree/gh-pages) branch in backend-less development env (see [backend-less](#backend-less) section).
+This demo is running from [gh-pages](https://github.com/martinmicunda/employee-scheduling-ui/tree/gh-pages) branch in backend-less development env (see [backend-less](#backend-less) section). Below, you can find login credentials for different user roles.
+
+|    ROLE    |        EMAIL        | PASSWORD |
+|:----------:|:-------------------:|:--------:|
+|  employee  |  employee@test.com  |   pass   |
+| supervisor | supervisor@test.com |   pass   |
+|   manager  |   manager@test.com  |   pass   |
+|    admin   |    admin@test.com   |   pass   |
 
 <a href="http://martinmicunda.github.io/employee-scheduling-ui/dist" target="_blank">Click here to see it in action!</a>
 
@@ -23,6 +30,8 @@ This demo is running from [gh-pages](https://github.com/martinmicunda/employee-s
   * Use ES6 with Angular 1.x
   * Use ES6 Modules via [SystemJS](https://github.com/systemjs/systemjs) and [ES6 Module Loader Polyfill](https://github.com/ModuleLoader/es6-module-loader)
   * Use [ES7 decorators](https://github.com/wycats/javascript-decorators) to avoid Angular 1.x boilerplate code
+  * JSON Web Token ([JWT](http://jwt.io)) authentication
+  * User roles authorization
   * Unit test with ES6, Babel, JSPM, Karma, Jasmine and Istanbul
   * Manage development and production workflow with [JSPM](http://jspm.io/), [SystemJS builder](https://github.com/systemjs/builder) and [Gulp](http://gulpjs.com/)
   * Mocked Backend Workflow - help with mocking backend-less development

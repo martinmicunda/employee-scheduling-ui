@@ -6,7 +6,7 @@
 'use strict';
 
 import template from './header.html!text';
-import {View, Component} from '../../ng-decorators'; // jshint unused: false
+import {View, Component, Inject} from '../../ng-decorators'; // jshint unused: false
 
 //start-non-standard
 @Component({
@@ -15,5 +15,19 @@ import {View, Component} from '../../ng-decorators'; // jshint unused: false
 @View({
     template: template
 })
+@Inject('$state', 'AuthenticationService')
 //end-non-standard
-class Header {}
+class Header {
+    constructor($state, AuthenticationService) {
+        this.router = $state;
+        this.AuthenticationService = AuthenticationService;
+    }
+
+    logout() {
+        return this.AuthenticationService.logout().then(() => {
+            this.router.go('auth.login');
+        });
+    }
+}
+
+export default Header;

@@ -1,26 +1,31 @@
 <div class="login-container fade in">
-    <div class="login bg-black animated fadeInDown">
-        <div class="login-content">
-            <form action="index.html" method="POST" class="margin-bottom-0">
-                <div class="form-group m-b-20">
-                    <input type="text" class="form-control input-lg" placeholder="Email Address">
+    <div class="login bg-black">
+        <div class="login-content animated fadeInLeftBig">
+            <alert-danger has-error="vm.hasError" error-message="vm.errorMessage"></alert-danger>
+
+            <form method="post" class="form-validation" name="loginForm" role="form" ng-submit="vm.login(loginForm.$valid)" novalidate>
+                <div class="form-group required">
+                    <input type="email" name="email" ng-model="vm.credentials.email" class="form-control input-lg" placeholder="Email Address" required>
+                    <div ng-if="loginForm.$submitted" ng-messages="loginForm.email.$error">
+                        <div ng-message="email" class="error">Invalid email.</div>
+                        <div ng-message="required" class="error">This field is required.</div>
+                    </div>
                 </div>
-                <div class="form-group m-b-20">
-                    <input type="text" class="form-control input-lg" placeholder="Password">
+                <div class="form-group required">
+                    <input type="password" name="password" ng-model="vm.credentials.password" class="form-control input-lg" placeholder="Password" required>
+                    <div ng-if="loginForm.$submitted" ng-messages="loginForm.password.$error">
+                        <div ng-message="required" class="error">This field is required.</div>
+                    </div>
                 </div>
-                <div class="checkbox m-b-20 text-right">
+                <div class="checkbox text-right">
                     <label>
-                        <a href="#">Forgot password?</a>
+                        <a ui-sref="auth.forgot-password">Forgot password?</a>
                     </label>
                 </div>
                 <div class="login-buttons">
-                    <button type="submit" class="btn btn-success btn-block btn-lg" ng-click="vm.login()">Sign me in</button>
+                    <jp-ng-bs-animated-button class="btn btn-lg btn-success btn-block" is-submitting="vm.isSubmitting" result="vm.result" options="vm.saveButtonOptions"></jp-ng-bs-animated-button>
                 </div>
-                <!--ng-click="vm.login()"-->
             </form>
         </div>
     </div>
 </div>
-
-
-

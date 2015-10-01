@@ -47,7 +47,9 @@ class FormService {
     onFailure(self, response) {
         self.result = 'error';
         self.hasError = true;
-        if(response.status === 404) {
+        if(response.status === 401) {
+            self.errorMessage = 'Wrong email or password.';
+        } else if(response.status === 404) {
             self.errorMessage = 'The requested record could not be found.';
         } else if(response.status === 409 && response.config.method === 'PUT') {
             self.errorMessage = 'Another user has updated this record while you were editing. Please reload the page and try again.';

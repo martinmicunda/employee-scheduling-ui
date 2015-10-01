@@ -5,6 +5,7 @@
  */
 'use strict';
 
+import {ACCESS_LEVELS} from '../../core/constants/constants';
 import './layout-auth.js';
 
 describe('AuthRoute', () => {
@@ -30,6 +31,10 @@ describe('AuthRoute', () => {
     });
 
     it('should have template to be defined', () => {
-        expect(currentState.template).toBeDefined();
+        expect(currentState.template.trim()).toEqual('<div ui-view></div>');
+    });
+
+    it(`should have access level set to '${ACCESS_LEVELS.public}'`, () => {
+        expect(currentState.data.access).toEqual(ACCESS_LEVELS.public);
     });
 });

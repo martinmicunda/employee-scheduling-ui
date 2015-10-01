@@ -93,6 +93,14 @@ describe('FormService', () => {
             expect(self.result).toEqual('error');
         });
 
+        it(`should return error message for 401 error response`, () => {
+            let self = {}, response = {status: 401};
+
+            formService.onFailure(self, response);
+
+            expect(self.errorMessage).toEqual('Wrong email or password.');
+        });
+
         it(`should return error message for 404 error response`, () => {
             let self = {}, response = {status: 404};
 

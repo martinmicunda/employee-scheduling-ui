@@ -9,6 +9,7 @@ import 'angular-mocks';
 import templateError from './500.html!text';
 import templateNotFound from './404.html!text';
 import templateUnauthorized from './403.html!text';
+import {ACCESS_LEVELS} from '../../core/constants/constants';
 import './layout-error.js';
 
 describe('ErrorRoute', () => {
@@ -48,6 +49,10 @@ describe('ErrorRoute', () => {
             expect($state.href(state)).toEqual(url);
         });
 
+        it(`should have access level set to '${ACCESS_LEVELS.public}'`, () => {
+            expect(currentState.data.access).toEqual(ACCESS_LEVELS.public);
+        });
+
         it('should have `403` title defined', () => {
             element = render();
             const title = angular.element(element[0].querySelector('div.error-code'));
@@ -80,7 +85,7 @@ describe('ErrorRoute', () => {
             element = render();
             const label = angular.element(element[0].querySelector('a.btn-success'));
 
-            expect(label.attr('href')).toEqual('/');
+            expect(label.attr('href')).toEqual('/home');
         });
     });
 
@@ -107,6 +112,10 @@ describe('ErrorRoute', () => {
 
         it(`should respond to '${url}' URL`, () => {
             expect($state.href(state)).toEqual(url);
+        });
+
+        it(`should have access level set to '${ACCESS_LEVELS.public}'`, () => {
+            expect(currentState.data.access).toEqual(ACCESS_LEVELS.public);
         });
 
         it('should have `404` title defined', () => {
@@ -142,7 +151,7 @@ describe('ErrorRoute', () => {
             element = render();
             const label = angular.element(element[0].querySelector('a.btn-success'));
 
-            expect(label.attr('href')).toEqual('/');
+            expect(label.attr('href')).toEqual('/home');
         });
     });
 
@@ -169,6 +178,10 @@ describe('ErrorRoute', () => {
 
         it(`should respond to '${url}' URL`, () => {
             expect($state.href(state)).toEqual(url);
+        });
+
+        it(`should have access level set to '${ACCESS_LEVELS.public}'`, () => {
+            expect(currentState.data.access).toEqual(ACCESS_LEVELS.public);
         });
 
         it('should have `500` title defined', () => {
@@ -204,7 +217,7 @@ describe('ErrorRoute', () => {
             element = render();
             const label = angular.element(element[0].querySelector('a.btn-success'));
 
-            expect(label.attr('href')).toEqual('/');
+            expect(label.attr('href')).toEqual('/home');
         });
     });
 });

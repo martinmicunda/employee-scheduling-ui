@@ -5,6 +5,7 @@
  */
 'use strict';
 
+import {ACCESS_LEVELS} from '../../../core/constants/constants';
 import Employees from './employees.js';
 
 describe('Employees', () => {
@@ -43,6 +44,10 @@ describe('Employees', () => {
                 expect(PositionModel.initCollection).toHaveBeenCalledWith(null, true);
                 expect(EmployeeModel.initCollection).toHaveBeenCalled();
             });
+        });
+
+        it(`should have access level set to '${ACCESS_LEVELS.manager}'`, () => {
+            expect(currentState.data.access).toEqual(ACCESS_LEVELS.manager);
         });
     });
 

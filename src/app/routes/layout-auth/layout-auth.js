@@ -6,6 +6,8 @@
 'use strict';
 
 import './login/login';
+import './forgot-password/forgot-password';
+import {ACCESS_LEVELS} from '../../core/constants/constants';
 import template from './layout-auth.html!text';
 import {RouteConfig} from '../../ng-decorators'; // jshint unused: false
 
@@ -13,8 +15,10 @@ import {RouteConfig} from '../../ng-decorators'; // jshint unused: false
 @RouteConfig('auth', {
     url: '',
     abstract: true,
-    template: template
+    template: template,
+    data: {
+        access: ACCESS_LEVELS.public
+    }
 })
 //end-non-standard
 class LayoutAuth {}
-

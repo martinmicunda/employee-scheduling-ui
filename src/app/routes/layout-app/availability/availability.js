@@ -6,11 +6,21 @@
 'use strict';
 
 import template from './availability.html!text';
-import {RouteConfig} from '../../../ng-decorators'; // jshint unused: false
+import {ACCESS_LEVELS} from '../../../core/constants/constants';
+import {RouteConfig, Component, View} from '../../../ng-decorators'; // jshint unused: false
 
 //start-non-standard
 @RouteConfig('app.availability', {
     url: '/availability',
+    template: '<availability></availability>',
+    data: {
+        access: ACCESS_LEVELS.employee
+    }
+})
+@Component({
+    selector: 'availability'
+})
+@View({
     template: template
 })
 //end-non-standard

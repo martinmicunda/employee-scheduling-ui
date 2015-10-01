@@ -5,7 +5,7 @@
  */
 'use strict';
 
-import './header.js';
+import Header from './header.js';
 
 describe('Header', () => {
     let component = '<header></header>';
@@ -34,6 +34,26 @@ describe('Header', () => {
 
             expect(element.controller('header')).toBeDefined();
             expect(element['0']).not.toEqual(component);
+        });
+    });
+
+    describe('Controller', () => {
+        let $state, AuthenticationService;
+
+        beforeEach(inject((_$state_, _AuthenticationService_) => {
+            $state = _$state_;
+            AuthenticationService = _AuthenticationService_;
+        }));
+
+        itAsync('should redirect to auth.login state after successful logout', () => {
+            spyOn($state, 'go');
+            spyOn(AuthenticationService, 'logout').and.returnValue(Promise.resolve());
+            let header = new Header($state, AuthenticationService);
+
+            return header.logout().then(() => {
+                expect($state.go).toHaveBeenCalledWith('auth.login');
+                expect(AuthenticationService.logout).toHaveBeenCalled();
+            });
         });
     });
 });

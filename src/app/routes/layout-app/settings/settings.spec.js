@@ -5,6 +5,7 @@
  */
 'use strict';
 
+import {ACCESS_LEVELS} from '../../../core/constants/constants';
 import './settings.js';
 
 describe('Settings', () => {
@@ -35,6 +36,10 @@ describe('Settings', () => {
 
         it(`should respond to '${url}' URL`, () => {
             expect($state.href(state)).toEqual(url);
+        });
+
+        it(`should have access level set to '${ACCESS_LEVELS.admin}'`, () => {
+            expect(currentState.data.access).toEqual(ACCESS_LEVELS.admin);
         });
     });
 

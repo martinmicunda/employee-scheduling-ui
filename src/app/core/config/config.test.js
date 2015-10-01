@@ -52,7 +52,7 @@ class OnRunTest {
         $httpBackend.whenGET(/^\w+.*/).passThrough();
         $httpBackend.whenPOST(/^\w+.*/).passThrough();
 
-        // clear all locale storage for employee-scheduling-test
-        localStorageService.clearAll();
+        // clear all locale storage for employee-scheduling-test except 'user' and 'token' data
+        localStorageService.clearAll(/^(?!user|token).+/);
     }
 }

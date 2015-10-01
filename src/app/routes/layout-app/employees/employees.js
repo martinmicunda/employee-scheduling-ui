@@ -10,6 +10,7 @@ import './edit/edit';
 import './message/message';
 import './schedule/schedule';
 import template from './employees.html!text';
+import {ACCESS_LEVELS} from '../../../core/constants/constants';
 import {RouteConfig, Component, View, Inject} from '../../../ng-decorators'; // jshint unused: false
 
 //start-non-standard
@@ -18,6 +19,9 @@ import {RouteConfig, Component, View, Inject} from '../../../ng-decorators'; // 
     template: '<employees></employees>',
     resolve: {
         init: ['EmployeeModel', 'PositionModel', (EmployeeModel, PositionModel) => Promise.all([EmployeeModel.initCollection(), PositionModel.initCollection(null, true)])]
+    },
+    data: {
+        access: ACCESS_LEVELS.manager
     }
 })
 @Component({

@@ -54,7 +54,7 @@ describe('AbstractResource', () => {
     });
 
     it('should call POST resource', () => {
-        $httpBackend.whenPOST(`/${route}`).respond(() => [201, item]);
+        $httpBackend.whenPOST(`/${route}`, item).respond(() => [201, item]);
 
         abstractResource.create(item).then((respond) => {
             expect(respond.data).toEqual(item);
@@ -64,7 +64,7 @@ describe('AbstractResource', () => {
     });
 
     it('should call PUT resource', () => {
-        $httpBackend.whenPUT(`/${route}/${id}`).respond(() => [200, item]);
+        $httpBackend.whenPUT(`/${route}/${id}`, item).respond(() => [200, item]);
 
         abstractResource.update(item).then((respond) => {
             expect(respond.data).toEqual(item);

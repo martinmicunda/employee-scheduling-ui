@@ -8,20 +8,30 @@
 import templateError from './500.html!text';
 import templateNotFound from './404.html!text';
 import templateUnauthorized from './403.html!text';
+import {ACCESS_LEVELS} from '../../core/constants/constants';
 import {RouteConfig} from '../../ng-decorators'; // jshint unused: false
 
 //start-non-standard
 @RouteConfig('403', {
     url: '/403',
-    template: templateUnauthorized
+    template: templateUnauthorized,
+    data: {
+        access: ACCESS_LEVELS.public
+    }
 })
 @RouteConfig('404', {
     url: '/404',
-    template: templateNotFound
+    template: templateNotFound,
+    data: {
+        access: ACCESS_LEVELS.public
+    }
 })
 @RouteConfig('500', {
     url: '/500',
-    template: templateError
+    template: templateError,
+    data: {
+        access: ACCESS_LEVELS.public
+    }
 })
 //end-non-standard
 class Error {}

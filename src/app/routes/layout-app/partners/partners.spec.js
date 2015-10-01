@@ -5,6 +5,7 @@
  */
 'use strict';
 
+import {ACCESS_LEVELS} from '../../../core/constants/constants';
 import Partners from './partners.js';
 
 describe('Partners', () => {
@@ -40,6 +41,10 @@ describe('Partners', () => {
             $injector.invoke(currentState.resolve.init);
 
             expect(PartnerModel.initCollection).toHaveBeenCalled();
+        });
+
+        it(`should have access level set to '${ACCESS_LEVELS.manager}'`, () => {
+            expect(currentState.data.access).toEqual(ACCESS_LEVELS.manager);
         });
     });
 
