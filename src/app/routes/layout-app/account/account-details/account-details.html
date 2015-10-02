@@ -16,7 +16,7 @@
                         <div class="btn-group" dropdown>
                             <button type="button" class="btn btn-sm btn-default dropdown-toggle" dropdown-toggle>Change photo <span class="caret"></span></button>
                             <ul class="dropdown-menu" role="menu">
-                                <li><a type="file" ngf-select="vm.addAvatar($file)" ngf-pattern="'image/*" accept="image/*" ngf-max-size="2MB">Upload photo</a></li>
+                                <li><a type="file" ngf-select="vm.addAvatar($file)" ngf-pattern="image/*" accept="image/*" ngf-max-size="2MB">Upload photo</a></li>
                                 <li><a ng-click="vm.removeAvatar()">Remove</a></li>
                             </ul>
                         </div>
@@ -25,36 +25,42 @@
                 <div class="form-group required">
                     <label class="control-label col-sm-4">First Name</label>
                     <div class="col-sm-5">
-                        <input name="firstName" type="text" ng-model="vm.employee.firstName" class="form-control" required>
+                        <input name="firstName" type="text" ng-model="vm.employee.firstName" class="form-control" ng-maxlength="60" required>
                         <div ng-if="accountDetailsForm.$submitted" ng-messages="accountDetailsForm.firstName.$error">
                             <div ng-message="required" class="error">This field is required.</div>
+                            <div ng-message="maxlength" class="error">This field text is too long (max 60 characters).</div>
                         </div>
                     </div>
                 </div>
                 <div class="form-group required">
                     <label class="control-label col-sm-4">Last Name</label>
                     <div class="col-sm-5">
-                        <input name="lastName" type="text" ng-model="vm.employee.lastName" class="form-control" required>
+                        <input name="lastName" type="text" ng-model="vm.employee.lastName" class="form-control" ng-maxlength="60" required>
                         <div ng-if="accountDetailsForm.$submitted" ng-messages="accountDetailsForm.lastName.$error">
                             <div ng-message="required" class="error">This field is required.</div>
+                            <div ng-message="maxlength" class="error">This field text is too long (max 60 characters).</div>
                         </div>
                     </div>
                 </div>
                 <div class="form-group required">
                     <label class="control-label col-sm-4">Email</label>
                     <div class="col-sm-5">
-                        <input name="email" type="email" ng-model="vm.employee.email" ng-model-options="{ debounce: 500 }" class="form-control" required mm-unique-email-validator>
+                        <input name="email" type="email" ng-model="vm.employee.email" ng-model-options="{ debounce: 500 }" class="form-control" ng-maxlength="60" required mm-unique-email-validator>
                         <div ng-if="accountDetailsForm.$submitted" ng-messages="accountDetailsForm.email.$error">
                             <div ng-message="unique" class="error">Email has already been taken.</div>
                             <div ng-message="email" class="error">Invalid email.</div>
                             <div ng-message="required" class="error">This field is required.</div>
+                            <div ng-message="maxlength" class="error">This field text is too long (max 60 characters).</div>
                         </div>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-sm-4">Note</label>
                     <div class="col-sm-5">
-                        <textarea name="note" ng-model="vm.employee.note" class="form-control"></textarea>
+                        <textarea name="note" ng-model="vm.employee.note" class="form-control" ng-maxlength="255"></textarea>
+                        <div ng-if="accountDetailsForm.$submitted" ng-messages="accountDetailsForm.note.$error">
+                            <div ng-message="maxlength" class="error">This field text is too long (max 255 characters).</div>
+                        </div>
                     </div>
                 </div>
                 <div class="form-group mb0">

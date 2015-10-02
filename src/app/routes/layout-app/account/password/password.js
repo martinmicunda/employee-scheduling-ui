@@ -19,27 +19,46 @@ import {RouteConfig, Component, View, Inject} from '../../../../ng-decorators'; 
 @View({
     template: template
 })
-@Inject('EmployeeModel', 'FormService')
+@Inject('EmployeeModel', 'FormService', 'AuthenticationResource')
 //end-non-standard
 class Password {
-    constructor(EmployeeModel, FormService) {
+    constructor(EmployeeModel, FormService, AuthenticationResource) {
         this.employee = EmployeeModel.getItem();
         this.result = null;
         this.isSubmitting = null;
         this.FormService = FormService;
         this.EmployeeModel = EmployeeModel;
         this.saveButtonOptions = FormService.getSaveButtonOptions();
+        this.AuthenticationResource = AuthenticationResource;
+        this.EmployeeModel.calculateProfileCompleteness();
     }
 
     save(form) {
         if(!form.$valid) {return;}
 
         this.isSubmitting = true;
-        return this.FormService.save(this.EmployeeModel, this.employee, this, form).then(() => {
-            this.EmployeeModel.calculateProfileCompleteness();
+        this.passwords.id = this.employee.id;
+        return this.AuthenticationResource.updatePassword(this.passwords).then(() => {
+            this.passwords = {};
+            form.$setPristine();
+            this.result = 'success';
+            this.hasSuccess = true;
+            this.hasError = false;
+            this.successMessage = 'Your password has been changed successfully.';
+        }, (response) => {
+            form.$setPristine();
+            this.result = 'error';
+            this.hasError = true;
+            this.hasSuccess = false;
+
+            if(response.status === 400) {
+                this.errorMessage = 'The current password is incorrect.';
+            } else {
+                this.FormService.onFailure(this, response);
+            }
         });
     }
 }
 
 export default Password;
-// http://blog.xebia.com/2014/11/26/how-to-implement-validation-callbacks-in-angularjs-1-3/ password validation
+// https://stormpath.com/blog/the-pain-of-password-reset/

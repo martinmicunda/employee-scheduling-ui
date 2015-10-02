@@ -15,7 +15,7 @@ describe('MmUniqueEmailValidator', () => {
     let $compile, $rootScope, scope, render, element, controller, EmployeeModel, EmployeeResource,
         component = `
               <form name="emailForm">
-                  <input type="email" name="uniqueEmail" ng-model="vm.uniqueEmail" required mm-unique-email-validator/>
+                  <input type="email" name="uniqueEmail" ng-model="uniqueEmail" required mm-unique-email-validator/>
               </form>
             `;
 

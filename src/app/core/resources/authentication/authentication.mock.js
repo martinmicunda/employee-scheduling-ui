@@ -63,5 +63,25 @@ class AuthenticationResourceMock {
 
                 return [200];
             });
+
+        $httpBackend.whenPUT(/\/password/)
+            .respond( (method, url, data, headers) => {
+                console.log('PUT',url);
+                headers['Content-Type'] = HEADER_API_VERSION;
+                data = $window.atob(data);
+                data = JSON.parse(data);
+
+                if(data.currentPassword.includes('400')) {
+                    return [400];
+                } else if (data.currentPassword.includes('404')) {
+                    return [404];
+                } else if (data.currentPassword.includes('409')) {
+                    return [409];
+                } else if (data.currentPassword.includes('500')) {
+                    return [500];
+                }
+
+                return [200];
+            });
     }
 }

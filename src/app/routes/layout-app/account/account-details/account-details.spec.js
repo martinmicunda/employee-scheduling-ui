@@ -5,6 +5,7 @@
  */
 'use strict';
 
+import employee from '../../../../core/resources/employee/fixtures/employee_1.json!json';
 import AccountDetails from './account-details.js';
 
 describe('AccountDetails', () => {
@@ -35,12 +36,15 @@ describe('AccountDetails', () => {
     });
 
     describe('Component', () => {
-        let $compile, $rootScope, scope, render, element;
+        let $compile, $rootScope, scope, render, element,
+            itemMock = {id: 'id', avatar: employee.avatar};
 
-        beforeEach(inject((_$compile_, _$rootScope_) => {
+        beforeEach(inject((_$compile_, _$rootScope_, EmployeeModel) => {
             $compile = _$compile_;
             $rootScope = _$rootScope_;
             scope = $rootScope.$new();
+
+            spyOn(EmployeeModel, 'getItem').and.returnValue(itemMock);
 
             render = () => {
                 let element = angular.element(component);
@@ -56,6 +60,300 @@ describe('AccountDetails', () => {
 
             expect(element.controller('accountDetails')).toBeDefined();
             expect(element['0']).not.toEqual(component);
+        });
+
+        it('should have `Account Details` title defined', () => {
+            element = render();
+            const title = element.find('h4');
+
+            expect(title.text()).toEqual('Account Details');
+        });
+
+        it('should have `alert-danger` component defined with attributes `error-message` and `has-error`', () => {
+            element = render();
+
+            expect(element.find('alert-danger')[0]).toBeDefined();
+            expect(element.find('alert-danger').attr('error-message')).toEqual('vm.errorMessage');
+            expect(element.find('alert-danger').attr('has-error')).toEqual('vm.hasError');
+        });
+
+        it('should have `mm-modal-warning-unsaved-form` component defined', () => {
+            element = render();
+
+            expect(element.find('form').attr('mm-modal-warning-unsaved-form')).toBeDefined();
+        });
+
+        describe('Form fields', () => {
+            const CHARACTERS_61 = 'flygvfxmfwqhspfwjyxtzlyqtyucejjowlwrmxatfyyjidwtfpvqiuvqvnrdg',
+                CHARACTERS_256 = 'fqxzhnhtcllqhdlakuxtmmpvcfwkvogfwpnvbrlycjkhuzqcdngdjotxxqnzpylgtfppepcfuvynjhnastipjfpyfcplvjyizcqrqgqnxcccmbolptxoobvghalhuivipuslkglfcseidtlqvgcynmxkycgxsbnszhvmsdmajiybfzpsyrjoelevryzdadreeilykndmnckfugzrkrwbflrwethqfiomsrlbbijrlqrjsrpcxmhhlomyqddpyljt';
+
+            describe('avatar', () => {
+                it('should have `Photo` label defined', () => {
+                    element = render();
+
+                    const parentElement = angular.element(element[0].querySelector('.img-circle')).parent().parent().parent();
+
+                    expect(parentElement.find('label').text()).toEqual('Photo');
+                });
+
+                it('should have `Change photo` label defined', () => {
+                    element = render();
+
+                    const label = angular.element(element[0].querySelector('.dropdown-toggle'));
+
+                    expect(label.text().includes('Change photo')).toEqual(true);
+                });
+
+                it('should have avatar url defined', () => {
+                    element = render();
+
+                    const uploadButton = angular.element(element[0].querySelector('.img-circle'));
+
+                    expect(uploadButton.attr('ng-src')).toEqual(itemMock.avatar);
+                });
+
+                it('should have `upload photo button` component defined with attributes `ngf-select`, `ngf-pattern`, `accept` and `ngf-max-size`', () => {
+                    element = render();
+
+                    const uploadButton = angular.element(element[0].querySelector('ul.dropdown-menu li:first-child a'));
+
+                    expect(uploadButton.attr('ngf-pattern')).toEqual('image/*');
+                    expect(uploadButton.attr('accept')).toEqual('image/*');
+                    expect(uploadButton.attr('ngf-max-size')).toEqual('2MB');
+                    expect(uploadButton.attr('ngf-select')).toEqual('vm.addAvatar($file)');
+                });
+
+                it('should have `Upload photo` label defined', () => {
+                    element = render();
+
+                    const label = angular.element(element[0].querySelector('ul.dropdown-menu li:first-child a'));
+
+                    expect(label.text()).toEqual('Upload photo');
+                });
+
+                it('should call `vm.removeAvatar` when upload photo button is clicked', function () {
+                    element = render();
+                    spyOn(element.isolateScope().vm, 'removeAvatar');
+
+                    angular.element(element[0].querySelector('ul.dropdown-menu li:last-child a')).triggerHandler('click');
+
+                    expect(element.isolateScope().vm.removeAvatar).toHaveBeenCalled();
+                });
+
+                it('should have `Remove` label defined', function () {
+                    element = render();
+
+                    const removeButton = angular.element(element[0].querySelector('ul.dropdown-menu li:last-child a'));
+
+                    expect(removeButton.text()).toEqual('Remove');
+                });
+            });
+
+            describe('firstName', () => {
+                it('should have `First Name` label defined', () => {
+                    element = render();
+                    const parentElement = angular.element(element[0].querySelector('input[name="firstName"][type="text"]')).parent().parent();
+
+                    expect(parentElement.find('label').text()).toEqual('First Name');
+                });
+
+                it('should show `firstName` required error message', () => {
+                    element = render();
+                    element.triggerHandler('submit');
+                    element.isolateScope().accountDetailsForm.$submitted = true; // FIXME: why $submitted is not set by triggerHandler?
+                    scope.$digest();
+
+                    const errorMessage = angular.element(element[0].querySelector('input[name="firstName"][type="text"] ~ div > div[ng-message="required"]'));
+
+                    expect(errorMessage.text()).toEqual('This field is required.');
+                });
+
+                it('should show `firstName` maxlength error message', () => {
+                    element = render();
+                    const inputField = angular.element(element[0].querySelector('input[name="firstName"][type="text"]'));
+                    inputField.val(CHARACTERS_61);
+                    inputField.triggerHandler('input');
+                    element.triggerHandler('submit');
+                    element.isolateScope().accountDetailsForm.$submitted = true; // FIXME: why $submitted is not set by triggerHandler?
+                    scope.$digest();
+
+                    const errorMessage = angular.element(element[0].querySelector('input[name="firstName"][type="text"] ~ div > div[ng-message="maxlength"]'));
+
+                    expect(errorMessage.text()).toEqual('This field text is too long (max 60 characters).');
+                });
+            });
+
+            describe('lastName', () => {
+                it('should have `Last Name` label defined', () => {
+                    element = render();
+                    const parentElement = angular.element(element[0].querySelector('input[name="lastName"][type="text"]')).parent().parent();
+
+                    expect(parentElement.find('label').text()).toEqual('Last Name');
+                });
+
+                it('should show `lastName` required error message', () => {
+                    element = render();
+                    element.triggerHandler('submit');
+                    element.isolateScope().accountDetailsForm.$submitted = true; // FIXME: why $submitted is not set by triggerHandler?
+                    scope.$digest();
+
+                    const errorMessage = angular.element(element[0].querySelector('input[name="lastName"][type="text"] ~ div > div[ng-message="required"]'));
+
+                    expect(errorMessage.text()).toEqual('This field is required.');
+                });
+
+                it('should show `lastName` maxlength error message', () => {
+                    element = render();
+                    const inputField = angular.element(element[0].querySelector('input[name="lastName"][type="text"]'));
+                    inputField.val(CHARACTERS_61);
+                    inputField.triggerHandler('input');
+                    element.triggerHandler('submit');
+                    element.isolateScope().accountDetailsForm.$submitted = true; // FIXME: why $submitted is not set by triggerHandler?
+                    scope.$digest();
+
+                    const errorMessage = angular.element(element[0].querySelector('input[name="lastName"][type="text"] ~ div > div[ng-message="maxlength"]'));
+
+                    expect(errorMessage.text()).toEqual('This field text is too long (max 60 characters).');
+                });
+            });
+
+            describe('email', () => {
+                it('should have `Email` label defined', () => {
+                    element = render();
+                    const parentElement = angular.element(element[0].querySelector('input[name="email"][type="email"]')).parent().parent();
+
+                    expect(parentElement.find('label').text()).toEqual('Email');
+                });
+
+                it('should have debounce property set to 500', () => {
+                    element = render();
+                    const parentElement = angular.element(element[0].querySelector('input[name="email"][type="email"]'));
+
+                    expect(parentElement.attr('ng-model-options')).toEqual('{ debounce: 500 }');
+                });
+
+                it('should show `email` required error message', () => {
+                    element = render();
+                    element.triggerHandler('submit');
+                    element.isolateScope().accountDetailsForm.$submitted = true; // FIXME: why $submitted is not set by triggerHandler?
+                    scope.$digest();
+
+                    const errorMessage = angular.element(element[0].querySelector('input[name="email"][type="email"] ~ div > div[ng-message="required"]'));
+
+                    expect(errorMessage.text()).toEqual('This field is required.');
+                });
+
+                it('should show `email` maxlength error message', inject(($timeout) => {
+                    element = render();
+                    const inputField = angular.element(element[0].querySelector('input[name="email"][type="email"]'));
+                    inputField.val('test@test.com' + CHARACTERS_61);
+                    inputField.triggerHandler('input');
+                    element.triggerHandler('submit');
+                    element.isolateScope().accountDetailsForm.$submitted = true; // FIXME: why $submitted is not set by triggerHandler?
+                    scope.$digest();
+
+                    $timeout.flush(); // flush debounce
+
+                    const errorMessage = angular.element(element[0].querySelector('input[name="email"][type="email"] ~ div > div[ng-message="maxlength"]'));
+
+                    expect(errorMessage.text()).toEqual('This field text is too long (max 60 characters).');
+                }));
+
+                it('should show `email` invalid error message', inject(($timeout) => {
+                    element = render();
+                    const inputField = angular.element(element[0].querySelector('input[name="email"][type="email"]'));
+                    inputField.val('invalid-email');
+                    inputField.triggerHandler('input');
+                    element.isolateScope().accountDetailsForm.$submitted = true; // FIXME: why $submitted is not set by triggerHandler?
+                    scope.$digest();
+
+                    $timeout.flush(); // flush debounce
+
+                    const errorMessage = angular.element(element[0].querySelector('input[name="email"][type="email"] ~ div > div[ng-message="email"]'));
+
+                    expect(errorMessage.text()).toEqual('Invalid email.');
+                }));
+
+                xit('should show `email` unique error message', inject(($timeout, EmployeeResource) => {
+                    spyOn(EmployeeResource, 'getEmployeeByEmail').and.returnValue(Promise.resolve());
+                    element = render();
+                    const inputField = angular.element(element[0].querySelector('input[name="email"][type="email"]'));
+                    inputField.val(employee.email);
+                    inputField.triggerHandler('input');
+                    element.triggerHandler('submit');
+                    element.isolateScope().accountDetailsForm.$submitted = true; // FIXME: why $submitted is not set by triggerHandler?
+                    scope.$digest();
+
+                    $timeout.flush(); // flush debounce
+
+                    const errorMessage = angular.element(element[0].querySelector('input[name="email"][type="email"] ~ div > div[ng-message="unique"]'));
+
+                    expect(errorMessage.text()).toEqual('Email has already been taken.');
+                }));
+            });
+
+            describe('Note', () => {
+                it('should have `Note` label defined', () => {
+                    element = render();
+                    const parentElement = angular.element(element[0].querySelector('textarea[name="note"]')).parent().parent();
+
+                    expect(parentElement.find('label').text()).toEqual('Note');
+                });
+
+                it('should show `note` maxlength error message', () => {
+                    element = render();
+                    const inputField = angular.element(element[0].querySelector('textarea[name="note"]'));
+                    inputField.val(CHARACTERS_256);
+                    inputField.triggerHandler('input');
+                    element.triggerHandler('submit');
+                    element.isolateScope().accountDetailsForm.$submitted = true; // FIXME: why $submitted is not set by triggerHandler?
+                    scope.$digest();
+
+                    const errorMessage = angular.element(element[0].querySelector('textarea[name="note"] ~ div > div[ng-message="maxlength"]'));
+
+                    expect(errorMessage.text()).toEqual('This field text is too long (max 255 characters).');
+                });
+            });
+        });
+
+        xit('should submit the form', inject(($timeout, EmployeeResource) => {
+            spyOn(EmployeeResource, 'getEmployeeByEmail').and.returnValue(Promise.reject());
+            element = render();
+
+            const firstNameInputField = angular.element(element[0].querySelector('input[name="firstName"][type="text"]'));
+            firstNameInputField.val(employee.firstName);
+            firstNameInputField.triggerHandler('input');
+
+            const lastNameInputField = angular.element(element[0].querySelector('input[name="lastName"][type="text"]'));
+            lastNameInputField.val(employee.lastName);
+            lastNameInputField.triggerHandler('input');
+
+            const emailInputField = angular.element(element[0].querySelector('input[name="email"][type="email"]'));
+            emailInputField.val(employee.email);
+            emailInputField.triggerHandler('input');
+            $timeout.flush(); // flush debounce
+
+            const noteInputField = angular.element(element[0].querySelector('textarea[name="note"]'));
+            noteInputField.val(employee.note);
+            noteInputField.triggerHandler('input');
+
+            expect(element.isolateScope().accountDetailsForm).toBeDefined();
+            expect(element.isolateScope().vm.employee.firstName).toEqual(employee.firstName);
+            expect(element.isolateScope().vm.employee.lastName).toEqual(employee.lastName);
+            expect(element.isolateScope().vm.employee.email).toEqual(employee.email);
+            expect(element.isolateScope().vm.employee.note).toEqual(employee.note);
+
+            expect(element.isolateScope().accountDetailsForm.$valid).toEqual(true);
+        }));
+
+        it('should have `jp-ng-bs-animated-button` component defined with attributes `is-submitting`, `result` and `options`', () => {
+            element = render();
+            const saveButton = angular.element(element[0].querySelector('button.btn-success'));
+
+            expect(saveButton[0]).toBeDefined();
+            expect(saveButton.attr('is-submitting')).toEqual('vm.isSubmitting');
+            expect(saveButton.attr('result')).toEqual('vm.result');
+            expect(saveButton.attr('options')).toEqual('vm.saveButtonOptions');
         });
     });
 

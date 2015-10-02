@@ -119,7 +119,7 @@ describe('EmployeeContactDetails', () => {
                 });
             });
 
-            describe('city', () => {
+            describe('zipCode', () => {
                 it('should have `Zip Code` label defined', () => {
                     element = render();
                     const parentElement = angular.element(element[0].querySelector('input[name="zipCode"][type="text"]')).parent().parent();

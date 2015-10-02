@@ -57,49 +57,237 @@ describe('Password', () => {
             expect(element.controller('passwordDetails')).toBeDefined();
             expect(element['0']).not.toEqual(component);
         });
+
+        it('should have `Password` title defined', () => {
+            element = render();
+            const title = element.find('h4');
+
+            expect(title.text()).toEqual('Password');
+        });
+
+        it('should have `alert-danger` component defined with attributes `error-message` and `has-error`', () => {
+            element = render();
+
+            expect(element.find('alert-danger')[0]).toBeDefined();
+            expect(element.find('alert-danger').attr('error-message')).toEqual('vm.errorMessage');
+            expect(element.find('alert-danger').attr('has-error')).toEqual('vm.hasError');
+        });
+
+        it('should have `alert-success` component defined with attributes `success-message` and `has-success`', () => {
+            element = render();
+
+            expect(element.find('alert-success')[0]).toBeDefined();
+            expect(element.find('alert-success').attr('success-message')).toEqual('vm.successMessage');
+            expect(element.find('alert-success').attr('has-success')).toEqual('vm.hasSuccess');
+        });
+
+        describe('Form fields', () => {
+            const CHARACTERS_21 = 'ojpaxxoltpgweudmogmvp';
+
+            describe('currentPassword', () => {
+                it('should have `Current Password` label defined', () => {
+                    element = render();
+                    const parentElement = angular.element(element[0].querySelector('input[name="currentPassword"][type="password"]')).parent().parent();
+
+                    expect(parentElement.find('label').text()).toEqual('Current Password');
+                });
+
+                it('should show `currentPassword` required error message', () => {
+                    element = render();
+                    element.triggerHandler('submit');
+                    element.isolateScope().passwordForm.$submitted = true; // FIXME: why $submitted is not set by triggerHandler?
+                    scope.$digest();
+
+                    const errorMessage = angular.element(element[0].querySelector('input[name="currentPassword"][type="password"] ~ div > div[ng-message="required"]'));
+
+                    expect(errorMessage.text()).toEqual('This field is required.');
+                });
+
+                it('should show `currentPassword` minlength error message', () => {
+                    element = render();
+                    const inputField = angular.element(element[0].querySelector('input[name="currentPassword"][type="password"]'));
+                    inputField.val('123');
+                    inputField.triggerHandler('input');
+                    element.triggerHandler('submit');
+                    element.isolateScope().passwordForm.$submitted = true; // FIXME: why $submitted is not set by triggerHandler?
+                    scope.$digest();
+
+                    const errorMessage = angular.element(element[0].querySelector('input[name="currentPassword"][type="password"] ~ div > div[ng-message="minlength"]'));
+
+                    expect(errorMessage.text()).toEqual('Your password must be at least 6 characters long.');
+                });
+            });
+
+            describe('newPassword', () => {
+                it('should have `New Password` label defined', () => {
+                    element = render();
+                    const parentElement = angular.element(element[0].querySelector('input[name="newPassword"][type="password"]')).parent().parent();
+
+                    expect(parentElement.find('label').text()).toEqual('New Password');
+                });
+
+                it('should show `newPassword` required error message', () => {
+                    element = render();
+                    element.triggerHandler('submit');
+                    element.isolateScope().passwordForm.$submitted = true; // FIXME: why $submitted is not set by triggerHandler?
+                    scope.$digest();
+
+                    const errorMessage = angular.element(element[0].querySelector('input[name="newPassword"][type="password"] ~ div > div[ng-message="required"]'));
+
+                    expect(errorMessage.text()).toEqual('This field is required.');
+                });
+
+                it('should show `newPassword` minlength error message', () => {
+                    element = render();
+                    const inputField = angular.element(element[0].querySelector('input[name="newPassword"][type="password"]'));
+                    inputField.val('123');
+                    inputField.triggerHandler('input');
+                    element.triggerHandler('submit');
+                    element.isolateScope().passwordForm.$submitted = true; // FIXME: why $submitted is not set by triggerHandler?
+                    scope.$digest();
+
+                    const errorMessage = angular.element(element[0].querySelector('input[name="newPassword"][type="password"] ~ div > div[ng-message="minlength"]'));
+
+                    expect(errorMessage.text()).toEqual('Your password must be at least 6 characters long.');
+                });
+
+                it('should show `newPassword` maxlength error message', () => {
+                    element = render();
+                    const inputField = angular.element(element[0].querySelector('input[name="newPassword"][type="password"]'));
+                    inputField.val(CHARACTERS_21);
+                    inputField.triggerHandler('input');
+                    element.triggerHandler('submit');
+                    element.isolateScope().passwordForm.$submitted = true; // FIXME: why $submitted is not set by triggerHandler?
+                    scope.$digest();
+
+                    const errorMessage = angular.element(element[0].querySelector('input[name="newPassword"][type="password"] ~ div > div[ng-message="maxlength"]'));
+
+                    expect(errorMessage.text()).toEqual('Your password must be max 20 characters long.');
+                });
+            });
+
+            describe('confirmPassword', () => {
+                it('should have `Confirm Password` label defined', () => {
+                    element = render();
+                    const parentElement = angular.element(element[0].querySelector('input[name="confirmPassword"][type="password"]')).parent().parent();
+
+                    expect(parentElement.find('label').text()).toEqual('Confirm Password');
+                });
+
+                it('should show `confirmPassword` required error message', () => {
+                    element = render();
+                    element.triggerHandler('submit');
+                    element.isolateScope().passwordForm.$submitted = true; // FIXME: why $submitted is not set by triggerHandler?
+                    scope.$digest();
+
+                    const errorMessage = angular.element(element[0].querySelector('input[name="confirmPassword"][type="password"] ~ div > div[ng-message="required"]'));
+
+                    expect(errorMessage.text()).toEqual('This field is required.');
+                });
+
+                it('should show `confirmPassword` equal error message', () => {
+                    element = render();
+                    const inputField = angular.element(element[0].querySelector('input[name="newPassword"][type="password"]'));
+                    inputField.val('123456');
+                    inputField.triggerHandler('input');
+                    const inputField1 = angular.element(element[0].querySelector('input[name="confirmPassword"][type="password"]'));
+                    inputField1.val('1234567');
+                    inputField1.triggerHandler('input');
+
+                    element.triggerHandler('submit');
+                    element.isolateScope().passwordForm.$submitted = true; // FIXME: why $submitted is not set by triggerHandler?
+                    scope.$digest();
+
+                    const errorMessage = angular.element(element[0].querySelector('input[name="confirmPassword"][type="password"] ~ div > div[ng-message="equal"]'));
+
+                    expect(errorMessage.text()).toEqual('Passwords do not match.');
+                });
+            });
+        });
+
+        it('should submit the form', function () {
+            const passwords = {currentPassword: 'currentPassword', newPassword: 'newPassword', confirmPassword: 'newPassword'};
+            element = render();
+
+            const currentPasswordInputField = angular.element(element[0].querySelector('input[name="currentPassword"][type="password"]'));
+            currentPasswordInputField.val(passwords.currentPassword);
+            currentPasswordInputField.triggerHandler('input');
+
+            const newPasswordInputField = angular.element(element[0].querySelector('input[name="newPassword"][type="password"]'));
+            newPasswordInputField.val(passwords.newPassword);
+            newPasswordInputField.triggerHandler('input');
+
+            const confirmPasswordInputField = angular.element(element[0].querySelector('input[name="confirmPassword"][type="password"]'));
+            confirmPasswordInputField.val(passwords.confirmPassword);
+            confirmPasswordInputField.triggerHandler('input');
+
+            expect(element.isolateScope().passwordForm).toBeDefined();
+            expect(element.isolateScope().vm.passwords.currentPassword).toEqual(passwords.currentPassword);
+            expect(element.isolateScope().vm.passwords.newPassword).toEqual(passwords.newPassword);
+            expect(element.isolateScope().vm.passwords.confirmPassword).toEqual(passwords.confirmPassword);
+            expect(element.isolateScope().passwordForm.$valid).toEqual(true);
+        });
+
+        it('should have `jp-ng-bs-animated-button` component defined with attributes `is-submitting`, `result` and `options`', () => {
+            element = render();
+            const saveButton = angular.element(element[0].querySelector('button.btn-success'));
+
+            expect(saveButton[0]).toBeDefined();
+            expect(saveButton.attr('is-submitting')).toEqual('vm.isSubmitting');
+            expect(saveButton.attr('result')).toEqual('vm.result');
+            expect(saveButton.attr('options')).toEqual('vm.saveButtonOptions');
+        });
     });
 
     describe('Controller', () => {
-        let password, FormService, EmployeeModel,
-            itemMock = 'itemMock';
+        let password, FormService, EmployeeModel, AuthenticationResource,
+            itemMock = {id: 'id'};
 
-        beforeEach(inject((_FormService_, _EmployeeModel_) => {
+        beforeEach(inject((_FormService_, _EmployeeModel_, _AuthenticationResource_) => {
             FormService = _FormService_;
             EmployeeModel = _EmployeeModel_;
+            AuthenticationResource = _AuthenticationResource_;
         }));
 
         it('should have employee property', () => {
             spyOn(EmployeeModel, 'getItem').and.returnValue(itemMock);
-            password = new Password(EmployeeModel, FormService);
+            password = new Password(EmployeeModel, FormService, AuthenticationResource);
 
             expect(password.employee).toEqual(itemMock);
             expect(EmployeeModel.getItem).toHaveBeenCalled();
         });
 
         it('should have isSubmitting property', () => {
-            password = new Password(EmployeeModel, FormService);
+            password = new Password(EmployeeModel, FormService, AuthenticationResource);
 
             expect(password.isSubmitting).toEqual(null);
         });
 
         it('should have result property', () => {
-            password = new Password(EmployeeModel, FormService);
+            password = new Password(EmployeeModel, FormService, AuthenticationResource);
 
             expect(password.result).toEqual(null);
         });
 
         it('should have saveButtonOptions property', () => {
             spyOn(FormService, 'getSaveButtonOptions').and.returnValue(itemMock);
-            password = new Password(EmployeeModel, FormService);
+            password = new Password(EmployeeModel, FormService, AuthenticationResource);
 
             expect(password.saveButtonOptions).toEqual(itemMock);
             expect(FormService.getSaveButtonOptions).toHaveBeenCalled();
         });
 
+        it('should calculate profile completeness when controller is loaded', () => {
+            spyOn(EmployeeModel, 'calculateProfileCompleteness');
+            password = new Password(EmployeeModel, FormService, AuthenticationResource);
+
+            expect(EmployeeModel.calculateProfileCompleteness).toHaveBeenCalled();
+        });
+
         it('should not save if form is invalid', () => {
             let form = {$valid: false};
             spyOn(FormService, 'save');
-            password = new Password(EmployeeModel, FormService);
+            password = new Password(EmployeeModel, FormService, AuthenticationResource);
 
             password.save(form);
 
@@ -107,17 +295,66 @@ describe('Password', () => {
             expect(FormService.save).not.toHaveBeenCalled();
         });
 
-        itAsync('should save if form is valid', () => {
-            let form = {$valid: true};
-            spyOn(FormService, 'save').and.returnValue(Promise.resolve());
+        it('should save if form is valid', () => {
+            let form = {$valid: true, $setPristine: () => {}};
             spyOn(EmployeeModel, 'getItem').and.returnValue(itemMock);
-            spyOn(EmployeeModel, 'calculateProfileCompleteness');
-            password = new Password(EmployeeModel, FormService);
+            spyOn(AuthenticationResource, 'updatePassword').and.returnValue(Promise.resolve());
+            password = new Password(EmployeeModel, FormService, AuthenticationResource);
+            password.passwords = {currentPassword: 'currentPassword'};
+
+            password.save(form);
+
+            expect(password.isSubmitting).toEqual(true);
+            expect(password.passwords.id).toEqual(itemMock.id);
+            expect(AuthenticationResource.updatePassword).toHaveBeenCalledWith(password.passwords);
+        });
+
+        itAsync('should save form with successfully request', () => {
+            let form = {$valid: true, $setPristine: () => {}};
+            spyOn(form, '$setPristine');
+            spyOn(EmployeeModel, 'getItem').and.returnValue(itemMock);
+            spyOn(AuthenticationResource, 'updatePassword').and.returnValue(Promise.resolve());
+            password = new Password(EmployeeModel, FormService, AuthenticationResource);
+            password.passwords = {currentPassword: 'currentPassword'};
 
             return password.save(form).then(() => {
-                expect(password.isSubmitting).toEqual(true);
-                expect(FormService.save).toHaveBeenCalledWith(EmployeeModel, password.employee, password, form);
-                expect(EmployeeModel.calculateProfileCompleteness).toHaveBeenCalled();
+                expect(password.passwords).toEqual({});
+                expect(form.$setPristine).toHaveBeenCalled();
+                expect(password.result).toEqual('success');
+                expect(password.hasSuccess).toEqual(true);
+                expect(password.hasError).toEqual(false);
+                expect(password.successMessage).toEqual('Your password has been changed successfully.');
+            });
+        });
+
+        itAsync('should not save form with 400 failure request', () => {
+            let form = {$valid: true, $setPristine: () => {}}, response = {status: 400};
+            spyOn(form, '$setPristine');
+            spyOn(EmployeeModel, 'getItem').and.returnValue(itemMock);
+            spyOn(AuthenticationResource, 'updatePassword').and.returnValue(Promise.reject(response));
+            password = new Password(EmployeeModel, FormService, AuthenticationResource);
+            password.passwords = {currentPassword: 'currentPassword'};
+
+            return password.save(form).then(() => {
+                expect(form.$setPristine).toHaveBeenCalled();
+                expect(password.result).toEqual('error');
+                expect(password.hasSuccess).toEqual(false);
+                expect(password.hasError).toEqual(true);
+                expect(password.errorMessage).toEqual('The current password is incorrect.');
+            });
+        });
+
+        itAsync('should not save form with no 400 failure request', () => {
+            let form = {$valid: true, $setPristine: () => {}}, response = {status: 500};
+            spyOn(form, '$setPristine');
+            spyOn(FormService, 'onFailure');
+            spyOn(EmployeeModel, 'getItem').and.returnValue(itemMock);
+            spyOn(AuthenticationResource, 'updatePassword').and.returnValue(Promise.reject(response));
+            password = new Password(EmployeeModel, FormService, AuthenticationResource);
+            password.passwords = {currentPassword: 'currentPassword'};
+
+            return password.save(form).then(() => {
+                expect(FormService.onFailure).toHaveBeenCalledWith(password, response);
             });
         });
     });

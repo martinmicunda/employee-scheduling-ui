@@ -29,6 +29,7 @@ class ContactDetails {
         this.FormService = FormService;
         this.EmployeeModel = EmployeeModel;
         this.saveButtonOptions = FormService.getSaveButtonOptions();
+        this.EmployeeModel.calculateProfileCompleteness();
     }
 
     save(form) {
