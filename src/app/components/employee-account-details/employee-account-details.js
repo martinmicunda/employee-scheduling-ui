@@ -16,10 +16,10 @@ import {View, Component, Inject} from '../../ng-decorators'; // jshint unused: f
 @View({
     template: template
 })
-@Inject('EmployeeModel', 'PositionModel', 'SettingModel', 'Upload')
+@Inject('EmployeeModel', 'PositionModel', 'SettingModel', 'Upload', 'LocationModel')
 //end-non-standard
 class EmployeeAccountDetails {
-    constructor(EmployeeModel, PositionModel, SettingModel, Upload) {
+    constructor(EmployeeModel, PositionModel, SettingModel, Upload, LocationModel) {
         this.statusPending = EMPLOYEE_PROFILE_STATUSES.PENDING;
         this.statuses = [EMPLOYEE_PROFILE_STATUSES.ACTIVE, EMPLOYEE_PROFILE_STATUSES.INACTIVE];
         this.employee = EmployeeModel.getItem();
@@ -28,6 +28,7 @@ class EmployeeAccountDetails {
         this.employee.avatar = this.employee.avatar || SettingModel.getItem().avatar;
         this.employee.status = this.employee.status || EMPLOYEE_PROFILE_STATUSES.PENDING;
         this.employee.role = this.employee.role || USER_ROLES.EMPLOYEE;
+        this.employee.locations = this.employee.locations || [LocationModel.getCollection().find(location => location.default).id];
         this.Upload = Upload;
         this.SettingModel = SettingModel;
     }

@@ -5,6 +5,7 @@
  */
 'use strict';
 
+import {ACCESS_LEVELS} from '../../../../../core/constants/constants';
 import {RouteConfig} from '../../../../../ng-decorators'; // jshint unused: false
 
 //start-non-standard
@@ -14,6 +15,9 @@ import {RouteConfig} from '../../../../../ng-decorators'; // jshint unused: fals
         'modal@': {
             template: '<employee-authorizations></employee-authorizations>'
         }
+    },
+    data: {
+        access: ACCESS_LEVELS.admin
     }
 })
 //end-non-standard

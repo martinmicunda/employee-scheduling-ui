@@ -14,11 +14,11 @@ describe('EmployeeAccountDetails', () => {
     beforeEach(angular.mock.module('ngDecorator'));
 
     describe('Component', () => {
-        let $timeout, $compile, $rootScope, scope, render, element, EmployeeModel, EmployeeResource, PositionResource,
+        let $timeout, $compile, $rootScope, scope, render, element, EmployeeModel, EmployeeResource, PositionResource, LocationModel,
             component = '<employee-account-details></employee-account-details>',
             itemMock = {id: 'id', status: EMPLOYEE_PROFILE_STATUSES.ACTIVE, avatar: employee.avatar};
 
-        beforeEach(inject((_$compile_, _$rootScope_, _EmployeeModel_, _$timeout_, _EmployeeResource_, _PositionResource_) => {
+        beforeEach(inject((_$compile_, _$rootScope_, _EmployeeModel_, _$timeout_, _EmployeeResource_, _PositionResource_, _LocationModel_) => {
             $compile = _$compile_;
             $rootScope = _$rootScope_;
             scope = $rootScope.$new();
@@ -26,11 +26,13 @@ describe('EmployeeAccountDetails', () => {
             EmployeeModel = _EmployeeModel_;
             EmployeeResource = _EmployeeResource_;
             PositionResource = _PositionResource_;
+            LocationModel = _LocationModel_;
 
             spyOn(EmployeeModel, 'getItem').and.returnValue(itemMock);
             spyOn(EmployeeModel, 'getCollection').and.returnValue([]);
             spyOn(PositionResource, 'getList').and.returnValue([]);
             spyOn(EmployeeResource, 'getList').and.returnValue([]);
+            spyOn(LocationModel, 'getCollection').and.returnValue([{status: EMPLOYEE_PROFILE_STATUSES.ACTIVE, id: '1', default: false}, {status: EMPLOYEE_PROFILE_STATUSES.ACTIVE, id: '2', default: true}]);
 
             render = () => {
                 let element = angular.element(component);
@@ -483,83 +485,98 @@ describe('EmployeeAccountDetails', () => {
     });
 
     describe('Controller', () => {
-        let employeeAccountDetails, EmployeeModel, PositionModel, SettingModel, Upload;
+        let employeeAccountDetails, EmployeeModel, PositionModel, SettingModel, Upload, LocationModel, itemMock = {locations: [], language: 'en', avatar: 'av'};
 
-        beforeEach(inject((_EmployeeModel_, _PositionModel_, _SettingModel_, _Upload_) => {
+        beforeEach(inject((_EmployeeModel_, _PositionModel_, _SettingModel_, _Upload_, _LocationModel_) => {
             EmployeeModel = _EmployeeModel_;
             SettingModel = _SettingModel_;
             PositionModel = _PositionModel_;
+            LocationModel = _LocationModel_;
             Upload = _Upload_;
         }));
 
         it('should have statusPending property', () => {
-            employeeAccountDetails = new EmployeeAccountDetails(EmployeeModel, PositionModel, SettingModel, Upload);
+            spyOn(EmployeeModel, 'getItem').and.returnValue(itemMock);
+
+            employeeAccountDetails = new EmployeeAccountDetails(EmployeeModel, PositionModel, SettingModel, Upload, LocationModel);
 
             expect(employeeAccountDetails.statusPending).toEqual(EMPLOYEE_PROFILE_STATUSES.PENDING);
         });
 
         it('should have statuses property', () => {
-            employeeAccountDetails = new EmployeeAccountDetails(EmployeeModel, PositionModel, SettingModel, Upload);
+            spyOn(EmployeeModel, 'getItem').and.returnValue(itemMock);
+
+            employeeAccountDetails = new EmployeeAccountDetails(EmployeeModel, PositionModel, SettingModel, Upload, LocationModel);
 
             expect(employeeAccountDetails.statuses).toEqual([EMPLOYEE_PROFILE_STATUSES.ACTIVE, EMPLOYEE_PROFILE_STATUSES.INACTIVE]);
         });
 
         it('should have employee property', () => {
-            spyOn(EmployeeModel, 'getItem').and.returnValue(employee);
+            spyOn(EmployeeModel, 'getItem').and.returnValue(itemMock);
             spyOn(SettingModel, 'getItem');
 
-            employeeAccountDetails = new EmployeeAccountDetails(EmployeeModel, PositionModel, SettingModel, Upload);
+            employeeAccountDetails = new EmployeeAccountDetails(EmployeeModel, PositionModel, SettingModel, Upload, LocationModel);
 
-            expect(employeeAccountDetails.employee).toEqual(employee);
+            expect(employeeAccountDetails.employee).toEqual(itemMock);
             expect(EmployeeModel.getItem).toHaveBeenCalled();
             expect(SettingModel.getItem).not.toHaveBeenCalled();
         });
 
         it('should have positions property', () => {
+            spyOn(EmployeeModel, 'getItem').and.returnValue(itemMock);
             spyOn(PositionModel, 'getCollection').and.returnValue(employee);
 
-            employeeAccountDetails = new EmployeeAccountDetails(EmployeeModel, PositionModel, SettingModel, Upload);
+            employeeAccountDetails = new EmployeeAccountDetails(EmployeeModel, PositionModel, SettingModel, Upload, LocationModel);
 
             expect(employeeAccountDetails.positions).toEqual(employee);
             expect(PositionModel.getCollection).toHaveBeenCalled();
         });
 
         it(`should have employee.language set to setting language if employee.language is undefined`, () => {
-            spyOn(EmployeeModel, 'getItem').and.returnValue({});
+            spyOn(EmployeeModel, 'getItem').and.returnValue({locations: []});
             spyOn(SettingModel, 'getItem').and.returnValue({language: 'test'});
-            employeeAccountDetails = new EmployeeAccountDetails(EmployeeModel, PositionModel, SettingModel, Upload);
+            employeeAccountDetails = new EmployeeAccountDetails(EmployeeModel, PositionModel, SettingModel, Upload, LocationModel);
 
             expect(employeeAccountDetails.employee.language).toEqual('test');
             expect(SettingModel.getItem).toHaveBeenCalled();
         });
 
         it(`should have employee.avatar set to setting avatar if employee.avatar is undefined`, () => {
-            spyOn(EmployeeModel, 'getItem').and.returnValue({});
+            spyOn(EmployeeModel, 'getItem').and.returnValue({locations: [], language: 'en'});
             spyOn(SettingModel, 'getItem').and.returnValue({avatar: 'test'});
-            employeeAccountDetails = new EmployeeAccountDetails(EmployeeModel, PositionModel, SettingModel, Upload);
+            employeeAccountDetails = new EmployeeAccountDetails(EmployeeModel, PositionModel, SettingModel, Upload, LocationModel);
 
             expect(employeeAccountDetails.employee.avatar).toEqual('test');
             expect(SettingModel.getItem).toHaveBeenCalled();
         });
 
         it(`should have employee.status set to ${EMPLOYEE_PROFILE_STATUSES.PENDING} if employee.status is undefined`, () => {
-            spyOn(EmployeeModel, 'getItem').and.returnValue({});
-            employeeAccountDetails = new EmployeeAccountDetails(EmployeeModel, PositionModel, SettingModel, Upload);
+            spyOn(EmployeeModel, 'getItem').and.returnValue(itemMock);
+            employeeAccountDetails = new EmployeeAccountDetails(EmployeeModel, PositionModel, SettingModel, Upload, LocationModel);
 
             expect(employeeAccountDetails.employee.status).toEqual(EMPLOYEE_PROFILE_STATUSES.PENDING);
         });
 
         it(`should have employee.role set to ${USER_ROLES.EMPLOYEE} if employee.role is undefined`, () => {
-            spyOn(EmployeeModel, 'getItem').and.returnValue({});
-            employeeAccountDetails = new EmployeeAccountDetails(EmployeeModel, PositionModel, SettingModel, Upload);
+            spyOn(EmployeeModel, 'getItem').and.returnValue(itemMock);
+            employeeAccountDetails = new EmployeeAccountDetails(EmployeeModel, PositionModel, SettingModel, Upload, LocationModel);
 
             expect(employeeAccountDetails.employee.role).toEqual(USER_ROLES.EMPLOYEE);
+        });
+
+        it(`should have employee.locations set to default location if employee.locations is undefined`, () => {
+            spyOn(EmployeeModel, 'getItem').and.returnValue({});
+            spyOn(LocationModel, 'getCollection').and.returnValue([{status: EMPLOYEE_PROFILE_STATUSES.ACTIVE, id: '1', default: false}, {status: EMPLOYEE_PROFILE_STATUSES.ACTIVE, id: '2', default: true}]);
+
+            employeeAccountDetails = new EmployeeAccountDetails(EmployeeModel, PositionModel, SettingModel, Upload, LocationModel);
+
+            expect(employeeAccountDetails.employee.locations).toEqual(['2']);
         });
 
         it('should set default avatar image', () => {
             spyOn(EmployeeModel, 'getItem').and.returnValue(employee);
             spyOn(SettingModel, 'getItem').and.returnValue({avatar: 'avatar-default'});
-            employeeAccountDetails = new EmployeeAccountDetails(EmployeeModel, PositionModel, SettingModel, Upload);
+            employeeAccountDetails = new EmployeeAccountDetails(EmployeeModel, PositionModel, SettingModel, Upload, LocationModel);
 
             expect(employeeAccountDetails.employee.avatar).toEqual(employee.avatar);
 
@@ -572,7 +589,7 @@ describe('EmployeeAccountDetails', () => {
         itAsync('should add new avatar image', () => {
             spyOn(Upload, 'dataUrl').and.returnValue(Promise.resolve('avatar-new'));
             spyOn(EmployeeModel, 'getItem').and.returnValue(employee);
-            employeeAccountDetails = new EmployeeAccountDetails(EmployeeModel, PositionModel, SettingModel, Upload);
+            employeeAccountDetails = new EmployeeAccountDetails(EmployeeModel, PositionModel, SettingModel, Upload, LocationModel);
 
             expect(employeeAccountDetails.employee.avatar).toEqual(employee.avatar);
 

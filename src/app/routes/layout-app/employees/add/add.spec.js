@@ -5,7 +5,7 @@
  */
 'use strict';
 
-import {PROFILE_COMPLETENESS_TYPES} from '../../../../core/constants/constants';
+import {PROFILE_COMPLETENESS_TYPES, USER_ROLES} from '../../../../core/constants/constants';
 import {fakeModal} from '../../../../../../test/helpers/modal.js';
 import EmployeeAdd from './add.js';
 
@@ -76,43 +76,63 @@ describe('EmployeeAdd', () => {
     });
 
     describe('Controller', () => {
-        let $state, employeeAdd, FormService, EmployeeModel, itemMock = {firstName: 'firstName', lastName: 'lastName', avatar: 'avatar'};
+        let $state, $rootScope, employeeAdd, FormService, EmployeeModel, itemMock = {firstName: 'firstName', lastName: 'lastName', avatar: 'avatar'};
 
-        beforeEach(inject((_$state_, _FormService_, _EmployeeModel_) => {
+        beforeEach(inject((_$state_, _$rootScope_, _FormService_, _EmployeeModel_) => {
             $state = _$state_;
+            $rootScope = _$rootScope_;
+            $rootScope.currentUser = {role: USER_ROLES.MANAGER};
             FormService = _FormService_;
             EmployeeModel = _EmployeeModel_;
         }));
 
         it('should have employee property', () => {
             spyOn(EmployeeModel, 'getItem').and.returnValue({});
-            employeeAdd = new EmployeeAdd($state, EmployeeModel, FormService, fakeModal);
+            employeeAdd = new EmployeeAdd($state, $rootScope, EmployeeModel, FormService, fakeModal);
 
             expect(employeeAdd.employee).toEqual({});
             expect(EmployeeModel.getItem).toHaveBeenCalled();
         });
 
+        it('should have isAdmin property set to true when user has admin role', () => {
+            spyOn(EmployeeModel, 'getItem').and.returnValue({});
+            $rootScope.currentUser = {role: USER_ROLES.ADMIN};
+
+            employeeAdd = new EmployeeAdd($state, $rootScope, EmployeeModel, FormService, fakeModal);
+
+            expect(employeeAdd.isAdmin).toEqual(true);
+        });
+
+        it('should have isAdmin property set to false when user has not admin role', () => {
+            spyOn(EmployeeModel, 'getItem').and.returnValue({});
+            $rootScope.currentUser = {role: USER_ROLES.MANAGER};
+
+            employeeAdd = new EmployeeAdd($state, $rootScope, EmployeeModel, FormService, fakeModal);
+
+            expect(employeeAdd.isAdmin).toEqual(false);
+        });
+
         it('should have isSubmitting property', () => {
-            employeeAdd = new EmployeeAdd($state, EmployeeModel, FormService, fakeModal);
+            employeeAdd = new EmployeeAdd($state, $rootScope, EmployeeModel, FormService, fakeModal);
 
             expect(employeeAdd.isSubmitting).toEqual(null);
         });
 
         it('should have result property', () => {
-            employeeAdd = new EmployeeAdd($state, EmployeeModel, FormService, fakeModal);
+            employeeAdd = new EmployeeAdd($state, $rootScope, EmployeeModel, FormService, fakeModal);
 
             expect(employeeAdd.result).toEqual(null);
         });
 
         it('should have profileCompletenessType property', () => {
-            employeeAdd = new EmployeeAdd($state, EmployeeModel, FormService, fakeModal);
+            employeeAdd = new EmployeeAdd($state, $rootScope, EmployeeModel, FormService, fakeModal);
 
             expect(employeeAdd.profileCompletenessType).toEqual(PROFILE_COMPLETENESS_TYPES.EMPLOYEE);
         });
 
         it('should have saveButtonOptions property', () => {
             spyOn(FormService, 'getModalSaveButtonOptions').and.returnValue(itemMock);
-            employeeAdd = new EmployeeAdd($state, EmployeeModel, FormService, fakeModal);
+            employeeAdd = new EmployeeAdd($state, $rootScope, EmployeeModel, FormService, fakeModal);
 
             expect(FormService.getModalSaveButtonOptions).toHaveBeenCalled();
             expect(employeeAdd.saveButtonOptions.buttonDefaultText).toEqual('Create an Employee');
@@ -120,8 +140,9 @@ describe('EmployeeAdd', () => {
             expect(employeeAdd.saveButtonOptions.buttonSubmittingText).toEqual('Creating an Employee');
         });
 
-        it('should have formSteps property', () => {
-            employeeAdd = new EmployeeAdd($state, EmployeeModel, FormService, fakeModal);
+        it('should have formSteps property for admin users', () => {
+            $rootScope.currentUser = {role: USER_ROLES.ADMIN};
+            employeeAdd = new EmployeeAdd($state, $rootScope, EmployeeModel, FormService, fakeModal);
 
             expect(employeeAdd.formSteps).toEqual([
                 {route: 'app.employees.add.account-details', formName: 'employeeAccountDetailsForm', valid: false},
@@ -133,16 +154,29 @@ describe('EmployeeAdd', () => {
             ]);
         });
 
+        it('should have formSteps property for non admin users', () => {
+            $rootScope.currentUser = {role: USER_ROLES.MANAGER};
+            employeeAdd = new EmployeeAdd($state, $rootScope, EmployeeModel, FormService, fakeModal);
+
+            expect(employeeAdd.formSteps).toEqual([
+                {route: 'app.employees.add.account-details', formName: 'employeeAccountDetailsForm', valid: false},
+                {route: 'app.employees.add.contact-details', formName: 'employeeContactDetailsForm', valid: true},
+                {route: 'app.employees.add.bank-details', formName: 'employeeBankDetailsForm', valid: true},
+                {route: 'app.employees.add.hourly-rate', formName: 'employeeHourlyRateForm', valid: false},
+                {route: 'app.employees.add.complete', formName: 'employeeCompleteForm', valid: true}
+            ]);
+        });
+
         it('should have calculate profile completeness when controller is initialise', () => {
             spyOn(EmployeeModel, 'calculateProfileCompleteness');
-            employeeAdd = new EmployeeAdd($state, EmployeeModel, FormService, fakeModal);
+            employeeAdd = new EmployeeAdd($state, $rootScope, EmployeeModel, FormService, fakeModal);
 
             expect(EmployeeModel.calculateProfileCompleteness).toHaveBeenCalledWith(PROFILE_COMPLETENESS_TYPES.EMPLOYEE);
         });
 
         it('should cancel modal', () => {
             spyOn(fakeModal, 'dismiss');
-            employeeAdd = new EmployeeAdd($state, EmployeeModel, FormService, fakeModal);
+            employeeAdd = new EmployeeAdd($state, $rootScope, EmployeeModel, FormService, fakeModal);
 
             employeeAdd.cancel();
 
@@ -157,7 +191,7 @@ describe('EmployeeAdd', () => {
             spyOn(FormService, 'submitChildForm');
             spyOn(EmployeeModel, 'calculateProfileCompleteness');
 
-            employeeAdd = new EmployeeAdd($state, EmployeeModel, FormService, fakeModal);
+            employeeAdd = new EmployeeAdd($state, $rootScope, EmployeeModel, FormService, fakeModal);
 
             expect(employeeAdd.hasError).toBeUndefined();
 
@@ -180,7 +214,7 @@ describe('EmployeeAdd', () => {
             spyOn(FormService, 'submitChildForm');
             spyOn(EmployeeModel, 'calculateProfileCompleteness');
 
-            employeeAdd = new EmployeeAdd($state, EmployeeModel, FormService, fakeModal);
+            employeeAdd = new EmployeeAdd($state, $rootScope, EmployeeModel, FormService, fakeModal);
 
             expect(employeeAdd.hasError).toBeUndefined();
 
@@ -200,7 +234,7 @@ describe('EmployeeAdd', () => {
             spyOn(FormService, 'submitChildForm');
             spyOn(EmployeeModel, 'calculateProfileCompleteness');
 
-            employeeAdd = new EmployeeAdd($state, EmployeeModel, FormService, fakeModal);
+            employeeAdd = new EmployeeAdd($state, $rootScope, EmployeeModel, FormService, fakeModal);
 
             expect(employeeAdd.hasError).toBeUndefined();
 
@@ -216,7 +250,7 @@ describe('EmployeeAdd', () => {
             spyOn(EmployeeModel, 'calculateProfileCompleteness');
             spyOn(FormService, 'previousState').and.returnValue('test');
 
-            employeeAdd = new EmployeeAdd($state, EmployeeModel, FormService, fakeModal);
+            employeeAdd = new EmployeeAdd($state, $rootScope, EmployeeModel, FormService, fakeModal);
 
             employeeAdd.goToPreviousSection();
 
@@ -228,7 +262,7 @@ describe('EmployeeAdd', () => {
         it('should not save if form is invalid', () => {
             spyOn(FormService, 'save');
             spyOn(FormService, 'hasInvalidChildForms').and.returnValue(true);
-            employeeAdd = new EmployeeAdd($state, EmployeeModel, FormService, fakeModal);
+            employeeAdd = new EmployeeAdd($state, $rootScope, EmployeeModel, FormService, fakeModal);
 
             employeeAdd.save({});
 
@@ -241,7 +275,7 @@ describe('EmployeeAdd', () => {
             const form = 'form';
             spyOn(FormService, 'save').and.returnValue(Promise.resolve());
             spyOn(FormService, 'hasInvalidChildForms').and.returnValue(false);
-            employeeAdd = new EmployeeAdd($state, EmployeeModel, FormService, fakeModal);
+            employeeAdd = new EmployeeAdd($state, $rootScope, EmployeeModel, FormService, fakeModal);
 
             employeeAdd.save(form);
 

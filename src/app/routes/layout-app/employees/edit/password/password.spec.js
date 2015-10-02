@@ -5,6 +5,7 @@
  */
 'use strict';
 
+import {ACCESS_LEVELS} from '../../../../../core/constants/constants';
 import EmployeeEditPassword from './password.js';
 
 describe('EmployeeEditPassword', () => {
@@ -32,6 +33,10 @@ describe('EmployeeEditPassword', () => {
 
         it(`should respond to '${url}' URL`, () => {
             expect($state.href(state, {id: id})).toEqual(url);
+        });
+
+        it(`should have access level set to '${ACCESS_LEVELS.admin}'`, () => {
+            expect(currentState.data.access).toEqual(ACCESS_LEVELS.admin);
         });
     });
 

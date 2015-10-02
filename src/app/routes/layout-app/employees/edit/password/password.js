@@ -5,6 +5,7 @@
  */
 'use strict';
 
+import {ACCESS_LEVELS} from '../../../../../core/constants/constants';
 import template from './password.html!text';
 import {RouteConfig, Component, View, Inject} from '../../../../../ng-decorators'; // jshint unused: false
 
@@ -15,6 +16,9 @@ import {RouteConfig, Component, View, Inject} from '../../../../../ng-decorators
         'modal@': {
             template: '<password></password>'
         }
+    },
+    data: {
+        access: ACCESS_LEVELS.admin
     }
 })
 @Component({

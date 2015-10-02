@@ -12,7 +12,7 @@ import './authorizations/authorizations';
 import './account-details/account-details';
 import './contact-details/contact-details';
 import template from './add.html!text';
-import {PROFILE_COMPLETENESS_TYPES} from '../../../../core/constants/constants';
+import {PROFILE_COMPLETENESS_TYPES, USER_ROLES} from '../../../../core/constants/constants';
 import {RouteConfig, Inject} from '../../../../ng-decorators'; // jshint unused: false
 
 //start-non-standard
@@ -31,14 +31,15 @@ import {RouteConfig, Inject} from '../../../../ng-decorators'; // jshint unused:
         }).result.finally(ModalService.onFinal('app.employees'));
     }]
 })
-@Inject('$state', 'EmployeeModel', 'FormService', '$modalInstance')
+@Inject('$state', '$rootScope', 'EmployeeModel', 'FormService', '$modalInstance')
 //end-non-standard
 class EmployeeAdd {
-    constructor($state, EmployeeModel, FormService, $modalInstance) {
+    constructor($state, $rootScope, EmployeeModel, FormService, $modalInstance) {
         this.modal = $modalInstance;
         this.router = $state;
         this.result = null;
         this.employee = EmployeeModel.getItem();
+        this.isAdmin = $rootScope.currentUser.role === USER_ROLES.ADMIN;
         this.FormService = FormService;
         this.isSubmitting = null;
         this.EmployeeModel = EmployeeModel;
@@ -56,6 +57,11 @@ class EmployeeAdd {
             {route: 'app.employees.add.authorizations', formName: 'employeeAuthorizationsForm', valid: true},
             {route: 'app.employees.add.complete', formName: 'employeeCompleteForm', valid: true}
         ];
+
+        if(!this.isAdmin) {
+            // remove authorizations form for no admin role
+            this.formSteps.splice(4, 1);
+        }
         EmployeeModel.calculateProfileCompleteness(PROFILE_COMPLETENESS_TYPES.EMPLOYEE);
     }
 

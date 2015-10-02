@@ -6,6 +6,7 @@
 'use strict';
 
 import 'angular-mocks';
+import {ACCESS_LEVELS} from '../../../../../core/constants/constants';
 import './authorizations.js';
 
 describe('EmployeeAddAuthorizations', () => {
@@ -31,6 +32,10 @@ describe('EmployeeAddAuthorizations', () => {
 
         it('should have component named `employee-authorizations`', () => {
             expect(currentState.views['modal@'].template).toEqual(component);
+        });
+
+        it(`should have access level set to '${ACCESS_LEVELS.admin}'`, () => {
+            expect(currentState.data.access).toEqual(ACCESS_LEVELS.admin);
         });
     });
 });
