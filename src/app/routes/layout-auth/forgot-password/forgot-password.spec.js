@@ -57,6 +57,102 @@ describe('ForgotPassword', () => {
             expect(element.controller('forgotPassword')).toBeDefined();
             expect(element['0']).not.toEqual(component);
         });
+
+        it('should have `alert-danger` component defined with attributes `error-message` and `has-error`', () => {
+            element = render();
+
+            expect(element.find('alert-danger')[0]).toBeDefined();
+            expect(element.find('alert-danger').attr('error-message')).toEqual('vm.errorMessage');
+            expect(element.find('alert-danger').attr('has-error')).toEqual('vm.hasError');
+        });
+
+        it('should have `alert-success` component defined with attributes `success-message` and `has-success`', () => {
+            element = render();
+
+            expect(element.find('alert-success')[0]).toBeDefined();
+            expect(element.find('alert-success').attr('success-message')).toEqual('vm.successMessage');
+            expect(element.find('alert-success').attr('has-success')).toEqual('vm.hasSuccess');
+        });
+
+        describe('Submit form', () => {
+            it('should call `vm.resetPassword` when submit is clicked', function () {
+                const credentials = {email: 'test@test.com'};
+                element = render();
+                spyOn(element.isolateScope().vm, 'resetPassword');
+
+                const emailInputField = angular.element(element[0].querySelector('input[name="email"][type="email"]'));
+                emailInputField.val(credentials.email);
+                emailInputField.triggerHandler('input');
+
+                element.find('form').triggerHandler('submit');
+
+                expect(element.isolateScope().passwordResetForm).toBeDefined();
+                expect(element.isolateScope().vm.resetPassword).toHaveBeenCalledWith(element.isolateScope().passwordResetForm.$valid, element.isolateScope().passwordResetForm);
+                expect(element.isolateScope().vm.credentials.email).toEqual(credentials.email);
+            });
+
+            it('should have `jp-ng-bs-animated-button` component defined with attributes `is-submitting`, `result` and `options`', () => {
+                element = render();
+                const saveButton = angular.element(element[0].querySelector('button.btn-success'));
+
+                expect(saveButton[0]).toBeDefined();
+                expect(saveButton.attr('is-submitting')).toEqual('vm.isSubmitting');
+                expect(saveButton.attr('result')).toEqual('vm.result');
+                expect(saveButton.attr('options')).toEqual('vm.saveButtonOptions');
+            });
+        });
+
+        describe('Form fields', () => {
+            describe('email', () => {
+                it('should have `Email Address` placeholder defined', () => {
+                    element = render();
+                    const email = angular.element(element[0].querySelector('input[name="email"][type="email"]'));
+
+                    expect(email.attr('placeholder')).toEqual('Email Address');
+                });
+
+                it('should show `email` required error message', () => {
+                    element = render();
+                    element.triggerHandler('submit');
+                    element.isolateScope().passwordResetForm.$submitted = true; // FIXME: why $submitted is not set by triggerHandler?
+                    scope.$digest();
+
+                    const errorMessage = angular.element(element[0].querySelector('input[name="email"][type="email"] ~ div > div[ng-message="required"]'));
+
+                    expect(errorMessage.text()).toEqual('This field is required.');
+                });
+
+                it('should show `email` email error message', () => {
+                    element = render();
+                    const inputField = angular.element(element[0].querySelector('input[name="email"][type="email"]'));
+                    inputField.val('invalid-email');
+                    inputField.triggerHandler('input');
+                    element.triggerHandler('submit');
+                    element.isolateScope().passwordResetForm.$submitted = true; // FIXME: why $submitted is not set by triggerHandler?
+                    scope.$digest();
+
+                    const errorMessage = angular.element(element[0].querySelector('input[name="email"][type="email"] ~ div > div[ng-message="email"]'));
+
+                    expect(errorMessage.text()).toEqual('Invalid email.');
+                });
+            });
+        });
+
+        describe('Link', () => {
+            it('should contain Back to Login label', () => {
+                element = render();
+                const nav = angular.element(element[0].querySelector('label a'));
+
+                expect(nav.text().trim()).toEqual('Back to Login');
+            });
+
+            it('should redirect to login page', () => {
+                element = render();
+                const nav = angular.element(element[0].querySelector('label a'));
+
+                expect(nav.attr('ui-sref')).toEqual('auth.login');
+            });
+        });
     });
 
     describe('Controller', () => {
