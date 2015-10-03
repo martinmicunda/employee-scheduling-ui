@@ -53,11 +53,7 @@ class AuthenticationResourceMock {
                 data = $window.atob(data);
                 data = JSON.parse(data);
 
-                const employee = employees.find((employee) => employee.email === data.email && (employee.status !== EMPLOYEE_PROFILE_STATUSES.INACTIVE || employee.status !== EMPLOYEE_PROFILE_STATUSES.PENDING));
-
-                if(!employee) {
-                    return [401];
-                } else if (data.email === '500@error.com') {
+                if (data.email.includes('500')) {
                     return [500];
                 }
 

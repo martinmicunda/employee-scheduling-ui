@@ -27,7 +27,8 @@ class Login {
         this.router = $state;
         this.result = null;
         this.isSubmitting = null;
-        this.saveButtonOptions = Object.assign({}, FormService.getSaveButtonOptions());
+        this.copyrightDate = new Date();
+        this.saveButtonOptions = Object.assign({}, FormService.getModalSaveButtonOptions());
         this.saveButtonOptions.buttonDefaultText = 'Sign me in';
         this.saveButtonOptions.buttonSubmittingText = 'Signing me in';
         this.saveButtonOptions.buttonSuccessText = 'Signed me in';
@@ -35,7 +36,7 @@ class Login {
         this.FormService = FormService;
     }
 
-    login(isFormValid) {
+    login(isFormValid, form) {
         if(!isFormValid) {return;}
 
         this.isSubmitting = true;
@@ -44,10 +45,10 @@ class Login {
             this.FormService.onSuccess(this);
             this.router.go('app.schedule');
         }, (response) => {
+            form.$setPristine();
             this.FormService.onFailure(this, response);
         });
     }
-    // https://stormpath.com/blog/password-security-right-way/
 }
 
 export default Login;

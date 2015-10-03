@@ -125,28 +125,20 @@ describe('FormService', () => {
             expect(self.errorMessage).toEqual('This record already exist.');
         });
 
-        it(`should return error message for POST request`, () => {
+        it(`should return error message for 503 error response`, () => {
+            let self = {}, response = {status: 503};
+
+            formService.onFailure(self, response);
+
+            expect(self.errorMessage).toEqual('The service went down. Please try again later.');
+        });
+
+        it(`should return error message for 500 error response`, () => {
             let self = {}, response = {config: {method: 'POST'}};
 
             formService.onFailure(self, response);
 
-            expect(self.errorMessage).toEqual('This record could not be created. Please try again.');
-        });
-
-        it(`should return error message for PUT request`, () => {
-            let self = {}, response = {config: {method: 'PUT'}};
-
-            formService.onFailure(self, response);
-
-            expect(self.errorMessage).toEqual('This record could not be updated. Please try again.');
-        });
-
-        it(`should return error message for DELETE request`, () => {
-            let self = {}, response = {config: {method: 'DELETE'}};
-
-            formService.onFailure(self, response);
-
-            expect(self.errorMessage).toEqual('This record could not be deleted. Please try again.');
+            expect(self.errorMessage).toEqual('Something went wrong. Please contact the site administrator info@admin.com.');
         });
     });
 

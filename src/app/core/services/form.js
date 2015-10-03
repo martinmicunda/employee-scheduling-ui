@@ -55,20 +55,10 @@ class FormService {
             self.errorMessage = 'Another user has updated this record while you were editing. Please reload the page and try again.';
         } else if(response.status === 409 && response.config.method === 'POST') {
             self.errorMessage = 'This record already exist.';
+        } else if(response.status === 503) {
+            self.errorMessage = 'The service went down. Please try again later.';
         } else {
-            let action;
-            switch(response.config.method) {
-                case 'POST':
-                    action = 'created';
-                    break;
-                case 'PUT':
-                    action = 'updated';
-                    break;
-                case 'DELETE':
-                    action = 'deleted';
-                    break;
-            }
-            self.errorMessage = `This record could not be ${action}. Please try again.`;
+            self.errorMessage = 'Something went wrong. Please contact the site administrator info@admin.com.';
         }
     }
 

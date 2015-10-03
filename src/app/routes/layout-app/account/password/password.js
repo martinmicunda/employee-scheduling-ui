@@ -28,7 +28,7 @@ class Password {
         this.isSubmitting = null;
         this.FormService = FormService;
         this.EmployeeModel = EmployeeModel;
-        this.saveButtonOptions = FormService.getSaveButtonOptions();
+        this.saveButtonOptions = FormService.getModalSaveButtonOptions();
         this.AuthenticationResource = AuthenticationResource;
         this.EmployeeModel.calculateProfileCompleteness();
     }
@@ -61,4 +61,3 @@ class Password {
 }
 
 export default Password;
-// https://stormpath.com/blog/the-pain-of-password-reset/

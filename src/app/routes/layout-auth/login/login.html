@@ -1,31 +1,46 @@
-<div class="login-container fade in">
-    <div class="login bg-black">
-        <div class="login-content animated fadeInLeftBig">
-            <alert-danger has-error="vm.hasError" error-message="vm.errorMessage"></alert-danger>
+<section class="login-container animated fadeIn">
+    <div class="login">
 
-            <form method="post" class="form-validation" name="loginForm" role="form" ng-submit="vm.login(loginForm.$valid)" novalidate>
-                <div class="form-group required">
-                    <input type="email" name="email" ng-model="vm.credentials.email" class="form-control input-lg" placeholder="Email Address" required>
-                    <div ng-if="loginForm.$submitted" ng-messages="loginForm.email.$error">
-                        <div ng-message="email" class="error">Invalid email.</div>
-                        <div ng-message="required" class="error">This field is required.</div>
-                    </div>
+        <!--<div class="signin-header">-->
+            <!--<section class="logo text-center">-->
+                <!--<span class="navbar-logo"></span>-->
+                <!--<span style="color:#707478">Employee Scheduling</span>-->
+            <!--</section>-->
+        <!--</div>-->
+
+        <div class="login-body">
+            <div class="container">
+                <div class="form-container">
+                    <alert-danger has-error="vm.hasError" error-message="vm.errorMessage"></alert-danger>
+
+                    <form method="post" class="form-validation" name="loginForm" role="form" ng-submit="vm.login(loginForm.$valid, loginForm)" novalidate>
+                        <fieldset>
+                            <div class="form-group required">
+                                <div class="btn-icon-lined btn-icon-round btn-icon-sm btn-default-light" ng-class="{'error-icon': loginForm.email.$invalid && loginForm.$submitted, 'valid-icon': loginForm.email.$valid && loginForm.$submitted}">
+                                    <span class="glyphicon glyphicon-envelope"></span>
+                                </div>
+                                <input type="email" name="email" ng-model="vm.credentials.email" class="form-control input-lg input-round text-center" placeholder="Email Address" required>
+                            </div>
+                            <div class="form-group required">
+                                <div class="btn-icon-lined btn-icon-round btn-icon-sm btn-default-light" ng-class="{'error-icon': loginForm.password.$invalid && loginForm.$submitted, 'valid-icon': loginForm.password.$valid && loginForm.$submitted}">
+                                    <span class="glyphicon glyphicon-lock"></span>
+                                </div>
+                                <input type="password" name="password" ng-model="vm.credentials.password" class="form-control input-lg input-round text-center" placeholder="Password" required>
+                            </div>
+                            <div class="form-group">
+                                <jp-ng-bs-animated-button class="btn btn-lg btn-success btn-block btn-round text-center" is-submitting="vm.isSubmitting" result="vm.result" options="vm.saveButtonOptions"></jp-ng-bs-animated-button>
+                            </div>
+                        </fieldset>
+                    </form>
+
+                    <section>
+                        <p class="text-center link"><a ui-sref="auth.forgot-password">Forgot your password?</a></p>
+                        <p class="text-center text-muted text-small">
+                            Copyright &copy; <span id="copyright-year">{{::vm.copyrightDate | date:'yyyy'}}</span> <a href="http://www.martinmicunda.com" target="_blank">Martin Micunda</a>. All rights reserved.
+                        </p>
+                    </section>
                 </div>
-                <div class="form-group required">
-                    <input type="password" name="password" ng-model="vm.credentials.password" class="form-control input-lg" placeholder="Password" required>
-                    <div ng-if="loginForm.$submitted" ng-messages="loginForm.password.$error">
-                        <div ng-message="required" class="error">This field is required.</div>
-                    </div>
-                </div>
-                <div class="checkbox text-right">
-                    <label>
-                        <a ui-sref="auth.forgot-password">Forgot password?</a>
-                    </label>
-                </div>
-                <div class="login-buttons">
-                    <jp-ng-bs-animated-button class="btn btn-lg btn-success btn-block" is-submitting="vm.isSubmitting" result="vm.result" options="vm.saveButtonOptions"></jp-ng-bs-animated-button>
-                </div>
-            </form>
+            </div>
         </div>
     </div>
-</div>
+</section>

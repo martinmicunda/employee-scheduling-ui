@@ -111,18 +111,19 @@ describe('ForgotPassword', () => {
                     expect(email.attr('placeholder')).toEqual('Email Address');
                 });
 
-                it('should show `email` required error message', () => {
+                it('should show `email` required error class', () => {
                     element = render();
                     element.triggerHandler('submit');
                     element.isolateScope().passwordResetForm.$submitted = true; // FIXME: why $submitted is not set by triggerHandler?
                     scope.$digest();
 
-                    const errorMessage = angular.element(element[0].querySelector('input[name="email"][type="email"] ~ div > div[ng-message="required"]'));
+                    const errorClass = angular.element(element[0].querySelector('input[name="email"][type="email"]')).parent();
 
-                    expect(errorMessage.text()).toEqual('This field is required.');
+                    expect(errorClass.find('div').hasClass('error-icon')).toEqual(true);
+                    expect(errorClass.find('div').hasClass('valid-icon')).toEqual(false);
                 });
 
-                it('should show `email` email error message', () => {
+                it('should show `email` email error class', () => {
                     element = render();
                     const inputField = angular.element(element[0].querySelector('input[name="email"][type="email"]'));
                     inputField.val('invalid-email');
@@ -131,9 +132,10 @@ describe('ForgotPassword', () => {
                     element.isolateScope().passwordResetForm.$submitted = true; // FIXME: why $submitted is not set by triggerHandler?
                     scope.$digest();
 
-                    const errorMessage = angular.element(element[0].querySelector('input[name="email"][type="email"] ~ div > div[ng-message="email"]'));
+                    const errorClass = angular.element(element[0].querySelector('input[name="email"][type="email"]')).parent();
 
-                    expect(errorMessage.text()).toEqual('Invalid email.');
+                    expect(errorClass.find('div').hasClass('error-icon')).toEqual(true);
+                    expect(errorClass.find('div').hasClass('valid-icon')).toEqual(false);
                 });
             });
         });
@@ -141,46 +143,75 @@ describe('ForgotPassword', () => {
         describe('Link', () => {
             it('should contain Back to Login label', () => {
                 element = render();
-                const nav = angular.element(element[0].querySelector('label a'));
+                const nav = angular.element(element[0].querySelector('.link a'));
 
                 expect(nav.text().trim()).toEqual('Back to Login');
             });
 
             it('should redirect to login page', () => {
                 element = render();
-                const nav = angular.element(element[0].querySelector('label a'));
+                const nav = angular.element(element[0].querySelector('.link a'));
 
                 expect(nav.attr('ui-sref')).toEqual('auth.login');
             });
         });
+
+        it('should contain info text', () => {
+            element = render();
+            let infoText = angular.element(element[0].querySelector('.info p'));
+
+            expect(infoText.text()).toEqual('Enter your email address that you used to register. We will send you an email with a link to reset your password.');
+        });
+
+        it('should contain copyright link', () => {
+            element = render();
+            let copyrightLink = angular.element(element[0].querySelector('section p.text-muted a'));
+
+            expect(copyrightLink.attr('href')).toEqual('http://www.martinmicunda.com');
+            expect(copyrightLink.attr('target')).toEqual('_blank');
+        });
+
+        it('should contain copyright text', () => {
+            element = render();
+            let copyrightYear = new Date().getFullYear();
+            let copyrightText = angular.element(element[0].querySelector('section p.text-muted'));
+
+            expect(element.isolateScope().vm.copyrightDate.getFullYear()).toEqual(copyrightYear);
+            expect(copyrightText.text().trim()).toEqual(`Copyright © ${copyrightYear.toString()} Martin Micunda. All rights reserved.`);
+        });
     });
 
     describe('Controller', () => {
-        let forgotPassword, $state, AuthenticationResource, FormService;
+        let forgotPassword, AuthenticationResource, FormService;
 
-        beforeEach(inject((_$state_, _AuthenticationResource_, _FormService_) => {
-            $state = _$state_;
+        beforeEach(inject((_AuthenticationResource_, _FormService_) => {
             AuthenticationResource = _AuthenticationResource_;
             FormService = _FormService_;
         }));
 
         it('should have isSubmitting property', () => {
-            forgotPassword = new ForgotPassword($state, AuthenticationResource, FormService);
+            forgotPassword = new ForgotPassword(AuthenticationResource, FormService);
 
             expect(forgotPassword.isSubmitting).toEqual(null);
         });
 
         it('should have result property', () => {
-            forgotPassword = new ForgotPassword($state, AuthenticationResource, FormService);
+            forgotPassword = new ForgotPassword(AuthenticationResource, FormService);
 
             expect(forgotPassword.result).toEqual(null);
         });
 
-        it('should have saveButtonOptions property', () => {
-            spyOn(FormService, 'getSaveButtonOptions').and.returnValue({});
-            forgotPassword = new ForgotPassword($state, AuthenticationResource, FormService);
+        it('should have copyrightDate property', () => {
+            forgotPassword = new ForgotPassword(AuthenticationResource, FormService);
 
-            expect(FormService.getSaveButtonOptions).toHaveBeenCalled();
+            expect(forgotPassword.copyrightDate.getFullYear()).toEqual(new Date().getFullYear());
+        });
+
+        it('should have saveButtonOptions property', () => {
+            spyOn(FormService, 'getModalSaveButtonOptions').and.returnValue({});
+            forgotPassword = new ForgotPassword(AuthenticationResource, FormService);
+
+            expect(FormService.getModalSaveButtonOptions).toHaveBeenCalled();
             expect(forgotPassword.saveButtonOptions.buttonDefaultText).toEqual('Reset password');
             expect(forgotPassword.saveButtonOptions.buttonSuccessText).toEqual('Reset password');
             expect(forgotPassword.saveButtonOptions.buttonSubmittingText).toEqual('Resetting password');
@@ -190,7 +221,7 @@ describe('ForgotPassword', () => {
             it('should not reset password if form is invalid', () => {
                 let isFormValid = false;
                 spyOn(AuthenticationResource, 'resetPassword');
-                forgotPassword = new ForgotPassword($state, AuthenticationResource, FormService);
+                forgotPassword = new ForgotPassword(AuthenticationResource, FormService);
 
                 forgotPassword.resetPassword(isFormValid);
 
@@ -198,32 +229,35 @@ describe('ForgotPassword', () => {
                 expect(AuthenticationResource.resetPassword).not.toHaveBeenCalled();
             });
 
-            it('should reset password if form is valid', () => {
-                let isFormValid = true, form = {$setPristine: () => {}};
-                spyOn(AuthenticationResource, 'resetPassword').and.returnValue(Promise.resolve());
-
-                forgotPassword = new ForgotPassword($state, AuthenticationResource, FormService);
-                forgotPassword.credentials = 'credentials';
-                forgotPassword.resetPassword(isFormValid, form);
-
-                expect(forgotPassword.isSubmitting).toEqual(true);
-                expect(AuthenticationResource.resetPassword).toHaveBeenCalledWith(forgotPassword.credentials);
-            });
-
-            itAsync('should reset password and display message', () => {
-                let isFormValid = true, form = {$setPristine: () => {}};
-                spyOn(AuthenticationResource, 'resetPassword').and.returnValue(Promise.resolve());
+            itAsync('should save form with successfully request', () => {
+                let form = {$valid: true, $setPristine: () => {}};
                 spyOn(form, '$setPristine');
-
-                forgotPassword = new ForgotPassword($state, AuthenticationResource, FormService);
+                spyOn(AuthenticationResource, 'resetPassword').and.returnValue(Promise.resolve());
+                forgotPassword = new ForgotPassword(AuthenticationResource, FormService);
                 forgotPassword.credentials = 'credentials';
 
-                return forgotPassword.resetPassword(isFormValid, form).then(() => {
+                return forgotPassword.resetPassword(form.$valid, form).then(() => {
+                    expect(forgotPassword.isSubmitting).toEqual(true);
                     expect(forgotPassword.credentials).toEqual({});
+                    expect(form.$setPristine).toHaveBeenCalled();
                     expect(forgotPassword.result).toEqual('success');
                     expect(forgotPassword.hasSuccess).toEqual(true);
-                    expect(forgotPassword.successMessage).toEqual('We have emailed you instructions on how to reset your password.');
+                    expect(forgotPassword.hasError).toEqual(false);
+                    expect(forgotPassword.successMessage).toEqual('We have emailed you instructions on how to reset your password. Please check your inbox.');
+                });
+            });
+
+            itAsync('should not save form with failure request', () => {
+                let form = {$valid: true, $setPristine: () => {}}, response = {status: 500};
+                spyOn(form, '$setPristine');
+                spyOn(FormService, 'onFailure');
+                spyOn(AuthenticationResource, 'resetPassword').and.returnValue(Promise.reject(response));
+                forgotPassword = new ForgotPassword(AuthenticationResource, FormService);
+
+                return forgotPassword.resetPassword(form.$valid, form).then(() => {
                     expect(form.$setPristine).toHaveBeenCalled();
+                    expect(forgotPassword.hasSuccess).toEqual(false);
+                    expect(FormService.onFailure).toHaveBeenCalledWith(forgotPassword, response);
                 });
             });
         });

@@ -270,11 +270,11 @@ describe('Password', () => {
         });
 
         it('should have saveButtonOptions property', () => {
-            spyOn(FormService, 'getSaveButtonOptions').and.returnValue(itemMock);
+            spyOn(FormService, 'getModalSaveButtonOptions').and.returnValue(itemMock);
             password = new Password(EmployeeModel, FormService, AuthenticationResource);
 
             expect(password.saveButtonOptions).toEqual(itemMock);
-            expect(FormService.getSaveButtonOptions).toHaveBeenCalled();
+            expect(FormService.getModalSaveButtonOptions).toHaveBeenCalled();
         });
 
         it('should calculate profile completeness when controller is loaded', () => {

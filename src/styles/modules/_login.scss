@@ -5,13 +5,74 @@
     width: 100%;
 }
 .login {
-    .login-content {
-        padding: 30px 40px;
-        color: #999;
-        width: 450px;
+    .form-control {
+        font-size: 15px;
+    }
+    .link {font-size: 14px;}
+    .logo {
+        color: white;
+        font-size: 18px;
+    }
+    .info {
+        max-width: 420px;
         margin: 0 auto;
     }
+    .text-theme {
+        color: #00acac;
+    }
+    .pull-left{
+        float: none !important;
+    }
+    .text-muted {
+        color: #999;
+    }
+    .text-small {
+        font-size: 12px;
+    }
+    .form-container {
+        max-width: 420px;
+        margin: 10px auto;
+    }
+    .form-group {
+        position: relative;
+    }
+    .input-round {
+        border-radius: 25px;
+    }
+    .btn-round {
+        border-radius: 2em;
+    }
+    .form-group .btn-icon-lined {
+        position: absolute;
+        top: 8px;
+        left: 8px;
+    }
+    .btn-icon-sm.btn-icon-lined {
+        line-height: 26px;
+    }
+    .btn-icon-lined.btn-default-light, .btn-icon-lined.btn-default-light:hover {
+        color: #bbb;
+        border: 2px solid #bbb;
+    }
+    .btn-icon-lined.btn-default-light.error-icon, .btn-icon-lined.btn-default-light.error-icon:hover {
+        color: #ff5b57;
+        border-color: #ff5b57;
+    }
+    .btn-icon-lined.btn-default-light.valid-icon, .btn-icon-lined.btn-default-light.valid-icon:hover {
+        color: #00acac;
+        border-color: #00acac;
+    }
+    .btn-icon-sm {
+        height: 30px;
+        width: 30px;
+    }
+    .btn-icon-round {
+        border-radius: 50%;
+    }
+    .btn-icon-lined {
+        display: inline-block;
+        text-align: center;
+        background-color: #fff;
+    }
 }
-.bg-black {
-    background: $lightBlack;
-}
+

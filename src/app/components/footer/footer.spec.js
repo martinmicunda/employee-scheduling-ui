@@ -32,14 +32,21 @@ describe('Footer', () => {
             expect(element['0']).not.toEqual(component);
         });
 
-        it('should contain copyright year', () => {
+        it('should contain copyright link', () => {
             element = render();
-            let controller = element.controller('footer');
-            let copyrightYear = new Date().getFullYear();
-            let copyrightText = angular.element(element[0].querySelector('#copyright-year'));
+            let copyrightLink = angular.element(element[0].querySelector('#footer div a'));
 
-            expect(controller.copyrightDate.getFullYear()).toEqual(copyrightYear);
-            expect(copyrightText.text()).toEqual(copyrightYear.toString());
+            expect(copyrightLink.attr('href')).toEqual('http://www.martinmicunda.com');
+            expect(copyrightLink.attr('target')).toEqual('_blank');
+        });
+
+        it('should contain copyright text', () => {
+            element = render();
+            let copyrightYear = new Date().getFullYear();
+            let copyrightText = angular.element(element[0].querySelector('#footer div'));
+
+            expect(element.isolateScope().vm.copyrightDate.getFullYear()).toEqual(copyrightYear);
+            expect(copyrightText.text().trim()).toEqual(`Copyright © ${copyrightYear.toString()} Martin Micunda. All rights reserved.`);
         });
     });
 });

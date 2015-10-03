@@ -19,32 +19,40 @@ import {RouteConfig, Component, View, Inject} from '../../../ng-decorators'; // 
 @View({
     template: template
 })
-@Inject('$state', 'AuthenticationResource', 'FormService')
+@Inject('AuthenticationResource', 'FormService')
 //end-non-standard
 class ForgotPassword {
-    constructor($state, AuthenticationResource, FormService) {
-        this.router = $state;
+    constructor(AuthenticationResource, FormService) {
         this.result = null;
         this.isSubmitting = null;
-        this.saveButtonOptions = Object.assign({}, FormService.getSaveButtonOptions());
+        this.copyrightDate = new Date();
+        this.saveButtonOptions = Object.assign({}, FormService.getModalSaveButtonOptions());
         this.saveButtonOptions.buttonDefaultText = 'Reset password';
         this.saveButtonOptions.buttonSubmittingText = 'Resetting password';
         this.saveButtonOptions.buttonSuccessText = 'Reset password';
         this.AuthenticationResource = AuthenticationResource;
+        this.FormService = FormService;
     }
 
     resetPassword(isFormValid, form) {
         if(!isFormValid) {return;}
 
         this.isSubmitting = true;
-        return this.AuthenticationResource.resetPassword(this.credentials).then(() => {}).finally(() => {
+        return this.AuthenticationResource.resetPassword(this.credentials).then(() => {
             this.credentials = {};
             form.$setPristine();
             this.result = 'success';
             this.hasSuccess = true;
-            this.successMessage = 'We have emailed you instructions on how to reset your password.';
+            this.hasError = false;
+            this.successMessage = 'We have emailed you instructions on how to reset your password. Please check your inbox.';
+        }, (response) => {
+            this.hasSuccess = false;
+            form.$setPristine();
+            this.FormService.onFailure(this, response);
         });
     }
 }
 
 export default ForgotPassword;
+// https://stormpath.com/blog/the-pain-of-password-reset/
+// https://stormpath.com/blog/password-security-right-way/

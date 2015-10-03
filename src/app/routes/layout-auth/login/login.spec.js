@@ -83,7 +83,7 @@ describe('Login', () => {
                 element.find('form').triggerHandler('submit');
 
                 expect(element.isolateScope().loginForm).toBeDefined();
-                expect(element.isolateScope().vm.login).toHaveBeenCalledWith(element.isolateScope().loginForm.$valid);
+                expect(element.isolateScope().vm.login).toHaveBeenCalledWith(element.isolateScope().loginForm.$valid, element.isolateScope().loginForm);
                 expect(element.isolateScope().vm.credentials.email).toEqual(credentials.email);
                 expect(element.isolateScope().vm.credentials.password).toEqual(credentials.password);
             });
@@ -108,18 +108,19 @@ describe('Login', () => {
                     expect(email.attr('placeholder')).toEqual('Email Address');
                 });
 
-                it('should show `email` required error message', () => {
+                it('should show `email` required error class', () => {
                     element = render();
                     element.triggerHandler('submit');
                     element.isolateScope().loginForm.$submitted = true; // FIXME: why $submitted is not set by triggerHandler?
                     scope.$digest();
 
-                    const errorMessage = angular.element(element[0].querySelector('input[name="email"][type="email"] ~ div > div[ng-message="required"]'));
+                    const errorClass = angular.element(element[0].querySelector('input[name="email"][type="email"]')).parent();
 
-                    expect(errorMessage.text()).toEqual('This field is required.');
+                    expect(errorClass.find('div').hasClass('error-icon')).toEqual(true);
+                    expect(errorClass.find('div').hasClass('valid-icon')).toEqual(false);
                 });
 
-                it('should show `email` email error message', () => {
+                it('should show `email` email error class', () => {
                     element = render();
                     const inputField = angular.element(element[0].querySelector('input[name="email"][type="email"]'));
                     inputField.val('invalid-email');
@@ -128,9 +129,10 @@ describe('Login', () => {
                     element.isolateScope().loginForm.$submitted = true; // FIXME: why $submitted is not set by triggerHandler?
                     scope.$digest();
 
-                    const errorMessage = angular.element(element[0].querySelector('input[name="email"][type="email"] ~ div > div[ng-message="email"]'));
+                    const errorClass = angular.element(element[0].querySelector('input[name="email"][type="email"]')).parent();
 
-                    expect(errorMessage.text()).toEqual('Invalid email.');
+                    expect(errorClass.find('div').hasClass('error-icon')).toEqual(true);
+                    expect(errorClass.find('div').hasClass('valid-icon')).toEqual(false);
                 });
             });
 
@@ -148,27 +150,45 @@ describe('Login', () => {
                     element.isolateScope().loginForm.$submitted = true; // FIXME: why $submitted is not set by triggerHandler?
                     scope.$digest();
 
-                    const errorMessage = angular.element(element[0].querySelector('input[name="password"][type="password"] ~ div > div[ng-message="required"]'));
+                    const errorClass = angular.element(element[0].querySelector('input[name="password"][type="password"]')).parent();
 
-                    expect(errorMessage.text()).toEqual('This field is required.');
+                    expect(errorClass.find('div').hasClass('error-icon')).toEqual(true);
+                    expect(errorClass.find('div').hasClass('valid-icon')).toEqual(false);
                 });
             });
         });
 
         describe('Link', () => {
-            it('should contain Forgot password? label', () => {
+            it('should contain Forgot your password? label', () => {
                 element = render();
-                const nav = angular.element(element[0].querySelector('label a'));
+                const nav = angular.element(element[0].querySelector('.link a'));
 
-                expect(nav.text().trim()).toEqual('Forgot password?');
+                expect(nav.text().trim()).toEqual('Forgot your password?');
             });
 
             it('should redirect to forgot password page', () => {
                 element = render();
-                const nav = angular.element(element[0].querySelector('label a'));
+                const nav = angular.element(element[0].querySelector('.link a'));
 
                 expect(nav.attr('ui-sref')).toEqual('auth.forgot-password');
             });
+        });
+
+        it('should contain copyright link', () => {
+            element = render();
+            let copyrightLink = angular.element(element[0].querySelector('section p.text-muted a'));
+
+            expect(copyrightLink.attr('href')).toEqual('http://www.martinmicunda.com');
+            expect(copyrightLink.attr('target')).toEqual('_blank');
+        });
+
+        it('should contain copyright text', () => {
+            element = render();
+            let copyrightYear = new Date().getFullYear();
+            let copyrightText = angular.element(element[0].querySelector('section p.text-muted'));
+
+            expect(element.isolateScope().vm.copyrightDate.getFullYear()).toEqual(copyrightYear);
+            expect(copyrightText.text().trim()).toEqual(`Copyright © ${copyrightYear.toString()} Martin Micunda. All rights reserved.`);
         });
     });
 
@@ -194,11 +214,17 @@ describe('Login', () => {
             expect(login.result).toEqual(null);
         });
 
-        it('should have saveButtonOptions property', () => {
-            spyOn(FormService, 'getSaveButtonOptions').and.returnValue({});
+        it('should have copyrightDate property', () => {
             login = new Login($rootScope, $state, AuthenticationService, FormService);
 
-            expect(FormService.getSaveButtonOptions).toHaveBeenCalled();
+            expect(login.copyrightDate.getFullYear()).toEqual(new Date().getFullYear());
+        });
+
+        it('should have saveButtonOptions property', () => {
+            spyOn(FormService, 'getModalSaveButtonOptions').and.returnValue({});
+            login = new Login($rootScope, $state, AuthenticationService, FormService);
+
+            expect(FormService.getModalSaveButtonOptions).toHaveBeenCalled();
             expect(login.saveButtonOptions.buttonDefaultText).toEqual('Sign me in');
             expect(login.saveButtonOptions.buttonSuccessText).toEqual('Signed me in');
             expect(login.saveButtonOptions.buttonSubmittingText).toEqual('Signing me in');
@@ -247,14 +273,16 @@ describe('Login', () => {
             });
 
             itAsync('should not login if there is failure', () => {
-                let isFormValid = true;
+                let form = {$valid: true, $setPristine: () => {}};
                 spyOn(AuthenticationService, 'login').and.returnValue(Promise.reject('error'));
+                spyOn(form, '$setPristine');
                 spyOn(FormService, 'onFailure');
                 spyOn($state, 'go');
 
                 login = new Login($rootScope, $state, AuthenticationService, FormService);
 
-                return login.login(isFormValid).then(() => {
+                return login.login(form.$valid, form).then(() => {
+                    expect(form.$setPristine).toHaveBeenCalled();
                     expect(FormService.onFailure).toHaveBeenCalledWith(login, 'error');
                     expect($state.go).not.toHaveBeenCalled();
                 });
