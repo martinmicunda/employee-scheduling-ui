@@ -10,7 +10,28 @@ Employee Scheduling UI
 
 **Note: :warning: This project is under development.**
 
-An UI component for [Employee Scheduling](https://github.com/martinmicunda/employee-scheduling) application. My talk from AngulaJS meetup in Dublin on "**How to start writing apps with ES6, AngularJS 1.x and JSPM**" can be found [here](http://martinmicunda.com/presentations/how-to-start-writing-apps-with-es6-angular-1x-and-jspm/how-to-start-writing-apps-with-es6-angular-1x-and-jspm.html#/).
+An UI component for [Employee Scheduling](https://github.com/martinmicunda/employee-scheduling) application that makes employee scheduling and management easy, fast and mobile. The API component for this application can be found [here](https://github.com/martinmicunda/employee-scheduling-api). I wrote a few blog posts about this project and they can be found on my [blog](http://martinmicunda.com).
+
+## Table of Contents
+- [Demo](#demo)
+- [Features](#features)
+- [Folder Structure](#folder-structure)
+    - [Development](#folder-structure-development)
+    - [Production](#folder-structure-production)
+- [Installation & Configuration](#installation-and-configuration)
+    - [Platform & Tools](#platform-and-tools)
+    - [Installation](#installation)
+- [How to Run](#how-to-run)
+    - [Development](#how-to-run-development) 
+    - [Test](#how-to-run-test) 
+    - [Production](#how-to-run-production) 
+- [How to Test](#how-to-test)
+    - [Unit](#how-to-test-unit) 
+    - [E2E](#how-to-test-e2e) 
+- [How to Build](#how-to-build)
+- [How to Deploy](#how-to-deploy)
+- [How to Release](#how-to-release)
+- [License](#license)
 
 ## Demo
 This demo is running from [gh-pages](https://github.com/martinmicunda/employee-scheduling-ui/tree/gh-pages) branch in backend-less development env (see [backend-less](#backend-less) section). Below, you can find login credentials for different user roles.
@@ -38,14 +59,12 @@ This demo is running from [gh-pages](https://github.com/martinmicunda/employee-s
   * Achieve some of the Angular 2.0 goals while still running on Angular 1.x
   * Produce optimised, production ready code for deployment and automatically deploy this code to [gh-pages](https://github.com/martinmicunda/employee-scheduling-ui/tree/gh-pages) after each commit via [Travis CI](https://travis-ci.org/martinmicunda/employee-scheduling-ui)
 
-## Directory Layout and File Structure
+##<a name="folder-structure"></a> Folder Structure
 
-### Folder structure
-
-#### Development
+###<a name="folder-structure-development"></a> Development
 TODO: (martin) add folder development structure
 
-#### Production
+###<a name="folder-structure-production"></a> Production
     build/               
       |- dist                       --> distribution source code that goes to production
       |  |- fonts/                     --> fonts
@@ -78,15 +97,15 @@ $ npm install
 ```
 > **Note:** Verify that all 3rd party dependencies from [package.json](package.json) are installed on your local machine. If you have followed the instructions and there have been no errors when executing the above commands, the dependencies should be installed.
      
-## How to Run
+##<a name="how-to-run"></a> How to Run
 
-### Development
+###<a name="how-to-run-development"></a> Development
 When you're working on project with real back-end start with:
 
 ```bash
 $ npm start 
 ```
-> **NOTE:** The `npm start` task is alias for `npm start -- --env=DEV`.
+> **NOTE:** The `npm start` task is alias for `npm start -- --env=DEV`. The back-end code for this application can be found [here](https://github.com/martinmicunda/employee-scheduling-api).
 
 This task will install all dependencies, build dev environment, monitor the source files, compile SASS to CSS and launch the browser. The task also includes [Browsersync](http://www.browsersync.io/), so you no longer have to manually refresh your page after making changes! Make sure `API_URL` constant in [`gulp/const.js`](gulp/const.js) file points to your API back-end.
 
@@ -96,7 +115,7 @@ If you don't want to launch the browser when serving code then pass `--open=fals
 $ npm start -- --open=false
 ```
 
-### Test 
+###<a name="how-to-run-test"></a> Test 
 When you're working on project without real back-end start with:
 
 ```bash
@@ -110,7 +129,7 @@ $ npm start -- --env=TEST --optimize=true
 ```
 > **NOTE:** This produce optimized build like `--env=PROD` and also include `fixtures` data into bundle.
 
-### Production
+###<a name="how-to-run-production"></a> Production
 When you're working on project with real back-end and want to try production bundle start with:
 
 ```bash
@@ -120,8 +139,8 @@ $ npm start -- --env=PROD
 > **NOTE:** This run against the code specify in `build/dist` folder. See [build](#build) section for more details how `build` is created.
 
 
-## How to Test
-### Unit 
+##<a name="how-to-test"></a> How to Test
+###<a name="how-to-test-unit"></a> Unit 
 Every time the unit tests are executed, a coverage report is created in the `test-reports/coverage` sub-directory and coverage `thresholds` can be set in `COVERAGE` constant in [`gulp/const.js`](gulp/const.js) file. The `npm test` task has optional arguments `--browsers=(IE|PhantomJS|Chrome|Firefox|Safari)`, `--watch` and `--nocoverage`.  Make sure that the browsers you want to run test against are installed on your local machine. The `PhantomJS` should be already installed after you run `npm install`.
 
 To run test start with:
@@ -155,8 +174,10 @@ To run test and push coverage report to [Coveralls](https://coveralls.io/) start
 ```bash
 $ npm test -- --watch --coveralls
 ```
+###<a name="how-to-test-e2e"></a> E2E 
+TODO
 
-##<a name="build"> How to Build
+##<a name="how-to-build"> How to Build
 The build task get app ready for production. The build task include transpilation from ES6 to ES5, concatenation, minification, compression, asset revision, template cache, cdn etc. If there have been no errors when executing the build command, the build should be located in `build/dist` directory and this build is ready for uploading to the server! To initiate a full build, you simply run the follow task:
 ```bash
 $ npm run build
@@ -167,17 +188,11 @@ If you want use CDN then add your CDN url to `CDN_URL` constant in [`gulp/const.
 $ npm run build -- --cdn
 ```
 
-## How to Deploy
+##<a name="how-to-deploy"></a> How to Deploy
 TODO
 
-##Tips
-```
-# Maintenance 
-npm update --save-dev   #update all outdated local packages (run from project directory) 
-npm update npm -g       #self npm update
-brew update && brew doctor
-brew upgrade node       #update to latest node version
-```
+##<a name="how-to-release"></a> How to Release
+TODO
 
 ## License
 
