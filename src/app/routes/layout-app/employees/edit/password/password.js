@@ -27,11 +27,28 @@ import {RouteConfig, Component, View, Inject} from '../../../../../ng-decorators
 @View({
     template: template
 })
-@Inject('EmployeeModel')
+@Inject('EmployeeModel', 'AuthenticationResource', 'FormService')
 //end-non-standard
 class EmployeeEditPassword {
-    constructor(EmployeeModel) {
+    constructor(EmployeeModel, AuthenticationResource, FormService) {
         this.employee = EmployeeModel.getItem();
+        this.isSubmitting = null;
+        this.AuthenticationResource = AuthenticationResource;
+        this.FormService = FormService;
+    }
+
+    resetPassword() {
+        this.isSubmitting = true;
+        return this.AuthenticationResource.resetPassword({email: this.employee.email}).then(() => {
+            this.hasSuccess = true;
+            this.hasError = false;
+            this.isSubmitting = false;
+            this.successMessage = 'We have emailed instructions to this user on how to reset their password.';
+        }, (response) => {
+            this.hasSuccess = false;
+            this.isSubmitting = false;
+            this.FormService.onFailure(this, response);
+        });
     }
 }
 
