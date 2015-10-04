@@ -5,7 +5,6 @@
  */
 'use strict';
 
-// TODO: commented out once SystemJS conditionals imports are implemented
 //import {OnConfigProd} from './config.prod.js';
 //
 //describe('Config', () => {

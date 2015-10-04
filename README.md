@@ -104,7 +104,7 @@ $ npm start -- --env=TEST
 ```
 > **NOTE:** This is really useful for backend-less testing in CI env or backend-less development if you don't have access to real back-end. Data from `fixtures` folders will be served.
 
-If you want to run production optimized code with `fixtures` data start with: **TODO: (martin)** this task is not supported yet!
+If you want to run production optimized code with `fixtures` data start with: 
 ```bash
 $ npm start -- --env=TEST --optimize=true
 ```

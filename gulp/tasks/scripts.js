@@ -38,8 +38,14 @@ gulp.task('html-preprocess', () => {
 
 // TODO: (martin) remove this task once problem with conditional import for systemjs-builder will be fixed
 gulp.task('js-preprocess', ['html-preprocess'], () => {
-    return gulp.src(path.app.scripts.concat([path.app.json]))
-        .pipe(preprocess())
+    const argv = util.env;
+    const env = !!argv.env ? argv.env : 'DEV';
+    const CONFIG = `import './config.${env.toLowerCase()}';`;
+    function mockPath(path) {
+        return env === 'TEST' || env === 'test' ? `import '${path}';` : '';
+    }
+    return gulp.src(path.app.scripts.concat(path.app.templates, path.app.json))
+        .pipe(preprocess({context: {env, CONFIG, mockPath}}))
         .pipe(gulp.dest(path.tmp.scripts + 'app'));
 });
 
@@ -56,13 +62,9 @@ gulp.task('bundle', ['jshint', 'js-preprocess'], (cb) => {
     const outputOptions = { sourceMaps: true, config: {sourceRoot: path.tmp.scripts} };
 
     builder.loadConfig(`${path.root}/jspm.conf.js`)
-        .then(function() {
-            builder.buildSFX(inputPath, outputFile, outputOptions)
-                .then(function() {
-                    return cb();
-                })
-                .catch(function(ex) {
-                    cb(new Error(ex));
-                });
+        .then(() => {
+            builder.buildStatic(inputPath, outputFile, outputOptions)
+                .then(() => cb())
+                .catch((ex) => cb(new Error(ex)));
         });
 });

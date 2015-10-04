@@ -5,6 +5,7 @@
  */
 'use strict';
 
+import 'angular-mocks';
 import AuthenticationResource from './authentication.js';
 
 describe('AuthenticationResource', () => {

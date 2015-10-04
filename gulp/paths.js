@@ -35,7 +35,8 @@ const paths = {
         config: {
             dev:        `${root}/src/app/core/config/core.config.dev.js`,
             test:       `${root}/src/app/core/config/core.config.test.js`,
-            prod:       `${root}/src/app/core/config/core.config.prod.js`
+            prod:       `${root}/src/app/core/config/core.config.prod.js`,
+            conditions: `${root}/env.conditions.js`
         },
         scripts:        [`${root}/src/app/**/*.js`],
         html:           `${root}/src/index.html`,

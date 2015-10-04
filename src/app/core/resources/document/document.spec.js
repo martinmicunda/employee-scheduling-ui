@@ -5,6 +5,7 @@
  */
 'use strict';
 
+import 'angular-mocks';
 import DocumentResource from './document.js';
 
 describe('DocumentResource', () => {

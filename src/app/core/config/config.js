@@ -5,7 +5,10 @@
  */
 'use strict';
 
-import './config.test'; // TODO: (martin) use systemJs conditional imports
+//@exclude
+import './config.#{ENV|environment}.js';
+//@endexclude
+/* @echo CONFIG */
 import {ACCESS_LEVELS} from '../constants/constants.js';
 import {Config, Run, Inject} from '../../ng-decorators'; // jshint unused: false
 

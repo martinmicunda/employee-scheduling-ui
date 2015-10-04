@@ -5,6 +5,7 @@
  */
 'use strict';
 
+import 'angular-mocks';
 import EmployeeResource from './employee.js';
 
 describe('EmployeeResource', () => {

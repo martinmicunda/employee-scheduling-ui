@@ -61,7 +61,10 @@ let proxy = httpProxy.createProxyServer({
 
 function proxyMiddleware(req, res, next) {
     if (req.url.includes(proxyApiPrefix)) {
-        proxy.web(req, res);
+        proxy.web(req, res, (err) => {
+            // if there is any proxy error return the error
+            next(err);
+        });
     } else {
         next();
     }
@@ -101,12 +104,12 @@ function startBrowserSync(baseDir, files, browser) {
 gulp.task('config', () => {
     const optimize = OPTIMIZE === 'true';
     const env = ENV === TEST_OPTIMIZE ? 'test' : ENV;
-    return gulp.src(path.app.html)
+    return gulp.src(path.app.config.conditions)
         .pipe(inject(gulp.src('.'), {
             starttag: '<!-- inject:env -->',
-            transform: () => `mock: ${ENV.toLowerCase() === 'test' || OPTIMIZE === 'true'}, optimize: ${optimize}, environment: '${env.toLowerCase()}'`
+            transform: () => `mock: ${ENV.toLowerCase() === 'test' || OPTIMIZE === 'true'}, optimize: ${optimize}, environment: '${env.toLowerCase()}',`
         }))
-        .pipe(gulp.dest(path.app.basePath));
+        .pipe(gulp.dest(path.root));
 });
 
 /**
