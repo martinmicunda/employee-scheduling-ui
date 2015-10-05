@@ -32,5 +32,3 @@ build/
 test-reports/
 
 .sass-cache
-
-env.conditions.js
