@@ -55,7 +55,7 @@ gulp.task('js-preprocess', ['html-preprocess'], () => {
  * @param {Function} done - callback when complete
  */
 gulp.task('bundle', ['jshint', 'js-preprocess'], (cb) => {
-    const ENV = !!util.env ? util.env : 'DEV';
+    const ENV = !!util.env.env ? util.env.env : 'DEV';
     const Builder = require('systemjs-builder');
     const builder = new Builder();
     const inputPath = '.tmp/scripts/app/app'; // TODO: (martin) replace this path with 'src/app/app' once problem with conditional import for systemjs-builder will be fixed
