@@ -55,11 +55,12 @@ gulp.task('js-preprocess', ['html-preprocess'], () => {
  * @param {Function} done - callback when complete
  */
 gulp.task('bundle', ['jshint', 'js-preprocess'], (cb) => {
+    const ENV = !!util.env ? util.env : 'DEV';
     const Builder = require('systemjs-builder');
     const builder = new Builder();
     const inputPath = '.tmp/scripts/app/app'; // TODO: (martin) replace this path with 'src/app/app' once problem with conditional import for systemjs-builder will be fixed
     const outputFile = `${path.tmp.scripts}build.js`;
-    const outputOptions = { sourceMaps: true, config: {sourceRoot: path.tmp.scripts} };
+    const outputOptions = { sourceMaps: true, config: {sourceRoot: path.tmp.scripts}, conditions: { 'ENV|mock': ENV.toLowerCase() === 'test', 'ENV|environment': ENV.toLowerCase()} };
 
     builder.loadConfig(`${path.root}/jspm.conf.js`)
         .then(() => {
