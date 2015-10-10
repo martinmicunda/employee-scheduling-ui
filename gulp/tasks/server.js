@@ -102,14 +102,15 @@ function startBrowserSync(baseDir, files, browser) {
  * @return {Stream}
  */
 gulp.task('config', () => {
-    const optimize = OPTIMIZE === 'true';
+    const mock = !!argv.mock ? argv.mock === 'true' : ENV.toLowerCase() === 'test' || OPTIMIZE === 'true';
     const env = ENV === TEST_OPTIMIZE ? 'test' : ENV;
     return gulp.src(path.app.config.conditions)
         .pipe(inject(gulp.src('.'), {
-            starttag: '<!-- inject:env -->',
-            transform: () => `mock: ${ENV.toLowerCase() === 'test' || OPTIMIZE === 'true'}, optimize: ${optimize}, environment: '${env.toLowerCase()}',`
+            starttag: '/* inject:env */',
+            endtag: '/* endinject */',
+            transform: () => `export var mock = ${mock};\nexport var optimize = ${OPTIMIZE === 'true' || ENV.toLowerCase() === 'prod'};\nexport var environment = '${env.toLowerCase()}';`
         }))
-        .pipe(gulp.dest(path.root));
+        .pipe(gulp.dest(path.app.config.basePath));
 });
 
 /**

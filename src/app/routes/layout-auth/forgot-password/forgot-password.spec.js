@@ -5,6 +5,7 @@
  */
 'use strict';
 
+import 'angular-mocks';
 import ForgotPassword from './forgot-password.js';
 
 describe('ForgotPassword', () => {

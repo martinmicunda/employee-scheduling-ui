@@ -83,6 +83,27 @@ gulp.task('extras', () => {
 });
 
 /**
+ * Create JS production bundle.
+ *
+ * @param {Function} done - callback when complete
+ */
+gulp.task('bundle', ['jshint'], (cb) => {
+    const ENV = !!util.env.env ? util.env.env : 'DEV';
+    const Builder = require('systemjs-builder');
+    const builder = new Builder();
+    const inputPath = 'src/app/app';
+    const outputFile = `${path.tmp.scripts}build.js`;
+    const outputOptions = {sourceMaps: true, config: {sourceRoot: path.tmp.scripts}, conditions: { 'ENV|mock': ENV.toLowerCase() === 'test', 'ENV|environment': ENV.toLowerCase()} };
+
+    builder.loadConfig(`${path.root}/jspm.conf.js`)
+        .then(() => {
+            builder.buildStatic(inputPath, outputFile, outputOptions)
+                .then(() => cb())
+                .catch((ex) => cb(new Error(ex)));
+        });
+});
+
+/**
  * The 'compile' task compile all js, css and html files.
  *
  * 1. it inject bundle into `index.html`

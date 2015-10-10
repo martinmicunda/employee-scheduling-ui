@@ -5,10 +5,7 @@
  */
 'use strict';
 
-//@exclude
 import './config.#{ENV|environment}.js';
-//@endexclude
-/* @echo CONFIG */
 import {ACCESS_LEVELS} from '../constants/constants.js';
 import {Config, Run, Inject} from '../../ng-decorators'; // jshint unused: false
 

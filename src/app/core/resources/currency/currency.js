@@ -5,10 +5,7 @@
  */
 'use strict';
 
-// @exclude
 import './currency.mock.js#?ENV|mock';
-// @endexclude
-//@exec mockPath('./currency.mock.js')
 import AbstractResource from '../abstract-resource';
 import {Service, Inject} from '../../../ng-decorators'; // jshint unused: false
 

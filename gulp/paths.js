@@ -33,10 +33,8 @@ const paths = {
         styles:         `${root}/src/styles/**/*.scss`,
         images:         `${root}/src/images/**/*.{png,gif,jpg,jpeg}`,
         config: {
-            dev:        `${root}/src/app/core/config/core.config.dev.js`,
-            test:       `${root}/src/app/core/config/core.config.test.js`,
-            prod:       `${root}/src/app/core/config/core.config.prod.js`,
-            conditions: `${root}/env.conditions.js`
+            basePath:   `${root}/src/app/core/config/`,
+            conditions: `${root}/src/app/core/config/env.conditions.js`
         },
         scripts:        [`${root}/src/app/**/*.js`],
         html:           `${root}/src/index.html`,

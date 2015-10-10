@@ -12,7 +12,7 @@ import 'angular-mocks';
 import angular from 'angular';
 import {Config, Run, Inject} from '../../ng-decorators'; // jshint unused: false
 
-class ConfigurationTest {
+class OnConfigTest {
     //start-non-standard
     @Config()
     @Inject('$provide', 'localStorageServiceProvider')

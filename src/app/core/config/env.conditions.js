@@ -8,10 +8,12 @@
  */
 'use strict';
 
-window.ENV = {
-    <!-- inject:env -->
-    mock: false, optimize: false, environment: 'dev',
-    <!-- endinject -->
-};
+/* inject:env */
+export var mock = true;
+export var optimize = true;
+export var environment = 'test';
+/* endinject */
 
-System.set('ENV', System.newModule({ 'default': window.ENV, __useDefault: true })); // it requires for conditional ES6 module loader
+console.log('mock: ' + mock);
+console.log('optimize: ' + optimize);
+console.log('environment: ' + environment);

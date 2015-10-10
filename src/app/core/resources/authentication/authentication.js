@@ -5,10 +5,7 @@
  */
 'use strict';
 
-// @exclude
 import './authentication.mock.js#?ENV|mock';
-// @endexclude
-//@exec mockPath('./authentication.mock.js')
 import {Service, Inject} from '../../../ng-decorators'; // jshint unused: false
 
 //start-non-standard

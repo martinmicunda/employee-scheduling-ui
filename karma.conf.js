@@ -20,8 +20,7 @@ module.exports = function (config) {
         // list of files / patterns to load in the browser
         files: [
             'node_modules/karma-babel-preprocessor/node_modules/babel-core/browser-polyfill.js',
-            'node_modules/jasmine-async-sugar/jasmine-async-sugar.js',
-            'test/test.env.js'
+            'node_modules/jasmine-async-sugar/jasmine-async-sugar.js'
         ],
 
         jspm: {

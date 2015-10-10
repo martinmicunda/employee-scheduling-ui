@@ -5,6 +5,7 @@
  */
 'use strict';
 
+import 'angular-mocks';
 import {ACCESS_LEVELS} from '../constants/constants.js';
 import {OnConfig, OnRun} from './config.js';
 

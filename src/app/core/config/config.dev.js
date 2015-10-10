@@ -7,7 +7,7 @@
 
 import {Config, Run, Inject} from '../../ng-decorators'; // jshint unused: false
 
-class ConfigurationProd {
+class OnConfigDev {
     //start-non-standard
     @Config()
     @Inject('localStorageServiceProvider')
@@ -18,7 +18,7 @@ class ConfigurationProd {
     }
 }
 
-class OnRunTest {
+class OnRunDev {
     //start-non-standard
     @Run()
     @Inject('localStorageService')

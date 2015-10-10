@@ -5,6 +5,7 @@
  */
 'use strict';
 
+import 'angular-mocks';
 import Login from './login.js';
 
 describe('Login', () => {
