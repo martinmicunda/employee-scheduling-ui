@@ -90,7 +90,8 @@ const paths = {
             styles:     `${root}/build/dist/styles/`,
             scripts:    `${root}/build/dist/scripts/`
         },
-        docs:           `${root}/build/docs/`
+        docs:           `${root}/build/docs/`,
+        testReports:    `${root}/build/test-reports/`
     }
 };
 

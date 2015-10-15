@@ -83,6 +83,18 @@ gulp.task('extras', () => {
 });
 
 /**
+ * The 'copy' task just copies files from A to B. We use it here
+ * to copy our files that haven't been copied by other tasks
+ * e.g. (reports, etc.) into the `build/test-reports` directory.
+ *
+ * @return {Stream}
+ */
+gulp.task('extras-reports', () => {
+    return gulp.src([path.test.testReports.basePath + '**/*'])
+        .pipe(gulp.dest(path.build.testReports));
+});
+
+/**
  * Create JS production bundle.
  *
  * @param {Function} done - callback when complete
@@ -93,7 +105,7 @@ gulp.task('bundle', ['jshint'], (cb) => {
     const builder = new Builder();
     const inputPath = 'src/app/app';
     const outputFile = `${path.tmp.scripts}build.js`;
-    const outputOptions = {sourceMaps: true, config: {sourceRoot: path.tmp.scripts}, conditions: { 'ENV|mock': ENV.toLowerCase() === 'test', 'ENV|environment': ENV.toLowerCase()} };
+    const outputOptions = {sourceMaps: true, config: {sourceRoot: path.tmp.scripts}, conditions: { 'src/app/core/config/env.conditions.js|mock': ENV.toLowerCase() === 'test', 'src/app/core/config/env.conditions.js|environment': ENV.toLowerCase()} };
 
     builder.loadConfig(`${path.root}/jspm.conf.js`)
         .then(() => {
@@ -162,7 +174,7 @@ gulp.task('compile', ['htmlhint', 'sass', 'bundle'], () => {
 gulp.task('build', (cb) => {
     runSequence(
         ['clean'],
-        ['compile', 'extras', 'images', 'fonts'],
+        ['compile', 'extras', 'extras-reports', 'images', 'fonts'],
         cb
     );
 });

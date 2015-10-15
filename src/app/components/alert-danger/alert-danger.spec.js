@@ -5,6 +5,7 @@
  */
 'use strict';
 
+import 'angular';
 import 'angular-mocks';
 import './alert-danger.js';
 

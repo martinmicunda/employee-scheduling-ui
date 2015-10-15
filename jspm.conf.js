@@ -9,7 +9,6 @@ System.config({
     "stage": 1
   },
   paths: {
-    "employee-scheduling-ui/*": "src/*.js",
     "github:*": "jspm_packages/github/*",
     "npm:*": "jspm_packages/npm/*"
   },

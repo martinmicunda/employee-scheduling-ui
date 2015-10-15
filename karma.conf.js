@@ -12,12 +12,8 @@ process.argv.forEach(function (val, index) {
 
 module.exports = function (config) {
     config.set({
-        // base path, that will be used to resolve files and exclude
-        basePath: '',
-
         frameworks: ['jspm', 'jasmine'],
 
-        // list of files / patterns to load in the browser
         files: [
             'node_modules/karma-babel-preprocessor/node_modules/babel-core/browser-polyfill.js',
             'node_modules/jasmine-async-sugar/jasmine-async-sugar.js'
@@ -27,6 +23,12 @@ module.exports = function (config) {
             config: 'jspm.conf.js',
             loadFiles: ['src/app/app.js', 'src/app/**/*.spec.js'], //'src/app/**/!(*.e2e|*.po).js'
             serveFiles: ['test/helpers/**/*.js','src/app/**/*.+(js|html|css|json)'] // *.{a,b,c} to *.+(a|b|c) https://github.com/karma-runner/karma/issues/1532
+        },
+
+        proxies: {
+            '/test/': '/base/test/',
+            '/src/app/': '/base/src/app/',
+            '/jspm_packages/': '/base/jspm_packages/'
         },
 
         //reporters: process.argv.slice(2).find((argv) => argv.includes('--nocoverage') || argv.includes('--no-coverage')) ? ['dots', 'junit'] : ['dots', 'junit', 'coverage'],
@@ -43,13 +45,14 @@ module.exports = function (config) {
         preprocessors: {
             // source files, that you wanna generate coverage for - do not include tests or libraries
             // (these files will be instrumented by Istanbul)
-            'src/**/!(*.spec|*.mock|*-mock|*.e2e|*.po).js': ['babel', 'coverage']
+            'src/**/!(*.spec|*.mock|*-mock|*.e2e|*.po|*.test).js': ['babel', 'coverage']
         },
 
         // transpile with babel since the coverage reporter throws error on ES6 syntax
         babelPreprocessor: {
             options: {
-                stage: 1
+                stage: 1,
+                sourceMap: 'inline'
             }
         },
 
@@ -58,39 +61,22 @@ module.exports = function (config) {
             instrumenter: {
                 'src/**/*.js': 'isparta'
             },
-            instrumenterOptions: {
-                isparta: { babel : { stage: 1 } }
-            },
+            dir: 'test-reports/coverage/',
+            subdir: normalizationBrowserName,
             reporters: [
-                {type: 'html', dir: 'test-reports/coverage/'}, // will generate html report
-                {type: 'json', dir: 'test-reports/coverage/'}, // will generate json report file and this report is loaded to make sure failed coverage cause gulp to exit non-zero
-                {type: 'lcov', dir: 'test-reports/coverage/'}, // will generate Icov report file and this report is published to coveralls
+                {type: 'html'}, // will generate html report
+                {type: 'json'}, // will generate json report file and this report is loaded to make sure failed coverage cause gulp to exit non-zero
+                {type: 'lcov'}, // will generate Icov report file and this report is published to coveralls
                 {type: 'text-summary'} // it does not generate any file but it will print coverage to console
             ]
         },
 
-        proxies: {
-            '/test/': '/base/test/',
-            '/src/app/': '/base/src/app/',
-            '/jspm_packages/': '/base/jspm_packages/'
-        },
-
         browsers: [process.env.TRAVIS ? 'Firefox' : 'Chrome'],
 
-        browserNoActivityTimeout: 50000,
-
-        plugins: [
-            'karma-jasmine',
-            'karma-jspm',
-            'karma-ie-launcher',
-            'karma-chrome-launcher',
-            'karma-firefox-launcher',
-            'karma-safari-launcher',
-            'karma-phantomjs-launcher',
-            'karma-junit-reporter',
-            'karma-coverage',
-            'karma-coveralls',
-            'karma-babel-preprocessor'
-        ]
+        browserNoActivityTimeout: 50000
     });
+
+    function normalizationBrowserName(browser) {
+        return browser.toLowerCase().split(/[ /-]/)[0];
+    }
 };
