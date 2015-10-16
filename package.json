@@ -20,7 +20,9 @@
     "deploy": "gulp gh-pages",
     "postinstall": "jspm install",
     "postmerge": "npm install",
-    "prepush": "npm shrinkwrap --dev"
+    "prepush": "npm shrinkwrap --dev",
+    "metrics:compile_source": "./node_modules/.bin/babel --optional runtime --stage=1 src/ --out-dir build/metrics/src",
+    "metrics": "npm run metrics:compile_source && ./node_modules/.bin/plato -r -l .jshintrc -d build/metrics/report build/metrics/src"
   },
   "pre-commit": [
     "jshint",
