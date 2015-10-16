@@ -1,0 +1,342 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for app/routes/layout-app/employees/add/add.js</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../../../../../prettify.css">
+    <link rel="stylesheet" href="../../../../../base.css">
+    <style type='text/css'>
+        div.coverage-summary .sorter {
+            background-image: url(../../../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class="header high">
+    <h1>Code coverage report for <span class="entity">app/routes/layout-app/employees/add/add.js</span></h1>
+    <h2>
+        Statements: <span class="metric">100% <small>(36 / 36)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Branches: <span class="metric">100% <small>(12 / 12)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Functions: <span class="metric">100% <small>(8 / 8)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Lines: <span class="metric">100% <small>(34 / 34)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
+    </h2>
+    <div class="path"><a href="../../../../../index.html">All files</a> &#187; <a href="index.html">app/routes/layout-app/employees/add/</a> &#187; add.js</div>
+</div>
+<div class="body">
+<pre><table class="coverage">
+<tr><td class="line-count">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100</td><td class="line-coverage"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">17</span>
+<span class="cline-any cline-yes">17</span>
+<span class="cline-any cline-yes">17</span>
+<span class="cline-any cline-yes">17</span>
+<span class="cline-any cline-yes">17</span>
+<span class="cline-any cline-yes">17</span>
+<span class="cline-any cline-yes">17</span>
+<span class="cline-any cline-yes">17</span>
+<span class="cline-any cline-yes">17</span>
+<span class="cline-any cline-yes">17</span>
+<span class="cline-any cline-yes">17</span>
+<span class="cline-any cline-yes">17</span>
+<span class="cline-any cline-yes">17</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">17</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">17</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">15</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">17</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3</span>
+<span class="cline-any cline-yes">3</span>
+<span class="cline-any cline-yes">3</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/**
+ * @author    Martin Micunda {@link http://martinmicunda.com}
+ * @copyright Copyright (c) 2015, Martin Micunda
+ * @license   GPL-3.0
+ */
+'use strict';
+&nbsp;
+import './complete/complete';
+import './hourly-rate/hourly-rate';
+import './bank-details/bank-details';
+import './authorizations/authorizations';
+import './account-details/account-details';
+import './contact-details/contact-details';
+import template from './add.html!text';
+import {PROFILE_COMPLETENESS_TYPES, USER_ROLES} from '../../../../core/constants/constants';
+import {RouteConfig, Inject} from '../../../../ng-decorators'; // jshint unused: false
+&nbsp;
+//start-non-standard
+@RouteConfig('app.employees.add', {
+    url: '/add',
+    onEnter: ['$modal', 'ModalService', ($modal, ModalService) =&gt; {
+        $modal.open({
+            template: template,
+            resolve: {
+                init: ['PositionModel', 'EmployeeModel', 'SettingModel', 'LocationModel',
+                    (PositionModel, EmployeeModel, SettingModel, LocationModel) =&gt; Promise.all([PositionModel.initCollection(), EmployeeModel.initItem(), SettingModel.initItem('app'), LocationModel.initCollection()])]
+            },
+            controller: EmployeeAdd,
+            controllerAs: 'vm',
+            size: 'lg'
+        }).result.finally(ModalService.onFinal('app.employees'));
+    }]
+})
+@Inject('$state', '$rootScope', 'EmployeeModel', 'FormService', '$modalInstance')
+//end-non-standard
+class EmployeeAdd {
+    constructor($state, $rootScope, EmployeeModel, FormService, $modalInstance) {
+        this.modal = $modalInstance;
+        this.router = $state;
+        this.result = null;
+        this.employee = EmployeeModel.getItem();
+        this.isAdmin = $rootScope.currentUser.role === USER_ROLES.ADMIN;
+        this.FormService = FormService;
+        this.isSubmitting = null;
+        this.EmployeeModel = EmployeeModel;
+        this.profileCompletenessType = PROFILE_COMPLETENESS_TYPES.EMPLOYEE;
+        this.saveButtonOptions = Object.assign({}, FormService.getModalSaveButtonOptions()); // clone the modal save button options so we don't overwrite default one
+        this.saveButtonOptions.buttonDefaultText = 'Create an Employee';
+        this.saveButtonOptions.buttonSuccessText = 'Created an Employee';
+        this.saveButtonOptions.buttonSubmittingText = 'Creating an Employee';
+        // only employeeAccountDetailsForm and employeeHourlyRateForm forms has required fields
+        this.formSteps = [
+            {route: 'app.employees.add.account-details', formName: 'employeeAccountDetailsForm', valid: false},
+            {route: 'app.employees.add.contact-details', formName: 'employeeContactDetailsForm', valid: true},
+            {route: 'app.employees.add.bank-details', formName: 'employeeBankDetailsForm', valid: true},
+            {route: 'app.employees.add.hourly-rate', formName: 'employeeHourlyRateForm', valid: false},
+            {route: 'app.employees.add.authorizations', formName: 'employeeAuthorizationsForm', valid: true},
+            {route: 'app.employees.add.complete', formName: 'employeeCompleteForm', valid: true}
+        ];
+&nbsp;
+        if(!this.isAdmin) {
+            // remove authorizations form for no admin role
+            this.formSteps.splice(4, 1);
+        }
+        EmployeeModel.calculateProfileCompleteness(PROFILE_COMPLETENESS_TYPES.EMPLOYEE);
+    }
+&nbsp;
+    cancel() {
+        this.modal.dismiss('cancel');
+    }
+&nbsp;
+    goToNextSection(isFormValid, form, route) {
+        this.hasError = false;
+        this.FormService.submitChildForm(this.router.current.name, form, this.formSteps);
+        if(isFormValid) {
+            this.EmployeeModel.calculateProfileCompleteness(PROFILE_COMPLETENESS_TYPES.EMPLOYEE);
+            if(route) {
+                this.router.go(route);
+            } else {
+                form.$setPristine();
+                this.router.go(this.FormService.nextState(this.router.current.name, this.formSteps));
+            }
+        }
+    }
+&nbsp;
+    goToPreviousSection() {
+        this.EmployeeModel.calculateProfileCompleteness(PROFILE_COMPLETENESS_TYPES.EMPLOYEE);
+        this.router.go(this.FormService.previousState(this.router.current.name, this.formSteps));
+    }
+&nbsp;
+    save(form) {
+        if(this.FormService.hasInvalidChildForms(this.router, this.formSteps)) {return;}
+&nbsp;
+        this.isSubmitting = true;
+        this.FormService.save(this.EmployeeModel, this.employee, this, form);
+    }
+}
+&nbsp;
+export default EmployeeAdd;
+&nbsp;</pre></td></tr>
+</table></pre>
+
+</div>
+<div class="footer">
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Fri Oct 16 2015 15:24:14 GMT+0000 (UTC)</div>
+</div>
+<script src="../../../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../../../sorter.js"></script>
+</body>
+</html>

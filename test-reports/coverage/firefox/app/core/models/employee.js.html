@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for app/core/models/employee.js</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../../../prettify.css">
+    <link rel="stylesheet" href="../../../base.css">
+    <style type='text/css'>
+        div.coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class="header high">
+    <h1>Code coverage report for <span class="entity">app/core/models/employee.js</span></h1>
+    <h2>
+        Statements: <span class="metric">100% <small>(17 / 17)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Branches: <span class="metric">100% <small>(17 / 17)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Functions: <span class="metric">100% <small>(5 / 5)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Lines: <span class="metric">100% <small>(16 / 16)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
+    </h2>
+    <div class="path"><a href="../../../index.html">All files</a> &#187; <a href="index.html">app/core/models/</a> &#187; employee.js</div>
+</div>
+<div class="body">
+<pre><table class="coverage">
+<tr><td class="line-count">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55</td><td class="line-coverage"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">323</span>
+<span class="cline-any cline-yes">323</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">4</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">107</span>
+<span class="cline-any cline-yes">107</span>
+<span class="cline-any cline-yes">698</span>
+<span class="cline-any cline-yes">678</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">107</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">107</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">107</span>
+<span class="cline-any cline-yes">107</span>
+<span class="cline-any cline-yes">107</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">107</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">107</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/**
+ * @author    Martin Micunda {@link http://martinmicunda.com}
+ * @copyright Copyright (c) 2015, Martin Micunda
+ * @license   GPL-3.0
+ */
+'use strict';
+&nbsp;
+import AbstractModel from './abstract-model';
+import {PROFILE_COMPLETENESS_TYPES} from '../../core/constants/constants';
+import {Service, Inject} from '../../ng-decorators'; // jshint unused: false
+&nbsp;
+//start-non-standard
+@Service({
+    serviceName: 'EmployeeModel'
+})
+@Inject('EmployeeResource')
+//end-non-standard
+class EmployeeModel extends AbstractModel {
+    constructor(EmployeeResource) {
+        super(EmployeeResource);
+        this.profileCompleteness = {}; // use two-way scope binding
+    }
+&nbsp;
+    getProfileCompleteness() {
+        return this.profileCompleteness;
+    }
+&nbsp;
+    emptyObjectPropertiesCounter(object, completenessFields) {
+        let i = 0;
+        for(let key of completenessFields) {
+            if(!object.hasOwnProperty(key) || (object.hasOwnProperty(key) &amp;&amp; !object[key])) {
+                i++;
+            }
+        }
+&nbsp;
+        return i;
+    }
+&nbsp;
+    // there are three places in app where profile completeness can be calculated 'account profile page', 'edit employee', 'add employee'
+    calculateProfileCompleteness(type = PROFILE_COMPLETENESS_TYPES.ACCOUNT) {
+        const employee = super.getItem();
+&nbsp;
+        // Profile Account page has only 4 fields that are needs for calculation completeness (only contacts fields in this case)
+        const completenessFields = type === PROFILE_COMPLETENESS_TYPES.ACCOUNT ? ['phoneNumber', 'address', 'city', 'zipCode'] : ['firstName', 'lastName', 'email', 'position', 'hourlyRate', 'personalNo', 'identityNo', 'bankName', 'accountNumber', 'accountName', 'phoneNumber', 'address', 'city', 'zipCode'];
+        const totalObjectProperties = type === PROFILE_COMPLETENESS_TYPES.ACCOUNT ? 8 : 14;
+        const totalEmptyObjectProperties = this.emptyObjectPropertiesCounter(employee, completenessFields);
+&nbsp;
+        this.profileCompleteness.percentage = (((totalObjectProperties - totalEmptyObjectProperties) * 100)/ totalObjectProperties).toFixed(0);
+&nbsp;
+        return this.profileCompleteness;
+    }
+}
+&nbsp;
+export default EmployeeModel;
+&nbsp;</pre></td></tr>
+</table></pre>
+
+</div>
+<div class="footer">
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Fri Oct 16 2015 15:24:14 GMT+0000 (UTC)</div>
+</div>
+<script src="../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../sorter.js"></script>
+</body>
+</html>

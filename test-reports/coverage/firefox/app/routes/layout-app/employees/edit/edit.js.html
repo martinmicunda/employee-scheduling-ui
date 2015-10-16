@@ -1,0 +1,321 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <title>Code coverage report for app/routes/layout-app/employees/edit/edit.js</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="../../../../../prettify.css">
+    <link rel="stylesheet" href="../../../../../base.css">
+    <style type='text/css'>
+        div.coverage-summary .sorter {
+            background-image: url(../../../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+<body>
+<div class="header high">
+    <h1>Code coverage report for <span class="entity">app/routes/layout-app/employees/edit/edit.js</span></h1>
+    <h2>
+        Statements: <span class="metric">100% <small>(34 / 34)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Branches: <span class="metric">100% <small>(8 / 8)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Functions: <span class="metric">100% <small>(10 / 10)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Lines: <span class="metric">100% <small>(31 / 31)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
+    </h2>
+    <div class="path"><a href="../../../../../index.html">All files</a> &#187; <a href="index.html">app/routes/layout-app/employees/edit/</a> &#187; edit.js</div>
+</div>
+<div class="body">
+<pre><table class="coverage">
+<tr><td class="line-count">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93</td><td class="line-coverage"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3</span>
+<span class="cline-any cline-yes">3</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">14</span>
+<span class="cline-any cline-yes">14</span>
+<span class="cline-any cline-yes">14</span>
+<span class="cline-any cline-yes">14</span>
+<span class="cline-any cline-yes">14</span>
+<span class="cline-any cline-yes">14</span>
+<span class="cline-any cline-yes">14</span>
+<span class="cline-any cline-yes">14</span>
+<span class="cline-any cline-yes">14</span>
+<span class="cline-any cline-yes">14</span>
+<span class="cline-any cline-yes">14</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">/**
+ * @author    Martin Micunda {@link http://martinmicunda.com}
+ * @copyright Copyright (c) 2015, Martin Micunda
+ * @license   GPL-3.0
+ */
+'use strict';
+&nbsp;
+import './account-details/account-details';
+import './authorizations/authorizations';
+import './bank-details/bank-details';
+import './contact-details/contact-details';
+import './hourly-rate/hourly-rate';
+import './password/password';
+import template from './edit.html!text';
+import {PROFILE_COMPLETENESS_TYPES} from '../../../../core/constants/constants';
+import {RouteConfig, Inject} from '../../../../ng-decorators'; // jshint unused: false
+&nbsp;
+//start-non-standard
+@RouteConfig('app.employees.edit', {
+    url: '/:id/edit',
+    onEnter: ['$stateParams', '$modal', 'ModalService', ($stateParams, $modal, ModalService) =&gt; {
+        const id = $stateParams.id;
+        $modal.open({
+            template: template,
+            resolve: {
+                init: ['PositionModel', 'EmployeeModel', 'SettingModel', 'LocationModel',
+                    (PositionModel, EmployeeModel, SettingModel, LocationModel) =&gt; Promise.all([PositionModel.initCollection(), EmployeeModel.initItem(id), SettingModel.initItem('app'), LocationModel.initCollection()])]
+            },
+            controller: EmployeeEdit,
+            controllerAs: 'vm',
+            size: 'lg'
+        }).result.then(ModalService.onSuccess(), ModalService.onError($modal, 'app.employees')).finally(ModalService.onFinal('app.employees'));
+    }]
+})
+@Inject('$state', '$modalInstance', 'EmployeeModel', 'FormService')
+//end-non-standard
+class EmployeeEdit {
+    constructor($state, $modalInstance, EmployeeModel, FormService) {
+        this.name = `${EmployeeModel.getItem().firstName} ${EmployeeModel.getItem().lastName}`;
+        this.modal = $modalInstance;
+        this.avatar = EmployeeModel.getItem().avatar;
+        this.router = $state;
+        this.result = null;
+        this.employee = EmployeeModel.getItem();
+        this.FormService = FormService;
+        this.isSubmitting = null;
+        this.EmployeeModel = EmployeeModel;
+        this.profileCompletenessType = PROFILE_COMPLETENESS_TYPES.EMPLOYEE;
+        this.saveButtonOptions = FormService.getSaveButtonOptions();
+        // only employeeAccountDetailsForm and employeeHourlyRateForm forms has required fields
+        this.formSteps = [
+            {route: 'app.employees.edit.account-details', formName: 'employeeAccountDetailsForm', valid: false},
+            {route: 'app.employees.edit.contact-details', formName: 'employeeContactDetailsForm', valid: true},
+            {route: 'app.employees.edit.bank-details', formName: 'employeeBankDetailsForm', valid: true},
+            {route: 'app.employees.edit.hourly-rate', formName: 'employeeHourlyRateForm', valid: false},
+            {route: 'app.employees.edit.authorizations', formName: 'employeeAuthorizationsForm', valid: true},
+            {route: 'app.employees.edit.password', formName: 'employeePasswordForm', valid: true}
+        ];
+        EmployeeModel.calculateProfileCompleteness(PROFILE_COMPLETENESS_TYPES.EMPLOYEE);
+    }
+&nbsp;
+    cancel() {
+        this.modal.dismiss('cancel');
+    }
+&nbsp;
+    goToNextSection(isFormValid, form, route) {
+        this.hasError = false;
+        this.FormService.submitChildForm(this.router.current.name, form, this.formSteps);
+        if(isFormValid) {
+            this.router.go(route);
+        }
+    }
+&nbsp;
+    save(form) {
+        if(!form.$valid) {return;}
+&nbsp;
+        // delete cancel function from this object so we don't close modal once the data are saved successfully
+        const self = Object.getPrototypeOf(this);
+        delete self.cancel;
+&nbsp;
+        this.isSubmitting = true;
+        return this.FormService.save(this.EmployeeModel, this.employee, this, form).then(() =&gt; {
+            this.name = `${this.EmployeeModel.getItem().firstName} ${this.EmployeeModel.getItem().lastName}`;
+            this.avatar = this.EmployeeModel.getItem().avatar;
+            this.EmployeeModel.calculateProfileCompleteness(PROFILE_COMPLETENESS_TYPES.EMPLOYEE);
+        }).finally(() =&gt; {
+            self.cancel = function cancel() {this.modal.dismiss('cancel');}; // do not use arrow function as this function needs to have a name
+        });
+    }
+}
+&nbsp;
+export default EmployeeEdit;
+&nbsp;</pre></td></tr>
+</table></pre>
+
+</div>
+<div class="footer">
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Fri Oct 16 2015 15:24:14 GMT+0000 (UTC)</div>
+</div>
+<script src="../../../../../prettify.js"></script>
+<script>
+window.onload = function () {
+        if (typeof prettyPrint === 'function') {
+            prettyPrint();
+        }
+};
+</script>
+<script src="../../../../../sorter.js"></script>
+</body>
+</html>
