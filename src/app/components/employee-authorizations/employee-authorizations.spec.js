@@ -265,5 +265,55 @@ describe('EmployeeAuthorizations', () => {
                 expect(employeeAuthorizations.employee.supervisorLocations.length).toEqual(1);
             });
         });
+
+        describe('selectAll', () => {
+            it(`should set employee.supervisorLocations to []`, () => {
+                spyOn(EmployeeModel, 'getItem').and.returnValue(itemMock);
+                employeeAuthorizations = new EmployeeAuthorizations(EmployeeModel, LocationModel);
+                employeeAuthorizations.employee.supervisorLocations = ['1'];
+
+                employeeAuthorizations.selectAll(false, 'supervisorLocations');
+
+                expect(employeeAuthorizations.employee.supervisorLocations.length).toEqual(0);
+            });
+
+            it(`should select all locations with id`, () => {
+                spyOn(EmployeeModel, 'getItem').and.returnValue(itemMock);
+                employeeAuthorizations = new EmployeeAuthorizations(EmployeeModel, LocationModel);
+                employeeAuthorizations.employee.supervisorLocations = [];
+                employeeAuthorizations.locations = [{id: '1'}, {id: '2'}];
+
+                employeeAuthorizations.selectAll(true, 'supervisorLocations');
+
+                expect(employeeAuthorizations.employee.supervisorLocations).toEqual(['1', '2']);
+            });
+        });
+
+        describe('toggleSelection', () => {
+            it(`should select new one`, () => {
+                spyOn(EmployeeModel, 'getItem').and.returnValue(itemMock);
+                employeeAuthorizations = new EmployeeAuthorizations(EmployeeModel, LocationModel);
+                employeeAuthorizations.employee.supervisorLocations = ['1', '2'];
+                employeeAuthorizations.locations = [{id: '1'}, {id: '2'}, {id: '3'}];
+                employeeAuthorizations.selectedAllSupervisorLocations = false;
+
+                employeeAuthorizations.toggleSelection('3', employeeAuthorizations.selectedAllSupervisorLocations, 'supervisorLocations');
+
+                expect(employeeAuthorizations.employee.supervisorLocations).toEqual(['1', '2', '3']);
+            });
+
+            it(`should unselect current one`, () => {
+                spyOn(EmployeeModel, 'getItem').and.returnValue(itemMock);
+                employeeAuthorizations = new EmployeeAuthorizations(EmployeeModel, LocationModel);
+                employeeAuthorizations.employee.supervisorLocations = ['1', '2'];
+                employeeAuthorizations.locations = [{id: '1'}, {id: '2'}, {id: '3'}];
+                employeeAuthorizations.selectedAllSupervisorLocations = false;
+
+                employeeAuthorizations.toggleSelection('1', employeeAuthorizations.selectedAllSupervisorLocations, 'supervisorLocations');
+
+                expect(employeeAuthorizations.employee.supervisorLocations).toEqual(['2']);
+                expect(employeeAuthorizations.selectedAllSupervisorLocations).toEqual(false);
+            });
+        });
     });
 });
