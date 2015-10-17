@@ -41,7 +41,7 @@ function init {
 
 function deploy {
     echo "-- Build production app code"
-    npm run build -- --env=TEST --ghpages
+    npm run build -- --env=TEST --optimize=true --ghpages
 
     # Publish to GitHub gh-pages branch
     npm run deploy
