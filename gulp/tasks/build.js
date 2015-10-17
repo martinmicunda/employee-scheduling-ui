@@ -105,7 +105,7 @@ gulp.task('bundle', ['jshint'], (cb) => {
     const builder = new Builder();
     const inputPath = 'src/app/app';
     const outputFile = `${path.tmp.scripts}build.js`;
-    const outputOptions = {sourceMaps: true, config: {sourceRoot: path.tmp.scripts}, conditions: { 'src/app/core/config/env.conditions.js|mock': ENV.toLowerCase() === 'test', 'src/app/core/config/env.conditions.js|environment': ENV.toLowerCase()} };
+    const outputOptions = {sourceMaps: true, config: {sourceRoot: path.tmp.scripts}, conditions: { 'ENV|mock': ENV.toLowerCase() === 'test', 'src/app/core/config/env.conditions.js|environment': ENV.toLowerCase()} };
 
     builder.loadConfig(`${path.root}/jspm.conf.js`)
         .then(() => {
