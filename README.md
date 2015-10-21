@@ -14,6 +14,7 @@ An UI component for [Employee Scheduling](https://github.com/martinmicunda/emplo
 
 ## Table of Contents
 - [Demo](#demo)
+- [Technologies Used](#technologies-used)
 - [Features](#features)
 - [Folder Structure](#folder-structure)
     - [Development](#folder-structure-development)
@@ -34,7 +35,7 @@ An UI component for [Employee Scheduling](https://github.com/martinmicunda/emplo
 - [License](#license)
 
 ## Demo
-This demo is running from [gh-pages](https://github.com/martinmicunda/employee-scheduling-ui/tree/gh-pages) branch in backend-less development env (see [backend-less](#backend-less) section). Below, you can find login credentials for different user roles.
+This demo is running from [gh-pages](https://github.com/martinmicunda/employee-scheduling-ui/tree/gh-pages) branch in backend-less development env (see [How to Run](#how-to-run-test) section). Below, you can find login credentials for different user roles.
 
 |    ROLE    |        EMAIL        | PASSWORD |
 |:----------:|:-------------------:|:--------:|
@@ -46,6 +47,9 @@ This demo is running from [gh-pages](https://github.com/martinmicunda/employee-s
 <a href="http://martinmicunda.github.io/employee-scheduling-ui/dist" target="_blank">Click here to see it in action!</a>
 
 ![Employee Scheduling screenshot](screenshot.png "Employee Scheduling screenshot")
+
+## Technologies Used
+![Technologies Used](tech_stack.png)
 
 ## Features
   * Use ES6 with Angular 1.x
