@@ -13,9 +13,9 @@ Employee Scheduling UI
 An UI component for [Employee Scheduling](https://github.com/martinmicunda/employee-scheduling) application that makes employee scheduling and management easy, fast and mobile. The API component for this application can be found [here](https://github.com/martinmicunda/employee-scheduling-api). I wrote a few blog posts about this project and they can be found on my [blog](http://martinmicunda.com).
 
 ## Table of Contents
-- [Demo](#demo)
 - [Technologies Used](#technologies-used)
 - [Features](#features)
+- [Demo](#demo)
 - [Folder Structure](#folder-structure)
     - [Development](#folder-structure-development)
     - [Production](#folder-structure-production)
@@ -34,20 +34,6 @@ An UI component for [Employee Scheduling](https://github.com/martinmicunda/emplo
 - [How to Release](#how-to-release)
 - [License](#license)
 
-## Demo
-This demo is running from [gh-pages](https://github.com/martinmicunda/employee-scheduling-ui/tree/gh-pages) branch in backend-less development env (see [How to Run](#how-to-run-test) section). Below, you can find login credentials for different user roles.
-
-|    ROLE    |        EMAIL        | PASSWORD |
-|:----------:|:-------------------:|:--------:|
-|  employee  |  employee@test.com  |   pass   |
-| supervisor | supervisor@test.com |   pass   |
-|   manager  |   manager@test.com  |   pass   |
-|    admin   |    admin@test.com   |   pass   |
-
-<a href="http://martinmicunda.github.io/employee-scheduling-ui/dist" target="_blank">Click here to see it in action!</a>
-
-![Employee Scheduling screenshot](screenshot.png "Employee Scheduling screenshot")
-
 ## Technologies Used
 ![Technologies Used](tech_stack.png)
 
@@ -62,6 +48,20 @@ This demo is running from [gh-pages](https://github.com/martinmicunda/employee-s
   * Mocked Backend Workflow - help with mocking backend-less development
   * Achieve some of the Angular 2.0 goals while still running on Angular 1.x
   * Produce optimised, production ready code for deployment and automatically deploy this code to [gh-pages](https://github.com/martinmicunda/employee-scheduling-ui/tree/gh-pages) after each commit via [Travis CI](https://travis-ci.org/martinmicunda/employee-scheduling-ui)
+
+## Demo
+This demo is running from [gh-pages](https://github.com/martinmicunda/employee-scheduling-ui/tree/gh-pages) branch in backend-less development env (see [How to Run](#how-to-run-test) section). Below, you can find login credentials for different user roles.
+
+|    ROLE    |        EMAIL        | PASSWORD |
+|:----------:|:-------------------:|:--------:|
+|  employee  |  employee@test.com  |   pass   |
+| supervisor | supervisor@test.com |   pass   |
+|   manager  |   manager@test.com  |   pass   |
+|    admin   |    admin@test.com   |   pass   |
+
+<a href="http://martinmicunda.github.io/employee-scheduling-ui/dist" target="_blank">Click here to see it in action!</a>
+
+![Employee Scheduling screenshot](screenshot.png "Employee Scheduling screenshot")
 
 ##<a name="folder-structure"></a> Folder Structure
 
