@@ -161,7 +161,8 @@ describe('ModalPartner', () => {
         });
 
         describe('Form fields', () => {
-            const CHARACTERS_61 = 'flygvfxmfwqhspfwjyxtzlyqtyucejjowlwrmxatfyyjidwtfpvqiuvqvnrdg',
+            const CHARACTERS_21 = 'flygvfxmfwqhspfwjyxtz',
+                CHARACTERS_61 = 'flygvfxmfwqhspfwjyxtzlyqtyucejjowlwrmxatfyyjidwtfpvqiuvqvnrdg',
                 CHARACTERS_256 = 'fqxzhnhtcllqhdlakuxtmmpvcfwkvogfwpnvbrlycjkhuzqcdngdjotxxqnzpylgtfppepcfuvynjhnastipjfpyfcplvjyizcqrqgqnxcccmbolptxoobvghalhuivipuslkglfcseidtlqvgcynmxkycgxsbnszhvmsdmajiybfzpsyrjoelevryzdadreeilykndmnckfugzrkrwbflrwethqfiomsrlbbijrlqrjsrpcxmhhlomyqddpyljt';
 
             describe('name', () => {
@@ -186,7 +187,7 @@ describe('ModalPartner', () => {
                 it('should show `name` maxlength error message', () => {
                     element = render();
                     const inputField = angular.element(element[0].querySelector('input[name="name"][type="text"]'));
-                    inputField.val(CHARACTERS_61);
+                    inputField.val(CHARACTERS_21);
                     inputField.triggerHandler('input');
                     element.triggerHandler('submit');
                     element.isolateScope().partnerForm.$submitted = true; // FIXME: why $submitted is not set by triggerHandler?
@@ -194,7 +195,7 @@ describe('ModalPartner', () => {
 
                     const errorMessage = angular.element(element[0].querySelector('input[name="name"][type="text"] ~ div > div[ng-message="maxlength"]'));
 
-                    expect(errorMessage.text()).toEqual('This field text is too long (max 60 characters).');
+                    expect(errorMessage.text()).toEqual('This field text is too long (max 20 characters).');
                 });
             });
 
@@ -269,7 +270,7 @@ describe('ModalPartner', () => {
                 it('should show `phoneNumber` maxlength error message', () => {
                     element = render();
                     const inputField = angular.element(element[0].querySelector('input[name="phoneNumber"][type="text"]'));
-                    inputField.val(CHARACTERS_61);
+                    inputField.val(CHARACTERS_21);
                     inputField.triggerHandler('input');
                     element.triggerHandler('submit');
                     element.isolateScope().partnerForm.$submitted = true; // FIXME: why $submitted is not set by triggerHandler?
@@ -277,7 +278,7 @@ describe('ModalPartner', () => {
 
                     const errorMessage = angular.element(element[0].querySelector('input[name="phoneNumber"][type="text"] ~ div > div[ng-message="maxlength"]'));
 
-                    expect(errorMessage.text()).toEqual('This field text is too long (max 60 characters).');
+                    expect(errorMessage.text()).toEqual('This field text is too long (max 20 characters).');
                 });
             });
 
