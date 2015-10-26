@@ -42,6 +42,7 @@ An UI component for [Employee Scheduling](https://github.com/martinmicunda/emplo
   * Use ES6 with Angular 1.x
   * Use ES6 Modules via [SystemJS](https://github.com/systemjs/systemjs) and [ES6 Module Loader Polyfill](https://github.com/ModuleLoader/es6-module-loader)
   * Use [ES7 decorators](https://github.com/wycats/javascript-decorators) to avoid Angular 1.x boilerplate code
+  * [Conditional module loading with SystemJS](http://martinmicunda.com/2015/10/26/conditional-module-loading-with-systemjs/)
   * JSON Web Token ([JWT](http://jwt.io)) authentication
   * User roles authorization
   * Unit test with ES6, Babel, JSPM, Karma, Jasmine and Istanbul
