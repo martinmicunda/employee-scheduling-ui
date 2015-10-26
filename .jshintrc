@@ -20,7 +20,6 @@
     "strict": true,
     "trailing": true,
     "smarttabs": true,
-    "esnext": true,
     "jasmine": true,
     "jquery": true,
     "globals": {
