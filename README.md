@@ -70,7 +70,7 @@ This demo is running from [gh-pages](https://github.com/martinmicunda/employee-s
 ###<a name="folder-structure-development"></a>Development
 TODO: (martin) add folder development structure
 
-###<a name="folder-structure-production"></a> Production
+###<a name="folder-structure-production"></a>Production
     build/               
       |- dist                       --> distribution source code that goes to production
       |  |- fonts/                     --> fonts
@@ -183,7 +183,7 @@ $ npm test -- --watch --coveralls
 ###<a name="how-to-test-e2e"></a>E2E 
 TODO
 
-##<a name="how-to-build"> How to Build
+##<a name="how-to-build">How to Build
 The build task get app ready for production. The build task include transpilation from ES6 to ES5, concatenation, minification, compression, asset revision, template cache, cdn etc. If there have been no errors when executing the build command, the build should be located in `build/dist` directory and this build is ready for uploading to the server! To initiate a full build, you simply run the follow task:
 ```bash
 $ npm run build
