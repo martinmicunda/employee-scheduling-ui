@@ -65,9 +65,9 @@ This demo is running from [gh-pages](https://github.com/martinmicunda/employee-s
 
 ![Employee Scheduling screenshot](screenshot.png "Employee Scheduling screenshot")
 
-##<a name="folder-structure"></a> Folder Structure
+##<a name="folder-structure"></a>Folder Structure
 
-###<a name="folder-structure-development"></a> Development
+###<a name="folder-structure-development"></a>Development
 TODO: (martin) add folder development structure
 
 ###<a name="folder-structure-production"></a> Production
@@ -82,14 +82,14 @@ TODO: (martin) add folder development structure
       |  |- index.html                 --> app main file
       |- docs/                      --> app documentation   
            
-##<a name="installation-and-configuration"></a> Installation & Configuration
+##<a name="installation-and-configuration"></a>Installation & Configuration
 
-###<a name="platform-and-tools"></a> Platform & Tools
+###<a name="platform-and-tools"></a>Platform & Tools
 You need to install Node.js and then the development tools. Node.js comes with a package manager called [npm](http://npmjs.org) (requires npm version >= 2.0.0 for this project) for installing NodeJS applications and libraries.
 
 [Install Node.js](http://nodejs.org/download/) (requires node.js version >= 0.12.0)
 
-###<a name="installation"></a> Installation
+###<a name="installation"></a>Installation
 
 **1.** Clone or [fork](https://github.com/martinmicunda/employee-scheduling-ui/fork) this repository:
 ```bash
@@ -103,9 +103,9 @@ $ npm install
 ```
 > **Note:** Verify that all 3rd party dependencies from [package.json](package.json) are installed on your local machine. If you have followed the instructions and there have been no errors when executing the above commands, the dependencies should be installed.
      
-##<a name="how-to-run"></a> How to Run
+##<a name="how-to-run"></a>How to Run
 
-###<a name="how-to-run-development"></a> Development
+###<a name="how-to-run-development"></a>Development
 When you're working on project with real back-end start with:
 
 ```bash
@@ -121,7 +121,7 @@ If you don't want to launch the browser when serving code then pass `--open=fals
 $ npm start -- --open=false
 ```
 
-###<a name="how-to-run-test"></a> Test 
+###<a name="how-to-run-test"></a>Test 
 When you're working on project without real back-end start with:
 
 ```bash
@@ -135,7 +135,7 @@ $ npm start -- --env=TEST --optimize=true
 ```
 > **NOTE:** This produce optimized build like `--env=PROD` and also include `fixtures` data into bundle.
 
-###<a name="how-to-run-production"></a> Production
+###<a name="how-to-run-production"></a>Production
 When you're working on project with real back-end and want to try production bundle start with:
 
 ```bash
@@ -145,8 +145,8 @@ $ npm start -- --env=PROD
 > **NOTE:** This run against the code specify in `build/dist` folder. See [build](#build) section for more details how `build` is created.
 
 
-##<a name="how-to-test"></a> How to Test
-###<a name="how-to-test-unit"></a> Unit 
+##<a name="how-to-test"></a>How to Test
+###<a name="how-to-test-unit"></a>Unit 
 Every time the unit tests are executed, a [coverage report](http://martinmicunda.com/employee-scheduling-ui/test-reports/coverage/firefox/) is created in the `test-reports/coverage` sub-directory and coverage `thresholds` can be set in `COVERAGE` constant in [`gulp/const.js`](gulp/const.js) file. The `npm test` task has optional arguments `--browsers=(IE|PhantomJS|Chrome|Firefox|Safari)`, `--watch` and `--nocoverage`.  Make sure that the browsers you want to run test against are installed on your local machine. The `PhantomJS` should be already installed after you run `npm install`.
 
 To run test start with:
@@ -180,7 +180,7 @@ To run test and push coverage report to [Coveralls](https://coveralls.io/) start
 ```bash
 $ npm test -- --watch --coveralls
 ```
-###<a name="how-to-test-e2e"></a> E2E 
+###<a name="how-to-test-e2e"></a>E2E 
 TODO
 
 ##<a name="how-to-build"> How to Build
@@ -194,10 +194,10 @@ If you want use CDN then add your CDN url to `CDN_URL` constant in [`gulp/const.
 $ npm run build -- --cdn
 ```
 
-##<a name="how-to-deploy"></a> How to Deploy
+##<a name="how-to-deploy"></a>How to Deploy
 TODO
 
-##<a name="how-to-release"></a> How to Release
+##<a name="how-to-release"></a>How to Release
 TODO
 
 ## License
