@@ -19,7 +19,8 @@ class AuthenticationResourceMock {
             .respond( (method, url, data, headers) => {
                 console.log('POST',url);
                 headers['Content-Type'] = HEADER_API_VERSION;
-                data = $window.atob(data);
+                data = JSON.parse(data);
+                data = $window.atob(data.credentials);
                 data = JSON.parse(data);
 
                 const employee = employees.find((employee) => employee.email === data.email && (employee.status !== EMPLOYEE_PROFILE_STATUSES.INACTIVE || employee.status !== EMPLOYEE_PROFILE_STATUSES.PENDING));

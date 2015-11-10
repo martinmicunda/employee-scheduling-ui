@@ -69,6 +69,6 @@ describe('constants', () => {
     });
 
     it('should contain header api version', () => {
-        expect(HEADER_API_VERSION).toEqual('application/vnd.employee-scheduling.api+json;version=1');
+        expect(HEADER_API_VERSION).toEqual('application/json');
     });
 });

@@ -93,7 +93,7 @@ describe('HttpApiUrlInterceptor', () => {
             expect(respondConfig.headers['Content-Type']).toEqual(HEADER_API_VERSION);
         });
 
-        it(`should not set Content-Type headers for GET request`, () => {
+        it(`should set Accept and Content-Type headers for GET request`, () => {
             let config = {
                 url: '/test',
                 method: 'GET',
@@ -102,8 +102,20 @@ describe('HttpApiUrlInterceptor', () => {
 
             let respondConfig = httpApiUrlInterceptor.request(Object.assign({}, config));
             expect(respondConfig.headers['Accept']).toEqual(HEADER_API_VERSION);
-            expect(respondConfig.headers['Content-Type']).toBeUndefined();
+            expect(respondConfig.headers['Content-Type']).toEqual(HEADER_API_VERSION);
         });
+
+        //fit(`should not set Content-Type headers for GET request`, () => {
+        //    let config = {
+        //        url: '/test',
+        //        method: 'GET',
+        //        headers: {}
+        //    };
+        //
+        //    let respondConfig = httpApiUrlInterceptor.request(Object.assign({}, config));
+        //    expect(respondConfig.headers['Accept']).toEqual(HEADER_API_VERSION);
+        //    expect(respondConfig.headers['Content-Type']).toBeUndefined();
+        //});
 
         it(`should prepend api url for API request if apiUrl is undefined`, () => {
             let config = {
@@ -116,6 +128,17 @@ describe('HttpApiUrlInterceptor', () => {
             expect(respondConfig.url).toEqual(config.url);
             expect(respondConfig.headers['Accept']).not.toEqual(HEADER_API_VERSION);
             expect(respondConfig.headers['Content-Type']).toBeUndefined();
+        });
+
+        it(`should set empty data for GET request`, () => {
+            let config = {
+                url: '/test',
+                method: 'GET',
+                headers: {}
+            };
+
+            let respondConfig = httpApiUrlInterceptor.request(Object.assign({}, config));
+            expect(respondConfig.data).toEqual('');
         });
     });
 });

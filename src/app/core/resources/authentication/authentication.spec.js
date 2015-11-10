@@ -39,7 +39,7 @@ describe('AuthenticationResource', () => {
 
     it('should call POST login resource', () => {
         spyOn($window, 'btoa').and.returnValue(dataEncoded);
-        $httpBackend.whenPOST(`/${route}/login`, dataEncoded).respond(() => [200]);
+        $httpBackend.whenPOST(`/${route}/login`, {credentials: dataEncoded}).respond(() => [200]);
 
         authenticationResource.login(data).then((respond) => {
             expect(respond.status).toEqual(200);

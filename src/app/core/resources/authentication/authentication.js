@@ -23,7 +23,7 @@ class AuthenticationResource {
 
     login(credentials) {
         const encoded = this.$window.btoa(JSON.stringify(credentials));
-        return this.http.post(`/${this.route}/login`, encoded);
+        return this.http.post(`/${this.route}/login`, {credentials: encoded});
     }
 
     logout() {

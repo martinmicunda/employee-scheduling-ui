@@ -42,8 +42,13 @@ class HttpApiUrlInterceptor {
             // add api version to header
             /*jshint -W069 */
             config.headers['Accept'] = HEADER_API_VERSION;
-            if(config.method === 'POST' || config.method === 'PUT') {
+            if(config.method === 'POST' || config.method === 'PUT' || config.method === 'GET') {
                 config.headers['Content-Type'] = HEADER_API_VERSION;
+            }
+
+            // fix the Angular bug where Content-Type is removed if there is no data in the GET request header
+            if (config.method === 'GET' && !config.data) {
+                config.data = '';
             }
         }
 
