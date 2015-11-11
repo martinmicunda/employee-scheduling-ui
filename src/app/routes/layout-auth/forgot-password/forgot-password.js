@@ -49,6 +49,7 @@ class ForgotPassword {
             this.hasSuccess = false;
             form.$setPristine();
             this.FormService.onFailure(this, response);
+            // This email address was not found in our records
         });
     }
 }

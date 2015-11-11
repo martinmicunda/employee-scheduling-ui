@@ -361,13 +361,14 @@ describe('ModalLocation', () => {
                 expect(FormService.save).not.toHaveBeenCalled();
             });
 
-            describe('when displayDefaultOptions is set to true', () => {
+            describe('when displayDefaultOptions and location.default are set to true', () => {
                 it('should set defaultLocation to false', () => {
                     let clonedObject = Object.assign({id: 'id', default: false}, itemMock), form = {$valid: true}, defaultLocation = {default: true};
                     spyOn(LocationModel, 'getItem').and.returnValue(clonedObject);
                     spyOn(LocationModel, 'getDefaultLocation').and.returnValue(defaultLocation);
 
                     locationModal = new LocationModal(ModalModel, LocationModel, FormService);
+                    locationModal.location.default = true;
                     locationModal.save(form);
 
                     expect(defaultLocation.default).toEqual(false);
@@ -380,6 +381,7 @@ describe('ModalLocation', () => {
                     spyOn(LocationModel, 'getDefaultLocation').and.returnValue(defaultLocation);
 
                     locationModal = new LocationModal(ModalModel, LocationModel, FormService);
+                    locationModal.location.default = true;
                     locationModal.save(form);
 
                     expect(locationModal.location.status).toEqual(EMPLOYEE_PROFILE_STATUSES.ACTIVE);
@@ -393,6 +395,7 @@ describe('ModalLocation', () => {
                     spyOn(FormService, 'save');
 
                     locationModal = new LocationModal(ModalModel, LocationModel, FormService);
+                    locationModal.location.default = true;
 
                     return locationModal.save(form).then(() => {
                         expect(locationModal.isSubmitting).toEqual(true);
@@ -409,6 +412,7 @@ describe('ModalLocation', () => {
                     spyOn(FormService, 'onFailure');
 
                     locationModal = new LocationModal(ModalModel, LocationModel, FormService);
+                    locationModal.location.default = true;
 
                     return locationModal.save(form).then(() => {
                         expect(FormService.onFailure).toHaveBeenCalledWith(locationModal, response);

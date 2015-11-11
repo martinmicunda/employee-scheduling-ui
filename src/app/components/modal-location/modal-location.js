@@ -42,13 +42,11 @@ class LocationModal {
         if(!form.$valid) {return;}
         this.isSubmitting = true;
 
-        if(this.displayDefaultOptions) {
+        if(this.displayDefaultOptions && this.location.default) {
             let defaultLocation = this.LocationModel.getDefaultLocation();
             defaultLocation.default = false;
             this.location.status = EMPLOYEE_PROFILE_STATUSES.ACTIVE;
-            // TODO: (martin) should I try to do a bulk update? this should be done on the back end !!
-            return this.LocationModel.save(this.location).then((data) => {
-                defaultLocation.cas = data.cas;
+            return this.LocationModel.save(this.location).then(() => {
                 this.FormService.save(this.LocationModel, defaultLocation, this, form);
             }, (response) => {
                 this.FormService.onFailure(this, response);

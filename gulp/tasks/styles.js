@@ -17,14 +17,7 @@ import autoprefixer from 'gulp-autoprefixer';
 import path from '../paths';
 
 const argv = util.env;
-const LOG = util.log;
-const ENV = !!argv.env ? argv.env : 'DEV';
-const COLORS = util.colors;
-
-if(!ENV.match(new RegExp(/prod|dev|test|DEV|TEST|PROD/))) {
-    LOG(COLORS.red(`Error: The argument 'env' has incorrect value ${ENV}! Usage: --env=(DEV|TEST|PROD)`));
-    process.exit(1);
-}
+const ENV = !!argv.env ? argv.env.toLowerCase() : 'DEV';
 
 /**
  * Compile SASS files into the main.css.
@@ -34,7 +27,7 @@ if(!ENV.match(new RegExp(/prod|dev|test|DEV|TEST|PROD/))) {
 gulp.task('sass', () => {
     // if it's set to `true` the gulp.watch will keep gulp from stopping
     // every time we mess up sass files
-    const errLogToConsole = ENV === 'dev' || ENV === 'DEV'|| ENV === 'test'|| ENV === 'TEST';
+    const errLogToConsole = ENV === 'dev' || ENV === 'test';
 
     return gulp.src(path.app.styles)
         .pipe(changed(path.tmp.styles, {extension: '.scss'}))

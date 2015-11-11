@@ -24,26 +24,26 @@ const TEST_OPTIMIZE = 'test-optimize';
 //         COMMAND LINE ERROR HANDLING
 //=============================================
 
-let ENV = !!argv.env ? argv.env : 'DEV';
-let OPTIMIZE = !!argv.optimize ? argv.optimize : 'false';
-let OPEN_BROWSER = !!argv.open ? argv.open : 'true';
+let ENV = !!argv.env ? argv.env.toLowerCase() : 'dev';
+let OPTIMIZE = !!argv.optimize ? argv.optimize.toLowerCase() : 'false';
+let OPEN_BROWSER = !!argv.open ? argv.open.toLowerCase() : 'true';
 
-if(!OPEN_BROWSER.match(new RegExp(/true|false|TRUE|FALSE/))) {
+if(!OPEN_BROWSER.match(new RegExp(/true|false/))) {
     LOG(COLORS.red(`Error: The argument 'open' has incorrect value ${OPEN_BROWSER}! Usage: --open=(true|false)`));
     process.exit(1);
 } else {
-    OPEN_BROWSER = OPEN_BROWSER === 'true' || OPEN_BROWSER === 'TRUE';
+    OPEN_BROWSER = OPEN_BROWSER === 'true';
 }
 
-if(!OPTIMIZE.match(new RegExp(/true|false|TRUE|FALSE/))) {
+if(!OPTIMIZE.match(new RegExp(/true|false/))) {
     LOG(COLORS.red(`Error: The argument 'optimize' has incorrect value ${OPEN_BROWSER}! Usage: --optimize=(true|false)`));
     process.exit(1);
-} else if(OPTIMIZE === 'true' || OPTIMIZE === 'TRUE') {
+} else if(OPTIMIZE === 'true') {
     ENV = TEST_OPTIMIZE;
 }
 
-if(!ENV.match(new RegExp(/prod|dev|test|DEV|TEST|PROD/))) {
-    LOG(COLORS.red(`Error: The argument 'env' has incorrect value ${ENV}! Usage: --env=(DEV|TEST|PROD)`));
+if(!ENV.match(new RegExp(/prod|dev|test/))) {
+    LOG(COLORS.red(`Error: The argument 'env' has incorrect value ${ENV}! Usage: --env=(dev|test|prod)`));
     process.exit(1);
 }
 
@@ -102,13 +102,13 @@ function startBrowserSync(baseDir, files, browser) {
  * @return {Stream}
  */
 gulp.task('config', () => {
-    const mock = !!argv.mock ? argv.mock === 'true' : ENV.toLowerCase() === 'test' || OPTIMIZE === 'true';
+    const mock = !!argv.mock ? argv.mock === 'true' : ENV === 'test' || OPTIMIZE === 'true';
     const env = ENV === TEST_OPTIMIZE ? 'test' : ENV;
     return gulp.src(path.app.config.conditions)
         .pipe(inject(gulp.src('.'), {
             starttag: '/* inject:env */',
             endtag: '/* endinject */',
-            transform: () => `export var mock = ${mock};\nexport var optimize = ${OPTIMIZE === 'true' || ENV.toLowerCase() === 'prod'};\nexport var environment = '${env.toLowerCase()}';`
+            transform: () => `export var mock = ${mock};\nexport var optimize = ${OPTIMIZE === 'true' || ENV=== 'prod'};\nexport var environment = '${env}';`
         }))
         .pipe(gulp.dest(path.app.config.basePath));
 });
@@ -120,13 +120,10 @@ gulp.task('startBrowserSync', () => {
     let startBrowserSyncTask;
 
     switch(ENV) {
-        case 'DEV':
         case 'dev':
-        case 'TEST':
         case 'test':
             startBrowserSyncTask = startBrowserSync(['.tmp', 'src', 'jspm_packages', './' ]);
             break;
-        case 'PROD':
         case 'prod':
         case TEST_OPTIMIZE:
             startBrowserSyncTask = startBrowserSync([path.build.dist.basePath]);
@@ -143,13 +140,10 @@ gulp.task('serve', () => {
     let serveTasks;
 
     switch(ENV) {
-        case 'DEV':
         case 'dev':
-        case 'TEST':
         case 'test':
             serveTasks = ['config', 'sass', 'watch'];
             break;
-        case 'PROD':
         case 'prod':
         case TEST_OPTIMIZE:
             serveTasks = ['config', 'build'];
