@@ -26,11 +26,10 @@ class EmployeeAuthorizations {
         this.employee.role = this.employee.role || USER_ROLES.EMPLOYEE;
         this.employee.locations = this.employee.locations || [this.locations.find(location => location.default).id];
         this.employee.supervisorLocations = this.employee.supervisorLocations || [];
-        this.isSupervisor = this.employee.role === USER_ROLES.SUPERVISOR;
     }
 
     deleteSupervisorLocations() {
-        if(!this.isSupervisor) {
+        if(this.employee.role !== USER_ROLES.SUPERVISOR) {
             this.employee.supervisorLocations = [];
         }
     }

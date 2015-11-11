@@ -233,20 +233,11 @@ describe('EmployeeAuthorizations', () => {
             expect(employeeAuthorizations.employee.supervisorLocations).toEqual([]);
         });
 
-        it(`should have employee.isSupervisor set to true is employee.role is equal to ${USER_ROLES.SUPERVISOR}`, () => {
-            spyOn(EmployeeModel, 'getItem').and.returnValue({role: USER_ROLES.SUPERVISOR, locations: []});
-            spyOn(LocationModel, 'getCollection').and.returnValue([{id: '2', default: true}]);
-
-            employeeAuthorizations = new EmployeeAuthorizations(EmployeeModel, LocationModel);
-
-            expect(employeeAuthorizations.isSupervisor).toEqual(true);
-        });
-
         describe('deleteSupervisorLocations', () => {
             it(`should delete supervisor locations when employee.role is not equal ${USER_ROLES.SUPERVISOR}`, () => {
                 spyOn(EmployeeModel, 'getItem').and.returnValue(itemMock);
                 employeeAuthorizations = new EmployeeAuthorizations(EmployeeModel, LocationModel);
-                employeeAuthorizations.isSupervisor = false;
+                employeeAuthorizations.employee.role = USER_ROLES.EMPLOYEE;
                 employeeAuthorizations.employee.supervisorLocations = ['1'];
 
                 employeeAuthorizations.deleteSupervisorLocations();
@@ -257,7 +248,7 @@ describe('EmployeeAuthorizations', () => {
             it(`should not delete supervisor locations when employee.role is equal ${USER_ROLES.SUPERVISOR}`, () => {
                 spyOn(EmployeeModel, 'getItem').and.returnValue(itemMock);
                 employeeAuthorizations = new EmployeeAuthorizations(EmployeeModel, LocationModel);
-                employeeAuthorizations.isSupervisor = true;
+                employeeAuthorizations.employee.role = USER_ROLES.SUPERVISOR;
                 employeeAuthorizations.employee.supervisorLocations = ['1'];
 
                 employeeAuthorizations.deleteSupervisorLocations();
