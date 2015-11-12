@@ -46,4 +46,20 @@ describe('Helpers: positionLabel', () => {
         };
         expect(positionLabelFilter(positions.data[1].id, positions)).toEqual(positions.data[1].name);
     });
+
+    it('should return empty string if position does not exist', () => {
+        positions = {
+            data: [
+                {
+                    id: '1',
+                    name: 'Junior Animator'
+                },
+                {
+                    id: '2',
+                    name: 'Senior Animator'
+                }
+            ]
+        };
+        expect(positionLabelFilter('no-exist', positions)).toEqual('');
+    });
 });

@@ -18,7 +18,9 @@ class StatusLabel {
             if(!Array.isArray(positions)) {
                 positions = positions.data;
             }
-            return positions.find(position => position.id === positionId).name;
+            const position = positions.find(position => position.id === positionId);
+
+            return position ? position.name : '';
         };
     }
 }
