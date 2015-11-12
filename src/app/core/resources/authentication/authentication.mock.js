@@ -25,7 +25,7 @@ class AuthenticationResourceMock {
 
                 const employee = employees.find((employee) => employee.email === data.email && (employee.status !== EMPLOYEE_PROFILE_STATUSES.INACTIVE || employee.status !== EMPLOYEE_PROFILE_STATUSES.PENDING));
 
-                if(!employee || data.password !== 'pass') {
+                if(!employee || data.password !== 'password') {
                     return [401];
                 } else if (data.email === '500@error.com') {
                     return [500];

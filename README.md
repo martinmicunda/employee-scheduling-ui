@@ -54,12 +54,12 @@ An UI component for [Employee Scheduling](https://github.com/martinmicunda/emplo
 ## Demo
 This demo is running from [gh-pages](https://github.com/martinmicunda/employee-scheduling-ui/tree/gh-pages) branch in backend-less development env (see [How to Run](#how-to-run-test) section). Below, you can find login credentials for different user roles.
 
-|    ROLE    |        EMAIL        | PASSWORD |
-|:----------:|:-------------------:|:--------:|
-|  employee  |  employee@test.com  |   pass   |
-| supervisor | supervisor@test.com |   pass   |
-|   manager  |   manager@test.com  |   pass   |
-|    admin   |    admin@test.com   |   pass   |
+|    ROLE    |        EMAIL        |   PASSWORD   |
+|:----------:|:-------------------:|:------------:|
+|  employee  |  employee@test.com  |   password   |
+| supervisor | supervisor@test.com |   password   |
+|   manager  |   manager@test.com  |   password   |
+|    admin   |    admin@test.com   |   password   |
 
 <a href="http://martinmicunda.github.io/employee-scheduling-ui/dist" target="_blank">Click here to see it in action!</a>
 
