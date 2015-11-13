@@ -54,15 +54,18 @@ class AbstractModel {
         // update existing item if model contains id
         if (item.id) {
             return this.resource.update(item).then(itemRespond => {
+                item.cas = itemRespond.cas;
+
                 for (let i = 0; i < this.collection.length; i++) {
-                    if(this.collection[i].id === itemRespond.id) {
-                        this.collection[i] = itemRespond;
+                    if(this.collection[i].id === item.id) {
+                        Object.assign(this.collection[i], item);
                     }
                 }
             });
         } else {
             return this.resource.create(item).then(itemRespond => {
                 item.id = itemRespond.id;
+                item.cas = itemRespond.cas;
                 this.collection.push(item);
             });
         }

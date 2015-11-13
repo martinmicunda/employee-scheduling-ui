@@ -11,7 +11,7 @@ Employee Scheduling UI
 
 **Note: :warning: This project is under development.**
 
-An UI component for [Employee Scheduling](https://github.com/martinmicunda/employee-scheduling) application that makes employee scheduling and management easy, fast and mobile. The API component for this application can be found [here](https://github.com/martinmicunda/employee-scheduling-api). I wrote a few blog posts about this project and they can be found on my [blog](http://martinmicunda.com).
+An UI component for [Employee Scheduling](https://github.com/martinmicunda/employee-scheduling) application that makes employee scheduling management easy, fast and mobile. The API component for this application can be found [here](https://github.com/martinmicunda/employee-scheduling-api). I wrote a few blog posts about this project and they can be found on my [blog](http://martinmicunda.com).
 
 ## Table of Contents
 - [Technologies Used](#technologies-used)

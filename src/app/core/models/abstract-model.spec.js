@@ -10,7 +10,7 @@ import AbstractResource from '../resources/abstract-resource';
 
 describe('AbstractModel', () => {
 
-    let abstractResource, abstractModel, route = 'test', id = '1', item = {id: id, test: 'test'}, collection = [item];
+    let abstractResource, abstractModel, route = 'test', id = '1', item = {id: id, test: 'test', cas: 'cas'}, collection = [item];
 
     beforeEach(() => {
         abstractResource = new AbstractResource({}, route);
@@ -92,26 +92,35 @@ describe('AbstractModel', () => {
     });
 
     itAsync('should update item in collection', () => {
-        let itemUpdated = Object.assign({}, item);
+        const respond = {cas: 'cas-updated'};
+        const itemUpdated = Object.assign({}, item);
         itemUpdated.test = 'test-updated';
-        spyOn(abstractModel.resource, 'update').and.returnValue(Promise.resolve(itemUpdated));
+        itemUpdated.newAttribute = 'new-attribute'; // required to test Object.assign() (clone function is use in the app code)
+        spyOn(abstractModel.resource, 'update').and.returnValue(Promise.resolve(respond));
 
         abstractModel.collection = [{id: '2', test: 'test-2'}, collection[0]]; // required to increase statements coverage in updateCollectionItem for-loop
-        return abstractModel.save(item).then(() => {
+        expect(abstractModel.getCollection()[1].newAttribute).toBeUndefined();
+
+        return abstractModel.save(itemUpdated).then(() => {
+            expect(abstractModel.getCollection()[1].cas).toEqual(respond.cas);
             expect(abstractModel.getCollection()[1].test).toEqual(itemUpdated.test);
+            expect(abstractModel.getCollection()[1].newAttribute).toBeDefined();
+            expect(abstractModel.getCollection()[1].newAttribute).toEqual(itemUpdated.newAttribute);
             expect(abstractModel.resource.update).toHaveBeenCalledWith(item);
         });
     });
 
-    itAsync('should create item and push item to collection', () => {
+    itAsync('should create item and push item to collection with new id and cas properties', () => {
         let newItem = Object.assign({}, item);
         newItem.id = null;
+        newItem.cas = null;
         spyOn(abstractModel.resource, 'create').and.returnValue(Promise.resolve(item));
 
         expect(abstractModel.getCollection().length).toEqual(0);
 
         return abstractModel.save(newItem).then(() => {
             expect(abstractModel.getCollection()[0].id).toEqual(item.id);
+            expect(abstractModel.getCollection()[0].cas).toEqual(item.cas);
             expect(abstractModel.resource.create).toHaveBeenCalledWith(newItem);
         });
     });
