@@ -15,10 +15,10 @@
 <div class="header high">
     <h1>Code coverage report for <span class="entity">app/routes/layout-app/account/account-details/account-details.js</span></h1>
     <h2>
-        Statements: <span class="metric">100% <small>(28 / 28)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Statements: <span class="metric">100% <small>(34 / 34)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
         Branches: <span class="metric">100% <small>(10 / 10)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
-        Functions: <span class="metric">100% <small>(7 / 7)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
-        Lines: <span class="metric">100% <small>(24 / 24)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Functions: <span class="metric">100% <small>(8 / 8)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Lines: <span class="metric">100% <small>(30 / 30)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
         Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
     </h2>
     <div class="path"><a href="../../../../../index.html">All files</a> &#187; <a href="index.html">app/routes/layout-app/account/account-details/</a> &#187; account-details.js</div>
@@ -87,7 +87,14 @@
 60
 61
 62
-63</td><td class="line-coverage"><span class="cline-any cline-neutral">&nbsp;</span>
+63
+64
+65
+66
+67
+68
+69
+70</td><td class="line-coverage"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -112,16 +119,17 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1</span>
 <span class="cline-any cline-yes">1</span>
-<span class="cline-any cline-yes">35</span>
-<span class="cline-any cline-yes">35</span>
-<span class="cline-any cline-yes">35</span>
-<span class="cline-any cline-yes">35</span>
-<span class="cline-any cline-yes">35</span>
-<span class="cline-any cline-yes">35</span>
-<span class="cline-any cline-yes">35</span>
-<span class="cline-any cline-yes">35</span>
-<span class="cline-any cline-yes">35</span>
-<span class="cline-any cline-yes">35</span>
+<span class="cline-any cline-yes">36</span>
+<span class="cline-any cline-yes">36</span>
+<span class="cline-any cline-yes">36</span>
+<span class="cline-any cline-yes">36</span>
+<span class="cline-any cline-yes">36</span>
+<span class="cline-any cline-yes">36</span>
+<span class="cline-any cline-yes">36</span>
+<span class="cline-any cline-yes">36</span>
+<span class="cline-any cline-yes">36</span>
+<span class="cline-any cline-yes">36</span>
+<span class="cline-any cline-yes">36</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -133,15 +141,21 @@
 <span class="cline-any cline-yes">1</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">3</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">2</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-yes">1</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1</span>
-<span class="cline-any cline-yes">1</span>
-<span class="cline-any cline-yes">1</span>
-<span class="cline-any cline-yes">1</span>
-<span class="cline-any cline-yes">1</span>
-<span class="cline-any cline-yes">1</span>
 <span class="cline-any cline-yes">1</span>
 <span class="cline-any cline-yes">1</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -170,10 +184,10 @@ import {RouteConfig, Component, View, Inject} from '../../../../ng-decorators'; 
 @View({
     template: template
 })
-@Inject('EmployeeModel', 'SettingModel', 'Upload', 'FormService')
+@Inject('EmployeeModel', 'SettingModel', 'Upload', 'FormService', 'EmployeeResource')
 //end-non-standard
 class AccountDetails {
-    constructor(EmployeeModel, SettingModel, Upload, FormService) {
+    constructor(EmployeeModel, SettingModel, Upload, FormService, EmployeeResource) {
         this.Upload = Upload;
         this.employee = Object.assign({}, EmployeeModel.getItem());
         this.employeeCloned = EmployeeModel.getItem(); // to reset profile completeness data
@@ -184,6 +198,7 @@ class AccountDetails {
         this.result = null;
         this.isSubmitting = null;
         this.EmployeeModel.calculateProfileCompleteness();
+        this.EmployeeResource = EmployeeResource;
     }
 &nbsp;
     removeAvatar() {
@@ -199,13 +214,19 @@ class AccountDetails {
         if(!form.$valid) {return;}
 &nbsp;
         this.isSubmitting = true;
-        return this.FormService.save(this.EmployeeModel, this.employee, this, form).then(() =&gt; {
+        return this.EmployeeResource.updateAccountDetails(this.employee).then(data =&gt; {
+            this.employee.cas = data.cas;
             this.employeeCloned.avatar = this.employee.avatar;
             this.employeeCloned.firstName = this.employee.firstName;
             this.employeeCloned.lastName = this.employee.lastName;
             this.employeeCloned.email = this.employee.email;
             this.employeeCloned.note = this.employee.note;
             this.EmployeeModel.calculateProfileCompleteness();
+            form.$setPristine();
+            this.FormService.onSuccess(this);
+        }, response =&gt; {
+            form.$setPristine();
+            this.FormService.onFailure(this, response);
         });
     }
 }
@@ -216,7 +237,7 @@ export default AccountDetails;
 
 </div>
 <div class="footer">
-    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Thu Nov 12 2015 17:52:08 GMT+0000 (UTC)</div>
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Fri Nov 13 2015 16:17:17 GMT+0000 (UTC)</div>
 </div>
 <script src="../../../../../prettify.js"></script>
 <script>
