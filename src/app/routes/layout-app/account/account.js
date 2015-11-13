@@ -18,7 +18,7 @@ import {RouteConfig, Component, View, Inject} from '../../../ng-decorators'; // 
     abstract: true,
     template: '<account></account>',
     resolve: {
-        init: ['$rootScope', 'EmployeeModel', 'SettingModel', ($rootScope, EmployeeModel, SettingModel) => Promise.all([EmployeeModel.initItem($rootScope.currentUser.id), SettingModel.initItem('app')])]
+        init: ['$rootScope', 'EmployeeResource', 'EmployeeModel', 'SettingModel', ($rootScope, EmployeeResource, EmployeeModel, SettingModel) => Promise.all([EmployeeResource.getAccountDetails($rootScope.currentUser.id).then(data => EmployeeModel.setItem(data)), SettingModel.initItem('app')])]
     },
     data: {
         access: ACCESS_LEVELS.employee

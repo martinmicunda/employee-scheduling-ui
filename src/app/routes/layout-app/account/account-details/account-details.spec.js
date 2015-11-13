@@ -358,20 +358,21 @@ describe('AccountDetails', () => {
     });
 
     describe('Controller', () => {
-        let accountDetails, FormService, EmployeeModel, SettingModel, Upload,
+        let accountDetails, FormService, EmployeeModel, SettingModel, Upload, EmployeeResource,
             itemMock = {avatar: 'avatar', firstName: 'firstName', lastName: 'lastName', email: 'email', note: 'note'};
 
-        beforeEach(inject((_FormService_, _EmployeeModel_, _SettingModel_, _Upload_) => {
+        beforeEach(inject((_FormService_, _EmployeeModel_, _SettingModel_, _Upload_, _EmployeeResource_) => {
             Upload = _Upload_;
             FormService = _FormService_;
             SettingModel = _SettingModel_;
             EmployeeModel = _EmployeeModel_;
+            EmployeeResource = _EmployeeResource_;
         }));
 
         it('should have employee property', () => {
             spyOn(Object, 'assign').and.returnValue(itemMock);
             spyOn(EmployeeModel, 'getItem').and.returnValue(itemMock);
-            accountDetails = new AccountDetails(EmployeeModel, SettingModel, Upload, FormService);
+            accountDetails = new AccountDetails(EmployeeModel, SettingModel, Upload, FormService, EmployeeResource);
 
             expect(accountDetails.employee).toEqual(itemMock);
             expect(EmployeeModel.getItem).toHaveBeenCalled();
@@ -380,27 +381,27 @@ describe('AccountDetails', () => {
 
         it('should have employeeCloned property', () => {
             spyOn(EmployeeModel, 'getItem').and.returnValue(itemMock);
-            accountDetails = new AccountDetails(EmployeeModel, SettingModel, Upload, FormService);
+            accountDetails = new AccountDetails(EmployeeModel, SettingModel, Upload, FormService, EmployeeResource);
 
             expect(accountDetails.employeeCloned).toEqual(itemMock);
             expect(EmployeeModel.getItem).toHaveBeenCalled();
         });
 
         it('should have isSubmitting property', () => {
-            accountDetails = new AccountDetails(EmployeeModel, SettingModel, Upload, FormService);
+            accountDetails = new AccountDetails(EmployeeModel, SettingModel, Upload, FormService, EmployeeResource);
 
             expect(accountDetails.isSubmitting).toEqual(null);
         });
 
         it('should have result property', () => {
-            accountDetails = new AccountDetails(EmployeeModel, SettingModel, Upload, FormService);
+            accountDetails = new AccountDetails(EmployeeModel, SettingModel, Upload, FormService, EmployeeResource);
 
             expect(accountDetails.result).toEqual(null);
         });
 
         it('should have saveButtonOptions property', () => {
             spyOn(FormService, 'getSaveButtonOptions').and.returnValue(itemMock);
-            accountDetails = new AccountDetails(EmployeeModel, SettingModel, Upload, FormService);
+            accountDetails = new AccountDetails(EmployeeModel, SettingModel, Upload, FormService, EmployeeResource);
 
             expect(accountDetails.saveButtonOptions).toEqual(itemMock);
             expect(FormService.getSaveButtonOptions).toHaveBeenCalled();
@@ -408,7 +409,7 @@ describe('AccountDetails', () => {
 
         it('should calculate profile completeness when controller is loaded', () => {
             spyOn(EmployeeModel, 'calculateProfileCompleteness');
-            accountDetails = new AccountDetails(EmployeeModel, SettingModel, Upload, FormService);
+            accountDetails = new AccountDetails(EmployeeModel, SettingModel, Upload, FormService, EmployeeResource);
 
             expect(EmployeeModel.calculateProfileCompleteness).toHaveBeenCalled();
         });
@@ -416,7 +417,7 @@ describe('AccountDetails', () => {
         it('should set default avatar image', () => {
             spyOn(EmployeeModel, 'getItem').and.returnValue(itemMock);
             spyOn(SettingModel, 'getItem').and.returnValue({avatar: 'avatar-default'});
-            accountDetails = new AccountDetails(EmployeeModel, SettingModel, Upload, FormService);
+            accountDetails = new AccountDetails(EmployeeModel, SettingModel, Upload, FormService, EmployeeResource);
 
             expect(accountDetails.employee.avatar).toEqual(itemMock.avatar);
 
@@ -429,7 +430,7 @@ describe('AccountDetails', () => {
         itAsync('should add new avatar image', () => {
             spyOn(Upload, 'dataUrl').and.returnValue(Promise.resolve('avatar-new'));
             spyOn(EmployeeModel, 'getItem').and.returnValue(itemMock);
-            accountDetails = new AccountDetails(EmployeeModel, SettingModel, Upload, FormService);
+            accountDetails = new AccountDetails(EmployeeModel, SettingModel, Upload, FormService, EmployeeResource);
 
             expect(accountDetails.employee.avatar).toEqual(itemMock.avatar);
 
@@ -442,7 +443,7 @@ describe('AccountDetails', () => {
         it('should not save if form is invalid', () => {
             let form = {$valid: false};
             spyOn(FormService, 'save');
-            accountDetails = new AccountDetails(EmployeeModel, SettingModel, Upload, FormService);
+            accountDetails = new AccountDetails(EmployeeModel, SettingModel, Upload, FormService, EmployeeResource);
 
             accountDetails.save(form);
 
@@ -451,11 +452,14 @@ describe('AccountDetails', () => {
         });
 
         itAsync('should save if form is valid', () => {
-            let form = {$valid: true};
-            spyOn(FormService, 'save').and.returnValue(Promise.resolve());
+            let form = {$valid: true, $setPristine: () => {}}, item = {cas: 'newCas'};
+            spyOn(EmployeeResource, 'updateAccountDetails').and.returnValue(Promise.resolve(item));
             spyOn(EmployeeModel, 'getItem').and.returnValue(itemMock);
             spyOn(EmployeeModel, 'calculateProfileCompleteness');
-            accountDetails = new AccountDetails(EmployeeModel, SettingModel, Upload, FormService);
+            spyOn(FormService, 'onSuccess');
+            spyOn(form, '$setPristine');
+
+            accountDetails = new AccountDetails(EmployeeModel, SettingModel, Upload, FormService, EmployeeResource);
             accountDetails.employee.avatar = itemMock.avatar + '-updated';
             accountDetails.employee.firstName = itemMock.firstName + '-updated';
             accountDetails.employee.lastName = itemMock.lastName + '-updated';
@@ -470,14 +474,32 @@ describe('AccountDetails', () => {
 
             return accountDetails.save(form).then(() => {
                 expect(accountDetails.isSubmitting).toEqual(true);
-                expect(FormService.save).toHaveBeenCalledWith(EmployeeModel, accountDetails.employee, accountDetails, form);
+                expect(EmployeeResource.updateAccountDetails).toHaveBeenCalledWith(accountDetails.employee);
                 expect(EmployeeModel.calculateProfileCompleteness).toHaveBeenCalled();
 
+                expect(accountDetails.employee.cas).toEqual(item.cas);
                 expect(accountDetails.employeeCloned.avatar).toEqual(accountDetails.employee.avatar);
                 expect(accountDetails.employeeCloned.firstName).toEqual(accountDetails.employee.firstName);
                 expect(accountDetails.employeeCloned.lastName).toEqual(accountDetails.employee.lastName);
                 expect(accountDetails.employeeCloned.email).toEqual(accountDetails.employee.email);
                 expect(accountDetails.employeeCloned.note).toEqual(accountDetails.employee.note);
+
+                expect(form.$setPristine).toHaveBeenCalled();
+                expect(FormService.onSuccess).toHaveBeenCalled();
+            });
+        });
+
+        itAsync('should not save if there is failure', () => {
+            let form = {$valid: true, $setPristine: () => {}};
+            spyOn(EmployeeResource, 'updateAccountDetails').and.returnValue(Promise.reject('error'));
+            spyOn(form, '$setPristine');
+            spyOn(FormService, 'onFailure');
+
+            accountDetails = new AccountDetails(EmployeeModel, SettingModel, Upload, FormService, EmployeeResource);
+
+            return accountDetails.save(form).then(() => {
+                expect(form.$setPristine).toHaveBeenCalled();
+                expect(FormService.onFailure).toHaveBeenCalledWith(accountDetails, 'error');
             });
         });
     });

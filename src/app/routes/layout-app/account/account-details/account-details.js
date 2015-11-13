@@ -19,10 +19,10 @@ import {RouteConfig, Component, View, Inject} from '../../../../ng-decorators'; 
 @View({
     template: template
 })
-@Inject('EmployeeModel', 'SettingModel', 'Upload', 'FormService')
+@Inject('EmployeeModel', 'SettingModel', 'Upload', 'FormService', 'EmployeeResource')
 //end-non-standard
 class AccountDetails {
-    constructor(EmployeeModel, SettingModel, Upload, FormService) {
+    constructor(EmployeeModel, SettingModel, Upload, FormService, EmployeeResource) {
         this.Upload = Upload;
         this.employee = Object.assign({}, EmployeeModel.getItem());
         this.employeeCloned = EmployeeModel.getItem(); // to reset profile completeness data
@@ -33,6 +33,7 @@ class AccountDetails {
         this.result = null;
         this.isSubmitting = null;
         this.EmployeeModel.calculateProfileCompleteness();
+        this.EmployeeResource = EmployeeResource;
     }
 
     removeAvatar() {
@@ -48,13 +49,19 @@ class AccountDetails {
         if(!form.$valid) {return;}
 
         this.isSubmitting = true;
-        return this.FormService.save(this.EmployeeModel, this.employee, this, form).then(() => {
+        return this.EmployeeResource.updateAccountDetails(this.employee).then(data => {
+            this.employee.cas = data.cas;
             this.employeeCloned.avatar = this.employee.avatar;
             this.employeeCloned.firstName = this.employee.firstName;
             this.employeeCloned.lastName = this.employee.lastName;
             this.employeeCloned.email = this.employee.email;
             this.employeeCloned.note = this.employee.note;
             this.EmployeeModel.calculateProfileCompleteness();
+            form.$setPristine();
+            this.FormService.onSuccess(this);
+        }, response => {
+            form.$setPristine();
+            this.FormService.onFailure(this, response);
         });
     }
 }

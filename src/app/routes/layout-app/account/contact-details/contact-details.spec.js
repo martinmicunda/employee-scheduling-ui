@@ -215,36 +215,37 @@ describe('ContactDetails', () => {
     });
 
     describe('Controller', () => {
-        let contactDetails, FormService, EmployeeModel, itemMock = 'itemMock';
+        let contactDetails, FormService, EmployeeModel, EmployeeResource, itemMock = {item: 'itemMock'};
 
-        beforeEach(inject((_FormService_, _EmployeeModel_) => {
+        beforeEach(inject((_FormService_, _EmployeeModel_, _EmployeeResource_) => {
             FormService = _FormService_;
             EmployeeModel = _EmployeeModel_;
+            EmployeeResource = _EmployeeResource_;
         }));
 
         it('should have employee property', () => {
             spyOn(EmployeeModel, 'getItem').and.returnValue(itemMock);
-            contactDetails = new ContactDetails(EmployeeModel, FormService);
+            contactDetails = new ContactDetails(EmployeeModel, FormService, EmployeeResource);
 
             expect(contactDetails.employee).toEqual(itemMock);
             expect(EmployeeModel.getItem).toHaveBeenCalled();
         });
 
         it('should have isSubmitting property', () => {
-            contactDetails = new ContactDetails(EmployeeModel, FormService);
+            contactDetails = new ContactDetails(EmployeeModel, FormService, EmployeeResource);
 
             expect(contactDetails.isSubmitting).toEqual(null);
         });
 
         it('should have result property', () => {
-            contactDetails = new ContactDetails(EmployeeModel, FormService);
+            contactDetails = new ContactDetails(EmployeeModel, FormService, EmployeeResource);
 
             expect(contactDetails.result).toEqual(null);
         });
 
         it('should have saveButtonOptions property', () => {
             spyOn(FormService, 'getSaveButtonOptions').and.returnValue(itemMock);
-            contactDetails = new ContactDetails(EmployeeModel, FormService);
+            contactDetails = new ContactDetails(EmployeeModel, FormService, EmployeeResource);
 
             expect(contactDetails.saveButtonOptions).toEqual(itemMock);
             expect(FormService.getSaveButtonOptions).toHaveBeenCalled();
@@ -252,7 +253,7 @@ describe('ContactDetails', () => {
 
         it('should calculate profile completeness when controller is loaded', () => {
             spyOn(EmployeeModel, 'calculateProfileCompleteness');
-            contactDetails = new ContactDetails(EmployeeModel, FormService);
+            contactDetails = new ContactDetails(EmployeeModel, FormService, EmployeeResource);
 
             expect(EmployeeModel.calculateProfileCompleteness).toHaveBeenCalled();
         });
@@ -260,7 +261,7 @@ describe('ContactDetails', () => {
         it('should not save if form is invalid', () => {
             let form = {$valid: false};
             spyOn(FormService, 'save');
-            contactDetails = new ContactDetails(EmployeeModel, FormService);
+            contactDetails = new ContactDetails(EmployeeModel, FormService, EmployeeResource);
 
             contactDetails.save(form);
 
@@ -269,16 +270,35 @@ describe('ContactDetails', () => {
         });
 
         itAsync('should save if form is valid', () => {
-            let form = {$valid: true};
-            spyOn(FormService, 'save').and.returnValue(Promise.resolve());
+            let form = {$valid: true, $setPristine: () => {}}, item = {cas: 'newCas'};
+            spyOn(EmployeeResource, 'updateAccountDetails').and.returnValue(Promise.resolve(item));
             spyOn(EmployeeModel, 'getItem').and.returnValue(itemMock);
             spyOn(EmployeeModel, 'calculateProfileCompleteness');
-            contactDetails = new ContactDetails(EmployeeModel, FormService);
+            spyOn(FormService, 'onSuccess');
+            spyOn(form, '$setPristine');
+
+            contactDetails = new ContactDetails(EmployeeModel, FormService, EmployeeResource);
 
             return contactDetails.save(form).then(() => {
-                expect(contactDetails.isSubmitting).toEqual(true);
-                expect(FormService.save).toHaveBeenCalledWith(EmployeeModel, contactDetails.employee, contactDetails, form);
+                expect(EmployeeResource.updateAccountDetails).toHaveBeenCalledWith(contactDetails.employee);
                 expect(EmployeeModel.calculateProfileCompleteness).toHaveBeenCalled();
+                expect(contactDetails.employee.cas).toEqual(item.cas);
+                expect(form.$setPristine).toHaveBeenCalled();
+                expect(FormService.onSuccess).toHaveBeenCalled();
+            });
+        });
+
+        itAsync('should not save if there is failure', () => {
+            let form = {$valid: true, $setPristine: () => {}};
+            spyOn(EmployeeResource, 'updateAccountDetails').and.returnValue(Promise.reject('error'));
+            spyOn(form, '$setPristine');
+            spyOn(FormService, 'onFailure');
+
+            contactDetails = new ContactDetails(EmployeeModel, FormService, EmployeeResource);
+
+            return contactDetails.save(form).then(() => {
+                expect(form.$setPristine).toHaveBeenCalled();
+                expect(FormService.onFailure).toHaveBeenCalledWith(contactDetails, 'error');
             });
         });
     });

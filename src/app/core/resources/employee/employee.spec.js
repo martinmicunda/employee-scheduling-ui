@@ -10,11 +10,17 @@ import EmployeeResource from './employee.js';
 
 describe('EmployeeResource', () => {
 
-    let employeeResource, $http, email = 'email@test.com', route = `employees`;
+    let employeeResource, $http, $httpBackend, email = 'email@test.com', route = `employees`, id = '1', item = {id: id, test: 'test'};
 
-    beforeEach(inject((_$http_) => {
+    beforeEach(inject((_$http_, _$httpBackend_) => {
         $http = _$http_;
+        $httpBackend = _$httpBackend_;
         employeeResource = new EmployeeResource($http);
+    }));
+
+    afterEach(inject(($httpBackend) => {
+        $httpBackend.verifyNoOutstandingExpectation();
+        $httpBackend.verifyNoOutstandingRequest();
     }));
 
     it(`should have 'http' property set to $http`, () => {
@@ -34,4 +40,24 @@ describe('EmployeeResource', () => {
 
         $httpBackend.flush();
     }));
+
+    it('should call GET account details with `id`', () => {
+        $httpBackend.whenGET(`/${route}/${id}/account`).respond(() => [200, item]);
+
+        employeeResource.getAccountDetails(`${id}`).then((respond) => {
+            expect(respond.data).toEqual(item);
+        });
+
+        $httpBackend.flush();
+    });
+
+    it('should call PUT resource to update account details', () => {
+        $httpBackend.whenPUT(`/${route}/${id}/account`, item).respond(() => [200, item]);
+
+        employeeResource.updateAccountDetails(item).then((respond) => {
+            expect(respond.data).toEqual(item);
+        });
+
+        $httpBackend.flush();
+    });
 });

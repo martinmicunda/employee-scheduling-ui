@@ -19,15 +19,16 @@ import {RouteConfig, Component, View, Inject} from '../../../../ng-decorators'; 
 @View({
     template: template
 })
-@Inject('EmployeeModel', 'FormService')
+@Inject('EmployeeModel', 'FormService', 'EmployeeResource')
 //end-non-standard
 class ContactDetails {
-    constructor(EmployeeModel, FormService) {
+    constructor(EmployeeModel, FormService, EmployeeResource) {
         this.employee = EmployeeModel.getItem();
         this.result = null;
         this.isSubmitting = null;
         this.FormService = FormService;
         this.EmployeeModel = EmployeeModel;
+        this.EmployeeResource = EmployeeResource;
         this.saveButtonOptions = FormService.getSaveButtonOptions();
         this.EmployeeModel.calculateProfileCompleteness();
     }
@@ -36,8 +37,14 @@ class ContactDetails {
         if(!form.$valid) {return;}
 
         this.isSubmitting = true;
-        return this.FormService.save(this.EmployeeModel, this.employee, this, form).then(() => {
+        return this.EmployeeResource.updateAccountDetails(this.employee).then(data => {
+            this.employee.cas = data.cas;
             this.EmployeeModel.calculateProfileCompleteness();
+            form.$setPristine();
+            this.FormService.onSuccess(this);
+        }, response => {
+            form.$setPristine();
+            this.FormService.onFailure(this, response);
         });
     }
 }

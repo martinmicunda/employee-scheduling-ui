@@ -21,10 +21,10 @@ describe('FormService', () => {
         {route: 'route3', formName: 'form3', valid: false},
         {route: 'route4', formName: 'form4', valid: true},
         {route: 'route5', formName: 'form5', valid: true}
-    ];
+    ], model = { getItem: () => {return {adminEmail: 'fakeItem'};} };
 
     beforeEach(() => {
-        formService = new FormService();
+        formService = new FormService(model);
     });
 
     it(`should have 'saveButtonOptions' property`, () => {
@@ -138,7 +138,7 @@ describe('FormService', () => {
 
             formService.onFailure(self, response);
 
-            expect(self.errorMessage).toEqual('Something went wrong. Please contact the site administrator info@admin.com.');
+            expect(self.errorMessage).toEqual(`Something went wrong. Please contact the site administrator ${model.getItem().adminEmail}.`);
         });
     });
 

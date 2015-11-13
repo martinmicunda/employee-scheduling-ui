@@ -17,14 +17,15 @@ describe('Account', () => {
         let url = '/account',
             state = 'app.account',
             currentState,
-            $state, $injector, $rootScope, EmployeeModel, SettingModel;
+            $state, $injector, $rootScope, EmployeeModel, SettingModel, EmployeeResource;
 
-        beforeEach(inject((_$state_, _$rootScope_, _$injector_, _SettingModel_, _EmployeeModel_) => {
+        beforeEach(inject((_$state_, _$rootScope_, _$injector_, _SettingModel_, _EmployeeModel_, _EmployeeResource_) => {
             $state = _$state_;
             $injector = _$injector_;
             $rootScope = _$rootScope_;
             SettingModel = _SettingModel_;
             EmployeeModel = _EmployeeModel_;
+            EmployeeResource = _EmployeeResource_;
 
             currentState = $state.get(state);
         }));
@@ -44,11 +45,13 @@ describe('Account', () => {
         itAsync(`should resolve 'init' for '${url}' state`, () => {
             $rootScope.currentUser = {id: '1'};
             spyOn(SettingModel, 'initItem');
-            spyOn(EmployeeModel, 'initItem');
+            spyOn(EmployeeModel, 'setItem');
+            spyOn(EmployeeResource, 'getAccountDetails').and.returnValue(Promise.resolve('fakeItem'));
 
             return $injector.invoke(currentState.resolve.init).then(() => {
-                expect(EmployeeModel.initItem).toHaveBeenCalledWith($rootScope.currentUser.id);
+                expect(EmployeeResource.getAccountDetails).toHaveBeenCalledWith($rootScope.currentUser.id);
                 expect(SettingModel.initItem).toHaveBeenCalledWith('app');
+                expect(EmployeeModel.setItem).toHaveBeenCalledWith('fakeItem');
             });
         });
 

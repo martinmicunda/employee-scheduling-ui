@@ -23,6 +23,14 @@ class EmployeeResource extends AbstractResource {
     getEmployeeByEmail(email) {
         return this.http.get(`/${this.route}`, {params: {email: email}});
     }
+
+    getAccountDetails(id) {
+        return this.http.get(`/${this.route}/${id}/account`);
+    }
+
+    updateAccountDetails(updatedResource) {
+        return this.http.put(`/${this.route}/${updatedResource.id}/account`, updatedResource);
+    }
 }
 
 export default EmployeeResource;

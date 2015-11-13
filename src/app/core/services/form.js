@@ -5,15 +5,17 @@
  */
 'use strict';
 
-import {Service} from '../../ng-decorators'; // jshint unused: false
+import {Service, Inject} from '../../ng-decorators'; // jshint unused: false
 
 //start-non-standard
 @Service({
     serviceName: 'FormService'
 })
+@Inject('SettingModel')
 //end-non-standard
 class FormService {
-    constructor() {
+    constructor(SettingModel) {
+        this.SettingModel = SettingModel;
         this.saveButtonOptions = {
             iconsPosition: 'right',
             buttonDefaultText: 'Save',
@@ -58,7 +60,7 @@ class FormService {
         } else if(response.status === 503) {
             self.errorMessage = 'The service went down. Please try again later.';
         } else {
-            self.errorMessage = 'Something went wrong. Please contact the site administrator info@admin.com.';
+            self.errorMessage = `Something went wrong. Please contact the site administrator ${this.SettingModel.getItem().adminEmail}.`;
         }
     }
 
