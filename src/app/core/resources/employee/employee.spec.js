@@ -32,7 +32,7 @@ describe('EmployeeResource', () => {
     });
 
     it('should call GET employee by email resource', inject(($httpBackend) => {
-        $httpBackend.whenGET(`/${route}?email=${email}`).respond(() => [200, 'email']);
+        $httpBackend.whenGET(`/${route}/${email}/unique`).respond(() => [200, 'email']);
 
         employeeResource.getEmployeeByEmail(email).then((respond) => {
             expect(respond.data).toEqual('email');
