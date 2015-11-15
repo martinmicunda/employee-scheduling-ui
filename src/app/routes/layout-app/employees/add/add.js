@@ -23,7 +23,7 @@ import {RouteConfig, Inject} from '../../../../ng-decorators'; // jshint unused:
             template: template,
             resolve: {
                 init: ['PositionModel', 'EmployeeModel', 'SettingModel', 'LocationModel',
-                    (PositionModel, EmployeeModel, SettingModel, LocationModel) => Promise.all([PositionModel.initCollection(), EmployeeModel.initItem(), SettingModel.initItem('app'), LocationModel.initCollection()])]
+                    (PositionModel, EmployeeModel, SettingModel, LocationModel) => Promise.all([PositionModel.initCollection(null, true), EmployeeModel.initItem(), SettingModel.initItem('app', null, true), LocationModel.initCollection(null, true)])]
             },
             controller: EmployeeAdd,
             controllerAs: 'vm',

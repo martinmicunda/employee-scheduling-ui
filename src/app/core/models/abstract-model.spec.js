@@ -46,25 +46,15 @@ describe('AbstractModel', () => {
         expect(abstractModel.getItemById(id)).toEqual(item);
     });
 
-    itAsync('should init item via GET request', () => {
+    itAsync('should init item with GET request', () => {
+        const params = {params: 'params'}, cache = true;
         spyOn(abstractModel.resource, 'get').and.returnValue(Promise.resolve(item));
 
         expect(abstractModel.getItem()).toEqual({});
 
-        return abstractModel.initItem(id).then(() => {
+        return abstractModel.initItem(id, params, cache).then(() => {
             expect(abstractModel.getItem()).toEqual(item);
-            expect(abstractModel.resource.get).toHaveBeenCalledWith(id);
-        });
-    });
-
-    itAsync('should init empty item with GET request', () => {
-        spyOn(abstractModel.resource, 'get').and.returnValue(Promise.resolve(item));
-
-        expect(abstractModel.getItem()).toEqual({});
-
-        return abstractModel.initItem(id).then(() => {
-            expect(abstractModel.getItem()).toEqual(item);
-            expect(abstractModel.resource.get).toHaveBeenCalledWith(id);
+            expect(abstractModel.resource.get).toHaveBeenCalledWith(id, params, cache);
         });
     });
 

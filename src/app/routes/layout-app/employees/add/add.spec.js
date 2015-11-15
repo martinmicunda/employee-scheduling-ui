@@ -53,10 +53,10 @@ describe('EmployeeAdd', () => {
             $injector.invoke(currentState.onEnter, this);
             return modalOptions.resolve.init[4](PositionModel, EmployeeModel, SettingModel, LocationModel).then(() => {
                 expect($modal.open).toHaveBeenCalled();
-                expect(PositionModel.initCollection).toHaveBeenCalled();
-                expect(LocationModel.initCollection).toHaveBeenCalled();
+                expect(PositionModel.initCollection).toHaveBeenCalledWith(null, true);
+                expect(LocationModel.initCollection).toHaveBeenCalledWith(null, true);
                 expect(EmployeeModel.initItem).toHaveBeenCalled();
-                expect(SettingModel.initItem).toHaveBeenCalledWith('app');
+                expect(SettingModel.initItem).toHaveBeenCalledWith('app', null, true);
 
                 expect(modalOptions.size).toEqual('lg');
                 expect(modalOptions.template).toBeDefined();

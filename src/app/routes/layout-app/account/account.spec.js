@@ -50,7 +50,7 @@ describe('Account', () => {
 
             return $injector.invoke(currentState.resolve.init).then(() => {
                 expect(EmployeeResource.getAccountDetails).toHaveBeenCalledWith($rootScope.currentUser.id);
-                expect(SettingModel.initItem).toHaveBeenCalledWith('app');
+                expect(SettingModel.initItem).toHaveBeenCalledWith('app', null, true);
                 expect(EmployeeModel.setItem).toHaveBeenCalledWith('fakeItem');
             });
         });

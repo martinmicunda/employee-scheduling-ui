@@ -11,12 +11,12 @@ class AbstractResource {
         this.route = route;
     }
 
-    get(id) {
-        return this.http.get(`/${this.route}/${id}`);
+    get(id, params, cache = false) {
+        return this.http.get(`/${this.route}/${id}`, {params: params, cache: cache});
     }
 
-    getList(params, cache) {
-        return this.http.get(`/${this.route}`, {params: params, cache: cache ? true : false});
+    getList(params, cache = false) {
+        return this.http.get(`/${this.route}`, {params: params, cache: cache});
     }
 
     create(newResource) {

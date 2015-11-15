@@ -23,7 +23,17 @@ describe('AbstractResource', () => {
         $httpBackend.verifyNoOutstandingRequest();
     }));
 
-    it('should call GET resource with `id`', () => {
+    it('should call GET resource with `id` and `params`', () => {
+        $httpBackend.whenGET(`/${route}/${id}?param=test1`).respond(() => [200, item]);
+
+        abstractResource.get(`${id}`, {param: 'test1'}, true).then((respond) => {
+            expect(respond.data).toEqual(item);
+        });
+
+        $httpBackend.flush();
+    });
+
+    it('should call GET resource with `id` and without `params`', () => {
         $httpBackend.whenGET(`/${route}/${id}`).respond(() => [200, item]);
 
         abstractResource.get(`${id}`).then((respond) => {

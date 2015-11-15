@@ -12,9 +12,9 @@ class AbstractModel {
         this.resource = resource;
     }
 
-    initItem(id) {
+    initItem(id, params, cache) {
         if(id) {
-            return this.resource.get(id).then(item => this.item = item);
+            return this.resource.get(id, params, cache).then(item => this.item = item);
         } else {
             this.item = {};
             /*

@@ -42,7 +42,7 @@ describe('Employees', () => {
 
             return $injector.invoke(currentState.resolve.init).then(() => {
                 expect(PositionModel.initCollection).toHaveBeenCalledWith(null, true);
-                expect(EmployeeModel.initCollection).toHaveBeenCalled();
+                expect(EmployeeModel.initCollection).toHaveBeenCalledWith({fields: 'avatar,firstName,lastName,email,phoneNumber,position,status'});
             });
         });
 

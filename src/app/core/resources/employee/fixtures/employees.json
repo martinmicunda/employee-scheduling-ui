@@ -2,7 +2,7 @@
     {
         "id": "404",
         "version": 2,
-        "avatar": "https://raw.githubusercontent.com/martinmicunda/employee-scheduling-ui/master/src/images/avatar.jpg",
+        "avatar": "https://raw.githubusercontent.com/martinmicunda/employee-scheduling-ui/master/src/images/avatar.png",
         "firstName": "404",
         "lastName": "Error",
         "email": "404@error.com",

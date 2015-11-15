@@ -18,7 +18,7 @@ import {RouteConfig, Component, View, Inject} from '../../../ng-decorators'; // 
     url: '/employees',
     template: '<employees></employees>',
     resolve: {
-        init: ['EmployeeModel', 'PositionModel', (EmployeeModel, PositionModel) => Promise.all([EmployeeModel.initCollection(), PositionModel.initCollection(null, true)])]
+        init: ['EmployeeModel', 'PositionModel', (EmployeeModel, PositionModel) => Promise.all([EmployeeModel.initCollection({fields: 'avatar,firstName,lastName,email,phoneNumber,position,status'}), PositionModel.initCollection(null, true)])]
     },
     data: {
         access: ACCESS_LEVELS.manager
