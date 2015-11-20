@@ -11,12 +11,14 @@ describe('AppRoute', () => {
     let $state,
         url = '',
         state = 'app',
-        currentState;
+        currentState, $injector, SettingModel;
 
     beforeEach(angular.mock.module('ngDecorator'));
 
-    beforeEach(inject((_$state_) => {
+    beforeEach(inject((_$state_, _$injector_, _SettingModel_) => {
         $state = _$state_;
+        $injector = _$injector_;
+        SettingModel = _SettingModel_;
 
         currentState = $state.get(state);
     }));
@@ -31,5 +33,13 @@ describe('AppRoute', () => {
 
     it('should have template to be defined', () => {
         expect(currentState.template).toBeDefined();
+    });
+
+    it(`should resolve 'init' for '${url}' state`, () => {
+        spyOn(SettingModel, 'initItem');
+
+        $injector.invoke(currentState.resolve.init);
+
+        expect(SettingModel.initItem).toHaveBeenCalledWith('app', null, true);
     });
 });

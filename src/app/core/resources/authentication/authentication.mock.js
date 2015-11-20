@@ -47,11 +47,10 @@ class AuthenticationResourceMock {
                 return [200, {}];
             });
 
-        $httpBackend.whenPOST(/\/password/)
+        $httpBackend.whenPOST(/\/forgot/)
             .respond( (method, url, data, headers) => {
                 console.log('POST',url);
                 headers['Content-Type'] = HEADER_API_VERSION;
-                data = $window.atob(data);
                 data = JSON.parse(data);
 
                 if (data.email.includes('500')) {
@@ -61,7 +60,25 @@ class AuthenticationResourceMock {
                 return [200];
             });
 
-        $httpBackend.whenPUT(/\/password/)
+        $httpBackend.whenPOST(/\/password\/(\\d+|[a-z]*)/)
+            .respond( (method, url, data, headers) => {
+                console.log('POST',url);
+                headers['Content-Type'] = HEADER_API_VERSION;
+                data = $window.atob(data);
+                data = JSON.parse(data);
+
+                if(data.password.includes('400')) {
+                    return [400];
+                } else if (data.password.includes('404')) {
+                    return [404];
+                } else if (data.password.includes('500')) {
+                    return [500];
+                }
+
+                return [200];
+            });
+
+        $httpBackend.whenPUT(/\/password\/(\\d+|[a-z]*)/)
             .respond( (method, url, data, headers) => {
                 console.log('PUT',url);
                 headers['Content-Type'] = HEADER_API_VERSION;

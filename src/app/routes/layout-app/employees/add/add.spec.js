@@ -17,16 +17,15 @@ describe('EmployeeAdd', () => {
         let url = '/employees/add',
             state = 'app.employees.add',
             currentState, modalOptions,
-            $state, $modal, $injector, $rootScope, EmployeeModel, ModalService, SettingModel, LocationModel, PositionModel;
+            $state, $modal, $injector, $rootScope, EmployeeModel, ModalService, LocationModel, PositionModel;
 
-        beforeEach(inject((_$state_, _$modal_, _$injector_, _$rootScope_, _EmployeeModel_, _PositionModel_, _SettingModel_, _LocationModel_, _ModalService_) => {
+        beforeEach(inject((_$state_, _$modal_, _$injector_, _$rootScope_, _EmployeeModel_, _PositionModel_, _LocationModel_, _ModalService_) => {
             $state = _$state_;
             $modal = _$modal_;
             $injector = _$injector_;
             $rootScope = _$rootScope_;
             PositionModel = _PositionModel_;
             EmployeeModel = _EmployeeModel_;
-            SettingModel = _SettingModel_;
             ModalService = _ModalService_;
             LocationModel = _LocationModel_;
 
@@ -38,7 +37,6 @@ describe('EmployeeAdd', () => {
             spyOn(PositionModel, 'initCollection');
             spyOn(LocationModel, 'initCollection');
             spyOn(EmployeeModel, 'initItem');
-            spyOn(SettingModel, 'initItem');
             spyOn($state, 'go');
 
             $state.go(state);
@@ -51,12 +49,11 @@ describe('EmployeeAdd', () => {
 
         itAsync('should correctly show the employee add modal', function () {
             $injector.invoke(currentState.onEnter, this);
-            return modalOptions.resolve.init[4](PositionModel, EmployeeModel, SettingModel, LocationModel).then(() => {
+            return modalOptions.resolve.init[3](PositionModel, EmployeeModel, LocationModel).then(() => {
                 expect($modal.open).toHaveBeenCalled();
                 expect(PositionModel.initCollection).toHaveBeenCalledWith(null, true);
                 expect(LocationModel.initCollection).toHaveBeenCalledWith(null, true);
                 expect(EmployeeModel.initItem).toHaveBeenCalled();
-                expect(SettingModel.initItem).toHaveBeenCalledWith('app', null, true);
 
                 expect(modalOptions.size).toEqual('lg');
                 expect(modalOptions.template).toBeDefined();

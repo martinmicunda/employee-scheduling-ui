@@ -39,14 +39,12 @@ class EmployeeEditPassword {
 
     resetPassword() {
         this.isSubmitting = true;
-        return this.AuthenticationResource.resetPassword({email: this.employee.email}).then(() => {
+        return this.AuthenticationResource.forgotPassword(this.employee.email).then(() => {
+            this.FormService.onSuccess(this);
             this.hasSuccess = true;
-            this.hasError = false;
-            this.isSubmitting = false;
             this.successMessage = 'We have emailed instructions to this user on how to reset their password.';
         }, (response) => {
             this.hasSuccess = false;
-            this.isSubmitting = false;
             this.FormService.onFailure(this, response);
         });
     }

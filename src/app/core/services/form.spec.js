@@ -93,6 +93,14 @@ describe('FormService', () => {
             expect(self.result).toEqual('error');
         });
 
+        it(`should return error message for 400 error response`, () => {
+            let self = {}, response = {status: 400, data: {message: 'test-message'}};
+
+            formService.onFailure(self, response);
+
+            expect(self.errorMessage).toEqual(response.data.message);
+        });
+
         it(`should return error message for 401 error response`, () => {
             let self = {}, response = {status: 401};
 

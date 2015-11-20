@@ -48,11 +48,22 @@ describe('AuthenticationResource', () => {
         $httpBackend.flush();
     });
 
+    it('should call POST forgot password resource', () => {
+        spyOn($window, 'btoa').and.returnValue(dataEncoded);
+        $httpBackend.whenPOST(`/${route}/forgot`, {email: 'email'}).respond(() => [200]);
+
+        authenticationResource.forgotPassword('email').then((respond) => {
+            expect(respond.status).toEqual(200);
+        });
+
+        $httpBackend.flush();
+    });
+
     it('should call POST password resource', () => {
         spyOn($window, 'btoa').and.returnValue(dataEncoded);
-        $httpBackend.whenPOST(`/${route}/password`, dataEncoded).respond(() => [200]);
+        $httpBackend.whenPOST(`/${route}/password/token`, {credentials: dataEncoded}).respond(() => [200]);
 
-        authenticationResource.resetPassword(data).then((respond) => {
+        authenticationResource.resetPassword(data, 'token').then((respond) => {
             expect(respond.status).toEqual(200);
         });
 
@@ -61,9 +72,9 @@ describe('AuthenticationResource', () => {
 
     it('should call PUT password resource', () => {
         spyOn($window, 'btoa').and.returnValue(dataEncoded);
-        $httpBackend.whenPUT(`/${route}/password`, dataEncoded).respond(() => [200]);
+        $httpBackend.whenPUT(`/${route}/password/id`, {credentials: dataEncoded}).respond(() => [200]);
 
-        authenticationResource.updatePassword(data).then((respond) => {
+        authenticationResource.updatePassword(data, 'id').then((respond) => {
             expect(respond.status).toEqual(200);
         });
 

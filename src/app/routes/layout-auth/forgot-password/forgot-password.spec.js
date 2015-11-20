@@ -89,7 +89,7 @@ describe('ForgotPassword', () => {
 
                 expect(element.isolateScope().passwordResetForm).toBeDefined();
                 expect(element.isolateScope().vm.resetPassword).toHaveBeenCalledWith(element.isolateScope().passwordResetForm.$valid, element.isolateScope().passwordResetForm);
-                expect(element.isolateScope().vm.credentials.email).toEqual(credentials.email);
+                expect(element.isolateScope().vm.email).toEqual(credentials.email);
             });
 
             it('should have `jp-ng-bs-animated-button` component defined with attributes `is-submitting`, `result` and `options`', () => {
@@ -221,29 +221,40 @@ describe('ForgotPassword', () => {
         describe('resetPassword()', () => {
             it('should not reset password if form is invalid', () => {
                 let isFormValid = false;
-                spyOn(AuthenticationResource, 'resetPassword');
+                spyOn(AuthenticationResource, 'forgotPassword');
                 forgotPassword = new ForgotPassword(AuthenticationResource, FormService);
 
                 forgotPassword.resetPassword(isFormValid);
 
                 expect(forgotPassword.isSubmitting).toEqual(null);
-                expect(AuthenticationResource.resetPassword).not.toHaveBeenCalled();
+                expect(AuthenticationResource.forgotPassword).not.toHaveBeenCalled();
+            });
+
+            it('should save if form is valid', () => {
+                let form = {$valid: true, $setPristine: () => {}};
+                spyOn(AuthenticationResource, 'forgotPassword').and.returnValue(Promise.resolve());
+                forgotPassword = new ForgotPassword(AuthenticationResource, FormService);
+                forgotPassword.email = 'email';
+
+                forgotPassword.resetPassword(form.$valid, form);
+
+                expect(forgotPassword.isSubmitting).toEqual(true);
+                expect(AuthenticationResource.forgotPassword).toHaveBeenCalledWith(forgotPassword.email);
             });
 
             itAsync('should save form with successfully request', () => {
                 let form = {$valid: true, $setPristine: () => {}};
                 spyOn(form, '$setPristine');
-                spyOn(AuthenticationResource, 'resetPassword').and.returnValue(Promise.resolve());
+                spyOn(FormService, 'onSuccess');
+                spyOn(AuthenticationResource, 'forgotPassword').and.returnValue(Promise.resolve());
                 forgotPassword = new ForgotPassword(AuthenticationResource, FormService);
-                forgotPassword.credentials = 'credentials';
+                forgotPassword.email = 'email';
 
                 return forgotPassword.resetPassword(form.$valid, form).then(() => {
-                    expect(forgotPassword.isSubmitting).toEqual(true);
-                    expect(forgotPassword.credentials).toEqual({});
+                    expect(FormService.onSuccess).toHaveBeenCalledWith(forgotPassword);
+                    expect(forgotPassword.email).toEqual('');
                     expect(form.$setPristine).toHaveBeenCalled();
-                    expect(forgotPassword.result).toEqual('success');
                     expect(forgotPassword.hasSuccess).toEqual(true);
-                    expect(forgotPassword.hasError).toEqual(false);
                     expect(forgotPassword.successMessage).toEqual('We have emailed you instructions on how to reset your password. Please check your inbox.');
                 });
             });
@@ -252,13 +263,25 @@ describe('ForgotPassword', () => {
                 let form = {$valid: true, $setPristine: () => {}}, response = {status: 500};
                 spyOn(form, '$setPristine');
                 spyOn(FormService, 'onFailure');
-                spyOn(AuthenticationResource, 'resetPassword').and.returnValue(Promise.reject(response));
+                spyOn(AuthenticationResource, 'forgotPassword').and.returnValue(Promise.reject(response));
                 forgotPassword = new ForgotPassword(AuthenticationResource, FormService);
 
                 return forgotPassword.resetPassword(form.$valid, form).then(() => {
                     expect(form.$setPristine).toHaveBeenCalled();
                     expect(forgotPassword.hasSuccess).toEqual(false);
                     expect(FormService.onFailure).toHaveBeenCalledWith(forgotPassword, response);
+                });
+            });
+
+            itAsync('should not save form with 404 failure request', () => {
+                let form = {$valid: true, $setPristine: () => {}}, response = {status: 404};
+                spyOn(form, '$setPristine');
+                spyOn(FormService, 'onFailure');
+                spyOn(AuthenticationResource, 'forgotPassword').and.returnValue(Promise.reject(response));
+                forgotPassword = new ForgotPassword(AuthenticationResource, FormService);
+
+                return forgotPassword.resetPassword(form.$valid, form).then(() => {
+                    expect(forgotPassword.errorMessage).toEqual('This email address was not found in our records');
                 });
             });
         });

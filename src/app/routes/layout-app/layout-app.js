@@ -21,7 +21,10 @@ import {RouteConfig} from '../../ng-decorators';  // jshint unused: false
 @RouteConfig('app', {
     url: '',
     abstract: true,
-    template: template
+    template: template,
+    resolve: {
+        init: ['SettingModel', SettingModel => SettingModel.initItem('app', null, true)]
+    }
 })
 //end-non-standard
 class LayoutApp {}

@@ -169,14 +169,14 @@ describe('EmployeeEditPassword', () => {
 
             itAsync('should save form with successfully request', () => {
                 spyOn(EmployeeModel, 'getItem').and.returnValue(itemMock);
-                spyOn(AuthenticationResource, 'resetPassword').and.returnValue(Promise.resolve());
+                spyOn(FormService, 'onSuccess');
+                spyOn(AuthenticationResource, 'forgotPassword').and.returnValue(Promise.resolve());
                 employeeEditPassword = new EmployeeEditPassword(EmployeeModel, AuthenticationResource, FormService);
 
                 return employeeEditPassword.resetPassword().then(() => {
-                    expect(AuthenticationResource.resetPassword).toHaveBeenCalledWith({email: itemMock.email});
-                    expect(employeeEditPassword.isSubmitting).toEqual(false);
+                    expect(AuthenticationResource.forgotPassword).toHaveBeenCalledWith(itemMock.email);
+                    expect(FormService.onSuccess).toHaveBeenCalledWith(employeeEditPassword);
                     expect(employeeEditPassword.hasSuccess).toEqual(true);
-                    expect(employeeEditPassword.hasError).toEqual(false);
                     expect(employeeEditPassword.successMessage).toEqual('We have emailed instructions to this user on how to reset their password.');
                 });
             });
@@ -184,12 +184,11 @@ describe('EmployeeEditPassword', () => {
             itAsync('should not save form with failure request', () => {
                 let response = {status: 500};
                 spyOn(FormService, 'onFailure');
-                spyOn(AuthenticationResource, 'resetPassword').and.returnValue(Promise.reject(response));
+                spyOn(AuthenticationResource, 'forgotPassword').and.returnValue(Promise.reject(response));
                 employeeEditPassword = new EmployeeEditPassword(EmployeeModel, AuthenticationResource, FormService);
 
                 return employeeEditPassword.resetPassword().then(() => {
                     expect(employeeEditPassword.hasSuccess).toEqual(false);
-                    expect(employeeEditPassword.isSubmitting).toEqual(false);
                     expect(FormService.onFailure).toHaveBeenCalledWith(employeeEditPassword, response);
                 });
             });

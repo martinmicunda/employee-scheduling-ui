@@ -37,25 +37,16 @@ class Password {
         if(!form.$valid) {return;}
 
         this.isSubmitting = true;
-        this.passwords.id = this.employee.id;
-        return this.AuthenticationResource.updatePassword(this.passwords).then(() => {
+        return this.AuthenticationResource.updatePassword(this.passwords, this.employee.id).then(() => {
             this.passwords = {};
             form.$setPristine();
-            this.result = 'success';
+            this.FormService.onSuccess(this);
             this.hasSuccess = true;
-            this.hasError = false;
             this.successMessage = 'Your password has been changed successfully.';
         }, (response) => {
             form.$setPristine();
-            this.result = 'error';
-            this.hasError = true;
             this.hasSuccess = false;
-
-            if(response.status === 400) {
-                this.errorMessage = 'The current password is incorrect.';
-            } else {
-                this.FormService.onFailure(this, response);
-            }
+            this.FormService.onFailure(this, response);
         });
     }
 }

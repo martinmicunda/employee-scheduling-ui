@@ -6,7 +6,9 @@
 'use strict';
 
 import './login/login';
+import './activate-account/activate-account';
 import './forgot-password/forgot-password';
+import './reset-password/reset-password';
 import {ACCESS_LEVELS} from '../../core/constants/constants';
 import template from './layout-auth.html!text';
 import {RouteConfig} from '../../ng-decorators'; // jshint unused: false

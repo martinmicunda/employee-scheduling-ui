@@ -16,7 +16,7 @@ describe('Header', () => {
     describe('Component', () => {
         let $compile, $rootScope, scope, render, element, AuthenticationService;
 
-        beforeEach(inject((_$compile_, _$rootScope_, _AuthenticationService_) => {
+        beforeEach(inject((_$compile_, _$rootScope_, _AuthenticationService_, SettingResource) => {
             $compile = _$compile_;
             $rootScope = _$rootScope_;
             $rootScope.ACCESS_LEVELS = ACCESS_LEVELS;
@@ -24,6 +24,7 @@ describe('Header', () => {
             AuthenticationService = _AuthenticationService_;
 
             spyOn(AuthenticationService, 'isAuthenticated').and.returnValue(true);
+            spyOn(SettingResource, 'get').and.returnValue({});
 
             render = () => {
                 let element = angular.element(component);

@@ -30,14 +30,18 @@ class AuthenticationResource {
         return this.http.get(`/${this.route}/logout`);
     }
 
-    resetPassword(credentials) {
-        const encoded = this.$window.btoa(JSON.stringify(credentials));
-        return this.http.post(`/${this.route}/password`, encoded);
+    forgotPassword(email) {
+        return this.http.post(`/${this.route}/forgot`, {email: email});
     }
 
-    updatePassword(credentials) {
+    resetPassword(credentials, token) {
         const encoded = this.$window.btoa(JSON.stringify(credentials));
-        return this.http.put(`/${this.route}/password`, encoded);
+        return this.http.post(`/${this.route}/password/${token}`, {credentials: encoded});
+    }
+
+    updatePassword(credentials, id) {
+        const encoded = this.$window.btoa(JSON.stringify(credentials));
+        return this.http.put(`/${this.route}/password/${id}`, {credentials: encoded});
     }
 }
 

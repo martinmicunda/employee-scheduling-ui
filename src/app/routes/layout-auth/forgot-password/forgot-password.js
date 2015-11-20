@@ -38,22 +38,21 @@ class ForgotPassword {
         if(!isFormValid) {return;}
 
         this.isSubmitting = true;
-        return this.AuthenticationResource.resetPassword(this.credentials).then(() => {
-            this.credentials = {};
+        return this.AuthenticationResource.forgotPassword(this.email).then(() => {
+            this.email = '';
             form.$setPristine();
-            this.result = 'success';
+            this.FormService.onSuccess(this);
             this.hasSuccess = true;
-            this.hasError = false;
             this.successMessage = 'We have emailed you instructions on how to reset your password. Please check your inbox.';
         }, (response) => {
             this.hasSuccess = false;
             form.$setPristine();
             this.FormService.onFailure(this, response);
-            // This email address was not found in our records
+            if(response.status === 404) {
+                this.errorMessage = 'This email address was not found in our records';
+            }
         });
     }
 }
 
 export default ForgotPassword;
-// https://stormpath.com/blog/the-pain-of-password-reset/
-// https://stormpath.com/blog/password-security-right-way/
