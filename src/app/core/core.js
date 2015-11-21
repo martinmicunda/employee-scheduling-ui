@@ -27,11 +27,13 @@ import './models/employee';
 import './models/language';
 import './models/currency';
 import './models/token';
+import './models/message';
 
 // resources
 import './resources/employee/employee';
 import './resources/language/language';
 import './resources/location/location';
+import './resources/message/message';
 import './resources/partner/partner';
 import './resources/setting/setting';
 import './resources/position/position';

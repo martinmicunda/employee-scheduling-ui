@@ -5,6 +5,7 @@
  */
 'use strict';
 
+import 'angular-mocks';
 import {fakeModal} from '../../../../../../test/helpers/modal.js';
 import EmployeeMessage from './message.js';
 
@@ -34,6 +35,8 @@ describe('EmployeeMessage', () => {
                 return fakeModal;
             });
             spyOn(EmployeeModel, 'initItem');
+            spyOn(ModalService, 'onSuccess');
+            spyOn(ModalService, 'onError');
             spyOn($state, 'go');
 
             $state.go(state, {id: id});
@@ -44,7 +47,7 @@ describe('EmployeeMessage', () => {
             expect($state.href(state, {id: id})).toEqual(url);
         });
 
-        it('should correctly show the message modal', function () {
+        it('should correctly show the message add modal', function () {
             $injector.invoke(currentState.onEnter, this, {$stateParams: $stateParams});
             modalOptions.resolve.init[1](EmployeeModel);
 
@@ -52,12 +55,22 @@ describe('EmployeeMessage', () => {
             expect(EmployeeModel.initItem).toHaveBeenCalledWith(id);
 
             expect(modalOptions.size).toEqual('md');
-            expect(modalOptions.template).toBeDefined();
+            expect(modalOptions.template).toEqual('<modal-message></modal-message>');
             expect(modalOptions.controllerAs).toEqual('vm');
             expect(modalOptions.controller.name).toEqual('EmployeeMessage');
         });
 
-        it('should redirect to `app.employees` route when finally block is executed', () => {
+        it('should execute modal `then` block with success and failure functions', () => {
+            $injector.invoke(currentState.onEnter);
+
+            fakeModal.finally(); // trigger the then callback
+
+            expect($modal.open).toHaveBeenCalled();
+            expect(ModalService.onSuccess).toHaveBeenCalled();
+            expect(ModalService.onError).toHaveBeenCalledWith($modal, 'app.employees');
+        });
+
+        it('should redirect to `app.messages` route when finally block is executed', () => {
             $injector.invoke(currentState.onEnter);
 
             fakeModal.finally(); // trigger the result.finally callback
@@ -68,68 +81,18 @@ describe('EmployeeMessage', () => {
     });
 
     describe('Controller', () => {
-        let employeeMessage, FormService, EmployeeModel, itemMock = {email: 'itemMock'};
+        let employeeMessage, ModalModel, $modalInstanceMock = '$modalInstanceMock';
 
-        beforeEach(inject((_FormService_, _EmployeeModel_) => {
-            FormService = _FormService_;
-            EmployeeModel = _EmployeeModel_;
+        beforeEach(inject((_ModalModel_) => {
+            ModalModel = _ModalModel_;
         }));
 
-        it('should have email property', () => {
-            spyOn(EmployeeModel, 'getItem').and.returnValue(itemMock);
-            employeeMessage = new EmployeeMessage(fakeModal, FormService, EmployeeModel);
+        it('should store $modalInstance into modal model', () => {
+            spyOn(ModalModel, 'setItem');
 
-            expect(employeeMessage.email).toEqual({to: itemMock.email});
-            expect(EmployeeModel.getItem).toHaveBeenCalled();
-        });
+            employeeMessage = new EmployeeMessage($modalInstanceMock, ModalModel);
 
-        it('should have isSubmitting property', () => {
-            employeeMessage = new EmployeeMessage(fakeModal, FormService, EmployeeModel);
-
-            expect(employeeMessage.isSubmitting).toEqual(null);
-        });
-
-        it('should have result property', () => {
-            employeeMessage = new EmployeeMessage(fakeModal, FormService, EmployeeModel);
-
-            expect(employeeMessage.result).toEqual(null);
-        });
-
-        it('should have saveButtonOptions property', () => {
-            spyOn(FormService, 'getModalSaveButtonOptions').and.returnValue(itemMock);
-            employeeMessage = new EmployeeMessage(fakeModal, FormService, EmployeeModel);
-
-            expect(employeeMessage.saveButtonOptions).toEqual(itemMock);
-            expect(FormService.getModalSaveButtonOptions).toHaveBeenCalled();
-        });
-
-        it('should cancel modal', () => {
-            spyOn(fakeModal, 'dismiss');
-            employeeMessage = new EmployeeMessage(fakeModal, FormService, EmployeeModel);
-
-            employeeMessage.cancel();
-
-            expect(fakeModal.dismiss).toHaveBeenCalledWith('cancel');
-        });
-
-        it('should not save if form is invalid', () => {
-            let form = {$valid: false};
-            spyOn(FormService, 'save');
-            employeeMessage = new EmployeeMessage(fakeModal, FormService, EmployeeModel);
-
-            employeeMessage.save(form);
-
-            expect(employeeMessage.isSubmitting).toEqual(null);
-            expect(FormService.save).not.toHaveBeenCalled();
-        });
-
-        it('should save if form is valid', () => {
-            let form = {$valid: true};
-            employeeMessage = new EmployeeMessage(fakeModal, FormService, EmployeeModel);
-
-            employeeMessage.save(form);
-
-            expect(employeeMessage.isSubmitting).toEqual(true);
+            expect(ModalModel.setItem).toHaveBeenCalledWith($modalInstanceMock);
         });
     });
 });

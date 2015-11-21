@@ -11,6 +11,7 @@ import './modal-error/modal-error';
 import './alert-danger/alert-danger';
 import './alert-success/alert-success';
 import './modal-partner/modal-partner';
+import './modal-message/modal-message';
 import './modal-document/modal-document';
 import './modal-position/modal-position';
 import './modal-location/modal-location';
