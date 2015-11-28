@@ -17,16 +17,17 @@
     <div class="form-group">
         <label class="control-label col-sm-offset-2 col-sm-8 pb5 text-left">Where can this employee work?</label>
         <div class="col-sm-offset-2 col-sm-8">
-            <div>
-                <input type="checkbox" ng-model="vm.selectedAllLocations" ng-click="vm.selectAll(vm.selectedAllLocations, 'locations')"/>
-                <i>select/unselect all</i>
+            <div class="checkbox">
+                <input id="locationCheckboxes" type="checkbox" ng-model="vm.selectedAllLocations" ng-click="vm.selectAll(vm.selectedAllLocations, 'locations')"/>
+                <label for="locationCheckboxes"><i>select/unselect all</i></label>
             </div>
             <hr class="mt5 mb5"/>
             <ul class="pl0 mb0">
-                <li ng-repeat="location in vm.locations track by location.id">
-                    <input type="checkbox"
+                <li ng-repeat="location in vm.locations track by location.id" class="checkbox min-height-0" ng-class="{'pt0': $index !== 0, 'pt5': $index === 0}">
+                    <input id="location_{{$index}}" type="checkbox"
                            ng-checked="vm.employee.locations.indexOf(location.id) > -1"
-                           ng-click="vm.toggleSelection(location.id, vm.selectedAllLocations, 'locations')" /> {{location.name}}
+                           ng-click="vm.toggleSelection(location.id, vm.selectedAllLocations, 'locations')" />
+                    <label for="location_{{$index}}">{{location.name}}</label>
                 </li>
             </ul>
         </div>
@@ -35,16 +36,17 @@
     <div class="form-group" ng-show="vm.employee.role === vm.roles[1]">
         <label class="control-label col-sm-offset-2 col-sm-8 pb5 text-left">Which locations can this supervisor manage?</label>
         <div class="col-sm-offset-2 col-sm-8">
-            <div>
-                <input type="checkbox" ng-model="vm.selectedAllSupervisorLocations" ng-click="vm.selectAll(vm.selectedAllSupervisorLocations, 'supervisorLocations')"/>
-                <i>select/unselect all</i>
+            <div class="checkbox">
+                <input id="supervisorLocationCheckboxes" type="checkbox" ng-model="vm.selectedAllSupervisorLocations" ng-click="vm.selectAll(vm.selectedAllSupervisorLocations, 'supervisorLocations')"/>
+                <label for="supervisorLocationCheckboxes"><i>select/unselect all</i></label>
             </div>
             <hr class="mt5 mb5"/>
             <ul class="pl0 mb0">
-                <li ng-repeat="location in vm.locations track by location.id">
-                    <input type="checkbox"
+                <li ng-repeat="location in vm.locations track by location.id" class="checkbox min-height-0" ng-class="{'pt0': $index !== 0, 'pt5': $index === 0}">
+                    <input id="supervisor_location_{{$index}}" type="checkbox"
                            ng-checked="vm.employee.supervisorLocations.indexOf(location.id) > -1"
-                           ng-click="vm.toggleSelection(location.id, vm.selectedAllSupervisorLocations, 'supervisorLocations')" /> {{location.name}}
+                           ng-click="vm.toggleSelection(location.id, vm.selectedAllSupervisorLocations, 'supervisorLocations')" />
+                    <label for="supervisor_location_{{$index}}">{{location.name}}</label>
                 </li>
             </ul>
         </div>

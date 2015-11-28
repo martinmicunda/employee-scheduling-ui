@@ -16,6 +16,7 @@ const app = angular.module('ngDecorator', [
     // 3rd party modules
     'ui.router',
     'ui.bootstrap',
+    'ui.calendar',
     'LocalStorageModule',
     'colorpicker.module',
     'jp.ng-bs-animated-button',

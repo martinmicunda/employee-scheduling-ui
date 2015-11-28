@@ -40,9 +40,9 @@ describe('AlertSuccess', () => {
         it('should have `Success!` alert title defined', () => {
             component = `<alert-success has-success="true" success-message="'${successMessage}'"></alert-success>`;
             element = render();
-            const errorAlertTitle = element.find('strong');
+            const errorAlertTitle = element.find('h4');
 
-            expect(errorAlertTitle.text()).toEqual('Success!');
+            expect(errorAlertTitle.text().trim()).toEqual('Success!');
         });
 
         it('should render and display the error message when there is error', () => {
@@ -52,7 +52,7 @@ describe('AlertSuccess', () => {
             const successMessageText = angular.element(element[0].getElementsByClassName('ng-binding'));
 
             expect(alertDangerHtml[0]).toBeDefined();
-            expect(successMessageText.text()).toEqual(successMessage);
+            expect(successMessageText.text().trim()).toEqual(successMessage);
         });
 
         it('should not render and display the error message when there is no error', () => {
@@ -60,16 +60,6 @@ describe('AlertSuccess', () => {
             element = render();
             const alertDangerHtml = angular.element(element[0].querySelector('div[ng-if]'));
 
-            expect(alertDangerHtml[0]).not.toBeDefined();
-        });
-
-        it('should hide the error message when x button is clicked', () => {
-            component = `<alert-success has-success="true" success-message="'${successMessage}'"></alert-success>`;
-            element = render();
-            angular.element(element[0].getElementsByClassName('close')).triggerHandler('click');
-            $rootScope.$digest();
-
-            const alertDangerHtml = angular.element(element[0].querySelector('div[ng-if]'));
             expect(alertDangerHtml[0]).not.toBeDefined();
         });
     });

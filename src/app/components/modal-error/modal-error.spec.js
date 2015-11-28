@@ -48,9 +48,9 @@ describe('ModalError', () => {
 
             it('should have `Error!` alert title defined', () => {
                 element = render();
-                const errorAlertTitle = element.find('strong');
+                const errorAlertTitle = angular.element(element[0].getElementsByClassName('display-inline-block'));
 
-                expect(errorAlertTitle.text()).toEqual('Error!');
+                expect(errorAlertTitle.text().trim()).toEqual('Error!');
             });
         });
 
@@ -59,7 +59,7 @@ describe('ModalError', () => {
                 element = render();
                 const errorMessageText = angular.element(element[0].getElementsByClassName('ng-binding'));
 
-                expect(errorMessageText.text()).toEqual('The requested record could not be found.');
+                expect(errorMessageText.text().trim()).toEqual('The requested record could not be found.');
             });
 
             it('should render 500 error message', () => {
@@ -67,7 +67,7 @@ describe('ModalError', () => {
                 element = render();
                 const errorMessageText = angular.element(element[0].getElementsByClassName('ng-binding'));
 
-                expect(errorMessageText.text()).toEqual('An error occurred while processing your request. Please try again.');
+                expect(errorMessageText.text().trim()).toEqual('An error occurred while processing your request. Please try again.');
             });
         });
 
@@ -86,16 +86,16 @@ describe('ModalError', () => {
                 expect(vm.cancel).toHaveBeenCalled();
             });
 
-            it('should have `OK` label defined for close button', () => {
+            it('should have `Close` label defined for close button', () => {
                 element = render();
 
-                expect(angular.element(element[0].getElementsByClassName('btn-success')).text()).toEqual('OK');
+                expect(angular.element(element[0].getElementsByClassName('btn-white')).text()).toEqual('Close');
             });
 
-            it('should close the Error modal when `OK` button is clicked', () => {
+            it('should close the Error modal when `Close` button is clicked', () => {
                 spyOn(vm, 'cancel');
                 element = render();
-                angular.element(element[0].getElementsByClassName('btn-success')).triggerHandler('click');
+                angular.element(element[0].getElementsByClassName('btn-white')).triggerHandler('click');
 
                 expect(vm.cancel).toHaveBeenCalled();
             });

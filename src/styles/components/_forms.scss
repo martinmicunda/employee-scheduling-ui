@@ -133,37 +133,29 @@ select[multiple] {
     }
 }
 
-input[type="checkbox"] {
-    margin: 1px 0 0;
+.radio-inline label,
+.checkbox-inline label,
+.checkbox label,
+.checkbox label i {
+    color: $fontColorLight;
 }
-.checkbox input[type='checkbox']:before {
-    -webkit-transition: all 0.3s ease-in-out;
-    -moz-transition: all 0.3s ease-in-out;
-    transition: all 0.3s ease-in-out;
-    content: "";
-    position: absolute;
-    left: 0;
-    z-index: 1;
-    width: 1.5rem;
-    height: 1.5rem;
-    border: 2px solid $lightGrey;
+.checkbox label:after {
+    color: $lightGreen;
 }
-.checkbox input[type='checkbox']:checked:before {
-    -webkit-transform: rotate(-45deg);
-    -moz-transform: rotate(-45deg);
-    -ms-transform: rotate(-45deg);
-    -o-transform: rotate(-45deg);
-    transform: rotate(-45deg);
-    height: .7rem;
-    border-color: $lightGreen;
-    border-top-style: none;
-    border-right-style: none;
+.radio input[type="radio"]:focus + label::before,
+.checkbox input[type="checkbox"]:focus + label::before {
+    outline: none;
 }
-.checkbox input[type='checkbox']:after {
-    content: "";
-    position: absolute;
-    width: 1.5rem;
-    height: 1.5rem;
-    background: #fff;
-    cursor: pointer;
+.radio-success input[type="radio"] + label::after {
+    background-color: $lightGreen!important;
 }
+.radio-danger input[type="radio"] + label::after {
+    background-color: $lightRed;
+}
+.radio-warning input[type="radio"] + label::after {
+    background-color: $lightOrange;
+}
+
+.radio-success label::before, .checkbox label::before {border-color: $lightGreen;}
+.radio-danger label::before {border-color: $lightRed;}
+.radio-warning label::before {border-color: $lightOrange;}

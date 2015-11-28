@@ -44,6 +44,8 @@ class FormService {
         if(typeof self.cancel === 'function') {
             self.cancel();
         }
+
+        return Promise.resolve();
     }
 
     onFailure(self, response) {
@@ -64,13 +66,15 @@ class FormService {
         } else {
             self.errorMessage = `Something went wrong. Please contact the site administrator ${this.SettingModel.getItem().adminEmail}.`;
         }
+
+        return Promise.reject();
     }
 
     save(model, item, self, form) {
         return model.save(item).then(() => {
-            this.onSuccess(self);
+            return this.onSuccess(self);
         }, (response) => {
-            this.onFailure(self, response);
+            return this.onFailure(self, response);
         }).finally(() => {
             form.$setPristine();
         });
@@ -78,13 +82,12 @@ class FormService {
 
     delete(model, item, self) {
         return model.delete(item).then(() => {
-            this.onSuccess(self);
+            return this.onSuccess(self);
         },(response) => {
-            this.onFailure(self, response);
+            return this.onFailure(self, response);
         });
     }
 
-    // write test for below functions
     submitChildForm(currentState, form, formSteps) {
         switch(currentState) {
             case formSteps[0].route:

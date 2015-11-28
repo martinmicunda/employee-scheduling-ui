@@ -16,9 +16,8 @@ import {View, Component} from '../../ng-decorators'; // jshint unused: false
         <div ng-if="vm.hasSuccess" class="row">
             <div class="col-md-12 col-sm-12">
                 <div class="alert alert-success animated fadeIn">
-                    <strong>Success!</strong>
-                    <span>{{vm.successMessage}}</span>
-                    <span class="close" data-dismiss="alert" ng-click="vm.hasSuccess=false">×</span>
+                    <h4 class="mb0 display-inline-block"><i class="fa fa-check-circle"></i>&nbsp;Success!</h4>
+                    <p class="display-inline">&nbsp;{{vm.successMessage}}</p>
                 </div>
             </div>
         </div>

@@ -41,9 +41,9 @@ describe('AlertDanger', () => {
         it('should have `Error!` alert title defined', () => {
             component = `<alert-danger has-error="true" error-message="'${errorMessage}'"></alert-danger>`;
             element = render();
-            const errorAlertTitle = element.find('strong');
+            const errorAlertTitle = element.find('h4');
 
-            expect(errorAlertTitle.text()).toEqual('Error!');
+            expect(errorAlertTitle.text().trim()).toEqual('Error!');
         });
 
         it('should render and display the error message when there is error', () => {
@@ -53,7 +53,7 @@ describe('AlertDanger', () => {
             const errorMessageText = angular.element(element[0].getElementsByClassName('ng-binding'));
 
             expect(alertDangerHtml[0]).toBeDefined();
-            expect(errorMessageText.text()).toEqual(errorMessage);
+            expect(errorMessageText.text().trim()).toEqual(errorMessage);
         });
 
         it('should not render and display the error message when there is no error', () => {
@@ -61,16 +61,6 @@ describe('AlertDanger', () => {
             element = render();
             const alertDangerHtml = angular.element(element[0].querySelector('div[ng-if]'));
 
-            expect(alertDangerHtml[0]).not.toBeDefined();
-        });
-
-        it('should hide the error message when x button is clicked', () => {
-            component = `<alert-danger has-error="true" error-message="'${errorMessage}'"></alert-danger>`;
-            element = render();
-            angular.element(element[0].getElementsByClassName('close')).triggerHandler('click');
-            $rootScope.$digest();
-
-            const alertDangerHtml = angular.element(element[0].querySelector('div[ng-if]'));
             expect(alertDangerHtml[0]).not.toBeDefined();
         });
     });

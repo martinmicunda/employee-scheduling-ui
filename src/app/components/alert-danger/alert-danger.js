@@ -16,9 +16,8 @@ import {View, Component} from '../../ng-decorators'; // jshint unused: false
         <div ng-if="vm.hasError" class="row">
             <div class="col-md-12 col-sm-12">
                 <div class="alert alert-danger animated fadeIn">
-                    <strong>Error!</strong>
-                    <span>{{vm.errorMessage}}</span>
-                    <span class="close" data-dismiss="alert" ng-click="vm.hasError=false">×</span>
+                    <h4 class="mb0 display-inline-block"><i class="fa fa-exclamation-circle"></i>&nbsp;Error!</h4>
+                    <p class="display-inline">&nbsp;{{vm.errorMessage}}</p>
                 </div>
             </div>
         </div>

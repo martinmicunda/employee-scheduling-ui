@@ -56,7 +56,7 @@ class AbstractResourceMock {
                     return [409];
                 }
 
-                data.id = Math.floor(Date.now() / 1000);
+                data.id = Math.floor(Date.now() / 1000).toString();
                 localStorageService.set(`${key}_${data.id}`, data);
 
                 return [201, {id: data.id}];

@@ -219,7 +219,7 @@ describe('ModalLocation', () => {
             describe('default', () => {
                 it('should have `Default Location` label defined', () => {
                     element = render();
-                    const parentElement = angular.element(element[0].querySelector('input[name="default"][type="checkbox"]')).parent().parent().parent().parent();
+                    const parentElement = angular.element(element[0].querySelector('input[name="default"][type="checkbox"]')).parent().parent().parent();
 
                     expect(parentElement.find('label').text()).toEqual('Default Location');
                 });
@@ -237,7 +237,7 @@ describe('ModalLocation', () => {
                     spyOn(LocationModel, 'getItem').and.returnValue(location);
                     element = render();
 
-                    const parentElement = angular.element(element[0].querySelector('input[name="default"][type="checkbox"]')).parent().parent().parent().parent().parent();
+                    const parentElement = angular.element(element[0].querySelector('input[name="default"][type="checkbox"]')).parent().parent().parent().parent();
 
                     expect(parentElement.hasClass('ng-hide')).toEqual(true);
                 });

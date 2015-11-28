@@ -19,12 +19,12 @@ import {Component, View} from '../../ng-decorators'; // jshint unused: false
         </div>
         <div class="modal-body form-wizard">
             <div class="alert alert-danger mb0">
-                <strong>Error!</strong>
-                <span>{{vm.errorMessage}}</span>
+                <h4 class="mb0 display-inline-block"><i class="fa fa-exclamation-circle"></i>&nbsp;Error!</h4>
+                <p class="display-inline">&nbsp;{{vm.errorMessage}}</p>
             </div>
         </div>
         <div class="modal-footer">
-            <button type="button" ng-click="vm.cancel()" class="btn btn-sm btn-success">OK</button>
+            <button type="button" ng-click="vm.cancel()" class="btn btn-sm btn-white">Close</button>
         </div>
     `,
     bindToController: {

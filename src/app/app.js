@@ -6,6 +6,7 @@
 'use strict';
 
 // js vendor files
+import 'fullcalendar';
 import angular from 'angular';
 import 'angular-animate';
 import 'angular-sanitize';
@@ -17,6 +18,7 @@ import 'ng-bs-animated-button';
 import 'angular-bootstrap-colorpicker';
 import 'si-table';
 import 'ng-file-upload';
+import 'angular-ui-calendar';
 
 // css vendor files
 //import 'font-awesome/css/font-awesome.css!';

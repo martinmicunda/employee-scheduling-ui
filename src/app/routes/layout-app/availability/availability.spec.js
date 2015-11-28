@@ -6,7 +6,7 @@
 'use strict';
 
 import {ACCESS_LEVELS} from '../../../core/constants/constants';
-import './availability.js';
+import Availability from './availability.js';
 
 describe('Availability', () => {
     let component = '<availability></availability>';
@@ -61,6 +61,31 @@ describe('Availability', () => {
 
             expect(element.controller('availability')).toBeDefined();
             expect(element['0']).not.toEqual(component);
+        });
+    });
+
+
+    describe('Controller', () => {
+        let availability, AvailabilityService, collectionMock = 'collectionMock';
+
+        beforeEach(inject((_AvailabilityService_) => {
+            AvailabilityService = _AvailabilityService_;
+        }));
+
+        it('should have calendarData property', () => {
+            spyOn(AvailabilityService, 'getCalendarData').and.returnValue(collectionMock);
+            availability = new Availability(AvailabilityService);
+
+            expect(availability.calendarData).toEqual(collectionMock);
+            expect(AvailabilityService.getCalendarData).toHaveBeenCalled();
+        });
+
+        it('should have calendarConfig property', () => {
+            spyOn(AvailabilityService, 'getCalendarConfig').and.returnValue(collectionMock);
+            availability = new Availability(AvailabilityService);
+
+            expect(availability.calendarConfig).toEqual(collectionMock);
+            expect(AvailabilityService.getCalendarConfig).toHaveBeenCalled();
         });
     });
 });

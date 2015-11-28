@@ -28,7 +28,10 @@
             <div class="form-group mb0">
                 <label class="control-label col-sm-4">Default Location</label>
                 <div class="col-sm-5">
-                    <span class="checkbox"><label><input name="default" type="checkbox" ng-model="vm.location.default"></label></span>
+                    <div class="checkbox">
+                        <input id="location_default" name="default" type="checkbox" ng-model="vm.location.default">
+                        <label for="location_default"></label>
+                    </div>
                 </div>
             </div>
         </div>

@@ -1,0 +1,40 @@
+.fc-toolbar h2 {
+    line-height: 31px!important;
+    font-size: 24px!important;
+}
+table thead tr th.fc-widget-header, .fc-widget-content span {
+    color: $fontColorDark!important;
+    font-weight: 500!important;
+    padding-top: 3px!important;
+    padding-bottom: 3px!important;
+}
+.fc-widget-content, .fc-widget-header {
+    border-color: #e2e7eb!important;
+}
+
+.availability-available {
+    background-color: $lightGreen;
+}
+.availability-unavailable {
+    background-color: $lightRed;
+}
+.availability-necessary {
+    background-color: $lightOrange;
+}
+.disable .fc-view-container {
+    opacity: .2;
+    pointer-events: none;
+    cursor: not-allowed;
+}
+
+.availability-event {
+    position: relative;
+    opacity: .3;
+    text-align: center;
+    top: 30%;
+}
+.availability-event:before {
+    font-family: 'FontAwesome';
+    font-size: 30px;
+    content: "\f073";
+}

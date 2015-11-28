@@ -20,7 +20,10 @@
         <div class="form-group">
             <label class="control-label col-sm-4">Lock the folder?</label>
             <div class="col-sm-5">
-                <span class="checkbox"><input name="isLocked" type="checkbox" ng-model="vm.document.isLocked" class="ml0"></span>
+                <div class="checkbox">
+                    <input id="isLocked" name="isLocked" type="checkbox" ng-model="vm.document.isLocked" class="ml0" />
+                    <label for="isLocked"></label>
+                </div>
             </div>
         </div>
 

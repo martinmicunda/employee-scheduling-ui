@@ -80,6 +80,24 @@ describe('Config', () => {
         });
 
         describe('$stateChangeStart', () => {
+            it('should set `$rootScope.isLoading` to true when route contains resolve property', () => {
+                const toState = {resolve: 'test'};
+                OnRun.runFactory($rootScope, $state, $log, AuthenticationService);
+
+                $rootScope.$broadcast('$stateChangeStart', toState); // the first argument is reserved for the event object (that's why we are not passing event object here)
+
+                expect($rootScope.isLoading).toEqual(true);
+            });
+
+            it('should not set `$rootScope.isLoading` when route does not contain resolve property', () => {
+                const toState = {};
+                OnRun.runFactory($rootScope, $state, $log, AuthenticationService);
+
+                $rootScope.$broadcast('$stateChangeStart', toState); // the first argument is reserved for the event object (that's why we are not passing event object here)
+
+                expect($rootScope.isLoading).toBeFalsy();
+            });
+
             it('should catch unauthorised route changes when `data.access` is undefined and redirect to `403`', () => {
                 spyOn($state, 'go');
                 const toState = {name: 'test'};
@@ -164,14 +182,52 @@ describe('Config', () => {
             });
         });
 
+        describe('$stateChangeSuccess', () => {
+            it('should set `$rootScope.isLoading` to true when route contains resolve property', () => {
+                const toState = {resolve: 'test'};
+                OnRun.runFactory($rootScope, $state, $log, AuthenticationService);
+
+                $rootScope.$broadcast('$stateChangeSuccess', toState); // the first argument is reserved for the event object (that's why we are not passing event object here)
+
+                expect($rootScope.isLoading).toEqual(false);
+            });
+
+            it('should not set `$rootScope.isLoading` when route does not contain resolve property', () => {
+                const toState = {};
+                OnRun.runFactory($rootScope, $state, $log, AuthenticationService);
+
+                $rootScope.$broadcast('$stateChangeSuccess', toState); // the first argument is reserved for the event object (that's why we are not passing event object here)
+
+                expect($rootScope.isLoading).toBeFalsy();
+            });
+        });
+
         describe('$stateChangeError', () => {
+            it('should set `$rootScope.isLoading` to true when route contains resolve property', () => {
+                const toState = {resolve: 'test'};
+                OnRun.runFactory($rootScope, $state, $log, AuthenticationService);
+
+                $rootScope.$broadcast('$stateChangeError', toState, null, null, null, {stack: 'error'}); // the first argument is reserved for the event object (that's why we are not passing event object here)
+
+                expect($rootScope.isLoading).toEqual(false);
+            });
+
+            it('should not set `$rootScope.isLoading` when route does not contain resolve property', () => {
+                const toState = {};
+                OnRun.runFactory($rootScope, $state, $log, AuthenticationService);
+
+                $rootScope.$broadcast('$stateChangeError', toState, null, null, null, {stack: 'error'}); // the first argument is reserved for the event object (that's why we are not passing event object here)
+
+                expect($rootScope.isLoading).toBeFalsy();
+            });
+
             it('should catch error route changes and redirect to `500`', () => {
                 spyOn($log, 'error');
                 spyOn($state, 'go');
                 const error = {stack: 'error'};
                 OnRun.runFactory($rootScope, $state, $log, AuthenticationService);
 
-                const event = $rootScope.$broadcast('$stateChangeError', null, null, null, null, error); // the first argument is reserved for the event object (that's why we are not passing event object here)
+                const event = $rootScope.$broadcast('$stateChangeError', {}, null, null, null, error); // the first argument is reserved for the event object (that's why we are not passing event object here)
 
                 expect(event.defaultPrevented).toEqual(true);
                 expect($state.go).toHaveBeenCalledWith('500');

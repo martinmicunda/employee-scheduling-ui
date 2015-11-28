@@ -31,6 +31,9 @@
 .ml0 {
     margin-left: 0!important;
 }
+.pt0 {
+    padding-top: 0!important;
+}
 .pt5 {
     padding-top: 5px;
 }
@@ -49,6 +52,7 @@
     box-shadow: none;
     -webkit-box-shadow: none;
 }
-.text-left {
-    text-align: left!important;
-}
+.text-left {text-align: left!important;}
+.display-inline-block {display: inline-block;}
+.display-inline {display: inline;}
+.min-height-0 {min-height: 0!important;}

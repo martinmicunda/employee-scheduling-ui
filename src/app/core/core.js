@@ -28,6 +28,7 @@ import './models/language';
 import './models/currency';
 import './models/token';
 import './models/message';
+import './models/availability';
 
 // resources
 import './resources/employee/employee';
@@ -39,6 +40,7 @@ import './resources/setting/setting';
 import './resources/position/position';
 import './resources/document/document';
 import './resources/currency/currency';
+import './resources/availability/availability';
 import './resources/authentication/authentication';
 // http://snippetrepo.com/snippets/angularjs-http-rest-service-abstraction
 // https://medium.com/@tomastrajan/model-pattern-for-angular-js-67494389d6f
@@ -49,4 +51,5 @@ import './resources/authentication/authentication';
 import './services/document';
 import './services/form';
 import './services/modal';
-import './services/authentication.js';
+import './services/authentication';
+import './services/availability';

@@ -58,6 +58,10 @@ class OnRun {
         $rootScope.ACCESS_LEVELS = ACCESS_LEVELS;
 
         $rootScope.$on('$stateChangeStart', (event, toState) => {
+            if (toState.resolve) {
+                $rootScope.isLoading = true;
+            }
+
             if(!('data' in toState) || !('access' in toState.data)){
                 event.preventDefault();
                 $state.go('403');
@@ -74,7 +78,17 @@ class OnRun {
             }
         });
 
+        $rootScope.$on('$stateChangeSuccess', (event, toState) => {
+            if (toState.resolve) {
+                $rootScope.isLoading = false;
+            }
+        });
+
         $rootScope.$on('$stateChangeError', (event, toState, toParams, fromState, fromParams, error) => {
+            if (toState.resolve) {
+                $rootScope.isLoading = false;
+            }
+
             event.preventDefault();
             $log.error(error.stack);
             $state.go('500');

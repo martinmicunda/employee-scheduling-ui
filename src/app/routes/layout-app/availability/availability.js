@@ -5,9 +5,11 @@
  */
 'use strict';
 
+import './add/add';
+import './edit/edit';
 import template from './availability.html!text';
 import {ACCESS_LEVELS} from '../../../core/constants/constants';
-import {RouteConfig, Component, View} from '../../../ng-decorators'; // jshint unused: false
+import {RouteConfig, Component, View, Inject} from '../../../ng-decorators'; // jshint unused: false
 
 //start-non-standard
 @RouteConfig('app.availability', {
@@ -23,5 +25,16 @@ import {RouteConfig, Component, View} from '../../../ng-decorators'; // jshint u
 @View({
     template: template
 })
+@Inject('AvailabilityService')
 //end-non-standard
-class Availability {}
+class Availability {
+    constructor(AvailabilityService) {
+        this.calendarData = AvailabilityService.getCalendarData();
+        this.calendarConfig = AvailabilityService.getCalendarConfig();
+    }
+}
+
+export default Availability;
+// !!! http://24days.in/umbraco/2014/extending-umbraco-7-backend/extend-with-angularjs-and-typescript/
+// !! http://calendar.demo.title.dk/calendar/
+// !! https://www.silverstripe.org/blog/managing-events-with-silverstripe-a-new-calendar-module/ --> check ORM model schema

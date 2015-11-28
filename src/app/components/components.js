@@ -15,6 +15,7 @@ import './modal-message/modal-message';
 import './modal-document/modal-document';
 import './modal-position/modal-position';
 import './modal-location/modal-location';
+import './modal-availability/modal-availability';
 import './employee-hourly-rate/employee-hourly-rate';
 import './employee-bank-details/employee-bank-details';
 import './employee-authorizations/employee-authorizations';

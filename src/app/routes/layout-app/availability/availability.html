@@ -1,1 +1,34 @@
-<p>Availability coming soon!</p>
+<div class="container-fluid">
+    <div class="panel panel-inverse">
+        <div class="panel-heading">
+            <h4 class="panel-title">Availability</h4>
+        </div>
+        <div class="panel-body">
+            <!--http://seantheme.com/color-admin-v1.9/admin/html/extra_invoice.html TODO: check print button-->
+            <h6 class="mt0 pull-left hidden-xs">
+                <span class="btn btn-success btn-icon btn-circle btn-lg"></span> Available&nbsp;
+                <span class="btn btn-danger btn-icon btn-circle btn-lg"></span> Unavailable&nbsp;
+                <span class="btn btn-warning btn-icon btn-circle btn-lg"></span> If Necessary&nbsp;
+                <i class="fa fa-calendar"></i> Event
+            </h6>
+            <!--<div class="row">-->
+                <!--<div class="col-md-6 col-sm-6">-->
+                    <!--<div class="table-filter">-->
+                        <!--Search: <input type="search" ng-init="searchFilter = {}" ng-model="searchFilter.$">-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class="col-md-6 col-sm-6">-->
+                    <!--<div class="pull-right">-->
+                        <!--<button type="button" class="btn btn-sm btn-success" ui-sref="app.employees.add.account-details">Add Employee</button>&nbsp;-->
+                        <!--<div class="btn-group">-->
+                            <!--<button class="btn btn-sm btn-info" ng-class="{ 'active': vm.listViewTable }" ng-click="vm.toggleListView()"><i class="fa fa-align-justify fa-fw"></i> Table</button>-->
+                            <!--<button class="btn btn-sm btn-info" ng-class="{ 'active': !vm.listViewTable }" ng-click="vm.toggleListView()"><i class="fa fa-th-large fa-fw"></i> Grid</button>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+            <div class="fade" ng-class="{'in': vm.calendarConfig.isLoading(), 'hidden': !vm.calendarConfig.isLoading()}"><span class="spinner"></span></div>
+            <div ui-calendar="vm.calendarConfig" calendar="availability" ng-model="vm.calendarData" ng-class="{'disable': vm.calendarConfig.isLoading()}"></div>
+        </div>
+    </div>
+</div>
