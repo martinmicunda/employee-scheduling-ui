@@ -5,6 +5,7 @@
  */
 'use strict';
 
+export const AVAILABILITY_DATE_FORMAT = 'YYYYMMDD';
 export const EMPLOYEE_PROFILE_STATUSES = Object.freeze({ACTIVE: 'active', INACTIVE: 'inactive', PENDING: 'pending'});
 export const USER_ROLES = Object.freeze({EMPLOYEE: 'employee', SUPERVISOR: 'supervisor', MANAGER: 'manager', ADMIN: 'admin'});
 export const ACCESS_LEVELS = Object.freeze({

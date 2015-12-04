@@ -66,7 +66,7 @@ describe('Availability', () => {
 
 
     describe('Controller', () => {
-        let availability, AvailabilityService, collectionMock = 'collectionMock';
+        let availability, AvailabilityService, collectionMock = 'collectionMock', scope = 'scope';
 
         beforeEach(inject((_AvailabilityService_) => {
             AvailabilityService = _AvailabilityService_;
@@ -74,18 +74,18 @@ describe('Availability', () => {
 
         it('should have calendarData property', () => {
             spyOn(AvailabilityService, 'getCalendarData').and.returnValue(collectionMock);
-            availability = new Availability(AvailabilityService);
+            availability = new Availability(scope, AvailabilityService);
 
             expect(availability.calendarData).toEqual(collectionMock);
-            expect(AvailabilityService.getCalendarData).toHaveBeenCalled();
+            expect(AvailabilityService.getCalendarData).toHaveBeenCalledWith(availability);
         });
 
         it('should have calendarConfig property', () => {
             spyOn(AvailabilityService, 'getCalendarConfig').and.returnValue(collectionMock);
-            availability = new Availability(AvailabilityService);
+            availability = new Availability(scope, AvailabilityService);
 
             expect(availability.calendarConfig).toEqual(collectionMock);
-            expect(AvailabilityService.getCalendarConfig).toHaveBeenCalled();
+            expect(AvailabilityService.getCalendarConfig).toHaveBeenCalledWith(scope);
         });
     });
 });

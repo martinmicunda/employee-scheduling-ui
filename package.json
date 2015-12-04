@@ -114,8 +114,8 @@
     },
     "configFile": "jspm.conf.js",
     "dependencies": {
-      "angular": "npm:angular@1.4.5",
-      "angular-animate": "npm:angular-animate@1.4.5",
+      "angular": "github:angular/bower-angular@1.4.5",
+      "angular-animate": "github:angular/bower-angular-animate@1.4.5",
       "angular-bootstrap-colorpicker": "github:buberdds/angular-bootstrap-colorpicker@3.0.19",
       "angular-local-storage": "npm:angular-local-storage@0.2.2",
       "angular-messages": "npm:angular-messages@1.4.5",

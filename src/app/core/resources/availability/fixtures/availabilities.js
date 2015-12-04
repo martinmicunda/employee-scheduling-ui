@@ -5,60 +5,162 @@
  */
 'use strict';
 
-const date = new Date();
-const m = date.getMonth();
-const y = date.getFullYear();
+import moment from 'moment';
 
+const employeeId = localStorage.getItem('employee-scheduling-test.user') ? JSON.parse(localStorage.getItem('employee-scheduling-test.user')).id : null;
 const availabilities = [
     {
-        id: '1',
-        employeeId: '1',
+        id: `${employeeId}::${moment().add(1, 'day').format('YYYYMMDD')}`,
+        employeeId: employeeId,
         availability: 'available',
-        note: '',
-        start: new Date(y, m, 1),
-        end: new Date(y, m, 1),
-        allDay: true,
-        type: 'availability'
+        date: moment().add(1, 'day').format('YYYYMMDD'),
+        note: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.'
+        //recurrence: {
+        //    freq: 'WEEKLY',
+        //    until: new Date(y, m, 27),
+        //    weekdays: ['MO', 'TU', 'WE', 'TH', 'FR', 'SA', 'SU'] // TODO: migth use number instead string e.g. dayNumberOfWeek: [0, 3, 6]
+        //}
     },
     {
-        id: '2',
-        employeeId: '1',
+        id: `${employeeId}::${moment().add(2, 'day').format('YYYYMMDD')}`,
+        employeeId: employeeId,
         availability: 'available',
-        note: '',
-        start: new Date(y, m, 3),
-        end: new Date(y, m, 3),
-        allDay: true,
-        type: 'availability'
+        date: moment().add(2, 'day').format('YYYYMMDD'),
+        //recurringAvailabilityId: '1',
+        note: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.'
     },
     {
-        id: '3',
-        employeeId: '1',
+        id: `${employeeId}::${moment().add(3, 'day').format('YYYYMMDD')}`,
+        employeeId: employeeId,
         availability: 'unavailable',
-        note: '',
-        start: new Date(y, m, 12),
-        end: new Date(y, m, 12),
-        allDay: true,
-        type: 'availability'
+        date: moment().add(3, 'day').format('YYYYMMDD')
     },
     {
-        id: '4',
-        employeeId: '1',
+        id: `${employeeId}::${moment().add(12, 'day').format('YYYYMMDD')}`,
+        employeeId: employeeId,
         availability: 'unavailable',
-        note: '',
-        start: new Date(y, m, 16),
-        end: new Date(y, m, 16),
-        allDay: true,
-        type: 'availability'
+        date: moment().add(12, 'day').format('YYYYMMDD')
     },
     {
-        id: '4',
-        employeeId: '1',
+        id: `${employeeId}::${moment().add(13, 'day').format('YYYYMMDD')}`,
+        employeeId: employeeId,
+        availability: 'unavailable',
+        date: moment().add(13, 'day').format('YYYYMMDD'),
+        note: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.'
+    },
+    {
+        id: `${employeeId}::${moment().add(14, 'day').format('YYYYMMDD')}`,
+        employeeId: employeeId,
+        availability: 'unavailable',
+        date: moment().add(14, 'day').format('YYYYMMDD')
+    },
+    {
+        id: `${employeeId}::${moment().add(17, 'day').format('YYYYMMDD')}`,
+        employeeId: employeeId,
+        availability: 'available',
+        date: moment().add(17, 'day').format('YYYYMMDD')
+    },
+    {
+        id: `${employeeId}::${moment().add(18, 'day').format('YYYYMMDD')}`,
+        employeeId: employeeId,
+        availability: 'available',
+        date: moment().add(18, 'day').format('YYYYMMDD')
+    },
+    {
+        id: `${employeeId}::${moment().add(23, 'day').format('YYYYMMDD')}`,
+        employeeId: employeeId,
+        availability: 'unavailable',
+        date: moment().add(23, 'day').format('YYYYMMDD')
+    },
+    {
+        id: `${employeeId}::${moment().add(24, 'day').format('YYYYMMDD')}`,
+        employeeId: employeeId,
+        availability: 'available',
+        date: moment().add(24, 'day').format('YYYYMMDD')
+    },
+    {
+        id: `${employeeId}::${moment().add(25, 'day').format('YYYYMMDD')}`,
+        employeeId: employeeId,
+        availability: 'available',
+        date: moment().add(25, 'day').format('YYYYMMDD')
+    },
+    {
+        id: `${employeeId}::${moment().add(26, 'day').format('YYYYMMDD')}`,
+        employeeId: employeeId,
+        availability: 'available',
+        date: moment().add(26, 'day').format('YYYYMMDD')
+    },
+    {
+        id: `${employeeId}::${moment().subtract(12, 'day').format('YYYYMMDD')}`,
+        employeeId: employeeId,
+        availability: 'unavailable',
+        date: moment().subtract(12, 'day').format('YYYYMMDD')
+    },
+    {
+        id: `${employeeId}::${moment().subtract(13, 'day').format('YYYYMMDD')}`,
+        employeeId: employeeId,
+        availability: 'unavailable',
+        date: moment().subtract(13, 'day').format('YYYYMMDD')
+    },
+    {
+        id: `${employeeId}::${moment().subtract(14, 'day').format('YYYYMMDD')}`,
+        employeeId: employeeId,
+        availability: 'unavailable',
+        date: moment().subtract(14, 'day').format('YYYYMMDD')
+    },
+    {
+        id: `${employeeId}::${moment().subtract(17, 'day').format('YYYYMMDD')}`,
+        employeeId: employeeId,
+        availability: 'available',
+        date: moment().subtract(17, 'day').format('YYYYMMDD')
+    },
+    {
+        id: `${employeeId}::${moment().subtract(18, 'day').format('YYYYMMDD')}`,
+        employeeId: employeeId,
+        availability: 'available',
+        date: moment().subtract(18, 'day').format('YYYYMMDD')
+    },
+    {
+        id: `${employeeId}::${moment().subtract(20, 'day').format('YYYYMMDD')}`,
+        employeeId: employeeId,
         availability: 'necessary',
-        note: '',
-        start: new Date(y, m, 20),
-        end: new Date(y, m, 20),
-        allDay: true,
-        type: 'availability'
+        date: moment().subtract(20, 'day').format('YYYYMMDD')
+    },
+    {
+        id: `${employeeId}::${moment().subtract(21, 'day').format('YYYYMMDD')}`,
+        employeeId: employeeId,
+        availability: 'necessary',
+        date: moment().subtract(21, 'day').format('YYYYMMDD')
+    },
+    {
+        id: `${employeeId}::${moment().add(43, 'day').format('YYYYMMDD')}`,
+        employeeId: employeeId,
+        availability: 'available',
+        date: moment().add(43, 'day').format('YYYYMMDD')
+    },
+    {
+        id: `${employeeId}::${moment().add(44, 'day').format('YYYYMMDD')}`,
+        employeeId: employeeId,
+        availability: 'available',
+        date: moment().add(44, 'day').format('YYYYMMDD')
+    },
+    {
+        id: `${employeeId}::${moment().add(45, 'day').format('YYYYMMDD')}`,
+        employeeId: employeeId,
+        availability: 'available',
+        date: moment().add(45, 'day').format('YYYYMMDD')
+    },
+    {
+        id: `${employeeId}::${moment().add(46, 'day').format('YYYYMMDD')}`,
+        employeeId: employeeId,
+        availability: 'available',
+        date: moment().add(46, 'day').format('YYYYMMDD')
+    },
+    {
+        id: `${employeeId}::${moment().add(47, 'day').format('YYYYMMDD')}`,
+        employeeId: employeeId,
+        availability: 'available',
+        date: moment().add(47, 'day').format('YYYYMMDD')
     }
 ];
 

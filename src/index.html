@@ -28,7 +28,7 @@
             your browser</a> to improve your experience.</p>
         <![endif]-->
 
-        <div id="page-loader" class="fade in" ng-show="$root.isLoading"><span class="spinner"></span></div>
+        <div id="page-loader" class="fade" ng-class="{'in': $root.isLoading, 'hidden': !$root.isLoading}"><span class="spinner"></span></div>
         <div ui-view></div>
 
         <!-- build:js(.) scripts/main.min.js -->

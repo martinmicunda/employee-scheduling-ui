@@ -5,8 +5,10 @@
  */
 'use strict';
 
+import moment from 'moment';
 import {fakeModal} from '../../../../test/helpers/modal.js';
 import AvailabilityModal from './modal-availability.js';
+import {AVAILABILITY_DATE_FORMAT} from '../../core/constants/constants';
 
 describe('ModalAvailability', () => {
 
@@ -14,15 +16,17 @@ describe('ModalAvailability', () => {
 
     describe('Component', () => {
         let $compile, $rootScope, scope, render, element, ModalModel,
-            component = '<modal-availability></modal-availability>';
+            component = '<modal-availability></modal-availability>',
+            itemMock = {start: moment(), end: moment().add(2, 'day'), availability: 'available', employeeId: 'employeeId'};;
 
-        beforeEach(inject((_$compile_, _$rootScope_, _ModalModel_) => {
+        beforeEach(inject((_$compile_, _$rootScope_, _ModalModel_, AvailabilityModel) => {
             $compile = _$compile_;
             $rootScope = _$rootScope_;
             scope = $rootScope.$new();
             ModalModel = _ModalModel_;
 
             spyOn(ModalModel, 'getItem').and.returnValue(fakeModal);
+            spyOn(AvailabilityModel, 'getItem').and.returnValue(itemMock);
 
             render = () => {
                 let element = angular.element(component);
@@ -50,106 +54,84 @@ describe('ModalAvailability', () => {
     });
 
     describe('Controller', () => {
-        let availabilityModal, FormService, AvailabilityModel, AvailabilityService,
-            ModalModel, itemMock = {value: 'itemMock'};
+        let availabilityModal, FormService, AvailabilityModel, AvailabilityService, AvailabilityResource,
+            ModalModel, itemMock = {start: moment(), end: moment().add(2, 'day'), availability: 'available', employeeId: 'employeeId'};
 
-        beforeEach(inject((_FormService_, _AvailabilityModel_, _ModalModel_, _AvailabilityService_) => {
+        beforeEach(inject((_FormService_, _AvailabilityModel_, _ModalModel_, _AvailabilityService_, _AvailabilityResource_) => {
             ModalModel = _ModalModel_;
             FormService = _FormService_;
             AvailabilityModel = _AvailabilityModel_;
             AvailabilityService = _AvailabilityService_;
+            AvailabilityResource = _AvailabilityResource_;
+
+            spyOn(ModalModel, 'getItem').and.returnValue(fakeModal);
         }));
 
         it('should have modal property', () => {
-            spyOn(ModalModel, 'getItem').and.returnValue(itemMock);
-            availabilityModal = new AvailabilityModal(ModalModel, AvailabilityModel, FormService, AvailabilityService);
+            spyOn(AvailabilityModel, 'getItem').and.returnValue(itemMock);
+            availabilityModal = new AvailabilityModal(ModalModel, AvailabilityModel, FormService, AvailabilityService, AvailabilityResource);
 
-            expect(availabilityModal.modal).toEqual(itemMock);
+            expect(availabilityModal.modal).toEqual(fakeModal);
             expect(ModalModel.getItem).toHaveBeenCalled();
         });
 
         it('should have availability property', () => {
             spyOn(AvailabilityModel, 'getItem').and.returnValue(itemMock);
-            availabilityModal = new AvailabilityModal(ModalModel, AvailabilityModel, FormService, AvailabilityService);
+            availabilityModal = new AvailabilityModal(ModalModel, AvailabilityModel, FormService, AvailabilityService, AvailabilityResource);
 
             expect(availabilityModal.availability).toEqual(itemMock);
             expect(AvailabilityModel.getItem).toHaveBeenCalled();
         });
 
-        it('should have availability.repeatType property set to availability.repeatType', () => {
-            spyOn(AvailabilityModel, 'getItem').and.returnValue({repeatType: 'repeatType'});
-            availabilityModal = new AvailabilityModal(ModalModel, AvailabilityModel, FormService, AvailabilityService);
+        it('should have startDate property', () => {
+            spyOn(AvailabilityModel, 'getItem').and.returnValue(itemMock);
+            availabilityModal = new AvailabilityModal(ModalModel, AvailabilityModel, FormService, AvailabilityService, AvailabilityResource);
 
-            expect(availabilityModal.availability.repeatType).toEqual('repeatType');
+            expect(availabilityModal.startDate).toEqual(itemMock.start.format('ddd, D MMMM'));
+        });
+
+        it('should have dateRangeLength property equal 2', () => {
+            spyOn(AvailabilityModel, 'getItem').and.returnValue(itemMock);
+            availabilityModal = new AvailabilityModal(ModalModel, AvailabilityModel, FormService, AvailabilityService, AvailabilityResource);
+
+            expect(availabilityModal.dateRangeLength).toEqual(2);
+        });
+
+        it('should have dateRangeLength property equal 0', () => {
+            spyOn(AvailabilityModel, 'getItem').and.returnValue({start: moment(), end: moment()});
+            availabilityModal = new AvailabilityModal(ModalModel, AvailabilityModel, FormService, AvailabilityService, AvailabilityResource);
+
+            expect(availabilityModal.dateRangeLength).toEqual(0);
         });
 
         it('should have endDate property', () => {
-            spyOn(AvailabilityModel, 'getItem').and.returnValue({end: new Date()});
-            availabilityModal = new AvailabilityModal(ModalModel, AvailabilityModel, FormService, AvailabilityService);
+            spyOn(AvailabilityModel, 'getItem').and.returnValue(itemMock);
+            availabilityModal = new AvailabilityModal(ModalModel, AvailabilityModel, FormService, AvailabilityService, AvailabilityResource);
 
-            expect(availabilityModal.endDate).toBeDefined();
-        });
+            const endDate = moment(itemMock.end); // make `this.availability.end` object immutable for subtract function
+            endDate.subtract(1, 'day');
 
-        it('should have showEndDate property set to true', () => {
-            let endDate = new Date();
-            endDate.setDate(endDate.getDate() + 2);
-            spyOn(AvailabilityModel, 'getItem').and.returnValue({end: endDate, start: new Date()});
-            availabilityModal = new AvailabilityModal(ModalModel, AvailabilityModel, FormService, AvailabilityService);
-
-            expect(availabilityModal.showEndDate).toBeDefined();
-        });
-
-        it('should have showEndDate property set to false', () => {
-            spyOn(AvailabilityModel, 'getItem').and.returnValue({end: new Date(), start: new Date()});
-            availabilityModal = new AvailabilityModal(ModalModel, AvailabilityModel, FormService, AvailabilityService);
-
-            expect(availabilityModal.showEndDate).toEqual(false);
-        });
-
-        it('should have availability.repeatType property set to repeatTypes[0].id', () => {
-            spyOn(AvailabilityModel, 'getItem').and.returnValue({});
-            availabilityModal = new AvailabilityModal(ModalModel, AvailabilityModel, FormService, AvailabilityService);
-
-            expect(availabilityModal.availability.repeatType).toEqual(availabilityModal.repeatTypes[0].id);
-        });
-
-        it('should have repeatTypes property', () => {
-            availabilityModal = new AvailabilityModal(ModalModel, AvailabilityModel, FormService, AvailabilityService);
-
-            expect(availabilityModal.repeatTypes).toEqual([{id: '', label: 'Never'}, {id: 'weekly', label: 'Weekly'}]);
-        });
-
-        it('should have days property', () => {
-            spyOn(AvailabilityService, 'getCalendarDays').and.returnValue(itemMock);
-            availabilityModal = new AvailabilityModal(ModalModel, AvailabilityModel, FormService, AvailabilityService);
-
-            expect(availabilityModal.days).toEqual(itemMock);
-            expect(AvailabilityService.getCalendarDays).toHaveBeenCalled();
-        });
-
-        it('should have dateOptions property', () => {
-            spyOn(AvailabilityService, 'getDatepickerOptions').and.returnValue(itemMock);
-            availabilityModal = new AvailabilityModal(ModalModel, AvailabilityModel, FormService, AvailabilityService);
-
-            expect(availabilityModal.dateOptions).toEqual(itemMock);
-            expect(AvailabilityService.getDatepickerOptions).toHaveBeenCalled();
+            expect(availabilityModal.endDate).toEqual(endDate.format('ddd, D MMMM'));
         });
 
         it('should have isSubmitting property', () => {
-            availabilityModal = new AvailabilityModal(ModalModel, AvailabilityModel, FormService, AvailabilityService);
+            spyOn(AvailabilityModel, 'getItem').and.returnValue(itemMock);
+            availabilityModal = new AvailabilityModal(ModalModel, AvailabilityModel, FormService, AvailabilityService, AvailabilityResource);
 
             expect(availabilityModal.isSubmitting).toEqual(null);
         });
 
         it('should have result property', () => {
-            availabilityModal = new AvailabilityModal(ModalModel, AvailabilityModel, FormService, AvailabilityService);
+            spyOn(AvailabilityModel, 'getItem').and.returnValue(itemMock);
+            availabilityModal = new AvailabilityModal(ModalModel, AvailabilityModel, FormService, AvailabilityService, AvailabilityResource);
 
             expect(availabilityModal.result).toEqual(null);
         });
 
         it('should have saveButtonOptions property', () => {
+            spyOn(AvailabilityModel, 'getItem').and.returnValue(itemMock);
             spyOn(FormService, 'getModalSaveButtonOptions').and.returnValue(itemMock);
-            availabilityModal = new AvailabilityModal(ModalModel, AvailabilityModel, FormService, AvailabilityService);
+            availabilityModal = new AvailabilityModal(ModalModel, AvailabilityModel, FormService, AvailabilityService, AvailabilityResource);
 
             expect(availabilityModal.saveButtonOptions).toEqual(itemMock);
             expect(FormService.getModalSaveButtonOptions).toHaveBeenCalled();
@@ -157,8 +139,8 @@ describe('ModalAvailability', () => {
 
         it('should cancel modal', () => {
             spyOn(fakeModal, 'dismiss');
-            spyOn(ModalModel, 'getItem').and.returnValue(fakeModal);
-            availabilityModal = new AvailabilityModal(ModalModel, AvailabilityModel, FormService, AvailabilityService);
+            spyOn(AvailabilityModel, 'getItem').and.returnValue(itemMock);
+            availabilityModal = new AvailabilityModal(ModalModel, AvailabilityModel, FormService, AvailabilityService, AvailabilityResource);
 
             availabilityModal.cancel();
 
@@ -167,78 +149,65 @@ describe('ModalAvailability', () => {
 
         it('should not save if form is invalid', () => {
             let form = {$valid: false};
-            spyOn(FormService, 'save');
-            availabilityModal = new AvailabilityModal(ModalModel, AvailabilityModel, FormService, AvailabilityService);
+            spyOn(AvailabilityResource, 'create');
+            spyOn(AvailabilityModel, 'getItem').and.returnValue(itemMock);
+            availabilityModal = new AvailabilityModal(ModalModel, AvailabilityModel, FormService, AvailabilityService, AvailabilityResource);
 
             availabilityModal.save(form);
 
             expect(availabilityModal.isSubmitting).toEqual(null);
-            expect(FormService.save).not.toHaveBeenCalled();
+            expect(AvailabilityResource.create).not.toHaveBeenCalled();
         });
 
         itAsync('should save if form is valid', () => {
-            let form = {$valid: true};
-            spyOn(FormService, 'save').and.returnValue(Promise.resolve());
-            spyOn(AvailabilityService, 'refreshCalendarData');
+            let form = {$valid: true, $setPristine: () => {}};
+            const availability = {availability: itemMock.availability, start: itemMock.start.format(AVAILABILITY_DATE_FORMAT), end: itemMock.end.format(AVAILABILITY_DATE_FORMAT), employeeId: itemMock.employeeId};
+            spyOn(AvailabilityModel, 'getItem').and.returnValue(itemMock);
+            spyOn(AvailabilityResource, 'create').and.returnValue(Promise.resolve());
+            spyOn(AvailabilityService, 'createOrReplaceAvailabilities');
+            spyOn(form, '$setPristine');
+            spyOn(FormService, 'onSuccess');
 
-            availabilityModal = new AvailabilityModal(ModalModel, AvailabilityModel, FormService, AvailabilityService);
+            availabilityModal = new AvailabilityModal(ModalModel, AvailabilityModel, FormService, AvailabilityService, AvailabilityResource);
 
             return availabilityModal.save(form).then(() => {
-                expect(AvailabilityService.refreshCalendarData).toHaveBeenCalled();
                 expect(availabilityModal.isSubmitting).toEqual(true);
-                expect(FormService.save).toHaveBeenCalledWith(AvailabilityModel, availabilityModal.availability, availabilityModal, form);
+                expect(AvailabilityResource.create).toHaveBeenCalledWith(availability);
+                expect(AvailabilityService.createOrReplaceAvailabilities).toHaveBeenCalledWith(availabilityModal.dateRangeLength, availabilityModal.availability);
+
+                expect(form.$setPristine).toHaveBeenCalled();
+                expect(FormService.onSuccess).toHaveBeenCalledWith(availabilityModal);
             });
         });
 
-        itAsync('should delete availability', () => {
-            spyOn(FormService, 'delete').and.returnValue(Promise.resolve());
-            spyOn(AvailabilityService, 'refreshCalendarData');
+        it('should save with `note` property if exist', () => {
+            let form = {$valid: true, $setPristine: () => {}};
+            const clonedAvailability = Object.assign({}, itemMock);
+            clonedAvailability.note = 'note';
+            const availability = {availability: clonedAvailability.availability, start: clonedAvailability.start.format(AVAILABILITY_DATE_FORMAT), end: clonedAvailability.end.format(AVAILABILITY_DATE_FORMAT), employeeId: clonedAvailability.employeeId, note: clonedAvailability.note};
+            spyOn(AvailabilityModel, 'getItem').and.returnValue(clonedAvailability);
+            spyOn(AvailabilityResource, 'create').and.returnValue(Promise.resolve());
+            spyOn(AvailabilityService, 'createOrReplaceAvailabilities');
 
-            availabilityModal = new AvailabilityModal(ModalModel, AvailabilityModel, FormService, AvailabilityService);
+            availabilityModal = new AvailabilityModal(ModalModel, AvailabilityModel, FormService, AvailabilityService, AvailabilityResource);
 
-            return availabilityModal.delete(itemMock).then(() => {
-                expect(AvailabilityService.refreshCalendarData).toHaveBeenCalled();
-                expect(AvailabilityService.refreshCalendarData).toHaveBeenCalled();
-                expect(FormService.delete).toHaveBeenCalledWith(AvailabilityModel, itemMock, availabilityModal);
-            });
+            availabilityModal.save(form);
+
+            expect(AvailabilityResource.create).toHaveBeenCalledWith(availability);
         });
 
-        describe('open', () => {
-            let $event = {
-                preventDefault: function() {},
-                stopPropagation: function() {}
-            };
+        itAsync('should not save if there is failure', () => {
+            let form = {$valid: true, $setPristine: () => {}};
+            spyOn(AvailabilityModel, 'getItem').and.returnValue(itemMock);
+            spyOn(AvailabilityResource, 'create').and.returnValue(Promise.reject('error'));
+            spyOn(form, '$setPristine');
+            spyOn(FormService, 'onFailure');
 
-            it('should call preventDefault function', () => {
-                spyOn($event, 'preventDefault');
+            availabilityModal = new AvailabilityModal(ModalModel, AvailabilityModel, FormService, AvailabilityService, AvailabilityResource);
 
-                availabilityModal = new AvailabilityModal(ModalModel, AvailabilityModel, FormService, AvailabilityService);
-
-                availabilityModal.open($event);
-
-                expect($event.preventDefault).toHaveBeenCalled();
-            });
-
-            it('should call stopPropagation function', () => {
-                spyOn($event, 'stopPropagation');
-
-                availabilityModal = new AvailabilityModal(ModalModel, AvailabilityModel, FormService, AvailabilityService);
-
-                availabilityModal.open($event);
-
-                expect($event.stopPropagation).toHaveBeenCalled();
-            });
-
-            it('should call stopPropagation function', () => {
-                spyOn($event, 'stopPropagation');
-
-                availabilityModal = new AvailabilityModal(ModalModel, AvailabilityModel, FormService, AvailabilityService);
-
-                expect(availabilityModal.opened).toBeUndefined();
-
-                availabilityModal.open($event);
-
-                expect(availabilityModal.opened).toEqual(true);
+            return availabilityModal.save(form).then(() => {
+                expect(form.$setPristine).toHaveBeenCalled();
+                expect(FormService.onFailure).toHaveBeenCalledWith(availabilityModal, 'error');
             });
         });
     });

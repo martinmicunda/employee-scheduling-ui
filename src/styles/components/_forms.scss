@@ -156,6 +156,6 @@ select[multiple] {
     background-color: $lightOrange;
 }
 
-.radio-success label::before, .checkbox label::before {border-color: $lightGreen;}
+.radio-success label::before {border-color: $lightGreen;}
 .radio-danger label::before {border-color: $lightRed;}
 .radio-warning label::before {border-color: $lightOrange;}

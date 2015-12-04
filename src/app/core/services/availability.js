@@ -6,19 +6,21 @@
 'use strict';
 
 import moment from 'moment';
+import {AVAILABILITY_DATE_FORMAT} from '../constants/constants';
 import {Service, Inject} from '../../ng-decorators'; // jshint unused: false
 
 //start-non-standard
 @Service({
     serviceName: 'AvailabilityService'
 })
-@Inject('$state', '$window', 'localStorageService', 'AvailabilityModel', 'uiCalendarConfig')
+@Inject('$timeout', '$compile', '$state', '$modal', '$window', 'localStorageService', 'AvailabilityModel', 'uiCalendarConfig', 'ModalService', 'AuthenticationService', 'FormService')
 //end-non-standard
 class AvailabilityService {
-    constructor($state, $window, localStorageService, AvailabilityModel, uiCalendarConfig) {
+    constructor($timeout, $compile, $state, $modal, $window, localStorageService, AvailabilityModel, uiCalendarConfig, ModalService, AuthenticationService, FormService) {
         const date = new Date();
         const m = date.getMonth();
         const y = date.getFullYear();
+        this.$compile = $compile;
         this.events = [    {
             id: '8',
             note: '',
@@ -40,15 +42,20 @@ class AvailabilityService {
                 allDay: true
             }];
         this.router = $state;
+        this.modal = $modal;
         this.$window = $window;
+        this.ModalService = ModalService;
+        this.uiCalendarConfig = uiCalendarConfig;
         this.AvailabilityModel = AvailabilityModel;
         this.localStorageService = localStorageService;
-        this.uiCalendarConfig = uiCalendarConfig;
+        this.AuthenticationService = AuthenticationService;
+        this.$timeout = $timeout;
+        this.FormService = FormService;
+        this.isLoading = false;
     }
 
-    getCalendarConfig() {
+    getCalendarConfig($scope) {
         const height = Math.max(600, this.$window.innerHeight - 220);
-        let loading = false;
 
         return {
             contentHeight: 600,
@@ -62,39 +69,62 @@ class AvailabilityService {
             firstDay: 1, // start week on Monday
             allDayDefault: true,
             select: (start, end) => {
-                let availability = this.AvailabilityModel.getCollection().find(event => moment(start).isSame(event.start, 'day'));
-                if(availability) {
-                    this.router.go('app.availability.edit', {id: availability.id});
-                } else {
-                    availability = {
-                        end: new Date(end),
-                        start: new Date(start),
-                        availability: 'available' // TODO: this data should be only in parent document
-                    };
-                    this.localStorageService.set('availability', availability);
-                    this.AvailabilityModel.setItem(availability);
-                    this.router.go('app.availability.add');
-                }
+                let availability = this.AvailabilityModel.getCollection().find(event => moment(start).isSame(event.start, 'day')) || {availability: 'available', employeeId: this.AuthenticationService.getCurrentUser().id};
+                availability.start = moment(start);
+                availability.end = moment(end);
+
+                this.AvailabilityModel.setItem(Object.assign({}, availability));
+
+                this.modal.open({
+                    template: '<modal-availability></modal-availability>',
+                    controller: ['$modalInstance', 'ModalModel', ($modalInstance, ModalModel) =>  ModalModel.setItem($modalInstance)],
+                    controllerAs: 'vm',
+                    size: 'md'
+                }).result.finally(this.ModalService.onFinal('app.availability'));
             },
             dayRender: (date, cell) => {
                 const eventExists = this.events.find(event => moment(date).isSame(event.start, 'day'));
                 if(eventExists) {
                     cell.addClass('availability-event');
+                    //this.$timeout(() => {
+                    //    cell.append({'tooltip': 'hello!',
+                    //        'tooltip-append-to-body': true}); //{'tooltip-html': "'<b>'"}
+                    //    this.$compile(cell);
+                    //});
+                    //const events = `
+                    //        <p><a hreg="http://google.sk">10:00 - 16:00 Plejsy</a></p>
+                    //        <p><b>14:00 - 18:00 Max</b></p>
+                    //        <p><b>13:00 - 20:00 Siet - Povazska</b></p>
+                    //    `;
+                    //cell.append(events);
+                    //this.$timeout(() => {
+                    //    //cell.attr({'tooltip': 'hello!',
+                    //    //    'tooltip-append-to-body': true}); //{'tooltip-html': "'<b>'"}
+                    //    this.$compile(cell)($scope);
+                    //});
                 }
             },
             eventDataTransform: event => {
+                event.start = moment(event.date, AVAILABILITY_DATE_FORMAT);
                 event.rendering = 'background';
                 event.className = 'availability-' + event.availability;
 
                 return event;
             },
-            //eventRender: function(event, element, view) {
-            //    //console.log(event);
+            //eventRender: (event, element, view) => {
+            //    if(event.note) {
+            //        element.append('<i class="fa fa-comment"></i>');
+            //    }
             //    //if(view.name == 'month' && (event.start.format('M') !== view.start.format('M'))) { element.addClass('hiddenEvent'); }
+            //    //this.$timeout(() => {
+            //    //    element.attr({'tooltip': 'hello!',
+            //    //        'tooltip-append-to-body': true}); //{'tooltip-html': "'<b>'"}
+            //    //    this.$compile(element)($scope);
+            //    //});
             //},
-            isLoading: () => loading,
+            isLoading: () => this.isLoading,
             loading: isLoading => {
-                loading = isLoading;
+                this.isLoading = isLoading;
             },
             eventAfterAllRender: () => {
                 //this.loading.isLoading = false;
@@ -102,10 +132,10 @@ class AvailabilityService {
         };
     }
 
-    getCalendarData() {
+    getCalendarData(scope) {
         const availabilities = (start, end, timezone, cb) =>
-            this.AvailabilityModel.initCollection({start: start.format(), end: end.format()}).then(() =>
-                cb(this.refreshCalendarData()));
+            this.AvailabilityModel.initCollection({employeeId: this.AuthenticationService.getCurrentUser().id, start: start.format(AVAILABILITY_DATE_FORMAT), end: end.format(AVAILABILITY_DATE_FORMAT)}).then(() =>
+            {this.FormService.onSuccess(scope); cb(this.refreshCalendarData());}, response => this.FormService.onFailure(scope, response)).finally(() => this.isLoading = false);
 
         return [availabilities];
     }
@@ -126,13 +156,56 @@ class AvailabilityService {
         };
     }
 
-    getCalendarDays() {
+    createOrReplaceAvailabilities(dateRangeLength, availability) {
+        let i = 0, id, idx, date;
+        const availabilities = this.AvailabilityModel.getCollection();
+        const startDate = moment(availability.start); // make `availability.start` object immutable for add function
+
+        // delete `start` and `end` date as it should not exist in the back end
+        delete availability.end;
+        delete availability.start;
+
+        for(i; i < dateRangeLength; i++) {
+            // moment(startDate) makes `this.availability.start` object immutable for add function
+            date = i ? moment(startDate).add('days', i).format(AVAILABILITY_DATE_FORMAT) : startDate.format(AVAILABILITY_DATE_FORMAT);
+            id = `${availability.employeeId}::${date}`;
+
+            idx = availabilities.findIndex(availability => availability.id === id);
+            availability = Object.assign({}, availability); // TODO: why Object.assign({id, date}, availability); doesn't set immutable data?
+            availability.id = id;
+            availability.date = date;
+
+            if(idx > -1) {
+                // replace existing availability
+                availabilities.splice(idx, 1, availability);
+            } else {
+                // create new availability
+                availabilities.push(availability);
+            }
+        }
+
+        this.refreshCalendarData();
+    }
+
+    getCalendarWeedays() {
         return [
-            {id: 'Mon', label: 'Mon'}, {id: 'Tue', label: 'Tue'}, {id: 'Wed', label: 'Wed'},
-            {id: 'Thu', label: 'Thu'}, {id: 'Fri', label: 'Fri'}, {id: 'Sat', label: 'Sat'},
-            {id: 'Sun', label: 'Sun'}
+            {id: 'MO', label: 'Mon'}, {id: 'TU', label: 'Tue'}, {id: 'WE', label: 'Wed'},
+            {id: 'TH', label: 'Thu'}, {id: 'FR', label: 'Fri'}, {id: 'SA', label: 'Sat'},
+            {id: 'SU', label: 'Sun'}
         ];
     }
 }
 
 export default AvailabilityService;
+
+// !!http://fajitanachos.com/Fullcalendar-and-recurring-events/
+// http://dba.stackexchange.com/questions/91367/is-there-a-best-practice-for-recurring-calendar-events
+// http://stackoverflow.com/questions/32736486/recurring-events-in-fullcalendar-with-laravel
+// ! https://avocado.io/guacamole/avocado-api#api-calendar-model-recurrencetype
+// http://stackoverflow.com/questions/15161654/recurring-events-in-fullcalendar
+// http://www.google.ie/imgres?imgurl=http://i.stack.imgur.com/Br1hM.png&imgrefurl=http://stackoverflow.com/questions/20286332/display-next-event-date&h=531&w=739&tbnid=B_AjEe18zKcEOM:&docid=z77t5TXGloWAGM&ei=gOxVVpG-DYquavbQtOAL&tbm=isch&ved=0ahUKEwiR_t2_iazJAhUKlxoKHXYoDbwQMwg9KBQwFA
+
+// google
+// https://developers.google.com/google-apps/calendar/v3/reference/events
+// https://developers.google.com/google-apps/calendar/recurringevents
+// https://developers.google.com/google-apps/calendar/concepts/events-calendars

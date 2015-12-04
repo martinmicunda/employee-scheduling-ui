@@ -48,114 +48,107 @@ describe('FormService', () => {
     });
 
     describe('onSuccess', () => {
-        itAsync(`should set hasError to false`, () => {
+        it(`should set hasError to false`, () => {
             let self = {};
 
-            return formService.onSuccess(self).then(() => {
-                expect(self.hasError).toEqual(false);
-            });
+            formService.onSuccess(self);
+
+            expect(self.hasError).toEqual(false);
         });
 
-        itAsync(`should set result to 'success'`, () => {
+        it(`should set result to 'success'`, () => {
             let self = {};
 
-            return formService.onSuccess(self).then(() => {
-                expect(self.result).toEqual('success');
-            });
+            formService.onSuccess(self);
+
+            expect(self.result).toEqual('success');
+
         });
 
-        itAsync(`should execute cancel if it is a function`, () => {
+        it(`should execute cancel if it is a function`, () => {
             let self = {
                 cancel: function() {}
             };
             spyOn(self, 'cancel');
 
-            return formService.onSuccess(self).then(() => {
-                expect(self.cancel).toHaveBeenCalled();
-            });
+            formService.onSuccess(self);
+
+            expect(self.cancel).toHaveBeenCalled();
+
         });
     });
 
     describe('onFailure', () => {
-        itAsync(`should set hasError to true`, () => {
+        it(`should set hasError to true`, () => {
             let self = {}, response = {status: 404};
 
-            return formService.onFailure(self, response).then(() => {
-            }, () => {
-                expect(self.hasError).toEqual(true);
-            });
+            formService.onFailure(self, response);
+
+            expect(self.hasError).toEqual(true);
         });
 
-        itAsync(`should set result to 'error'`, () => {
+        it(`should set result to 'error'`, () => {
             let self = {}, response = {status: 404};
 
-            return formService.onFailure(self, response).then(() => {
-            }, () => {
-                expect(self.result).toEqual('error');
-            });
+            formService.onFailure(self, response);
+
+            expect(self.result).toEqual('error');
         });
 
-        itAsync(`should return error message for 400 error response`, () => {
+        it(`should return error message for 400 error response`, () => {
             let self = {}, response = {status: 400, data: {message: 'test-message'}};
 
-            return formService.onFailure(self, response).then(() => {
-            }, () => {
-                expect(self.errorMessage).toEqual(response.data.message);
-            });
+            formService.onFailure(self, response);
+
+            expect(self.errorMessage).toEqual(response.data.message);
         });
 
-        itAsync(`should return error message for 401 error response`, () => {
+        it(`should return error message for 401 error response`, () => {
             let self = {}, response = {status: 401};
 
-            return formService.onFailure(self, response).then(() => {
-            }, () => {
-                expect(self.errorMessage).toEqual('Wrong email or password.');
-            });
+            formService.onFailure(self, response);
+
+            expect(self.errorMessage).toEqual('Wrong email or password.');
         });
 
-        itAsync(`should return error message for 404 error response`, () => {
+        it(`should return error message for 404 error response`, () => {
             let self = {}, response = {status: 404};
 
-            return formService.onFailure(self, response).then(() => {
-            }, () => {
-                expect(self.errorMessage).toEqual('The requested record could not be found.');
-            });
+            formService.onFailure(self, response);
+
+            expect(self.errorMessage).toEqual('The requested record could not be found.');
         });
 
-        itAsync(`should return error message for 409 PUT error response`, () => {
+        it(`should return error message for 409 PUT error response`, () => {
             let self = {}, response = {status: 409, config: {method: 'PUT'}};
 
-            return formService.onFailure(self, response).then(() => {
-            }, () => {
-                expect(self.errorMessage).toEqual('Another user has updated this record while you were editing. Please reload the page and try again.');
-            });
+            formService.onFailure(self, response);
+
+            expect(self.errorMessage).toEqual('Another user has updated this record while you were editing. Please reload the page and try again.');
         });
 
-        itAsync(`should return error message for 409 POST error response`, () => {
+        it(`should return error message for 409 POST error response`, () => {
             let self = {}, response = {status: 409, config: {method: 'POST'}};
 
-            return formService.onFailure(self, response).then(() => {
-            }, () => {
-                expect(self.errorMessage).toEqual('This record already exist.');
-            });
+            formService.onFailure(self, response);
+
+            expect(self.errorMessage).toEqual('This record already exist.');
         });
 
-        itAsync(`should return error message for 503 error response`, () => {
+        it(`should return error message for 503 error response`, () => {
             let self = {}, response = {status: 503};
 
-            return formService.onFailure(self, response).then(() => {
-            }, () => {
-                expect(self.errorMessage).toEqual('The service went down. Please try again later.');
-            });
+            formService.onFailure(self, response);
+
+            expect(self.errorMessage).toEqual('The service went down. Please try again later.');
         });
 
-        itAsync(`should return error message for 500 error response`, () => {
+        it(`should return error message for 500 error response`, () => {
             let self = {}, response = {config: {method: 'POST'}};
 
-            return formService.onFailure(self, response).then(() => {
-            }, () => {
-                expect(self.errorMessage).toEqual(`Something went wrong. Please contact the site administrator ${model.getItem().adminEmail}.`);
-            });
+            formService.onFailure(self, response);
+
+            expect(self.errorMessage).toEqual(`Something went wrong. Please contact the site administrator ${model.getItem().adminEmail}.`);
         });
     });
 
@@ -186,7 +179,8 @@ describe('FormService', () => {
                 spyOn(model, 'save').and.returnValue(Promise.reject(response));
 
                 return formService.save(model, item, self, form).then(() => {
-                }, () => {
+                }, (error) => {
+                    expect(error).toEqual(response);
                     expect(self.result).toEqual('error');
                     expect(model.save).toHaveBeenCalledWith(item);
                 });

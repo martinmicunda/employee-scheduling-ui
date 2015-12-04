@@ -50,7 +50,7 @@ An UI component for [Employee Scheduling](https://github.com/martinmicunda/emplo
   * Mocked Backend Workflow - help with mocking backend-less development
   * Achieve some of the Angular 2.0 goals while still running on Angular 1.x
   * Produce optimised, production ready code for deployment and automatically deploy this code to [gh-pages](https://github.com/martinmicunda/employee-scheduling-ui/tree/gh-pages) after each commit via [Travis CI](https://travis-ci.org/martinmicunda/employee-scheduling-ui)
-  * Schedule events with [FullCalendar](http://fullcalendar.io/) 
+  * Schedule events and availabilities with [FullCalendar.js](http://fullcalendar.io/) 
   
 ## Demo
 This demo is running from [gh-pages](https://github.com/martinmicunda/employee-scheduling-ui/tree/gh-pages) branch in backend-less development env (see [How to Run](#how-to-run-test) section). Below, you can find login credentials for different user roles.

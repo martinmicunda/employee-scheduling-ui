@@ -29,12 +29,50 @@ table thead tr th.fc-widget-header, .fc-widget-content span {
 
 .availability-event {
     position: relative;
-    opacity: .3;
-    text-align: center;
-    top: 30%;
 }
 .availability-event:before {
     font-family: 'FontAwesome';
     font-size: 30px;
     content: "\f073";
+    filter: alpha(opacity=30);
+    -moz-opacity: 0.3;
+    opacity: 0.3;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.legend .btn {
+    filter: alpha(opacity=40);
+    -moz-opacity: 0.4;
+    opacity: 0.4;
+    cursor: auto;
+}
+.legend {
+    .btn-success:hover {
+        background: $lightGreen;
+    }
+    .btn-danger:hover {
+        background: $lightRed;
+    }
+    .btn-warning:hover {
+        background: $lightOrange;
+    }
+}
+.btn-calendar, .btn-calendar:hover {
+    background: transparent;
+    color: $fontColorLight;
+}
+.btn-calendar:before {
+    font-family: 'FontAwesome';
+    content: "\f073";
+    font-size: 27px;
+}
+.fc-row .fc-highlight-skeleton td,
+.fc-row .fc-bgevent-skeleton td {
+    border: 0;
+}
+.fc-unthemed .fc-today {
+    background: #f1f2f3;
 }

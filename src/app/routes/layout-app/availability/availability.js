@@ -5,8 +5,6 @@
  */
 'use strict';
 
-import './add/add';
-import './edit/edit';
 import template from './availability.html!text';
 import {ACCESS_LEVELS} from '../../../core/constants/constants';
 import {RouteConfig, Component, View, Inject} from '../../../ng-decorators'; // jshint unused: false
@@ -25,12 +23,12 @@ import {RouteConfig, Component, View, Inject} from '../../../ng-decorators'; // 
 @View({
     template: template
 })
-@Inject('AvailabilityService')
+@Inject('$scope','AvailabilityService')
 //end-non-standard
 class Availability {
-    constructor(AvailabilityService) {
-        this.calendarData = AvailabilityService.getCalendarData();
-        this.calendarConfig = AvailabilityService.getCalendarConfig();
+    constructor($scope, AvailabilityService) {
+        this.calendarData = AvailabilityService.getCalendarData(this);
+        this.calendarConfig = AvailabilityService.getCalendarConfig($scope);
     }
 }
 

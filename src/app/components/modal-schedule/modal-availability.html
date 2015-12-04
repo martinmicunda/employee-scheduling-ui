@@ -1,0 +1,91 @@
+<form class="form-horizontal form-validation" name="availabilityForm" role="form" novalidate>
+    <div class="modal-header">
+        <button type="button" class="close" ng-click="vm.cancel()">×</button>
+        <h4 class="modal-title">
+            <span ng-if="!vm.availability.id">Add</span><span ng-if="vm.partner.id">Edit</span> Availability
+        </h4>
+    </div>
+    <div class="modal-body form-wizard">
+        <alert-danger has-error="vm.hasError" error-message="vm.errorMessage"></alert-danger>
+        <div class="form-group mb0">
+            <label class="control-label col-sm-3">When</label>
+            <div class="col-sm-8">
+                <p class="form-control-static">
+                    {{::vm.availability.start | date : 'EEE, d MMMM'}}
+                    <span ng-if="vm.showEndDate"> - {{::vm.endDate}}</span>
+                </p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-3">Availability</label>
+            <div class="col-md-8">
+                <div class="radio radio-success radio-inline">
+                    <input type="radio" id="radio_available" ng-model="vm.availability.availability" value="available">
+                    <label for="radio_available">Available</label>
+                </div>
+                <div class="radio radio-danger radio-inline">
+                    <input type="radio" id="radio_unavailable" ng-model="vm.availability.availability" value="unavailable">
+                    <label for="radio_unavailable">Unavailable</label>
+                </div>
+                <div class="radio radio-warning radio-inline">
+                    <input type="radio" id="radio_necessary" ng-model="vm.availability.availability" value="necessary">
+                    <label for="radio_necessary">If Necessary</label>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="control-label col-sm-3">Repeat</label>
+            <div class="col-sm-5">
+                <select name="status" ng-model="vm.availability.recurrence.freq" ng-options="repeatType.id as repeatType.label for repeatType in vm.repeatTypes" class="form-control"></select>
+            </div>
+        </div>
+
+        <div ng-if="vm.availability.recurrence.freq">
+            <!--<div class="form-group required" ng-if="vm.availability.recurrence.freq === vm.repeatTypes[2].id">-->
+                <!--<label class="control-label col-sm-3">Repeat on</label>-->
+                <!--<div class="col-md-9">-->
+                    <!--<div class="checkbox checkbox-inline" ng-repeat="weekday in vm.weekdays track by weekday.id">-->
+                        <!--<input type="checkbox" name="weekdays" id="{{weekday.id}}"-->
+                               <!--ng-click="vm.toggleWeekdaySelection(weekday.id)"-->
+                               <!--ng-checked="vm.availability.recurrence.weekdays.indexOf(weekday.id) > -1"-->
+                               <!--ng-required="vm.availability.recurrence.weekdays.length === 0"-->
+                               <!--class="styled" ng-required="vm.availability.recurrence.weekdays.length === 0"/>-->
+                        <!--<label for="{{weekday.id}}">{{::weekday.label}}</label>-->
+                    <!--</div>-->
+
+                    <!--<div ng-if="availabilityForm.$submitted && vm.availability.recurrence.weekdays.length === 0">-->
+                        <!--<div class="error">Select at least one day.</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+            <div class="form-group required">
+                <label class="control-label col-sm-3">Repeat until</label>
+                <div class="col-sm-5">
+                    <div class="input-group datepicker">
+                        <input type="text" name="recurrenceUntil" class="form-control" ng-model="vm.availability.recurrence.until" datepicker-popup="{{vm.dateOptions.format}}" is-open="vm.opened"
+                               min-date="vm.dateOptions.minDate" datepicker-options="vm.dateOptions" show-button-bar="vm.dateOptions.showButtonBar" close-text="Close" required />
+                        <a class="input-group-addon" ng-click="vm.open($event)"><i class="fa fa-calendar"></i></a>
+                    </div>
+                    <div ng-if="availabilityForm.$submitted" ng-messages="availabilityForm.recurrenceUntil.$error">
+                        <div ng-message="required" class="error">This field is required.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group mb0">
+            <label class="control-label col-sm-3">Note</label>
+            <div class="col-sm-7">
+                <textarea rows="5" name="note" ng-model="vm.availability.note" class="form-control" ng-maxlength="255"></textarea>
+                <div ng-if="availabilityForm.$submitted" ng-messages="availabilityForm.note.$error">
+                    <div ng-message="maxlength" class="error">This field text is too long (max 255 characters).</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button ng-if="vm.showDeleteButton" type="button" ng-click="vm.delete(vm.availability)" class="btn btn-sm btn-danger pull-left">Delete</button>
+
+        <button type="button" ng-click="vm.cancel()" class="btn btn-sm btn-white">Close</button>
+        <jp-ng-bs-animated-button class="btn btn-sm btn-success" ng-click="vm.save(availabilityForm)" is-submitting="vm.isSubmitting" result="vm.result" options="vm.saveButtonOptions"></jp-ng-bs-animated-button>
+    </div>
+</form>

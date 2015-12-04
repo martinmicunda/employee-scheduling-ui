@@ -5,7 +5,7 @@
  */
 'use strict';
 
-import {ACCESS_LEVELS, EMPLOYEE_PROFILE_STATUSES, USER_ROLES, HEADER_API_VERSION, PROFILE_COMPLETENESS_TYPES} from './constants';
+import {ACCESS_LEVELS, EMPLOYEE_PROFILE_STATUSES, USER_ROLES, HEADER_API_VERSION, PROFILE_COMPLETENESS_TYPES, AVAILABILITY_DATE_FORMAT} from './constants';
 
 describe('constants', () => {
     describe('EMPLOYEE_PROFILE_STATUSES', () => {
@@ -70,5 +70,9 @@ describe('constants', () => {
 
     it('should contain header api version', () => {
         expect(HEADER_API_VERSION).toEqual('application/json');
+    });
+
+    it('should contain header api version', () => {
+        expect(AVAILABILITY_DATE_FORMAT).toEqual('YYYYMMDD');
     });
 });

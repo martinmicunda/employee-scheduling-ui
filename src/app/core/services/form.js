@@ -44,8 +44,6 @@ class FormService {
         if(typeof self.cancel === 'function') {
             self.cancel();
         }
-
-        return Promise.resolve();
     }
 
     onFailure(self, response) {
@@ -66,15 +64,15 @@ class FormService {
         } else {
             self.errorMessage = `Something went wrong. Please contact the site administrator ${this.SettingModel.getItem().adminEmail}.`;
         }
-
-        return Promise.reject();
     }
 
     save(model, item, self, form) {
         return model.save(item).then(() => {
-            return this.onSuccess(self);
+            this.onSuccess(self);
+            return Promise.resolve();
         }, (response) => {
-            return this.onFailure(self, response);
+            this.onFailure(self, response);
+            return Promise.reject(response);
         }).finally(() => {
             form.$setPristine();
         });
@@ -82,9 +80,11 @@ class FormService {
 
     delete(model, item, self) {
         return model.delete(item).then(() => {
-            return this.onSuccess(self);
+            this.onSuccess(self);
+            return Promise.resolve();
         },(response) => {
-            return this.onFailure(self, response);
+            this.onFailure(self, response);
+            return Promise.reject(response);
         });
     }
 

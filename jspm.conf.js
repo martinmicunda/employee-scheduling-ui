@@ -25,8 +25,8 @@ System.config({
 
   map: {
     "ENV": "src/app/core/config/env.conditions.js",
-    "angular": "npm:angular@1.4.5",
-    "angular-animate": "npm:angular-animate@1.4.5",
+    "angular": "github:angular/bower-angular@1.4.5",
+    "angular-animate": "github:angular/bower-angular-animate@1.4.5",
     "angular-bootstrap-colorpicker": "github:buberdds/angular-bootstrap-colorpicker@3.0.19",
     "angular-local-storage": "npm:angular-local-storage@0.2.2",
     "angular-messages": "npm:angular-messages@1.4.5",
@@ -49,6 +49,9 @@ System.config({
     "ng-file-upload": "npm:ng-file-upload@7.2.0",
     "si-table": "github:simplicitylabs/si-table@0.2.3",
     "text": "github:systemjs/plugin-text@0.0.2",
+    "github:angular/bower-angular-animate@1.4.5": {
+      "angular": "github:angular/bower-angular@1.4.5"
+    },
     "github:jspm/nodelibs-assert@0.1.0": {
       "assert": "npm:assert@1.3.0"
     },
@@ -58,16 +61,10 @@ System.config({
     "github:jspm/nodelibs-util@0.1.0": {
       "util": "npm:util@0.10.3"
     },
-    "npm:angular-animate@1.4.5": {
-      "process": "github:jspm/nodelibs-process@0.1.2"
-    },
     "npm:angular-ui-calendar@1.0.2": {
       "process": "github:jspm/nodelibs-process@0.1.2"
     },
     "npm:angular-ui-router@0.2.15": {
-      "process": "github:jspm/nodelibs-process@0.1.2"
-    },
-    "npm:angular@1.4.5": {
       "process": "github:jspm/nodelibs-process@0.1.2"
     },
     "npm:assert@1.3.0": {

@@ -4,12 +4,15 @@
             <h4 class="panel-title">Availability</h4>
         </div>
         <div class="panel-body">
+            <alert-danger has-error="vm.hasError" error-message="vm.errorMessage"></alert-danger>
             <!--http://seantheme.com/color-admin-v1.9/admin/html/extra_invoice.html TODO: check print button-->
-            <h6 class="mt0 pull-left hidden-xs">
-                <span class="btn btn-success btn-icon btn-circle btn-lg"></span> Available&nbsp;
-                <span class="btn btn-danger btn-icon btn-circle btn-lg"></span> Unavailable&nbsp;
-                <span class="btn btn-warning btn-icon btn-circle btn-lg"></span> If Necessary&nbsp;
-                <i class="fa fa-calendar"></i> Event
+            <h6 class="mt0 pull-left hidden-xs legend">
+                <span class="btn btn-success btn-icon btn-lg"></span> Available&nbsp;
+                <span class="btn btn-danger btn-icon btn-lg"></span> Unavailable&nbsp;
+                <span class="btn btn-warning btn-icon btn-lg"></span> If Necessary&nbsp;
+                <span class="btn btn-calendar btn-icon btn-lg"></span> Event
+
+                <!--<span><i class="fa fa-calendar"></i> Event</span>-->
             </h6>
             <!--<div class="row">-->
                 <!--<div class="col-md-6 col-sm-6">-->
