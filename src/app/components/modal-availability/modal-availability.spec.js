@@ -17,7 +17,7 @@ describe('ModalAvailability', () => {
     describe('Component', () => {
         let $compile, $rootScope, scope, render, element, ModalModel,
             component = '<modal-availability></modal-availability>',
-            itemMock = {start: moment(), end: moment().add(2, 'day'), availability: 'available', employeeId: 'employeeId'};;
+            itemMock = {start: moment(), end: moment().add(2, 'day'), availability: 'available', employeeId: 'employeeId'};
 
         beforeEach(inject((_$compile_, _$rootScope_, _ModalModel_, AvailabilityModel) => {
             $compile = _$compile_;

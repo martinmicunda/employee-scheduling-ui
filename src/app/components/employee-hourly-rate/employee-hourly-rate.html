@@ -1,15 +1,17 @@
 <fieldset class="animated fadeIn" ng-form="employeeHourlyRateForm">
     <legend class="pull-left width-full">Hourly Rate</legend>
-        <div class="form-group required">
-            <label class="control-label col-sm-4">Hourly Rate</label>
-            <div class="col-sm-5">
+    <div class="form-group required">
+        <label class="control-label col-sm-4">Hourly Rate</label>
+        <div class="col-sm-5">
+            <div class="input-group">
                 <input name="hourlyRate" type="number" ng-model="vm.employee.hourlyRate" class="form-control" min="0" required>
-                <div ng-if="employeeHourlyRateForm.$submitted" ng-messages="employeeHourlyRateForm.hourlyRate.$error">
-                    <div ng-message="required" class="error">This field is required.</div>
-                    <div ng-message="number" class="error">Invalid number.</div>
-                    <div ng-message="min" class="error">Invalid number</div>
-                </div>
+                <span class="input-group-addon">{{vm.employee.currencySymbol}}</span>
             </div>
-            <div class="currencyCode">{{vm.employee.currencyCode}}</div>
+            <div ng-if="employeeHourlyRateForm.$submitted" ng-messages="employeeHourlyRateForm.hourlyRate.$error">
+                <div ng-message="required" class="error">This field is required.</div>
+                <div ng-message="number" class="error">Invalid number.</div>
+                <div ng-message="min" class="error">Invalid number</div>
+            </div>
         </div>
+    </div>
 </fieldset>

@@ -48,48 +48,6 @@ describe('EmployeeHourlyRate', () => {
             expect(title.text()).toEqual('Hourly Rate');
         });
 
-        describe('Form fields', () => {
-            describe('hourlyRate', () => {
-                it('should have `Hourly Rate` label defined', () => {
-                    element = render();
-                    const parentElement = angular.element(element[0].querySelector('input[name="hourlyRate"][type="number"]')).parent().parent();
-
-                    expect(parentElement.find('label').text()).toEqual('Hourly Rate');
-                });
-
-                it('should show `hourlyRate` required error message', () => {
-                    element = render();
-                    element.triggerHandler('submit');
-                    element.isolateScope().employeeHourlyRateForm.$submitted = true; // FIXME: why $submitted is not set by triggerHandler?
-                    scope.$digest();
-
-                    const errorMessage = angular.element(element[0].querySelector('input[name="hourlyRate"][type="number"] ~ div > div[ng-message="required"]'));
-
-                    expect(errorMessage.text()).toEqual('This field is required.');
-                });
-
-                it('should show `hourlyRate` number error message', () => {
-                    element = render();
-                    element.isolateScope().employeeHourlyRateForm.hourlyRate.$setViewValue('-e');
-                    element.triggerHandler('submit');
-                    element.isolateScope().employeeHourlyRateForm.$submitted = true; // FIXME: why $submitted is not set by triggerHandler?
-                    scope.$digest();
-
-                    const errorMessage = angular.element(element[0].querySelector('input[name="hourlyRate"][type="number"] ~ div > div[ng-message="number"]'));
-
-                    expect(errorMessage.text()).toEqual('Invalid number.');
-                });
-
-                it('should show currencyCode', () => {
-                    element = render();
-
-                    const currencyCode = angular.element(element[0].querySelector('div.currencyCode'));
-
-                    expect(currencyCode.text()).toEqual(itemMock.currencyCode);
-                });
-            });
-        });
-
         it('should submit the form', function () {
             element = render();
 
