@@ -5,6 +5,7 @@
  */
 'use strict';
 
+import URI from 'urijs';
 import moment from 'moment';
 import availabilities from './fixtures/availabilities';
 import {HEADER_API_VERSION, AVAILABILITY_DATE_FORMAT} from '../../constants/constants';
@@ -57,9 +58,11 @@ class AvailabilityResourceMock {
             .respond( (method, url, data, headers) => {
                 console.log('GET',url);
                 headers['Content-Type'] = HEADER_API_VERSION;
-                const dataListLocal = localStorageService.findLocalStorageItems(patternLocalStorage);
+                const result = URI.parse(url);
+                const queryString = URI.parseQuery(result.query);
+                const dataListLocal = localStorageService.findLocalStorageItems(new RegExp(queryString.employeeId ? `${key}_${queryString.employeeId}::*` : `${key}_*`));
 
-                return [200, dataListLocal.length > 0 ? dataListLocal : availabilities];
+                return [200, dataListLocal];
             });
     }
 }

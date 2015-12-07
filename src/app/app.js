@@ -7,6 +7,7 @@
 
 // js vendor files
 import 'fullcalendar';
+import 'fullcalendar-scheduler';
 import angular from 'angular';
 import 'angular-animate';
 import 'angular-sanitize';

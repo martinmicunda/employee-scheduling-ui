@@ -5,33 +5,22 @@
         </div>
         <div class="panel-body">
             <alert-danger has-error="vm.hasError" error-message="vm.errorMessage"></alert-danger>
-            <!--http://seantheme.com/color-admin-v1.9/admin/html/extra_invoice.html TODO: check print button-->
+            <div class="row mb15" mm-access-level="$root.ACCESS_LEVELS.manager">
+                <div class="col-md-3">
+                    <select name="calendarViews" ng-model="vm.calendarView" ng-change="vm.toggleView(vm.calendarView)" class="form-control" ng-options="calendarView.id as calendarView.label for calendarView in vm.calendarViews"></select>
+                </div>
+                <a href="javascript:;" onclick="window.print()" class="btn btn-sm btn-success pull-right mr15"><i class="fa fa-print mr5"></i> Print</a>
+            </div>
+
             <h6 class="mt0 pull-left hidden-xs legend">
                 <span class="btn btn-success btn-icon btn-lg"></span> Available&nbsp;
                 <span class="btn btn-danger btn-icon btn-lg"></span> Unavailable&nbsp;
                 <span class="btn btn-warning btn-icon btn-lg"></span> If Necessary&nbsp;
                 <span class="btn btn-calendar btn-icon btn-lg"></span> Event
-
-                <!--<span><i class="fa fa-calendar"></i> Event</span>-->
             </h6>
-            <!--<div class="row">-->
-                <!--<div class="col-md-6 col-sm-6">-->
-                    <!--<div class="table-filter">-->
-                        <!--Search: <input type="search" ng-init="searchFilter = {}" ng-model="searchFilter.$">-->
-                    <!--</div>-->
-                <!--</div>-->
-                <!--<div class="col-md-6 col-sm-6">-->
-                    <!--<div class="pull-right">-->
-                        <!--<button type="button" class="btn btn-sm btn-success" ui-sref="app.employees.add.account-details">Add Employee</button>&nbsp;-->
-                        <!--<div class="btn-group">-->
-                            <!--<button class="btn btn-sm btn-info" ng-class="{ 'active': vm.listViewTable }" ng-click="vm.toggleListView()"><i class="fa fa-align-justify fa-fw"></i> Table</button>-->
-                            <!--<button class="btn btn-sm btn-info" ng-class="{ 'active': !vm.listViewTable }" ng-click="vm.toggleListView()"><i class="fa fa-th-large fa-fw"></i> Grid</button>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                <!--</div>-->
-            <!--</div>-->
+
             <div class="fade" ng-class="{'in': vm.calendarConfig.isLoading(), 'hidden': !vm.calendarConfig.isLoading()}"><span class="spinner"></span></div>
-            <div ui-calendar="vm.calendarConfig" calendar="availability" ng-model="vm.calendarData" ng-class="{'disable': vm.calendarConfig.isLoading()}"></div>
+            <div id="calendar" ui-calendar="vm.calendarConfig" calendar="availability" ng-model="vm.calendarData" ng-class="{'disable': vm.calendarConfig.isLoading()}"></div>
         </div>
     </div>
 </div>

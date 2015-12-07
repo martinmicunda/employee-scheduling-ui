@@ -27,8 +27,17 @@ import {RouteConfig, Component, View, Inject} from '../../../ng-decorators'; // 
 //end-non-standard
 class Availability {
     constructor($scope, AvailabilityService) {
+        this.calendarViews = [{id: 'me', label: 'My Availability'}, {id: 'everyone', label: 'Everyone\'s Availability'}];
+        this.calendarView = this.calendarViews[0].id;
         this.calendarData = AvailabilityService.getCalendarData(this);
-        this.calendarConfig = AvailabilityService.getCalendarConfig($scope);
+        this.calendarConfig = AvailabilityService.getCalendarConfig($scope, this.calendarViews[0].id);
+        this.AvailabilityService = AvailabilityService;
+        this.$scope = $scope;
+    }
+
+    toggleView(view) {
+        this.calendarData = this.AvailabilityService.getCalendarData(this);
+        this.calendarConfig = this.AvailabilityService.getCalendarConfig(this.$scope, view);
     }
 }
 

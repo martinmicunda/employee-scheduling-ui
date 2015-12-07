@@ -2,7 +2,7 @@
     line-height: 31px!important;
     font-size: 24px!important;
 }
-table thead tr th.fc-widget-header, .fc-widget-content span {
+table thead tr th.fc-widget-header {
     color: $fontColorDark!important;
     font-weight: 500!important;
     padding-top: 3px!important;
@@ -27,16 +27,19 @@ table thead tr th.fc-widget-header, .fc-widget-content span {
     cursor: not-allowed;
 }
 
-.availability-event {
+.availability-event, .availability-scheduler-event {
     position: relative;
+    text-align: center;
 }
-.availability-event:before {
+.availability-event:before, .availability-scheduler-event:before {
     font-family: 'FontAwesome';
     font-size: 30px;
     content: "\f073";
     filter: alpha(opacity=30);
     -moz-opacity: 0.3;
     opacity: 0.3;
+}
+.availability-event:before {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -75,4 +78,8 @@ table thead tr th.fc-widget-header, .fc-widget-content span {
 }
 .fc-unthemed .fc-today {
     background: #f1f2f3;
+}
+.fc-body .fc-resource-area .fc-cell-content {
+    padding-top: 5px;
+    padding-bottom: 5px;
 }

@@ -127,7 +127,8 @@
       "bootstrap-css-only": "github:fyockm/bootstrap-css-only@3.3.5",
       "css": "github:systemjs/plugin-css@0.1.16",
       "font-awesome": "npm:font-awesome@4.4.0",
-      "fullcalendar": "npm:fullcalendar@2.3.2",
+      "fullcalendar": "npm:fullcalendar@2.5.0",
+      "fullcalendar-scheduler": "npm:fullcalendar-scheduler@1.1.0",
       "json": "github:systemjs/plugin-json@0.1.0",
       "ng-bs-animated-button": "github:jeremypeters/ng-bs-animated-button@2.0.3",
       "ng-file-upload": "npm:ng-file-upload@7.2.0",
@@ -138,7 +139,8 @@
       "angular-mocks": "npm:angular-mocks@1.4.5",
       "babel": "npm:babel-core@5.8.24",
       "babel-runtime": "npm:babel-runtime@5.8.24",
-      "core-js": "npm:core-js@1.1.4"
+      "core-js": "npm:core-js@1.1.4",
+      "urijs": "npm:URIjs@1.16.1"
     }
   },
   "license": "GPL-3.0",

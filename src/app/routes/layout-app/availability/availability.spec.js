@@ -85,7 +85,31 @@ describe('Availability', () => {
             availability = new Availability(scope, AvailabilityService);
 
             expect(availability.calendarConfig).toEqual(collectionMock);
-            expect(AvailabilityService.getCalendarConfig).toHaveBeenCalledWith(scope);
+            expect(AvailabilityService.getCalendarConfig).toHaveBeenCalledWith(scope, 'me');
+        });
+
+        it('should have calendarViews property', () => {
+            availability = new Availability(scope, AvailabilityService);
+
+            expect(availability.calendarViews).toEqual([{id: 'me', label: 'My Availability'}, {id: 'everyone', label: 'Everyone\'s Availability'}]);
+        });
+
+        it('should have calendarView property', () => {
+            availability = new Availability(scope, AvailabilityService);
+
+            expect(availability.calendarView).toEqual('me');
+        });
+
+        it('should toggleView', () => {
+            spyOn(AvailabilityService, 'getCalendarConfig').and.returnValue(collectionMock);
+            spyOn(AvailabilityService, 'getCalendarData').and.returnValue(collectionMock);
+
+            availability = new Availability(scope, AvailabilityService);
+
+            expect(availability.calendarData).toEqual(collectionMock);
+            expect(availability.calendarConfig).toEqual(collectionMock);
+            expect(AvailabilityService.getCalendarData).toHaveBeenCalledWith(availability);
+            expect(AvailabilityService.getCalendarConfig).toHaveBeenCalledWith(scope, 'me');
         });
     });
 });

@@ -20,6 +20,12 @@ System.config({
         "angular": "angular",
         "moment": "npm:moment@2.10.6"
       }
+    },
+    "npm:fullcalendar-scheduler@1.1.0/dist/scheduler.js": {
+      "globals": {
+        "jQuery": "npm:jquery@2.1.4",
+        "moment": "npm:moment@2.10.6"
+      }
     }
   },
 
@@ -42,13 +48,15 @@ System.config({
     "core-js": "npm:core-js@1.1.4",
     "css": "github:systemjs/plugin-css@0.1.16",
     "font-awesome": "npm:font-awesome@4.4.0",
-    "fullcalendar": "npm:fullcalendar@2.3.2",
+    "fullcalendar": "npm:fullcalendar@2.5.0",
+    "fullcalendar-scheduler": "npm:fullcalendar-scheduler@1.1.0",
     "json": "github:systemjs/plugin-json@0.1.0",
     "moment": "npm:moment@2.10.6",
     "ng-bs-animated-button": "github:jeremypeters/ng-bs-animated-button@2.0.3",
     "ng-file-upload": "npm:ng-file-upload@7.2.0",
     "si-table": "github:simplicitylabs/si-table@0.2.3",
     "text": "github:systemjs/plugin-text@0.0.2",
+    "urijs": "npm:URIjs@1.16.1",
     "github:angular/bower-angular-animate@1.4.5": {
       "angular": "github:angular/bower-angular@1.4.5"
     },
@@ -60,6 +68,9 @@ System.config({
     },
     "github:jspm/nodelibs-util@0.1.0": {
       "util": "npm:util@0.10.3"
+    },
+    "npm:URIjs@1.16.1": {
+      "process": "github:jspm/nodelibs-process@0.1.2"
     },
     "npm:angular-ui-calendar@1.0.2": {
       "process": "github:jspm/nodelibs-process@0.1.2"
@@ -81,7 +92,13 @@ System.config({
     "npm:font-awesome@4.4.0": {
       "css": "github:systemjs/plugin-css@0.1.16"
     },
-    "npm:fullcalendar@2.3.2": {
+    "npm:fullcalendar-scheduler@1.1.0": {
+      "fullcalendar": "npm:fullcalendar@2.5.0",
+      "jquery": "npm:jquery@2.1.4",
+      "moment": "npm:moment@2.10.6",
+      "process": "github:jspm/nodelibs-process@0.1.2"
+    },
+    "npm:fullcalendar@2.5.0": {
       "jquery": "npm:jquery@2.1.4",
       "moment": "npm:moment@2.10.6",
       "process": "github:jspm/nodelibs-process@0.1.2"
