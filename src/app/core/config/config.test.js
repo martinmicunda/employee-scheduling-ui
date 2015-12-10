@@ -18,10 +18,13 @@ class OnConfigTest {
     @Inject('$provide', 'localStorageServiceProvider')
     //end-non-standard
     static configFactory($provide, localStorageServiceProvider){
+        const localStoragePrefix = 'employee-scheduling-test';
+
         // TODO: https://github.com/willmendesneto/keepr/blob/master/dist%2Fkeepr.js and http://willmendesneto.github.io/2014/10/28/creating-a-crud-in-a-single-angular-controller/ for crypto locale storage
         // enhance localStorageService
         $provide.decorator('localStorageService', ['$delegate', '$window', function($delegate, $window) {
             $delegate.findLocalStorageItems = function (query) {
+                query = new RegExp(`${localStoragePrefix}.${query.source}`, 'i');
                 let i, results = [];
                 for (i in $window.localStorage) {
                     if ($window.localStorage.hasOwnProperty(i)) {
@@ -39,7 +42,7 @@ class OnConfigTest {
 
         $provide.decorator('$httpBackend', angular.mock.e2e.$httpBackendDecorator);
         // use "e-scheduling-test" as a localStorage name prefix so app doesn’t accidently read data from another app using the same variable names
-        localStorageServiceProvider.setPrefix('employee-scheduling-test');
+        localStorageServiceProvider.setPrefix(localStoragePrefix);
     }
 }
 
