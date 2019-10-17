@@ -50,7 +50,7 @@
     "plato": "1.5.0",
     "babel": "5.8.23",
     "semver": "5.0.3",
-    "moment": "2.10.6",
+    "moment": "2.24.0",
     "isparta": "3.1.0",
     "pre-commit": "1.1.2",
     "http-proxy": "1.12.0",
